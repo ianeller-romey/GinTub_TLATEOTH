@@ -1,0 +1,58 @@
+﻿<!--------------------------------------------------
+Copyright © Microsoft Corporation. All rights reserved
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-------------------------------------------------->
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="lib/utilities.js"></script>
+<script src="lib/action-array.js"></script>
+<script src="lib/action-queue.js"></script>
+<script src="lib/action-text.js"></script>
+<script src="lib/messenger-engine.js"></script>
+<script src="lib/services-engine.js"></script>
+<script src="lib/time-engine.js"></script>
+<script src="lib/game-state-engine.js"></script>
+<script src="lib/interface-manager.js"></script>
+<script src="lib/user-input-manager.js"></script>
+<script src="lib/message-manager.js"></script>
+<script src="lib/driver.js"></script>
+<link rel="stylesheet" href="css/play.css" />
+<html>
+<head>
+    <title></title>
+    
+</head>
+<body>
+    <div id="master-container">
+        <div id="viewport" class="center">
+            <div id="interfaceTop">
+                <div id="messageTop" class="transition150">
+                    <div id="messageText" class="iWord center"></div>
+                </div>
+                <img id="location" />
+                <div id="time">00:00</div>
+            </div>
+            <div id="interfaceBottom" class="transition150">
+                <div id="paragraphs">
+                </div>
+                <div id="verbList">
+                    <div id="verbListX">X</div>
+                </div>
+                <div id="messageBottom" class="transition150">
+                    <div id="messageChoices" class="center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

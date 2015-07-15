@@ -1,0 +1,64 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
+
+
+namespace TBGINTB_Builder.Lib.Model.XmlModel
+{
+    public class Message
+    {
+        int m_id;
+        string m_name;
+        string m_text;
+        MessageChoice[] m_messageChoices;
+
+        [XmlAttribute("Id")]
+        public int Id
+        {
+            get { return m_id; }
+            set
+            {
+                if (m_id != value)
+                    m_id = value;
+            }
+        }
+
+        [XmlElement("Name")]
+        public string Name
+        {
+            get { return m_name; }
+            set
+            {
+                if (m_name != value)
+                    m_name = value;
+            }
+        }
+
+        [XmlElement("Text")]
+        public string Text
+        {
+            get { return m_text; }
+            set
+            {
+                if (m_text != value)
+                    m_text = value;
+            }
+        }
+
+        [XmlArray("MessageChoices")]
+        public MessageChoice[] MessageChoices
+        {
+            get { return m_messageChoices; }
+            set
+            {
+                if (m_messageChoices != value)
+                    m_messageChoices = value;
+            }
+        }
+    }
+}

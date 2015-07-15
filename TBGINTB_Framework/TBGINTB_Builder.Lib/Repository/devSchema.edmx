@@ -1,0 +1,2261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GinTubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="dev_AddAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="verbtype" Type="int" Mode="In" />
+          <Parameter Name="noun" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddActionResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="result" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_AddCharacter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_AddCharacterActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="item" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_AddEventActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="item" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_AddItemActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="item" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddJSONPropertyDataType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="datatype" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_AddLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="locationfile" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_AddMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_AddMessageChoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="message" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddMessageChoiceResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="result" Type="int" Mode="In" />
+          <Parameter Name="messagechoice" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddNoun" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="paragraphstate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddParagraph" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="order" Type="int" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+          <Parameter Name="roomstate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddParagraphState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="paragraph" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddPlayer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="username" Type="varchar" Mode="In" />
+          <Parameter Name="domainname" Type="varchar" Mode="In" />
+          <Parameter Name="domain" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="playerid" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="dev_AddResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="jsondata" Type="varchar" Mode="In" />
+          <Parameter Name="resulttype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_AddResultTypeJSONProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="jsonproperty" Type="varchar" Mode="In" />
+          <Parameter Name="datatype" Type="int" Mode="In" />
+          <Parameter Name="resulttype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="x" Type="int" Mode="In" />
+          <Parameter Name="y" Type="int" Mode="In" />
+          <Parameter Name="z" Type="int" Mode="In" />
+          <Parameter Name="area" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddRoomState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="time" Type="datetime" Mode="In" />
+          <Parameter Name="location" Type="int" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddVerb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="verbtype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_AddVerbType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_ClearDatabase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="backupfile" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllActionResultsForAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllActionsForNoun" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="noun" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllAreas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_DeleteAllCharacterActionRequirementsForAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllCharacters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_DeleteAllEventActionRequirementsForAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_DeleteAllItemActionRequirementsForAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_DeleteAllJSONPropertyDataTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_DeleteAllLocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_DeleteAllMessageChoiceResultsForMessageChoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="messagechoice" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllMessageChoicesForMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="message" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllMessages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_DeleteAllNounsForParagraphState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="paragraphstate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllParagraphsForRoomAndRoomState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="room" Type="int" Mode="In" />
+          <Parameter Name="roomstate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllParagraphStatesForParagraph" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="paragraph" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllResultsForActionResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllResultsForMessageChoiceResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="messagechoice" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllResultsForResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="resulttype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllResultTypeJSONPropertiesForResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="resulttype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllResultTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_DeleteAllRoomsInArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="area" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllRoomsInAreaOnFloor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="area" Type="int" Mode="In" />
+          <Parameter Name="z" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllRoomStatesForRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllVerbsForVerbType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="verbtype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_DeleteAllVerbTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_GetAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetActionResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllActionResultsForAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllActionsForNoun" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="noun" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllAreas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_GetAllCharacterActionRequirementsForAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllCharacters" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_GetAllEventActionRequirementsForAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_GetAllItemActionRequirementsForAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_GetAllJSONPropertyDataTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_GetAllLocations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_GetAllMessageChoiceResultsForMessageChoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="messagechoice" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllMessageChoicesForMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="message" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllMessages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_GetAllNounsForParagraphState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="paragraphstate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllParagraphsForRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllParagraphsForRoomAndRoomState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="room" Type="int" Mode="In" />
+          <Parameter Name="roomstate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllParagraphStatesForParagraph" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="paragraph" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllResultsForActionResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllResultsForMessageChoiceResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="messagechoice" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllResultsForResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="resulttype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllResultTypeJSONPropertiesForResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="resulttype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllResultTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_GetAllRoomsInArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="area" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllRoomsInAreaOnFloor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="area" Type="int" Mode="In" />
+          <Parameter Name="z" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllRoomStatesForRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllVerbsForVerbType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="verbtype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAllVerbTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_GetArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetAreaRoomOnInitialLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_GetCharacter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetCharacterActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetEventActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetItemActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetJSONPropertyDataType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetMessageChoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetMessageChoiceResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetNoun" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetParagraph" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetParagraphState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetParagraphStateForParagraphPreview" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="state" Type="int" Mode="In" />
+          <Parameter Name="paragraph" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetResultTypeJSONProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetRoomPreview" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="roompreview" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetRoomPreviewNouns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetRoomPreviewParagraphStates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetRoomState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetVerb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_GetVerbType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="verbtype" Type="int" Mode="In" />
+          <Parameter Name="noun" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportActionResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="result" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportAreaRoomOnInitialLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="area" Type="int" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportCharacter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportCharacterActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="character" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportEventActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="event" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportItemActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="item" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportJSONPropertyDataType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="datatype" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="locationfile" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportMessageChoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="message" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportMessageChoiceResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="result" Type="int" Mode="In" />
+          <Parameter Name="messagechoice" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportNoun" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="paragraphstate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportParagraph" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="order" Type="int" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+          <Parameter Name="roomstate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportParagraphState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="paragraph" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="jsondata" Type="varchar" Mode="In" />
+          <Parameter Name="resulttype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportResultTypeJSONProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="jsonproperty" Type="varchar" Mode="In" />
+          <Parameter Name="datatype" Type="int" Mode="In" />
+          <Parameter Name="resulttype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="x" Type="int" Mode="In" />
+          <Parameter Name="y" Type="int" Mode="In" />
+          <Parameter Name="z" Type="int" Mode="In" />
+          <Parameter Name="area" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportRoomState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+          <Parameter Name="time" Type="datetime" Mode="In" />
+          <Parameter Name="location" Type="int" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportVerb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="verbtype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportVerbType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_ShiftRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="xIncr" Type="int" Mode="In" />
+          <Parameter Name="yIncr" Type="int" Mode="In" />
+          <Parameter Name="zIncr" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="verbtype" Type="int" Mode="In" />
+          <Parameter Name="noun" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateActionResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="result" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateCharacter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateCharacterActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="item" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateEvent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateEventActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="item" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateItemActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="item" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateJSONPropertyDataType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="datatype" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="locationfile" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateMessageChoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="message" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateMessageChoiceResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="result" Type="int" Mode="In" />
+          <Parameter Name="messagechoice" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateNoun" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="paragraphstate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateParagraph" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="order" Type="int" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+          <Parameter Name="roomstate" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateParagraphState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="text" Type="varchar" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+          <Parameter Name="paragraph" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdatePlayerHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="evnt" Type="int" Mode="In" />
+          <Parameter Name="inhistory" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdatePlayerInventory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="item" Type="int" Mode="In" />
+          <Parameter Name="ininventory" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdatePlayerParty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="character" Type="int" Mode="In" />
+          <Parameter Name="inparty" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="jsondata" Type="varchar" Mode="In" />
+          <Parameter Name="resulttype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateResultType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateResultTypeJSONProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="jsonproperty" Type="varchar" Mode="In" />
+          <Parameter Name="datatype" Type="int" Mode="In" />
+          <Parameter Name="resulttype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="x" Type="int" Mode="In" />
+          <Parameter Name="y" Type="int" Mode="In" />
+          <Parameter Name="z" Type="int" Mode="In" />
+          <Parameter Name="area" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateRoomState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+          <Parameter Name="time" Type="datetime" Mode="In" />
+          <Parameter Name="location" Type="int" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateVerb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="verbtype" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateVerbType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_UpsertAreaRoomOnInitialLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="area" Type="int" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="GinTubModelStoreContainer" />
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GinTubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GinTubEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="dev_AddAction" ReturnType="Collection(Decimal)">
+            <Parameter Name="verbtype" Mode="In" Type="Int32" />
+            <Parameter Name="noun" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddActionResult" ReturnType="Collection(Decimal)">
+            <Parameter Name="result" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddArea" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddCharacter" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddCharacterActionRequirement" ReturnType="Collection(Decimal)">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddEvent" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddEventActionRequirement" ReturnType="Collection(Decimal)">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddItem" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddItemActionRequirement" ReturnType="Collection(Decimal)">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddJSONPropertyDataType" ReturnType="Collection(Decimal)">
+            <Parameter Name="datatype" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddLocation" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="locationfile" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddMessage" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddMessageChoice" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="message" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddMessageChoiceResult" ReturnType="Collection(Decimal)">
+            <Parameter Name="result" Mode="In" Type="Int32" />
+            <Parameter Name="messagechoice" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddNoun" ReturnType="Collection(Decimal)">
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="paragraphstate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddParagraph" ReturnType="Collection(Decimal)">
+            <Parameter Name="order" Mode="In" Type="Int32" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+            <Parameter Name="roomstate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddParagraphState" ReturnType="Collection(Decimal)">
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="paragraph" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddPlayer" ReturnType="Collection(Guid)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="domainname" Mode="In" Type="String" />
+            <Parameter Name="domain" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="playerid" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddResult" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="jsondata" Mode="In" Type="String" />
+            <Parameter Name="resulttype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddResultType" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddResultTypeJSONProperty" ReturnType="Collection(Decimal)">
+            <Parameter Name="jsonproperty" Mode="In" Type="String" />
+            <Parameter Name="datatype" Mode="In" Type="Int32" />
+            <Parameter Name="resulttype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddRoom" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="x" Mode="In" Type="Int32" />
+            <Parameter Name="y" Mode="In" Type="Int32" />
+            <Parameter Name="z" Mode="In" Type="Int32" />
+            <Parameter Name="area" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddRoomState" ReturnType="Collection(Decimal)">
+            <Parameter Name="time" Mode="In" Type="DateTime" />
+            <Parameter Name="location" Mode="In" Type="Int32" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddVerb" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="verbtype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_AddVerbType" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ClearDatabase">
+            <Parameter Name="backupfile" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllActionResultsForAction">
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllActionsForNoun">
+            <Parameter Name="noun" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllAreas" />
+          <FunctionImport Name="dev_DeleteAllCharacterActionRequirementsForAction">
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllCharacters" />
+          <FunctionImport Name="dev_DeleteAllEventActionRequirementsForAction">
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllEvents" />
+          <FunctionImport Name="dev_DeleteAllItemActionRequirementsForAction">
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllItems" />
+          <FunctionImport Name="dev_DeleteAllJSONPropertyDataTypes" />
+          <FunctionImport Name="dev_DeleteAllLocations" />
+          <FunctionImport Name="dev_DeleteAllMessageChoiceResultsForMessageChoice">
+            <Parameter Name="messagechoice" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllMessageChoicesForMessage">
+            <Parameter Name="message" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllMessages" />
+          <FunctionImport Name="dev_DeleteAllNounsForParagraphState">
+            <Parameter Name="paragraphstate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllParagraphsForRoomAndRoomState">
+            <Parameter Name="room" Mode="In" Type="Int32" />
+            <Parameter Name="roomstate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllParagraphStatesForParagraph">
+            <Parameter Name="paragraph" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllResultsForActionResultType">
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllResultsForMessageChoiceResultType">
+            <Parameter Name="messagechoice" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllResultsForResultType">
+            <Parameter Name="resulttype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllResultTypeJSONPropertiesForResultType">
+            <Parameter Name="resulttype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllResultTypes" />
+          <FunctionImport Name="dev_DeleteAllRoomsInArea">
+            <Parameter Name="area" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllRoomsInAreaOnFloor">
+            <Parameter Name="area" Mode="In" Type="Int32" />
+            <Parameter Name="z" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllRoomStatesForRoom">
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllVerbsForVerbType">
+            <Parameter Name="verbtype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllVerbTypes" />
+          <FunctionImport Name="dev_GetAction" ReturnType="Collection(GinTubModel.dev_GetAction_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetActionResult" ReturnType="Collection(GinTubModel.dev_GetActionResult_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllActionResultsForAction" ReturnType="Collection(GinTubModel.dev_GetAllActionResultsForAction_Result)">
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllActionsForNoun" ReturnType="Collection(GinTubModel.dev_GetAllActionsForNoun_Result)">
+            <Parameter Name="noun" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllAreas" ReturnType="Collection(GinTubModel.dev_GetAllAreas_Result)" />
+          <FunctionImport Name="dev_GetAllCharacterActionRequirementsForAction" ReturnType="Collection(GinTubModel.dev_GetAllCharacterActionRequirementsForAction_Result)">
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllCharacters" ReturnType="Collection(GinTubModel.dev_GetAllCharacters_Result)" />
+          <FunctionImport Name="dev_GetAllEventActionRequirementsForAction" ReturnType="Collection(GinTubModel.dev_GetAllEventActionRequirementsForAction_Result)">
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllEvents" ReturnType="Collection(GinTubModel.dev_GetAllEvents_Result)" />
+          <FunctionImport Name="dev_GetAllItemActionRequirementsForAction" ReturnType="Collection(GinTubModel.dev_GetAllItemActionRequirementsForAction_Result)">
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllItems" ReturnType="Collection(GinTubModel.dev_GetAllItems_Result)" />
+          <FunctionImport Name="dev_GetAllJSONPropertyDataTypes" ReturnType="Collection(GinTubModel.dev_GetAllJSONPropertyDataTypes_Result)" />
+          <FunctionImport Name="dev_GetAllLocations" ReturnType="Collection(GinTubModel.dev_GetAllLocations_Result)" />
+          <FunctionImport Name="dev_GetAllMessageChoiceResultsForMessageChoice" ReturnType="Collection(GinTubModel.dev_GetAllMessageChoiceResultsForMessageChoice_Result)">
+            <Parameter Name="messagechoice" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllMessageChoicesForMessage" ReturnType="Collection(GinTubModel.dev_GetAllMessageChoicesForMessage_Result)">
+            <Parameter Name="message" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllMessages" ReturnType="Collection(GinTubModel.dev_GetAllMessages_Result)" />
+          <FunctionImport Name="dev_GetAllNounsForParagraphState" ReturnType="Collection(GinTubModel.dev_GetAllNounsForParagraphState_Result)">
+            <Parameter Name="paragraphstate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllParagraphsForRoom" ReturnType="Collection(GinTubModel.dev_GetAllParagraphsForRoom_Result)">
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllParagraphsForRoomAndRoomState" ReturnType="Collection(GinTubModel.dev_GetAllParagraphsForRoomAndRoomState_Result)">
+            <Parameter Name="room" Mode="In" Type="Int32" />
+            <Parameter Name="roomstate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllParagraphStatesForParagraph" ReturnType="Collection(GinTubModel.dev_GetAllParagraphStatesForParagraph_Result)">
+            <Parameter Name="paragraph" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllResultsForActionResultType" ReturnType="Collection(GinTubModel.dev_GetAllResultsForActionResultType_Result)">
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllResultsForMessageChoiceResultType" ReturnType="Collection(GinTubModel.dev_GetAllResultsForMessageChoiceResultType_Result)">
+            <Parameter Name="messagechoice" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllResultsForResultType" ReturnType="Collection(GinTubModel.dev_GetAllResultsForResultType_Result)">
+            <Parameter Name="resulttype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllResultTypeJSONPropertiesForResultType" ReturnType="Collection(GinTubModel.dev_GetAllResultTypeJSONPropertiesForResultType_Result)">
+            <Parameter Name="resulttype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllResultTypes" ReturnType="Collection(GinTubModel.dev_GetAllResultTypes_Result)" />
+          <FunctionImport Name="dev_GetAllRoomsInArea" ReturnType="Collection(GinTubModel.dev_GetAllRoomsInArea_Result)">
+            <Parameter Name="area" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllRoomsInAreaOnFloor" ReturnType="Collection(GinTubModel.dev_GetAllRoomsInAreaOnFloor_Result)">
+            <Parameter Name="area" Mode="In" Type="Int32" />
+            <Parameter Name="z" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllRoomStatesForRoom" ReturnType="Collection(GinTubModel.dev_GetAllRoomStatesForRoom_Result)">
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllVerbsForVerbType" ReturnType="Collection(GinTubModel.dev_GetAllVerbsForVerbType_Result)">
+            <Parameter Name="verbtype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAllVerbTypes" ReturnType="Collection(GinTubModel.dev_GetAllVerbTypes_Result)" />
+          <FunctionImport Name="dev_GetArea" ReturnType="Collection(GinTubModel.dev_GetArea_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetAreaRoomOnInitialLoad" ReturnType="Collection(GinTubModel.dev_GetAreaRoomOnInitialLoad_Result)" />
+          <FunctionImport Name="dev_GetCharacter" ReturnType="Collection(GinTubModel.dev_GetCharacter_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetCharacterActionRequirement" ReturnType="Collection(GinTubModel.dev_GetCharacterActionRequirement_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetEvent" ReturnType="Collection(GinTubModel.dev_GetEvent_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetEventActionRequirement" ReturnType="Collection(GinTubModel.dev_GetEventActionRequirement_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetItem" ReturnType="Collection(GinTubModel.dev_GetItem_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetItemActionRequirement" ReturnType="Collection(GinTubModel.dev_GetItemActionRequirement_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetJSONPropertyDataType" ReturnType="Collection(GinTubModel.dev_GetJSONPropertyDataType_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetLocation" ReturnType="Collection(GinTubModel.dev_GetLocation_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetMessage" ReturnType="Collection(GinTubModel.dev_GetMessage_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetMessageChoice" ReturnType="Collection(GinTubModel.dev_GetMessageChoice_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetMessageChoiceResult" ReturnType="Collection(GinTubModel.dev_GetMessageChoiceResult_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetNoun" ReturnType="Collection(GinTubModel.dev_GetNoun_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetParagraph" ReturnType="Collection(GinTubModel.dev_GetParagraph_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetParagraphState" ReturnType="Collection(GinTubModel.dev_GetParagraphState_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetParagraphStateForParagraphPreview" ReturnType="Collection(GinTubModel.dev_GetParagraphStateForParagraphPreview_Result)">
+            <Parameter Name="state" Mode="In" Type="Int32" />
+            <Parameter Name="paragraph" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetResult" ReturnType="Collection(GinTubModel.dev_GetResult_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetResultType" ReturnType="Collection(GinTubModel.dev_GetResultType_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetResultTypeJSONProperty" ReturnType="Collection(GinTubModel.dev_GetResultTypeJSONProperty_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetRoom" ReturnType="Collection(GinTubModel.dev_GetRoom_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetRoomPreview">
+            <ReturnType Type="Collection(GinTubModel.dev_GetRoomPreviewParagraphStates_Result)" />
+            <ReturnType Type="Collection(GinTubModel.dev_GetRoomPreviewNouns_Result)" />
+            <Parameter Name="roompreview" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetRoomPreviewNouns" ReturnType="Collection(GinTubModel.dev_GetRoomPreviewNouns_Result)">
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetRoomPreviewParagraphStates" ReturnType="Collection(GinTubModel.dev_GetRoomPreviewParagraphStates_Result)">
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetRoomState" ReturnType="Collection(GinTubModel.dev_GetRoomState_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetVerb" ReturnType="Collection(GinTubModel.dev_GetVerb_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_GetVerbType" ReturnType="Collection(GinTubModel.dev_GetVerbType_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportAction">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="verbtype" Mode="In" Type="Int32" />
+            <Parameter Name="noun" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportActionResult">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="result" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportArea">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportAreaRoomOnInitialLoad">
+            <Parameter Name="area" Mode="In" Type="Int32" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportCharacter">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportCharacterActionRequirement">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="character" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportEvent">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportEventActionRequirement">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="event" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportItem">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportItemActionRequirement">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="item" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportJSONPropertyDataType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="datatype" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportLocation">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="locationfile" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportMessage">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportMessageChoice">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="message" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportMessageChoiceResult">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="result" Mode="In" Type="Int32" />
+            <Parameter Name="messagechoice" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportNoun">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="paragraphstate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportParagraph">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="order" Mode="In" Type="Int32" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+            <Parameter Name="roomstate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportParagraphState">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="paragraph" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportResult">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="jsondata" Mode="In" Type="String" />
+            <Parameter Name="resulttype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportResultType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportResultTypeJSONProperty">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="jsonproperty" Mode="In" Type="String" />
+            <Parameter Name="datatype" Mode="In" Type="Int32" />
+            <Parameter Name="resulttype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportRoom">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="x" Mode="In" Type="Int32" />
+            <Parameter Name="y" Mode="In" Type="Int32" />
+            <Parameter Name="z" Mode="In" Type="Int32" />
+            <Parameter Name="area" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportRoomState">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+            <Parameter Name="time" Mode="In" Type="DateTime" />
+            <Parameter Name="location" Mode="In" Type="Int32" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportVerb">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="verbtype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportVerbType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ShiftRoom">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="xIncr" Mode="In" Type="Int32" />
+            <Parameter Name="yIncr" Mode="In" Type="Int32" />
+            <Parameter Name="zIncr" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateAction">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="verbtype" Mode="In" Type="Int32" />
+            <Parameter Name="noun" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateActionResult">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="result" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateArea">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateCharacter">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateCharacterActionRequirement">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="item" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateEvent">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateEventActionRequirement">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="item" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateItem">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateItemActionRequirement">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="item" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateJSONPropertyDataType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="datatype" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateLocation">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="locationfile" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateMessage">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateMessageChoice">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="message" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateMessageChoiceResult">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="result" Mode="In" Type="Int32" />
+            <Parameter Name="messagechoice" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateNoun">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="paragraphstate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateParagraph">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="order" Mode="In" Type="Int32" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+            <Parameter Name="roomstate" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateParagraphState">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="text" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+            <Parameter Name="paragraph" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdatePlayerHistory">
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="evnt" Mode="In" Type="Int32" />
+            <Parameter Name="inhistory" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdatePlayerInventory">
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="item" Mode="In" Type="Int32" />
+            <Parameter Name="ininventory" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdatePlayerParty">
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="character" Mode="In" Type="Int32" />
+            <Parameter Name="inparty" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateResult">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="jsondata" Mode="In" Type="String" />
+            <Parameter Name="resulttype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateResultType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateResultTypeJSONProperty">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="jsonproperty" Mode="In" Type="String" />
+            <Parameter Name="datatype" Mode="In" Type="Int32" />
+            <Parameter Name="resulttype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateRoom">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="x" Mode="In" Type="Int32" />
+            <Parameter Name="y" Mode="In" Type="Int32" />
+            <Parameter Name="z" Mode="In" Type="Int32" />
+            <Parameter Name="area" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateRoomState">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+            <Parameter Name="time" Mode="In" Type="DateTime" />
+            <Parameter Name="location" Mode="In" Type="Int32" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateVerb">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="verbtype" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateVerbType">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpsertAreaRoomOnInitialLoad">
+            <Parameter Name="area" Mode="In" Type="Int32" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="dev_GetAction_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="VerbType" Nullable="false" />
+          <Property Type="Int32" Name="Noun" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="516" />
+        </ComplexType>
+        <ComplexType Name="dev_GetActionResult_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Result" Nullable="false" />
+          <Property Type="Int32" Name="Action" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllActionResultsForAction_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Result" Nullable="false" />
+          <Property Type="Int32" Name="Action" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllActionsForNoun_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="VerbType" Nullable="false" />
+          <Property Type="Int32" Name="Noun" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="516" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllAreas_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllCharacterActionRequirementsForAction_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Character" Nullable="false" />
+          <Property Type="String" Name="CharacterName" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="Action" Nullable="false" />
+          <Property Type="String" Name="ActionName" Nullable="false" MaxLength="516" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllCharacters_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllEventActionRequirementsForAction_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Event" Nullable="false" />
+          <Property Type="String" Name="EventName" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="Action" Nullable="false" />
+          <Property Type="String" Name="ActionName" Nullable="false" MaxLength="516" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllEvents_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllItemActionRequirementsForAction_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Item" Nullable="false" />
+          <Property Type="String" Name="ItemName" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="Action" Nullable="false" />
+          <Property Type="String" Name="ActionName" Nullable="false" MaxLength="516" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllItems_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllJSONPropertyDataTypes_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="DataType" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllLocations_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="LocationFile" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllMessageChoiceResultsForMessageChoice_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Result" Nullable="true" />
+          <Property Type="Int32" Name="MessageChoice" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllMessageChoicesForMessage_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="Message" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllMessages_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllNounsForParagraphState_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="ParagraphState" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllParagraphsForRoom_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Order" Nullable="false" />
+          <Property Type="Int32" Name="Room" Nullable="false" />
+          <Property Type="Int32" Name="RoomState" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllParagraphsForRoomAndRoomState_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Order" Nullable="false" />
+          <Property Type="Int32" Name="Room" Nullable="false" />
+          <Property Type="Int32" Name="RoomState" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllParagraphStatesForParagraph_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="State" Nullable="false" />
+          <Property Type="Int32" Name="Paragraph" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllResultsForActionResultType_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="JSONData" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="ResultType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllResultsForMessageChoiceResultType_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="JSONData" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="ResultType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllResultsForResultType_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="JSONData" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="ResultType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllResultTypeJSONPropertiesForResultType_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="JSONProperty" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="DataType" Nullable="false" />
+          <Property Type="Int32" Name="ResultType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllResultTypes_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllRoomsInArea_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="X" Nullable="false" />
+          <Property Type="Int32" Name="Y" Nullable="false" />
+          <Property Type="Int32" Name="Z" Nullable="false" />
+          <Property Type="Int32" Name="Area" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllRoomsInAreaOnFloor_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="X" Nullable="false" />
+          <Property Type="Int32" Name="Y" Nullable="false" />
+          <Property Type="Int32" Name="Z" Nullable="false" />
+          <Property Type="Int32" Name="Area" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllRoomStatesForRoom_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="State" Nullable="false" />
+          <Property Type="DateTime" Name="Time" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Location" Nullable="false" />
+          <Property Type="Int32" Name="Room" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllVerbsForVerbType_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="VerbType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAllVerbTypes_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetArea_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="MaxX" Nullable="false" />
+          <Property Type="Int32" Name="MinX" Nullable="false" />
+          <Property Type="Int32" Name="MaxY" Nullable="false" />
+          <Property Type="Int32" Name="MinY" Nullable="false" />
+          <Property Type="Int32" Name="MaxZ" Nullable="false" />
+          <Property Type="Int32" Name="MinZ" Nullable="false" />
+          <Property Type="Int32" Name="NumRooms" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="dev_GetAreaRoomOnInitialLoad_Result">
+          <Property Type="Int32" Name="Area" Nullable="true" />
+          <Property Type="Int32" Name="Room" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="dev_GetCharacter_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetCharacterActionRequirement_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Character" Nullable="false" />
+          <Property Type="String" Name="CharacterName" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="Action" Nullable="false" />
+          <Property Type="String" Name="ActionName" Nullable="false" MaxLength="516" />
+        </ComplexType>
+        <ComplexType Name="dev_GetEvent_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetEventActionRequirement_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Event" Nullable="false" />
+          <Property Type="String" Name="EventName" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="Action" Nullable="false" />
+          <Property Type="String" Name="ActionName" Nullable="false" MaxLength="516" />
+        </ComplexType>
+        <ComplexType Name="dev_GetItem_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetItemActionRequirement_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Item" Nullable="false" />
+          <Property Type="String" Name="ItemName" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="Action" Nullable="false" />
+          <Property Type="String" Name="ActionName" Nullable="false" MaxLength="516" />
+        </ComplexType>
+        <ComplexType Name="dev_GetJSONPropertyDataType_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="DataType" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetLocation_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="LocationFile" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetMessage_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetMessageChoice_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="Message" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="dev_GetMessageChoiceResult_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Result" Nullable="true" />
+          <Property Type="Int32" Name="MessageChoice" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="dev_GetNoun_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="ParagraphState" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetParagraph_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Order" Nullable="false" />
+          <Property Type="Int32" Name="Room" Nullable="false" />
+          <Property Type="Int32" Name="RoomState" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="dev_GetParagraphState_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="State" Nullable="false" />
+          <Property Type="Int32" Name="Paragraph" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetParagraphStateForParagraphPreview_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="State" Nullable="false" />
+          <Property Type="Int32" Name="Paragraph" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetResult_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="JSONData" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="ResultType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetResultType_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="dev_GetResultTypeJSONProperty_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="JSONProperty" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="DataType" Nullable="false" />
+          <Property Type="Int32" Name="ResultType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetRoom_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="X" Nullable="false" />
+          <Property Type="Int32" Name="Y" Nullable="false" />
+          <Property Type="Int32" Name="Z" Nullable="false" />
+          <Property Type="Int32" Name="Area" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetRoomPreviewNouns_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="ParagraphState" Nullable="false" />
+          <Property Type="Int32" Name="Room" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="dev_GetRoomPreviewParagraphStates_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="State" Nullable="false" />
+          <Property Type="Int32" Name="Paragraph" Nullable="false" />
+          <Property Type="Int32" Name="Room" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="dev_GetRoomState_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="State" Nullable="false" />
+          <Property Type="DateTime" Name="Time" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Location" Nullable="false" />
+          <Property Type="Int32" Name="Room" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetVerb_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="VerbType" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_GetVerbType_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GinTubModelStoreContainer" CdmEntityContainer="GinTubEntities" >
+          <FunctionImportMapping FunctionImportName="dev_AddAction" FunctionName="GinTubModel.Store.dev_AddAction" />
+          <FunctionImportMapping FunctionImportName="dev_AddActionResult" FunctionName="GinTubModel.Store.dev_AddActionResult" />
+          <FunctionImportMapping FunctionImportName="dev_AddArea" FunctionName="GinTubModel.Store.dev_AddArea" />
+          <FunctionImportMapping FunctionImportName="dev_AddCharacter" FunctionName="GinTubModel.Store.dev_AddCharacter" />
+          <FunctionImportMapping FunctionImportName="dev_AddCharacterActionRequirement" FunctionName="GinTubModel.Store.dev_AddCharacterActionRequirement" />
+          <FunctionImportMapping FunctionImportName="dev_AddEvent" FunctionName="GinTubModel.Store.dev_AddEvent" />
+          <FunctionImportMapping FunctionImportName="dev_AddEventActionRequirement" FunctionName="GinTubModel.Store.dev_AddEventActionRequirement" />
+          <FunctionImportMapping FunctionImportName="dev_AddItem" FunctionName="GinTubModel.Store.dev_AddItem" />
+          <FunctionImportMapping FunctionImportName="dev_AddItemActionRequirement" FunctionName="GinTubModel.Store.dev_AddItemActionRequirement" />
+          <FunctionImportMapping FunctionImportName="dev_AddJSONPropertyDataType" FunctionName="GinTubModel.Store.dev_AddJSONPropertyDataType" />
+          <FunctionImportMapping FunctionImportName="dev_AddLocation" FunctionName="GinTubModel.Store.dev_AddLocation" />
+          <FunctionImportMapping FunctionImportName="dev_AddMessage" FunctionName="GinTubModel.Store.dev_AddMessage" />
+          <FunctionImportMapping FunctionImportName="dev_AddMessageChoice" FunctionName="GinTubModel.Store.dev_AddMessageChoice" />
+          <FunctionImportMapping FunctionImportName="dev_AddMessageChoiceResult" FunctionName="GinTubModel.Store.dev_AddMessageChoiceResult" />
+          <FunctionImportMapping FunctionImportName="dev_AddNoun" FunctionName="GinTubModel.Store.dev_AddNoun" />
+          <FunctionImportMapping FunctionImportName="dev_AddParagraph" FunctionName="GinTubModel.Store.dev_AddParagraph" />
+          <FunctionImportMapping FunctionImportName="dev_AddParagraphState" FunctionName="GinTubModel.Store.dev_AddParagraphState" />
+          <FunctionImportMapping FunctionImportName="dev_AddPlayer" FunctionName="GinTubModel.Store.dev_AddPlayer" />
+          <FunctionImportMapping FunctionImportName="dev_AddResult" FunctionName="GinTubModel.Store.dev_AddResult" />
+          <FunctionImportMapping FunctionImportName="dev_AddResultType" FunctionName="GinTubModel.Store.dev_AddResultType" />
+          <FunctionImportMapping FunctionImportName="dev_AddResultTypeJSONProperty" FunctionName="GinTubModel.Store.dev_AddResultTypeJSONProperty" />
+          <FunctionImportMapping FunctionImportName="dev_AddRoom" FunctionName="GinTubModel.Store.dev_AddRoom" />
+          <FunctionImportMapping FunctionImportName="dev_AddRoomState" FunctionName="GinTubModel.Store.dev_AddRoomState" />
+          <FunctionImportMapping FunctionImportName="dev_AddVerb" FunctionName="GinTubModel.Store.dev_AddVerb" />
+          <FunctionImportMapping FunctionImportName="dev_AddVerbType" FunctionName="GinTubModel.Store.dev_AddVerbType" />
+          <FunctionImportMapping FunctionImportName="dev_ClearDatabase" FunctionName="GinTubModel.Store.dev_ClearDatabase" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllActionResultsForAction" FunctionName="GinTubModel.Store.dev_DeleteAllActionResultsForAction" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllActionsForNoun" FunctionName="GinTubModel.Store.dev_DeleteAllActionsForNoun" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllAreas" FunctionName="GinTubModel.Store.dev_DeleteAllAreas" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllCharacterActionRequirementsForAction" FunctionName="GinTubModel.Store.dev_DeleteAllCharacterActionRequirementsForAction" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllCharacters" FunctionName="GinTubModel.Store.dev_DeleteAllCharacters" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllEventActionRequirementsForAction" FunctionName="GinTubModel.Store.dev_DeleteAllEventActionRequirementsForAction" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllEvents" FunctionName="GinTubModel.Store.dev_DeleteAllEvents" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllItemActionRequirementsForAction" FunctionName="GinTubModel.Store.dev_DeleteAllItemActionRequirementsForAction" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllItems" FunctionName="GinTubModel.Store.dev_DeleteAllItems" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllJSONPropertyDataTypes" FunctionName="GinTubModel.Store.dev_DeleteAllJSONPropertyDataTypes" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllLocations" FunctionName="GinTubModel.Store.dev_DeleteAllLocations" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllMessageChoiceResultsForMessageChoice" FunctionName="GinTubModel.Store.dev_DeleteAllMessageChoiceResultsForMessageChoice" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllMessageChoicesForMessage" FunctionName="GinTubModel.Store.dev_DeleteAllMessageChoicesForMessage" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllMessages" FunctionName="GinTubModel.Store.dev_DeleteAllMessages" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllNounsForParagraphState" FunctionName="GinTubModel.Store.dev_DeleteAllNounsForParagraphState" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllParagraphsForRoomAndRoomState" FunctionName="GinTubModel.Store.dev_DeleteAllParagraphsForRoomAndRoomState" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllParagraphStatesForParagraph" FunctionName="GinTubModel.Store.dev_DeleteAllParagraphStatesForParagraph" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllResultsForActionResultType" FunctionName="GinTubModel.Store.dev_DeleteAllResultsForActionResultType" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllResultsForMessageChoiceResultType" FunctionName="GinTubModel.Store.dev_DeleteAllResultsForMessageChoiceResultType" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllResultsForResultType" FunctionName="GinTubModel.Store.dev_DeleteAllResultsForResultType" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllResultTypeJSONPropertiesForResultType" FunctionName="GinTubModel.Store.dev_DeleteAllResultTypeJSONPropertiesForResultType" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllResultTypes" FunctionName="GinTubModel.Store.dev_DeleteAllResultTypes" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllRoomsInArea" FunctionName="GinTubModel.Store.dev_DeleteAllRoomsInArea" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllRoomsInAreaOnFloor" FunctionName="GinTubModel.Store.dev_DeleteAllRoomsInAreaOnFloor" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllRoomStatesForRoom" FunctionName="GinTubModel.Store.dev_DeleteAllRoomStatesForRoom" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllVerbsForVerbType" FunctionName="GinTubModel.Store.dev_DeleteAllVerbsForVerbType" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllVerbTypes" FunctionName="GinTubModel.Store.dev_DeleteAllVerbTypes" />
+          <FunctionImportMapping FunctionImportName="dev_GetAction" FunctionName="GinTubModel.Store.dev_GetAction">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAction_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VerbType" ColumnName="VerbType" />
+                <ScalarProperty Name="Noun" ColumnName="Noun" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetActionResult" FunctionName="GinTubModel.Store.dev_GetActionResult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetActionResult_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllActionResultsForAction" FunctionName="GinTubModel.Store.dev_GetAllActionResultsForAction">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllActionResultsForAction_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllActionsForNoun" FunctionName="GinTubModel.Store.dev_GetAllActionsForNoun">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllActionsForNoun_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VerbType" ColumnName="VerbType" />
+                <ScalarProperty Name="Noun" ColumnName="Noun" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllAreas" FunctionName="GinTubModel.Store.dev_GetAllAreas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllAreas_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllCharacterActionRequirementsForAction" FunctionName="GinTubModel.Store.dev_GetAllCharacterActionRequirementsForAction">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllCharacterActionRequirementsForAction_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Character" ColumnName="Character" />
+                <ScalarProperty Name="CharacterName" ColumnName="CharacterName" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllCharacters" FunctionName="GinTubModel.Store.dev_GetAllCharacters">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllCharacters_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllEventActionRequirementsForAction" FunctionName="GinTubModel.Store.dev_GetAllEventActionRequirementsForAction">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllEventActionRequirementsForAction_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Event" ColumnName="Event" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllEvents" FunctionName="GinTubModel.Store.dev_GetAllEvents">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllEvents_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllItemActionRequirementsForAction" FunctionName="GinTubModel.Store.dev_GetAllItemActionRequirementsForAction">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllItemActionRequirementsForAction_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllItems" FunctionName="GinTubModel.Store.dev_GetAllItems">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllItems_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllJSONPropertyDataTypes" FunctionName="GinTubModel.Store.dev_GetAllJSONPropertyDataTypes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllJSONPropertyDataTypes_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DataType" ColumnName="DataType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllLocations" FunctionName="GinTubModel.Store.dev_GetAllLocations">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllLocations_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LocationFile" ColumnName="LocationFile" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllMessageChoiceResultsForMessageChoice" FunctionName="GinTubModel.Store.dev_GetAllMessageChoiceResultsForMessageChoice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllMessageChoiceResultsForMessageChoice_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="MessageChoice" ColumnName="MessageChoice" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllMessageChoicesForMessage" FunctionName="GinTubModel.Store.dev_GetAllMessageChoicesForMessage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllMessageChoicesForMessage_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllMessages" FunctionName="GinTubModel.Store.dev_GetAllMessages">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllMessages_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllNounsForParagraphState" FunctionName="GinTubModel.Store.dev_GetAllNounsForParagraphState">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllNounsForParagraphState_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ParagraphState" ColumnName="ParagraphState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllParagraphsForRoom" FunctionName="GinTubModel.Store.dev_GetAllParagraphsForRoom">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllParagraphsForRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="RoomState" ColumnName="RoomState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllParagraphsForRoomAndRoomState" FunctionName="GinTubModel.Store.dev_GetAllParagraphsForRoomAndRoomState">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllParagraphsForRoomAndRoomState_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="RoomState" ColumnName="RoomState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllParagraphStatesForParagraph" FunctionName="GinTubModel.Store.dev_GetAllParagraphStatesForParagraph">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllParagraphStatesForParagraph_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Paragraph" ColumnName="Paragraph" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllResultsForActionResultType" FunctionName="GinTubModel.Store.dev_GetAllResultsForActionResultType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllResultsForActionResultType_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="JSONData" ColumnName="JSONData" />
+                <ScalarProperty Name="ResultType" ColumnName="ResultType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllResultsForMessageChoiceResultType" FunctionName="GinTubModel.Store.dev_GetAllResultsForMessageChoiceResultType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllResultsForMessageChoiceResultType_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="JSONData" ColumnName="JSONData" />
+                <ScalarProperty Name="ResultType" ColumnName="ResultType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllResultsForResultType" FunctionName="GinTubModel.Store.dev_GetAllResultsForResultType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllResultsForResultType_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="JSONData" ColumnName="JSONData" />
+                <ScalarProperty Name="ResultType" ColumnName="ResultType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllResultTypeJSONPropertiesForResultType" FunctionName="GinTubModel.Store.dev_GetAllResultTypeJSONPropertiesForResultType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllResultTypeJSONPropertiesForResultType_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="JSONProperty" ColumnName="JSONProperty" />
+                <ScalarProperty Name="DataType" ColumnName="DataType" />
+                <ScalarProperty Name="ResultType" ColumnName="ResultType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllResultTypes" FunctionName="GinTubModel.Store.dev_GetAllResultTypes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllResultTypes_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllRoomsInArea" FunctionName="GinTubModel.Store.dev_GetAllRoomsInArea">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllRoomsInArea_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllRoomsInAreaOnFloor" FunctionName="GinTubModel.Store.dev_GetAllRoomsInAreaOnFloor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllRoomsInAreaOnFloor_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllRoomStatesForRoom" FunctionName="GinTubModel.Store.dev_GetAllRoomStatesForRoom">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllRoomStatesForRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllVerbsForVerbType" FunctionName="GinTubModel.Store.dev_GetAllVerbsForVerbType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllVerbsForVerbType_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="VerbType" ColumnName="VerbType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAllVerbTypes" FunctionName="GinTubModel.Store.dev_GetAllVerbTypes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAllVerbTypes_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetArea" FunctionName="GinTubModel.Store.dev_GetArea">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetArea_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MaxX" ColumnName="MaxX" />
+                <ScalarProperty Name="MinX" ColumnName="MinX" />
+                <ScalarProperty Name="MaxY" ColumnName="MaxY" />
+                <ScalarProperty Name="MinY" ColumnName="MinY" />
+                <ScalarProperty Name="MaxZ" ColumnName="MaxZ" />
+                <ScalarProperty Name="MinZ" ColumnName="MinZ" />
+                <ScalarProperty Name="NumRooms" ColumnName="NumRooms" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetAreaRoomOnInitialLoad" FunctionName="GinTubModel.Store.dev_GetAreaRoomOnInitialLoad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetAreaRoomOnInitialLoad_Result">
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetCharacter" FunctionName="GinTubModel.Store.dev_GetCharacter">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetCharacter_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetCharacterActionRequirement" FunctionName="GinTubModel.Store.dev_GetCharacterActionRequirement">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetCharacterActionRequirement_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Character" ColumnName="Character" />
+                <ScalarProperty Name="CharacterName" ColumnName="CharacterName" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetEvent" FunctionName="GinTubModel.Store.dev_GetEvent">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetEvent_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetEventActionRequirement" FunctionName="GinTubModel.Store.dev_GetEventActionRequirement">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetEventActionRequirement_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Event" ColumnName="Event" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetItem" FunctionName="GinTubModel.Store.dev_GetItem">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetItem_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetItemActionRequirement" FunctionName="GinTubModel.Store.dev_GetItemActionRequirement">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetItemActionRequirement_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetJSONPropertyDataType" FunctionName="GinTubModel.Store.dev_GetJSONPropertyDataType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetJSONPropertyDataType_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DataType" ColumnName="DataType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetLocation" FunctionName="GinTubModel.Store.dev_GetLocation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetLocation_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="LocationFile" ColumnName="LocationFile" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetMessage" FunctionName="GinTubModel.Store.dev_GetMessage">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetMessage_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetMessageChoice" FunctionName="GinTubModel.Store.dev_GetMessageChoice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetMessageChoice_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetMessageChoiceResult" FunctionName="GinTubModel.Store.dev_GetMessageChoiceResult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetMessageChoiceResult_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="MessageChoice" ColumnName="MessageChoice" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetNoun" FunctionName="GinTubModel.Store.dev_GetNoun">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetNoun_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ParagraphState" ColumnName="ParagraphState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetParagraph" FunctionName="GinTubModel.Store.dev_GetParagraph">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetParagraph_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="RoomState" ColumnName="RoomState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetParagraphState" FunctionName="GinTubModel.Store.dev_GetParagraphState">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetParagraphState_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Paragraph" ColumnName="Paragraph" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetParagraphStateForParagraphPreview" FunctionName="GinTubModel.Store.dev_GetParagraphStateForParagraphPreview">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetParagraphStateForParagraphPreview_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Paragraph" ColumnName="Paragraph" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetResult" FunctionName="GinTubModel.Store.dev_GetResult">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetResult_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="JSONData" ColumnName="JSONData" />
+                <ScalarProperty Name="ResultType" ColumnName="ResultType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetResultType" FunctionName="GinTubModel.Store.dev_GetResultType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetResultType_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetResultTypeJSONProperty" FunctionName="GinTubModel.Store.dev_GetResultTypeJSONProperty">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetResultTypeJSONProperty_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="JSONProperty" ColumnName="JSONProperty" />
+                <ScalarProperty Name="DataType" ColumnName="DataType" />
+                <ScalarProperty Name="ResultType" ColumnName="ResultType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetRoom" FunctionName="GinTubModel.Store.dev_GetRoom">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetRoomPreview" FunctionName="GinTubModel.Store.dev_GetRoomPreview">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetRoomPreviewParagraphStates_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Paragraph" ColumnName="Paragraph" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetRoomPreviewNouns_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ParagraphState" ColumnName="ParagraphState" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetRoomPreviewNouns" FunctionName="GinTubModel.Store.dev_GetRoomPreviewNouns">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetRoomPreviewNouns_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ParagraphState" ColumnName="ParagraphState" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetRoomPreviewParagraphStates" FunctionName="GinTubModel.Store.dev_GetRoomPreviewParagraphStates">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetRoomPreviewParagraphStates_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Paragraph" ColumnName="Paragraph" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetRoomState" FunctionName="GinTubModel.Store.dev_GetRoomState">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetRoomState_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetVerb" FunctionName="GinTubModel.Store.dev_GetVerb">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetVerb_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="VerbType" ColumnName="VerbType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_GetVerbType" FunctionName="GinTubModel.Store.dev_GetVerbType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_GetVerbType_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_ImportAction" FunctionName="GinTubModel.Store.dev_ImportAction" />
+          <FunctionImportMapping FunctionImportName="dev_ImportActionResult" FunctionName="GinTubModel.Store.dev_ImportActionResult" />
+          <FunctionImportMapping FunctionImportName="dev_ImportArea" FunctionName="GinTubModel.Store.dev_ImportArea" />
+          <FunctionImportMapping FunctionImportName="dev_ImportAreaRoomOnInitialLoad" FunctionName="GinTubModel.Store.dev_ImportAreaRoomOnInitialLoad" />
+          <FunctionImportMapping FunctionImportName="dev_ImportCharacter" FunctionName="GinTubModel.Store.dev_ImportCharacter" />
+          <FunctionImportMapping FunctionImportName="dev_ImportCharacterActionRequirement" FunctionName="GinTubModel.Store.dev_ImportCharacterActionRequirement" />
+          <FunctionImportMapping FunctionImportName="dev_ImportEvent" FunctionName="GinTubModel.Store.dev_ImportEvent" />
+          <FunctionImportMapping FunctionImportName="dev_ImportEventActionRequirement" FunctionName="GinTubModel.Store.dev_ImportEventActionRequirement" />
+          <FunctionImportMapping FunctionImportName="dev_ImportItem" FunctionName="GinTubModel.Store.dev_ImportItem" />
+          <FunctionImportMapping FunctionImportName="dev_ImportItemActionRequirement" FunctionName="GinTubModel.Store.dev_ImportItemActionRequirement" />
+          <FunctionImportMapping FunctionImportName="dev_ImportJSONPropertyDataType" FunctionName="GinTubModel.Store.dev_ImportJSONPropertyDataType" />
+          <FunctionImportMapping FunctionImportName="dev_ImportLocation" FunctionName="GinTubModel.Store.dev_ImportLocation" />
+          <FunctionImportMapping FunctionImportName="dev_ImportMessage" FunctionName="GinTubModel.Store.dev_ImportMessage" />
+          <FunctionImportMapping FunctionImportName="dev_ImportMessageChoice" FunctionName="GinTubModel.Store.dev_ImportMessageChoice" />
+          <FunctionImportMapping FunctionImportName="dev_ImportMessageChoiceResult" FunctionName="GinTubModel.Store.dev_ImportMessageChoiceResult" />
+          <FunctionImportMapping FunctionImportName="dev_ImportNoun" FunctionName="GinTubModel.Store.dev_ImportNoun" />
+          <FunctionImportMapping FunctionImportName="dev_ImportParagraph" FunctionName="GinTubModel.Store.dev_ImportParagraph" />
+          <FunctionImportMapping FunctionImportName="dev_ImportParagraphState" FunctionName="GinTubModel.Store.dev_ImportParagraphState" />
+          <FunctionImportMapping FunctionImportName="dev_ImportResult" FunctionName="GinTubModel.Store.dev_ImportResult" />
+          <FunctionImportMapping FunctionImportName="dev_ImportResultType" FunctionName="GinTubModel.Store.dev_ImportResultType" />
+          <FunctionImportMapping FunctionImportName="dev_ImportResultTypeJSONProperty" FunctionName="GinTubModel.Store.dev_ImportResultTypeJSONProperty" />
+          <FunctionImportMapping FunctionImportName="dev_ImportRoom" FunctionName="GinTubModel.Store.dev_ImportRoom" />
+          <FunctionImportMapping FunctionImportName="dev_ImportRoomState" FunctionName="GinTubModel.Store.dev_ImportRoomState" />
+          <FunctionImportMapping FunctionImportName="dev_ImportVerb" FunctionName="GinTubModel.Store.dev_ImportVerb" />
+          <FunctionImportMapping FunctionImportName="dev_ImportVerbType" FunctionName="GinTubModel.Store.dev_ImportVerbType" />
+          <FunctionImportMapping FunctionImportName="dev_ShiftRoom" FunctionName="GinTubModel.Store.dev_ShiftRoom" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateAction" FunctionName="GinTubModel.Store.dev_UpdateAction" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateActionResult" FunctionName="GinTubModel.Store.dev_UpdateActionResult" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateArea" FunctionName="GinTubModel.Store.dev_UpdateArea" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateCharacter" FunctionName="GinTubModel.Store.dev_UpdateCharacter" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateCharacterActionRequirement" FunctionName="GinTubModel.Store.dev_UpdateCharacterActionRequirement" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateEvent" FunctionName="GinTubModel.Store.dev_UpdateEvent" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateEventActionRequirement" FunctionName="GinTubModel.Store.dev_UpdateEventActionRequirement" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateItem" FunctionName="GinTubModel.Store.dev_UpdateItem" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateItemActionRequirement" FunctionName="GinTubModel.Store.dev_UpdateItemActionRequirement" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateJSONPropertyDataType" FunctionName="GinTubModel.Store.dev_UpdateJSONPropertyDataType" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateLocation" FunctionName="GinTubModel.Store.dev_UpdateLocation" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateMessage" FunctionName="GinTubModel.Store.dev_UpdateMessage" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateMessageChoice" FunctionName="GinTubModel.Store.dev_UpdateMessageChoice" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateMessageChoiceResult" FunctionName="GinTubModel.Store.dev_UpdateMessageChoiceResult" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateNoun" FunctionName="GinTubModel.Store.dev_UpdateNoun" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateParagraph" FunctionName="GinTubModel.Store.dev_UpdateParagraph" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateParagraphState" FunctionName="GinTubModel.Store.dev_UpdateParagraphState" />
+          <FunctionImportMapping FunctionImportName="dev_UpdatePlayerHistory" FunctionName="GinTubModel.Store.dev_UpdatePlayerHistory" />
+          <FunctionImportMapping FunctionImportName="dev_UpdatePlayerInventory" FunctionName="GinTubModel.Store.dev_UpdatePlayerInventory" />
+          <FunctionImportMapping FunctionImportName="dev_UpdatePlayerParty" FunctionName="GinTubModel.Store.dev_UpdatePlayerParty" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateResult" FunctionName="GinTubModel.Store.dev_UpdateResult" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateResultType" FunctionName="GinTubModel.Store.dev_UpdateResultType" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateResultTypeJSONProperty" FunctionName="GinTubModel.Store.dev_UpdateResultTypeJSONProperty" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateRoom" FunctionName="GinTubModel.Store.dev_UpdateRoom" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateRoomState" FunctionName="GinTubModel.Store.dev_UpdateRoomState" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateVerb" FunctionName="GinTubModel.Store.dev_UpdateVerb" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateVerbType" FunctionName="GinTubModel.Store.dev_UpdateVerbType" />
+          <FunctionImportMapping FunctionImportName="dev_UpsertAreaRoomOnInitialLoad" FunctionName="GinTubModel.Store.dev_UpsertAreaRoomOnInitialLoad" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
