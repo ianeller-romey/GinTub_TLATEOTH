@@ -62,7 +62,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyMessage = new Button() { Content = "Modify Message" };
-            button_modifyMessage.Click += Button_ModifyMessage_Click;
+            button_modifyMessage.Click += Button_UpdateMessage_Click;
             grid_main.SetGridRowColumn(button_modifyMessage, 0, 0);
 
             m_userControl_message = new UserControl_Message(messageId, messageName, messageText, false, true);
@@ -73,7 +73,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyMessage_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateMessage_Click(object sender, RoutedEventArgs e)
         {
             Window_Message window =
                 new Window_Message
@@ -85,7 +85,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Message wWin = win as Window_Message;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyMessage(wWin.MessageId.Value, wWin.MessageName, wWin.MessageText);
+                            GinTubBuilderManager.UpdateMessage(wWin.MessageId.Value, wWin.MessageName, wWin.MessageText);
                     }
                 );
             window.Show();

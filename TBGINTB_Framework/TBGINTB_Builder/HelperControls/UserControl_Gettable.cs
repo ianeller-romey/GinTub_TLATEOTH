@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace TBGINTB_Builder.HelperControls
 {
-    public class UserControl_Gettable : UserControl
+    public class UserControl_Selecttable : UserControl
     {
         #region MEMBER FIELDS
 
@@ -31,9 +31,9 @@ namespace TBGINTB_Builder.HelperControls
 
         #region Protected Functionality
 
-        public void SetGettableBackground(bool isGet)
+        public void SetSelecttableBackground(bool isSelect)
         {
-            Background = (isGet) ? s_brush_getBackground : null;
+            Background = (isSelect) ? s_brush_getBackground : null;
         }
 
         #endregion

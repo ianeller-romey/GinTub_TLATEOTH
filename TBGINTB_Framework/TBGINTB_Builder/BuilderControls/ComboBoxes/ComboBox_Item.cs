@@ -82,14 +82,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ItemAdded += GinTubBuilderManager_ItemAdded;
-            GinTubBuilderManager.ItemModified += GinTubBuilderManager_ItemModified;
+            GinTubBuilderManager.ItemRead += GinTubBuilderManager_ItemRead;
+            GinTubBuilderManager.ItemUpdated += GinTubBuilderManager_ItemUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ItemAdded -= GinTubBuilderManager_ItemAdded;
-            GinTubBuilderManager.ItemModified -= GinTubBuilderManager_ItemModified;
+            GinTubBuilderManager.ItemRead -= GinTubBuilderManager_ItemRead;
+            GinTubBuilderManager.ItemUpdated -= GinTubBuilderManager_ItemUpdated;
         }
 
         #endregion
@@ -97,13 +97,13 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_ItemAdded(object sender, GinTubBuilderManager.ItemAddedEventArgs args)
+        private void GinTubBuilderManager_ItemRead(object sender, GinTubBuilderManager.ItemReadEventArgs args)
         {
             if (!Items.OfType<ComboBoxItem_Item>().Any(i => i.ItemId == args.Id))
                 Items.Add(new ComboBoxItem_Item(args.Id, args.Name, args.Description));
         }
 
-        private void GinTubBuilderManager_ItemModified(object sender, GinTubBuilderManager.ItemModifiedEventArgs args)
+        private void GinTubBuilderManager_ItemUpdated(object sender, GinTubBuilderManager.ItemUpdatedEventArgs args)
         {
             ComboBoxItem_Item item = Items.OfType<ComboBoxItem_Item>().SingleOrDefault(i => i.ItemId == args.Id);
             if (item != null)
@@ -125,7 +125,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Item wWin = win as Window_Item;
                         if (wWin != null)
-                            GinTubBuilderManager.AddItem(wWin.ItemName, wWin.ItemDescription);
+                            GinTubBuilderManager.CreateItem(wWin.ItemName, wWin.ItemDescription);
                     }
                 );
             window.Show();

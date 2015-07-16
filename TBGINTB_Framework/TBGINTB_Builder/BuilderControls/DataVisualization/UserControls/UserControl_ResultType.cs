@@ -144,8 +144,8 @@ namespace TBGINTB_Builder.BuilderControls
                 m_grid_main.SetGridRowColumn(m_scrollViewer_results, 0, 1);
 
                 //
-                GinTubBuilderManager.LoadAllResultTypeJSONPropertiesForResultType(SelectedResultTypeId.Value);
-                GinTubBuilderManager.LoadAllResultsForResultType(SelectedResultTypeId.Value);
+                GinTubBuilderManager.ReadAllResultTypeJSONPropertiesForResultType(SelectedResultTypeId.Value);
+                GinTubBuilderManager.ReadAllResultsForResultType(SelectedResultTypeId.Value);
             }
             else if (comboBoxItem == null)
             {

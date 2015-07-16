@@ -60,16 +60,16 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.AreaRoomOnInitialLoadModified += GinTubBuilderManager_AreaRoomOnInitialLoadModified;
+            GinTubBuilderManager.AreaRoomOnInitialLoadUpdated += GinTubBuilderManager_AreaRoomOnInitialLoadUpdated;
 
-            GinTubBuilderManager.AreaAdded += GinTubBuilderManager_AreaAdded;
+            GinTubBuilderManager.AreaRead += GinTubBuilderManager_AreaRead;
 
-            GinTubBuilderManager.RoomAdded += GinTubBuilderManager_RoomAdded;
+            GinTubBuilderManager.RoomRead += GinTubBuilderManager_RoomRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.AreaRoomOnInitialLoadModified -= GinTubBuilderManager_AreaRoomOnInitialLoadModified;
+            GinTubBuilderManager.AreaRoomOnInitialLoadUpdated -= GinTubBuilderManager_AreaRoomOnInitialLoadUpdated;
         }
 
         #endregion
@@ -109,18 +109,18 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void GinTubBuilderManager_AreaRoomOnInitialLoadModified(object sender, GinTubBuilderManager.AreaRoomOnInitialLoadModifiedEventArgs args)
+        private void GinTubBuilderManager_AreaRoomOnInitialLoadUpdated(object sender, GinTubBuilderManager.AreaRoomOnInitialLoadUpdatedEventArgs args)
         {
             SetAreaRoomOnInitialLoadArea(args.Area.Value);
             SetAreaRoomOnInitialLoadRoom(args.Room.Value);
         }
 
-        private void GinTubBuilderManager_AreaAdded(object sender, GinTubBuilderManager.AreaAddedEventArgs args)
+        private void GinTubBuilderManager_AreaRead(object sender, GinTubBuilderManager.AreaReadEventArgs args)
         {
             ResetAreaRoomOnInitialLoadArea(args.Id);
         }
 
-        void GinTubBuilderManager_RoomAdded(object sender, GinTubBuilderManager.RoomAddedEventArgs args)
+        void GinTubBuilderManager_RoomRead(object sender, GinTubBuilderManager.RoomReadEventArgs args)
         {
             if (AreaRoomOnInitialLoadArea == args.Area)
                 ResetAreaRoomOnInitialLoadRoom(args.Id);
@@ -173,9 +173,9 @@ namespace TBGINTB_Builder.BuilderControls
             {
                 // kind of a hack here
                 // since this Control is created before the m_comboBox_room Control,
-                // and since we want the m_comboBox_room Control to handle the RoomAdded event first,
+                // and since we want the m_comboBox_room Control to handle the RoomRead event first,
                 // we'll remove the handler here, and added back after the m_comboBox_room has been created
-                GinTubBuilderManager.RoomAdded -= GinTubBuilderManager_RoomAdded;
+                GinTubBuilderManager.RoomRead -= GinTubBuilderManager_RoomRead;
 
                 AreaRoomOnInitialLoadArea = item.AreaId;
 
@@ -186,9 +186,9 @@ namespace TBGINTB_Builder.BuilderControls
                 m_comboBox_room.SelectionChanged += ComboBox_Room_SelectionChanged;
                 m_groupBox_room.Content = m_comboBox_room;
 
-                GinTubBuilderManager.RoomAdded += GinTubBuilderManager_RoomAdded;
+                GinTubBuilderManager.RoomRead += GinTubBuilderManager_RoomRead;
 
-                GinTubBuilderManager.LoadAllRoomsInArea(AreaRoomOnInitialLoadArea.Value);
+                GinTubBuilderManager.ReadAllRoomsInArea(AreaRoomOnInitialLoadArea.Value);
             }
         }
 

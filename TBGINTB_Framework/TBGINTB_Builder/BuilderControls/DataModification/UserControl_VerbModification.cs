@@ -62,7 +62,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyVerb = new Button() { Content = "Modify Verb" };
-            button_modifyVerb.Click += Button_ModifyVerb_Click;
+            button_modifyVerb.Click += Button_UpdateVerb_Click;
             grid_main.SetGridRowColumn(button_modifyVerb, 0, 0);
 
             m_userControl_verb = new UserControl_Verb(verbId, verbName, verbTypeId, false);
@@ -73,7 +73,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyVerb_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateVerb_Click(object sender, RoutedEventArgs e)
         {
             Window_Verb window =
                 new Window_Verb
@@ -85,7 +85,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Verb wWin = win as Window_Verb;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyVerb(wWin.VerbId.Value, wWin.VerbName, wWin.VerbTypeId);
+                            GinTubBuilderManager.UpdateVerb(wWin.VerbId.Value, wWin.VerbName, wWin.VerbTypeId);
                     }
                 );
             window.Show();                

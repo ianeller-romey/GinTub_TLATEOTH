@@ -35,9 +35,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_Action(int? actionId, int? actionVerbType, int? actionNoun, int paragraphStateId, bool enableEditing, bool enableGetting)
+        public UserControl_Bordered_Action(int? actionId, int? actionVerbType, int? actionNoun, int paragraphStateId, bool enableEditing, bool enableSelectting)
         {
-            CreateControls(actionId, actionVerbType, actionNoun, paragraphStateId, enableEditing, enableGetting);
+            CreateControls(actionId, actionVerbType, actionNoun, paragraphStateId, enableEditing, enableSelectting);
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
@@ -55,9 +55,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? actionId, int? actionVerbType, int? actionNoun, int paragraphStateId, bool enableEditing, bool enableGetting)
+        private void CreateControls(int? actionId, int? actionVerbType, int? actionNoun, int paragraphStateId, bool enableEditing, bool enableSelectting)
         {
-            m_userControl_action = new UserControl_Action(actionId, actionVerbType, actionNoun, paragraphStateId, enableEditing, enableGetting);
+            m_userControl_action = new UserControl_Action(actionId, actionVerbType, actionNoun, paragraphStateId, enableEditing, enableSelectting);
             Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_action };
             Content = border;
         }

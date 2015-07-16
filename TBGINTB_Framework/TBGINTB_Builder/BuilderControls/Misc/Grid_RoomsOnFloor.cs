@@ -53,7 +53,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.RoomAdded += GinTubBuilderManager_RoomAdded;
+            GinTubBuilderManager.RoomRead += GinTubBuilderManager_RoomRead;
 
             foreach (var i in Children.OfType<IRegisterGinTubEventsOnlyWhenActive>())
                 i.SetActiveAndRegisterForGinTubEvents();
@@ -61,7 +61,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.RoomAdded -= GinTubBuilderManager_RoomAdded;
+            GinTubBuilderManager.RoomRead -= GinTubBuilderManager_RoomRead;
 
             foreach (var i in Children.OfType<IRegisterGinTubEventsOnlyWhenActive>())
                 i.SetInactiveAndUnregisterFromGinTubEvents();
@@ -75,7 +75,7 @@ namespace TBGINTB_Builder.BuilderControls
                 button.HasNoRoom();
                 button.SetFloor(RoomsZ);
             }
-            GinTubBuilderManager.LoadAllRoomsInAreaOnFloor(AreaId, RoomsZ);
+            GinTubBuilderManager.ReadAllRoomsInAreaOnFloor(AreaId, RoomsZ);
         }
 
         #endregion
@@ -86,32 +86,32 @@ namespace TBGINTB_Builder.BuilderControls
         private void CreateControls(int maxX, int maxY)
         {
             for (int x = 0, xx = maxX + c_defaultRowsColsModifier; x < xx; ++x)
-                AddColumn(false);
+                CreateColumn(false);
             for (int y = 0, yy = maxY + c_defaultRowsColsModifier; y < yy; ++y)
-                AddRow(true);
+                CreateRow(true);
         }
 
-        private void AddRow(bool addCell)
+        private void CreateRow(bool addCell)
         {
             RowDefinitions.Add(new RowDefinition() { Height = s_defaultRowColGridLength });
             if (addCell)
             {
                 for (int i = 0; i < ColumnDefinitions.Count; ++i)
-                    AddCell(RowDefinitions.Count - 1, i);
+                    CreateCell(RowDefinitions.Count - 1, i);
             }
         }
 
-        private void AddColumn(bool addCell)
+        private void CreateColumn(bool addCell)
         {
             ColumnDefinitions.Add(new ColumnDefinition() { Width = s_defaultRowColGridLength });
             if (addCell)
             {
                 for (int i = 0; i < RowDefinitions.Count; ++i)
-                    AddCell(i, ColumnDefinitions.Count - 1);
+                    CreateCell(i, ColumnDefinitions.Count - 1);
             }
         }
 
-        private void AddCell(int row, int column)
+        private void CreateCell(int row, int column)
         {
             Rectangle rect = new Rectangle() { Stroke = Brushes.Black, StrokeThickness = 1.0 };
             this.SetGridRowColumn(rect, row, column);
@@ -121,18 +121,18 @@ namespace TBGINTB_Builder.BuilderControls
             button.SetActiveAndRegisterForGinTubEvents();
         }
 
-        private void AddRoom(int roomX, int roomY)
+        private void CreateRoom(int roomX, int roomY)
         {
             for(int xPlusModifier = roomX + c_defaultRowsColsModifier; RoomsMaxX + c_defaultRowsColsModifier < xPlusModifier; RoomsMaxX = RoomsMaxX + 1)
-                AddColumn(true);
+                CreateColumn(true);
             for (int yPlusModifier = roomY + c_defaultRowsColsModifier; RoomsMaxY + c_defaultRowsColsModifier < yPlusModifier; RoomsMaxY = RoomsMaxY + 1)
-                AddRow(true);
+                CreateRow(true);
         }
 
-        private void GinTubBuilderManager_RoomAdded(object sender, GinTubBuilderManager.RoomAddedEventArgs args)
+        private void GinTubBuilderManager_RoomRead(object sender, GinTubBuilderManager.RoomReadEventArgs args)
         {
             if (args.Area == AreaId && args.Z == RoomsZ)
-                AddRoom(args.X, args.Y);
+                CreateRoom(args.X, args.Y);
         }
 
         #endregion

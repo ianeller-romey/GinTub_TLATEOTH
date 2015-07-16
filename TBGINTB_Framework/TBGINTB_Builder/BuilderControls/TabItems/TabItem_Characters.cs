@@ -35,7 +35,7 @@ namespace TBGINTB_Builder.BuilderControls
             Header = "Characters";
             Content = CreateControls();
 
-            GinTubBuilderManager.LoadAllCharacters();
+            GinTubBuilderManager.ReadAllCharacters();
         }
 
         public void SetActiveAndRegisterForGinTubEvents()

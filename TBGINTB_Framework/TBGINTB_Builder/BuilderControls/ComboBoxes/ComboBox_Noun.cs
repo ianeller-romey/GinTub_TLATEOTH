@@ -87,14 +87,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.NounAdded += GinTubBuilderManager_NounAdded;
-            GinTubBuilderManager.NounModified += GinTubBuilderManager_NounModified;
+            GinTubBuilderManager.NounRead += GinTubBuilderManager_NounRead;
+            GinTubBuilderManager.NounUpdated += GinTubBuilderManager_NounUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.NounAdded -= GinTubBuilderManager_NounAdded;
-            GinTubBuilderManager.NounModified -= GinTubBuilderManager_NounModified;
+            GinTubBuilderManager.NounRead -= GinTubBuilderManager_NounRead;
+            GinTubBuilderManager.NounUpdated -= GinTubBuilderManager_NounUpdated;
         }
 
         #endregion
@@ -102,7 +102,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_NounAdded(object sender, GinTubBuilderManager.NounAddedEventArgs args)
+        private void GinTubBuilderManager_NounRead(object sender, GinTubBuilderManager.NounReadEventArgs args)
         {
             if (ParagraphStateId == args.ParagraphState)
             {
@@ -111,7 +111,7 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void GinTubBuilderManager_NounModified(object sender, GinTubBuilderManager.NounModifiedEventArgs args)
+        private void GinTubBuilderManager_NounUpdated(object sender, GinTubBuilderManager.NounUpdatedEventArgs args)
         {
             if (ParagraphStateId == args.ParagraphState)
             {
@@ -136,7 +136,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Noun wWin = win as Window_Noun;
                         if (wWin != null)
-                            GinTubBuilderManager.AddNoun(wWin.NounText, wWin.ParagraphStateId);
+                            GinTubBuilderManager.CreateNoun(wWin.NounText, wWin.ParagraphStateId);
                     }
                 );
             window.Show();

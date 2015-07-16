@@ -13,7 +13,7 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_ParagraphState : UserControl_Gettable
+    public class UserControl_ParagraphState : UserControl_Selecttable
     {
         #region MEMBER FIELDS
 
@@ -49,7 +49,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_ParagraphState(int? paragraphStateId, string paragraphStateText, int? paragraphStateState, int paragraphId, bool enableEditing, bool enableGetting)
+        public UserControl_ParagraphState(int? paragraphStateId, string paragraphStateText, int? paragraphStateState, int paragraphId, bool enableEditing, bool enableSelectting)
         {
             ParagraphStateId = paragraphStateId;
             ParagraphStateText = paragraphStateText;
@@ -61,20 +61,20 @@ namespace TBGINTB_Builder.BuilderControls
             foreach (var e in EditingControls)
                 e.IsEnabled = enableEditing;
 
-            if (enableGetting)
+            if (enableSelectting)
                 MouseLeftButtonDown += Grid_ParagraphStateData_MouseLeftButtonDown;
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ParagraphStateModified += GinTubBuilderManager_ParagraphStateModified;
-            GinTubBuilderManager.ParagraphStateGet += GinTubBuilderManager_ParagraphStateGet;
+            GinTubBuilderManager.ParagraphStateUpdated += GinTubBuilderManager_ParagraphStateUpdated;
+            GinTubBuilderManager.ParagraphStateSelect += GinTubBuilderManager_ParagraphStateSelect;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ParagraphStateModified -= GinTubBuilderManager_ParagraphStateModified;
-            GinTubBuilderManager.ParagraphStateGet -= GinTubBuilderManager_ParagraphStateGet;
+            GinTubBuilderManager.ParagraphStateUpdated -= GinTubBuilderManager_ParagraphStateUpdated;
+            GinTubBuilderManager.ParagraphStateSelect -= GinTubBuilderManager_ParagraphStateSelect;
         }
 
         #endregion
@@ -149,7 +149,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void GinTubBuilderManager_ParagraphStateModified(object sender, GinTubBuilderManager.ParagraphStateModifiedEventArgs args)
+        private void GinTubBuilderManager_ParagraphStateUpdated(object sender, GinTubBuilderManager.ParagraphStateUpdatedEventArgs args)
         {
             if (ParagraphStateId == args.Id)
             {
@@ -159,9 +159,9 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void GinTubBuilderManager_ParagraphStateGet(object sender, GinTubBuilderManager.ParagraphStateGetEventArgs args)
+        private void GinTubBuilderManager_ParagraphStateSelect(object sender, GinTubBuilderManager.ParagraphStateSelectEventArgs args)
         {
-            SetGettableBackground(ParagraphStateId == args.Id);
+            SetSelecttableBackground(ParagraphStateId == args.Id);
         }
 
         private void SetParagraphStateState(int? paragraphStateState)
@@ -186,7 +186,7 @@ namespace TBGINTB_Builder.BuilderControls
         private void Grid_ParagraphStateData_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (ParagraphStateId.HasValue)
-                GinTubBuilderManager.GetParagraphState(ParagraphStateId.Value);
+                GinTubBuilderManager.SelectParagraphState(ParagraphStateId.Value);
         }
 
         #endregion

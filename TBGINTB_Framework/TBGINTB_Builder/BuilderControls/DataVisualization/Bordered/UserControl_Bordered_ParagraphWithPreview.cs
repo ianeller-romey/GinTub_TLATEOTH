@@ -29,7 +29,6 @@ namespace TBGINTB_Builder.BuilderControls
         public int? ParagraphId { get { return m_userControl_paragraph.ParagraphId; } }
         public int? ParagraphOrder { get { return m_userControl_paragraph.ParagraphOrder; } }
         public int RoomId { get { return m_userControl_paragraph.RoomId; } }
-        public int? RoomStateId { get { return m_userControl_paragraph.RoomStateId; } }
 
         #endregion
 
@@ -38,23 +37,23 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_ParagraphWithPreview(int? paragraphId, int? paragraphOrder, int roomId, int? roomStateId, bool enableEditing)
+        public UserControl_Bordered_ParagraphWithPreview(int? paragraphId, int? paragraphOrder, int roomId, bool enableEditing)
         {
-            CreateControls(paragraphId,  paragraphOrder, roomId,  roomStateId, enableEditing);
+            CreateControls(paragraphId,  paragraphOrder, roomId, enableEditing);
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ParagraphStateAdded += GinTubBuilderManager_ParagraphStateEvent;
-            GinTubBuilderManager.ParagraphStateModified += GinTubBuilderManager_ParagraphStateEvent;
+            GinTubBuilderManager.ParagraphStateRead += GinTubBuilderManager_ParagraphStateEvent;
+            GinTubBuilderManager.ParagraphStateUpdated += GinTubBuilderManager_ParagraphStateEvent;
 
             m_userControl_paragraph.SetActiveAndRegisterForGinTubEvents();
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ParagraphStateAdded += GinTubBuilderManager_ParagraphStateEvent;
-            GinTubBuilderManager.ParagraphStateModified += GinTubBuilderManager_ParagraphStateEvent;
+            GinTubBuilderManager.ParagraphStateRead += GinTubBuilderManager_ParagraphStateEvent;
+            GinTubBuilderManager.ParagraphStateUpdated += GinTubBuilderManager_ParagraphStateEvent;
 
             m_userControl_paragraph.SetInactiveAndUnregisterFromGinTubEvents();
         }
@@ -64,13 +63,13 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? paragraphId, int? paragraphOrder, int roomId, int? roomStateId, bool enableEditing)
+        private void CreateControls(int? paragraphId, int? paragraphOrder, int roomId, bool enableEditing)
         {
             Grid grid_main = new Grid();
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
-            m_userControl_paragraph = new UserControl_Paragraph(paragraphId, paragraphOrder, roomId, roomStateId, enableEditing);
+            m_userControl_paragraph = new UserControl_Paragraph(paragraphId, paragraphOrder, roomId, enableEditing);
             grid_main.SetGridRowColumn(m_userControl_paragraph, 0, 0);
 
             m_textBlock_paragraphPreview = 

@@ -74,20 +74,20 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ResultTypeJSONPropertyModified += GinTubBuilderManager_ResultTypeJSONPropertyModified;
+            GinTubBuilderManager.ResultTypeJSONPropertyUpdated += GinTubBuilderManager_ResultTypeJSONPropertyUpdated;
 
-            GinTubBuilderManager.JSONPropertyDataTypeAdded += GinTubBuilderManager_JSONPropertyDataTypeAdded;
+            GinTubBuilderManager.JSONPropertyDataTypeRead += GinTubBuilderManager_JSONPropertyDataTypeRead;
 
-            GinTubBuilderManager.ResultTypeAdded += GinTubBuilderManager_ResultTypeAdded;
+            GinTubBuilderManager.ResultTypeRead += GinTubBuilderManager_ResultTypeRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ResultTypeJSONPropertyModified -= GinTubBuilderManager_ResultTypeJSONPropertyModified;
+            GinTubBuilderManager.ResultTypeJSONPropertyUpdated -= GinTubBuilderManager_ResultTypeJSONPropertyUpdated;
 
-            GinTubBuilderManager.JSONPropertyDataTypeAdded -= GinTubBuilderManager_JSONPropertyDataTypeAdded;
+            GinTubBuilderManager.JSONPropertyDataTypeRead -= GinTubBuilderManager_JSONPropertyDataTypeRead;
 
-            GinTubBuilderManager.ResultTypeAdded -= GinTubBuilderManager_ResultTypeAdded;
+            GinTubBuilderManager.ResultTypeRead -= GinTubBuilderManager_ResultTypeRead;
         }
         #endregion
 
@@ -175,7 +175,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void GinTubBuilderManager_ResultTypeJSONPropertyModified(object sender, GinTubBuilderManager.ResultTypeJSONPropertyModifiedEventArgs args)
+        private void GinTubBuilderManager_ResultTypeJSONPropertyUpdated(object sender, GinTubBuilderManager.ResultTypeJSONPropertyUpdatedEventArgs args)
         {
             if (ResultTypeJSONPropertyId == args.Id)
             {
@@ -184,13 +184,13 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void GinTubBuilderManager_JSONPropertyDataTypeAdded(object sender, GinTubBuilderManager.JSONPropertyDataTypeAddedEventArgs args)
+        private void GinTubBuilderManager_JSONPropertyDataTypeRead(object sender, GinTubBuilderManager.JSONPropertyDataTypeReadEventArgs args)
         {
             if (ResultTypeJSONPropertyDataType == args.Id)
                 m_comboBox_dataType.SelectedItem = m_comboBox_dataType.Items.OfType<ComboBox_JSONPropertyDataType.ComboBoxItem_JSONPropertyDataType>().SingleOrDefault(r => r.JSONPropertyDataTypeId == ResultTypeJSONPropertyDataType);
         }
 
-        private void GinTubBuilderManager_ResultTypeAdded(object sender, GinTubBuilderManager.ResultTypeAddedEventArgs args)
+        private void GinTubBuilderManager_ResultTypeRead(object sender, GinTubBuilderManager.ResultTypeReadEventArgs args)
         {
             if (ResultTypeId == args.Id)
                 m_comboBox_resultType.SelectedItem = m_comboBox_resultType.Items.OfType<ComboBox_ResultType.ComboBoxItem_ResultType>().SingleOrDefault(r => r.ResultTypeId == ResultTypeId);

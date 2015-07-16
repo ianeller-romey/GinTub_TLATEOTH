@@ -74,14 +74,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ParagraphStateAdded += GinTubBuilderManager_ParagraphStateEvent;
-            GinTubBuilderManager.ParagraphStateModified += GinTubBuilderManager_ParagraphStateEvent;
+            GinTubBuilderManager.ParagraphStateRead += GinTubBuilderManager_ParagraphStateEvent;
+            GinTubBuilderManager.ParagraphStateUpdated += GinTubBuilderManager_ParagraphStateEvent;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ParagraphStateAdded -= GinTubBuilderManager_ParagraphStateEvent;
-            GinTubBuilderManager.ParagraphStateModified -= GinTubBuilderManager_ParagraphStateEvent;
+            GinTubBuilderManager.ParagraphStateRead -= GinTubBuilderManager_ParagraphStateEvent;
+            GinTubBuilderManager.ParagraphStateUpdated -= GinTubBuilderManager_ParagraphStateEvent;
         }
 
         #endregion

@@ -38,7 +38,7 @@ namespace TBGINTB_Builder.BuilderControls
         {
             m_grid_verbType.SetActiveAndRegisterForGinTubEvents();
 
-            GinTubBuilderManager.LoadAllVerbTypes();
+            GinTubBuilderManager.ReadAllVerbTypes();
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()

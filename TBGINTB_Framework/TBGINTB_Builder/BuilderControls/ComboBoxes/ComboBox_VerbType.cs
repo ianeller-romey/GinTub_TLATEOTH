@@ -75,14 +75,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.VerbTypeAdded += GinTubBuilderManager_VerbTypeAdded;
-            GinTubBuilderManager.VerbTypeModified += GinTubBuilderManager_VerbTypeModified;
+            GinTubBuilderManager.VerbTypeRead += GinTubBuilderManager_VerbTypeRead;
+            GinTubBuilderManager.VerbTypeUpdated += GinTubBuilderManager_VerbTypeUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.VerbTypeAdded -= GinTubBuilderManager_VerbTypeAdded;
-            GinTubBuilderManager.VerbTypeModified -= GinTubBuilderManager_VerbTypeModified;
+            GinTubBuilderManager.VerbTypeRead -= GinTubBuilderManager_VerbTypeRead;
+            GinTubBuilderManager.VerbTypeUpdated -= GinTubBuilderManager_VerbTypeUpdated;
         }
 
         #endregion
@@ -90,13 +90,13 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_VerbTypeAdded(object sender, GinTubBuilderManager.VerbTypeAddedEventArgs args)
+        private void GinTubBuilderManager_VerbTypeRead(object sender, GinTubBuilderManager.VerbTypeReadEventArgs args)
         {
             if (!Items.OfType<ComboBoxItem_VerbType>().Any(i => i.VerbTypeId == args.Id))
                 Items.Add(new ComboBoxItem_VerbType(args.Id, args.Name));
         }
 
-        private void GinTubBuilderManager_VerbTypeModified(object sender, GinTubBuilderManager.VerbTypeModifiedEventArgs args)
+        private void GinTubBuilderManager_VerbTypeUpdated(object sender, GinTubBuilderManager.VerbTypeUpdatedEventArgs args)
         {
             ComboBoxItem_VerbType item = Items.OfType<ComboBoxItem_VerbType>().SingleOrDefault(i => i.VerbTypeId == args.Id);
             if (item != null)
@@ -106,7 +106,7 @@ namespace TBGINTB_Builder.BuilderControls
         private void NewVerbTypeDialog()
         {
             Window_TextEntry window = new Window_TextEntry("Verb Type", "");
-            window.Closed += (x, y) => { if (window.Accepted) GinTubBuilderManager.AddVerbType(window.Text); };
+            window.Closed += (x, y) => { if (window.Accepted) GinTubBuilderManager.CreateVerbType(window.Text); };
             window.Show();
         }
 

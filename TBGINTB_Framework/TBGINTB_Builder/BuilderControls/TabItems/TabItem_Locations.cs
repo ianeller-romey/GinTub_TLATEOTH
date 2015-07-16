@@ -38,7 +38,7 @@ namespace TBGINTB_Builder.BuilderControls
         {
             m_grid_location.SetActiveAndRegisterForGinTubEvents();
 
-            GinTubBuilderManager.LoadAllLocations();
+            GinTubBuilderManager.ReadAllLocations();
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()

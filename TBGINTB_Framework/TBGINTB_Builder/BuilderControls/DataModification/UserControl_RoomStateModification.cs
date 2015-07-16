@@ -26,7 +26,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         public int? RoomStateId { get { return m_userControl_roomState.RoomStateId; } }
         public int? RoomStateState { get { return m_userControl_roomState.RoomStateState; } }
-        public DateTime? RoomStateTime { get { return m_userControl_roomState.RoomStateTime; } }
+        public TimeSpan? RoomStateTime { get { return m_userControl_roomState.RoomStateTime; } }
         public int? LocationId { get { return m_userControl_roomState.LocationId; } }
         public int RoomId { get { return m_userControl_roomState.RoomId; } }
 
@@ -37,7 +37,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_RoomStateModification(int roomStateId, int roomStateState, DateTime? roomStateTime, int locationId, int roomId)
+        public UserControl_RoomStateModification(int roomStateId, int roomStateState, TimeSpan? roomStateTime, int locationId, int roomId)
         {
             CreateControls(roomStateId, roomStateState, roomStateTime, locationId, roomId);
         }
@@ -57,14 +57,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int roomStateId, int roomStateState, DateTime? roomStateTime, int locationId, int roomId)
+        private void CreateControls(int roomStateId, int roomStateState, TimeSpan? roomStateTime, int locationId, int roomId)
         {
             Grid grid_main = new Grid();
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyRoomState = new Button() { Content = "Modify Room State" };
-            button_modifyRoomState.Click += Button_ModifyRoomState_Click;
+            button_modifyRoomState.Click += Button_UpdateRoomState_Click;
             grid_main.SetGridRowColumn(button_modifyRoomState, 0, 0);
 
             m_userControl_roomState = new UserControl_RoomState(roomStateId, roomStateState, roomStateTime, locationId, roomId, false);
@@ -77,7 +77,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyRoomState_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateRoomState_Click(object sender, RoutedEventArgs e)
         {
             Window_RoomState window = 
                 new Window_RoomState
@@ -91,11 +91,11 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_RoomState wWin = win as Window_RoomState;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyRoomState
+                            GinTubBuilderManager.UpdateRoomState
                             (
                                 wWin.RoomStateId.Value,
                                 wWin.RoomStateState.Value,
-                                wWin.RoomStateTime,
+                                wWin.RoomStateTime.Value,
                                 wWin.LocationId.Value,
                                 wWin.RoomId
                             );

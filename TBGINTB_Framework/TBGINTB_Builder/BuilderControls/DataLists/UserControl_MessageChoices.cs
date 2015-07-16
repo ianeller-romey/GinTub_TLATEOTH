@@ -47,12 +47,12 @@ namespace TBGINTB_Builder.BuilderControls
     
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.MessageChoiceAdded += GinTubBuilderManager_MessageChoiceAdded;
+            GinTubBuilderManager.MessageChoiceRead += GinTubBuilderManager_MessageChoiceRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.MessageChoiceAdded -= GinTubBuilderManager_MessageChoiceAdded;
+            GinTubBuilderManager.MessageChoiceRead -= GinTubBuilderManager_MessageChoiceRead;
         }
 
         #endregion
@@ -74,14 +74,14 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void GinTubBuilderManager_MessageChoiceAdded(object sender, GinTubBuilderManager.MessageChoiceAddedEventArgs args)
+        private void GinTubBuilderManager_MessageChoiceRead(object sender, GinTubBuilderManager.MessageChoiceReadEventArgs args)
         {
             if (MessageId == args.Message && !m_stackPanel_messageChoices.Children.OfType<UserControl_MessageChoiceModification>().Any(i => i.MessageChoiceId == args.Id))
             {
                 UserControl_MessageChoiceModification grid = new UserControl_MessageChoiceModification(args.Id, args.Name, args.Text, args.Message);
                 grid.SetActiveAndRegisterForGinTubEvents();
                 m_stackPanel_messageChoices.Children.Add(grid);
-                GinTubBuilderManager.LoadAllMessages();
+                GinTubBuilderManager.ReadAllMessages();
             }
         }
 
@@ -98,7 +98,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_MessageChoice wWin = win as Window_MessageChoice;
                         if (wWin != null)
-                            GinTubBuilderManager.AddMessageChoice
+                            GinTubBuilderManager.CreateMessageChoice
                             (
                                 wWin.MessageChoiceName,
                                 wWin.MessageChoiceText,

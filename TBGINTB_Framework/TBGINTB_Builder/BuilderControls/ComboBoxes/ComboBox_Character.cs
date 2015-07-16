@@ -82,14 +82,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.CharacterAdded += GinTubBuilderManager_CharacterAdded;
-            GinTubBuilderManager.CharacterModified += GinTubBuilderManager_CharacterModified;
+            GinTubBuilderManager.CharacterRead += GinTubBuilderManager_CharacterRead;
+            GinTubBuilderManager.CharacterUpdated += GinTubBuilderManager_CharacterUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.CharacterAdded -= GinTubBuilderManager_CharacterAdded;
-            GinTubBuilderManager.CharacterModified -= GinTubBuilderManager_CharacterModified;
+            GinTubBuilderManager.CharacterRead -= GinTubBuilderManager_CharacterRead;
+            GinTubBuilderManager.CharacterUpdated -= GinTubBuilderManager_CharacterUpdated;
         }
 
         #endregion
@@ -97,13 +97,13 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_CharacterAdded(object sender, GinTubBuilderManager.CharacterAddedEventArgs args)
+        private void GinTubBuilderManager_CharacterRead(object sender, GinTubBuilderManager.CharacterReadEventArgs args)
         {
             if (!Items.OfType<ComboBoxItem_Character>().Any(i => i.CharacterId == args.Id))
                 Items.Add(new ComboBoxItem_Character(args.Id, args.Name, args.Description));
         }
 
-        private void GinTubBuilderManager_CharacterModified(object sender, GinTubBuilderManager.CharacterModifiedEventArgs args)
+        private void GinTubBuilderManager_CharacterUpdated(object sender, GinTubBuilderManager.CharacterUpdatedEventArgs args)
         {
             ComboBoxItem_Character character = Items.OfType<ComboBoxItem_Character>().SingleOrDefault(i => i.CharacterId == args.Id);
             if (character != null)
@@ -125,7 +125,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Character wWin = win as Window_Character;
                         if (wWin != null)
-                            GinTubBuilderManager.AddCharacter(wWin.CharacterName, wWin.CharacterDescription);
+                            GinTubBuilderManager.CreateCharacter(wWin.CharacterName, wWin.CharacterDescription);
                     }
                 );
             window.Show();

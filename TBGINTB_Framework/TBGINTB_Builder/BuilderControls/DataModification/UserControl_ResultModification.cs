@@ -63,7 +63,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyResult = new Button() { Content = "Modify Result" };
-            button_modifyResult.Click += Button_ModifyResult_Click;
+            button_modifyResult.Click += Button_UpdateResult_Click;
             grid_main.SetGridRowColumn(button_modifyResult, 0, 0);
 
             m_userControl_result = new UserControl_Result(resultId, resultName, resultJSONData, resultTypeId, false);
@@ -74,7 +74,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyResult_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateResult_Click(object sender, RoutedEventArgs e)
         {
             Window_Result window =
                 new Window_Result
@@ -87,7 +87,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Result wWin = win as Window_Result;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyResult(wWin.ResultId.Value, wWin.ResultName, wWin.ResultJSONData, wWin.ResultTypeId);
+                            GinTubBuilderManager.UpdateResult(wWin.ResultId.Value, wWin.ResultName, wWin.ResultJSONData, wWin.ResultTypeId);
                     }
                 );
             window.Show();

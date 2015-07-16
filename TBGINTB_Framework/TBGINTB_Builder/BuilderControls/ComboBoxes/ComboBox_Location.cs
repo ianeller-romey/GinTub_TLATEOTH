@@ -87,14 +87,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.LocationAdded += GinTubBuilderManager_LocationAdded;
-            GinTubBuilderManager.LocationModified += GinTubBuilderManager_LocationModified;
+            GinTubBuilderManager.LocationRead += GinTubBuilderManager_LocationRead;
+            GinTubBuilderManager.LocationUpdated += GinTubBuilderManager_LocationUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.LocationAdded -= GinTubBuilderManager_LocationAdded;
-            GinTubBuilderManager.LocationModified += GinTubBuilderManager_LocationModified;
+            GinTubBuilderManager.LocationRead -= GinTubBuilderManager_LocationRead;
+            GinTubBuilderManager.LocationUpdated += GinTubBuilderManager_LocationUpdated;
         }
 
         #endregion
@@ -102,13 +102,13 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_LocationAdded(object sender, GinTubBuilderManager.LocationAddedEventArgs args)
+        private void GinTubBuilderManager_LocationRead(object sender, GinTubBuilderManager.LocationReadEventArgs args)
         {
             if (!Items.OfType<ComboBoxItem_Location>().Any(i => i.LocationId == args.Id))
                 Items.Add(new ComboBoxItem_Location(args.Id, args.Name, args.LocationFile));
         }
 
-        private void GinTubBuilderManager_LocationModified(object sender, GinTubBuilderManager.LocationModifiedEventArgs args)
+        private void GinTubBuilderManager_LocationUpdated(object sender, GinTubBuilderManager.LocationUpdatedEventArgs args)
         {
             ComboBoxItem_Location item = Items.OfType<ComboBoxItem_Location>().SingleOrDefault(i => i.LocationId == args.Id);
             if(item != null)
@@ -129,7 +129,7 @@ namespace TBGINTB_Builder.BuilderControls
                         window_textEntry.Closed += (a, b) =>
                             {
                                 if (window_textEntry.Accepted)
-                                    GinTubBuilderManager.AddLocation(window_textEntry.Text, window_openFile.FileName);
+                                    GinTubBuilderManager.CreateLocation(window_textEntry.Text, window_openFile.FileName);
                             };
                         window_textEntry.Show();
                     }

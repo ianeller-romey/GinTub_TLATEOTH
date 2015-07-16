@@ -64,16 +64,16 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.RoomAdded += GinTubBuilderManager_RoomAdded;
-            GinTubBuilderManager.RoomModified += GinTubBuilderManager_RoomModified;
-            GinTubBuilderManager.RoomGet += GinTubBuilderManager_RoomGet;
+            GinTubBuilderManager.RoomRead += GinTubBuilderManager_RoomRead;
+            GinTubBuilderManager.RoomUpdated += GinTubBuilderManager_RoomUpdated;
+            GinTubBuilderManager.RoomSelect += GinTubBuilderManager_RoomSelect;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.RoomAdded -= GinTubBuilderManager_RoomAdded;
-            GinTubBuilderManager.RoomModified -= GinTubBuilderManager_RoomModified;
-            GinTubBuilderManager.RoomGet -= GinTubBuilderManager_RoomGet;
+            GinTubBuilderManager.RoomRead -= GinTubBuilderManager_RoomRead;
+            GinTubBuilderManager.RoomUpdated -= GinTubBuilderManager_RoomUpdated;
+            GinTubBuilderManager.RoomSelect -= GinTubBuilderManager_RoomSelect;
         }
 
         public void SetFloor(int z)
@@ -127,7 +127,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Room wWin = win as Window_Room;
                         if (wWin != null)
-                            GinTubBuilderManager.AddRoom(wWin.RoomName, wWin.RoomX, wWin.RoomY, wWin.RoomZ, wWin.AreaId);
+                            GinTubBuilderManager.CreateRoom(wWin.RoomName, wWin.RoomX, wWin.RoomY, wWin.RoomZ, wWin.AreaId);
                     }
                 );
             window.Show();
@@ -135,7 +135,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         private void Button_UpdateRoom_Click(object sender, RoutedEventArgs e)
         {
-            GinTubBuilderManager.GetRoom(RoomId);
+            GinTubBuilderManager.SelectRoom(RoomId);
         }
 
         private void RemoveClickHandlers()
@@ -145,19 +145,19 @@ namespace TBGINTB_Builder.BuilderControls
             Click -= Button_UpdateRoom_Click;
         }
 
-        private void GinTubBuilderManager_RoomAdded(object sender, GinTubBuilderManager.RoomAddedEventArgs args)
+        private void GinTubBuilderManager_RoomRead(object sender, GinTubBuilderManager.RoomReadEventArgs args)
         {
             if (args.Area == AreaId && args.X == RoomX && args.Y == RoomY && args.Z == RoomZ)
                 HasRoom(args.Id, args.Name);
         }
 
-        private void GinTubBuilderManager_RoomModified(object sender, GinTubBuilderManager.RoomModifiedEventArgs args)
+        private void GinTubBuilderManager_RoomUpdated(object sender, GinTubBuilderManager.RoomUpdatedEventArgs args)
         {
             if (args.Area == AreaId && args.X == RoomX && args.Y == RoomY && args.Z == RoomZ)
                 HasRoom(args.Id, args.Name);
         }
 
-        private void GinTubBuilderManager_RoomGet(object sender, GinTubBuilderManager.RoomGetEventArgs args)
+        private void GinTubBuilderManager_RoomSelect(object sender, GinTubBuilderManager.RoomSelectEventArgs args)
         {
             Background = 
                 (args.Area == AreaId && args.X == RoomX && args.Y == RoomY && args.Z == RoomZ)

@@ -36,9 +36,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_ParagraphState(int? paragraphStateId, string paragraphStateText, int? paragraphStateState, int paragraphId, bool enableEditing, bool enableGetting)
+        public UserControl_Bordered_ParagraphState(int? paragraphStateId, string paragraphStateText, int? paragraphStateState, int paragraphId, bool enableEditing, bool enableSelectting)
         {
-            CreateControls(paragraphStateId, paragraphStateText, paragraphStateState, paragraphId, enableEditing, enableGetting);
+            CreateControls(paragraphStateId, paragraphStateText, paragraphStateState, paragraphId, enableEditing, enableSelectting);
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
@@ -56,9 +56,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? paragraphStateId, string paragraphStateText, int? paragraphStateState, int paragraphId, bool enableEditing, bool enableGetting)
+        private void CreateControls(int? paragraphStateId, string paragraphStateText, int? paragraphStateState, int paragraphId, bool enableEditing, bool enableSelectting)
         {
-            m_userControl_paragraphState = new UserControl_ParagraphState(paragraphStateId, paragraphStateText, paragraphStateState, paragraphId, enableEditing, enableGetting);
+            m_userControl_paragraphState = new UserControl_ParagraphState(paragraphStateId, paragraphStateText, paragraphStateState, paragraphId, enableEditing, enableSelectting);
             Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_paragraphState };
             Content = border;
         }

@@ -82,14 +82,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.MessageAdded += GinTubBuilderManager_MessageAdded;
-            GinTubBuilderManager.MessageModified += GinTubBuilderManager_MessageModified;
+            GinTubBuilderManager.MessageRead += GinTubBuilderManager_MessageRead;
+            GinTubBuilderManager.MessageUpdated += GinTubBuilderManager_MessageUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.MessageAdded -= GinTubBuilderManager_MessageAdded;
-            GinTubBuilderManager.MessageModified -= GinTubBuilderManager_MessageModified;
+            GinTubBuilderManager.MessageRead -= GinTubBuilderManager_MessageRead;
+            GinTubBuilderManager.MessageUpdated -= GinTubBuilderManager_MessageUpdated;
         }
 
         #endregion
@@ -97,13 +97,13 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_MessageAdded(object sender, GinTubBuilderManager.MessageAddedEventArgs args)
+        private void GinTubBuilderManager_MessageRead(object sender, GinTubBuilderManager.MessageReadEventArgs args)
         {
             if (!Items.OfType<ComboBoxItem_Message>().Any(i => i.MessageId == args.Id))
                 Items.Add(new ComboBoxItem_Message(args.Id, args.Name, args.Text));
         }
 
-        private void GinTubBuilderManager_MessageModified(object sender, GinTubBuilderManager.MessageModifiedEventArgs args)
+        private void GinTubBuilderManager_MessageUpdated(object sender, GinTubBuilderManager.MessageUpdatedEventArgs args)
         {
             ComboBoxItem_Message message = Items.OfType<ComboBoxItem_Message>().SingleOrDefault(i => i.MessageId == args.Id);
             if (message != null)
@@ -125,7 +125,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Message wWin = win as Window_Message;
                         if (wWin != null)
-                            GinTubBuilderManager.AddMessage(wWin.MessageName, wWin.MessageText);
+                            GinTubBuilderManager.CreateMessage(wWin.MessageName, wWin.MessageText);
                     }
                 );
             window.Show();

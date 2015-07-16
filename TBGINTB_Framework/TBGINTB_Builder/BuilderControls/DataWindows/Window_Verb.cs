@@ -42,7 +42,7 @@ namespace TBGINTB_Builder.BuilderControls
             Height = 300;
             Content = CreateControls(verbId, verbName, verbTypeId);
             m_userControl_verb.SetActiveAndRegisterForGinTubEvents(); // needed for possible nouns
-            GinTubBuilderManager.LoadAllVerbTypes();
+            GinTubBuilderManager.ReadAllVerbTypes();
         }
 
         #endregion

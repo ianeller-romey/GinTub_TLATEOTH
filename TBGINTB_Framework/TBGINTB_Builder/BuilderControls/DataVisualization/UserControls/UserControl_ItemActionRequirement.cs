@@ -62,18 +62,18 @@ namespace TBGINTB_Builder.BuilderControls
             foreach (var e in EditingControls)
                 e.IsEnabled = enableEditing;
 
-            GinTubBuilderManager.ItemAdded += GinTubBuilderManager_ItemAdded;
-            GinTubBuilderManager.ActionAdded += GinTubBuilderManager_ActionAdded;
+            GinTubBuilderManager.ItemRead += GinTubBuilderManager_ItemRead;
+            GinTubBuilderManager.ActionRead += GinTubBuilderManager_ActionRead;
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ItemActionRequirementModified += GinTubBuilderManager_ItemActionRequirementModified;
+            GinTubBuilderManager.ItemActionRequirementUpdated += GinTubBuilderManager_ItemActionRequirementUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ItemActionRequirementModified -= GinTubBuilderManager_ItemActionRequirementModified;
+            GinTubBuilderManager.ItemActionRequirementUpdated -= GinTubBuilderManager_ItemActionRequirementUpdated;
         }
 
         #endregion
@@ -144,7 +144,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        void GinTubBuilderManager_ItemActionRequirementModified(object sender, GinTubBuilderManager.ItemActionRequirementModifiedEventArgs args)
+        void GinTubBuilderManager_ItemActionRequirementUpdated(object sender, GinTubBuilderManager.ItemActionRequirementUpdatedEventArgs args)
         {
             if(ItemActionRequirementId == args.Id)
             {
@@ -153,12 +153,12 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        void GinTubBuilderManager_ItemAdded(object sender, GinTubBuilderManager.ItemAddedEventArgs args)
+        void GinTubBuilderManager_ItemRead(object sender, GinTubBuilderManager.ItemReadEventArgs args)
         {
             ResetItemActionRequirementItem(args.Id);
         }
         
-        void GinTubBuilderManager_ActionAdded(object sender, GinTubBuilderManager.ActionAddedEventArgs args)
+        void GinTubBuilderManager_ActionRead(object sender, GinTubBuilderManager.ActionReadEventArgs args)
         {
             if (NounId == args.Noun)
                 ResetItemActionRequirementAction(args.Id);

@@ -49,8 +49,8 @@ namespace TBGINTB_Builder.BuilderControls
             Height = 300;
             Content = CreateControls(resultTypeJSONPropertyId, resultTypeJSONPropertyJSONProperty, resultTypeJSONPropertyDataType, resultTypeId);
             m_userControl_resultTypeJSONProperty.SetActiveAndRegisterForGinTubEvents(); // needed for result types
-            GinTubBuilderManager.LoadAllJSONPropertyDataTypes();
-            GinTubBuilderManager.LoadAllResultTypes();
+            GinTubBuilderManager.ReadAllJSONPropertyDataTypes();
+            GinTubBuilderManager.ReadAllResultTypes();
         }
 
         #endregion

@@ -69,14 +69,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.JSONPropertyDataTypeAdded += GinTubBuilderManager_JSONPropertyDataTypeAdded;
-            GinTubBuilderManager.JSONPropertyDataTypeModified += GinTubBuilderManager_JSONPropertyDataTypeModified;
+            GinTubBuilderManager.JSONPropertyDataTypeRead += GinTubBuilderManager_JSONPropertyDataTypeRead;
+            GinTubBuilderManager.JSONPropertyDataTypeUpdated += GinTubBuilderManager_JSONPropertyDataTypeUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.JSONPropertyDataTypeAdded -= GinTubBuilderManager_JSONPropertyDataTypeAdded;
-            GinTubBuilderManager.JSONPropertyDataTypeModified -= GinTubBuilderManager_JSONPropertyDataTypeModified;
+            GinTubBuilderManager.JSONPropertyDataTypeRead -= GinTubBuilderManager_JSONPropertyDataTypeRead;
+            GinTubBuilderManager.JSONPropertyDataTypeUpdated -= GinTubBuilderManager_JSONPropertyDataTypeUpdated;
         }
 
         #endregion
@@ -84,13 +84,13 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_JSONPropertyDataTypeAdded(object sender, GinTubBuilderManager.JSONPropertyDataTypeAddedEventArgs args)
+        private void GinTubBuilderManager_JSONPropertyDataTypeRead(object sender, GinTubBuilderManager.JSONPropertyDataTypeReadEventArgs args)
         {
             if (!Items.OfType<ComboBoxItem_JSONPropertyDataType>().Any(i => i.JSONPropertyDataTypeId == args.Id))
                 Items.Add(new ComboBoxItem_JSONPropertyDataType(args.Id, args.DataType));
         }
 
-        private void GinTubBuilderManager_JSONPropertyDataTypeModified(object sender, GinTubBuilderManager.JSONPropertyDataTypeModifiedEventArgs args)
+        private void GinTubBuilderManager_JSONPropertyDataTypeUpdated(object sender, GinTubBuilderManager.JSONPropertyDataTypeUpdatedEventArgs args)
         {
             ComboBoxItem_JSONPropertyDataType item = Items.OfType<ComboBoxItem_JSONPropertyDataType>().SingleOrDefault(i => i.JSONPropertyDataTypeId == args.Id);
             if (item != null)

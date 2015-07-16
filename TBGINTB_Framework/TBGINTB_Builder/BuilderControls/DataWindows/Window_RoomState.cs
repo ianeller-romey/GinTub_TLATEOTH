@@ -26,7 +26,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         public int? RoomStateId { get { return m_userControl_roomState.RoomStateId; } }
         public int? RoomStateState { get { return m_userControl_roomState.RoomStateState; } }
-        public DateTime? RoomStateTime { get { return m_userControl_roomState.RoomStateTime; } }
+        public TimeSpan? RoomStateTime { get { return m_userControl_roomState.RoomStateTime; } }
         public int? LocationId { get { return m_userControl_roomState.LocationId; } }
         public int RoomId { get { return m_userControl_roomState.RoomId; } }
 
@@ -37,14 +37,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public Window_RoomState(int? roomStateId, int? roomStateState, DateTime? roomStateTime, int? locationId, int roomId, TaskOnAccept task) :
+        public Window_RoomState(int? roomStateId, int? roomStateState, TimeSpan? roomStateTime, int? locationId, int roomId, TaskOnAccept task) :
             base("Room State Data", task)
         {
             Width = 300;
             Height = 300;
             Content = CreateControls(roomStateId, roomStateState, roomStateTime, locationId, roomId);
             m_userControl_roomState.SetActiveAndRegisterForGinTubEvents(); // need for loading Location
-            GinTubBuilderManager.LoadAllLocations();
+            GinTubBuilderManager.ReadAllLocations();
         }
 
         #endregion
@@ -52,7 +52,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private UIElement CreateControls(int? roomStateId, int? roomStateState, DateTime? roomStateTime, int? locationId, int roomId)
+        private UIElement CreateControls(int? roomStateId, int? roomStateState, TimeSpan? roomStateTime, int? locationId, int roomId)
         {
             m_userControl_roomState = new UserControl_RoomState(roomStateId, roomStateState, roomStateTime, locationId, roomId, true);
             return m_userControl_roomState;

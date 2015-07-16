@@ -75,7 +75,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyResultTypeJSONProperty = new Button() { Content = "Modify ResultTypeJSONProperty" };
-            button_modifyResultTypeJSONProperty.Click += Button_ModifyResultTypeJSONProperty_Click;
+            button_modifyResultTypeJSONProperty.Click += Button_UpdateResultTypeJSONProperty_Click;
             grid_main.SetGridRowColumn(button_modifyResultTypeJSONProperty, 0, 0);
 
             m_userControl_resultTypeJSONProperty = 
@@ -94,7 +94,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyResultTypeJSONProperty_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateResultTypeJSONProperty_Click(object sender, RoutedEventArgs e)
         {
             Window_ResultTypeJSONProperty window =
                 new Window_ResultTypeJSONProperty
@@ -107,7 +107,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_ResultTypeJSONProperty wWin = win as Window_ResultTypeJSONProperty;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyResultTypeJSONProperty
+                            GinTubBuilderManager.UpdateResultTypeJSONProperty
                             (
                                 wWin.ResultTypeJSONPropertyId.Value,
                                 wWin.ResultTypeJSONPropertyJSONProperty,

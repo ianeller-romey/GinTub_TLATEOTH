@@ -82,14 +82,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ResultAdded += GinTubBuilderManager_ResultAdded;
-            GinTubBuilderManager.ResultModified += GinTubBuilderManager_ResultModified;
+            GinTubBuilderManager.ResultRead += GinTubBuilderManager_ResultRead;
+            GinTubBuilderManager.ResultUpdated += GinTubBuilderManager_ResultUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ResultAdded -= GinTubBuilderManager_ResultAdded;
-            GinTubBuilderManager.ResultModified -= GinTubBuilderManager_ResultModified;
+            GinTubBuilderManager.ResultRead -= GinTubBuilderManager_ResultRead;
+            GinTubBuilderManager.ResultUpdated -= GinTubBuilderManager_ResultUpdated;
         }
 
         #endregion
@@ -97,13 +97,13 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_ResultAdded(object sender, GinTubBuilderManager.ResultAddedEventArgs args)
+        private void GinTubBuilderManager_ResultRead(object sender, GinTubBuilderManager.ResultReadEventArgs args)
         {
             if (!Items.OfType<ComboBoxItem_Result>().Any(i => i.ResultId == args.Id))
                 Items.Add(new ComboBoxItem_Result(args.Id, args.Name, args.ResultType));
         }
 
-        private void GinTubBuilderManager_ResultModified(object sender, GinTubBuilderManager.ResultModifiedEventArgs args)
+        private void GinTubBuilderManager_ResultUpdated(object sender, GinTubBuilderManager.ResultUpdatedEventArgs args)
         {
             ComboBoxItem_Result item = Items.OfType<ComboBoxItem_Result>().SingleOrDefault(i => i.ResultId == args.Id);
             if (item != null)
@@ -136,7 +136,7 @@ namespace TBGINTB_Builder.BuilderControls
                                     {
                                         Window_Result wwwWin = wwWin as Window_Result;
                                         if (wwwWin != null)
-                                            GinTubBuilderManager.AddResult(wwwWin.Name, wwwWin.ResultJSONData, wwwWin.ResultTypeId);
+                                            GinTubBuilderManager.CreateResult(wwwWin.Name, wwwWin.ResultJSONData, wwwWin.ResultTypeId);
                                     }
                                 );
                             window_result.Show();

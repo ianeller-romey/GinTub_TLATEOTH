@@ -63,7 +63,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyMessageChoice = new Button() { Content = "Modify MessageChoice" };
-            button_modifyMessageChoice.Click += Button_ModifyMessageChoice_Click;
+            button_modifyMessageChoice.Click += Button_UpdateMessageChoice_Click;
             grid_main.SetGridRowColumn(button_modifyMessageChoice, 0, 0);
 
             m_userControl_messageChoice = new UserControl_MessageChoice(messageChoiceId, messageChoiceName, messageChoiceText, messageId, false, true);
@@ -74,7 +74,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyMessageChoice_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateMessageChoice_Click(object sender, RoutedEventArgs e)
         {
             Window_MessageChoice window =
                 new Window_MessageChoice
@@ -87,7 +87,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_MessageChoice wWin = win as Window_MessageChoice;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyMessageChoice
+                            GinTubBuilderManager.UpdateMessageChoice
                             (
                                 wWin.MessageChoiceId.Value,
                                 wWin.MessageChoiceName,

@@ -466,7 +466,7 @@ BEGIN
 	INSERT INTO [dbo].[Rooms] ([Name], [X], [Y], [Z], [Area])
 	VALUES (@name, @x, @y, @z, @area)
 	
-	DECLARE @room int
+	DECLARE @room decimal
 	SELECT @room = SCOPE_IDENTITY()
 	
 	DECLARE @location int
@@ -1244,7 +1244,7 @@ BEGIN
 	INSERT INTO [dbo].[Paragraphs] ([Order], [Room])
 	VALUES (@order, @room)
 	
-	DECLARE @paragraph int
+	DECLARE @paragraph decimal
 	SELECT @paragraph = SCOPE_IDENTITY()
 	
 	SELECT @paragraph

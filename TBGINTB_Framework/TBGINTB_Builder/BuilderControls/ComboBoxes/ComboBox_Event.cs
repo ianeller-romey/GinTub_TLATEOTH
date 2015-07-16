@@ -82,14 +82,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.EventAdded += GinTubBuilderManager_EventAdded;
-            GinTubBuilderManager.EventModified += GinTubBuilderManager_EventModified;
+            GinTubBuilderManager.EventRead += GinTubBuilderManager_EventRead;
+            GinTubBuilderManager.EventUpdated += GinTubBuilderManager_EventUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.EventAdded -= GinTubBuilderManager_EventAdded;
-            GinTubBuilderManager.EventModified -= GinTubBuilderManager_EventModified;
+            GinTubBuilderManager.EventRead -= GinTubBuilderManager_EventRead;
+            GinTubBuilderManager.EventUpdated -= GinTubBuilderManager_EventUpdated;
         }
 
         #endregion
@@ -97,13 +97,13 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_EventAdded(object sender, GinTubBuilderManager.EventAddedEventArgs args)
+        private void GinTubBuilderManager_EventRead(object sender, GinTubBuilderManager.EventReadEventArgs args)
         {
             if (!Items.OfType<ComboBoxItem_Event>().Any(i => i.EventId == args.Id))
                 Items.Add(new ComboBoxItem_Event(args.Id, args.Name, args.Description));
         }
 
-        private void GinTubBuilderManager_EventModified(object sender, GinTubBuilderManager.EventModifiedEventArgs args)
+        private void GinTubBuilderManager_EventUpdated(object sender, GinTubBuilderManager.EventUpdatedEventArgs args)
         {
             ComboBoxItem_Event evnt = Items.OfType<ComboBoxItem_Event>().SingleOrDefault(i => i.EventId == args.Id);
             if (evnt != null)
@@ -125,7 +125,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Event wWin = win as Window_Event;
                         if (wWin != null)
-                            GinTubBuilderManager.AddEvent(wWin.EventName, wWin.EventDescription);
+                            GinTubBuilderManager.CreateEvent(wWin.EventName, wWin.EventDescription);
                     }
                 );
             window.Show();

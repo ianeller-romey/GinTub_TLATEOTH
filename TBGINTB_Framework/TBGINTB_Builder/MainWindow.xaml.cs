@@ -51,7 +51,7 @@ namespace TBGINTB_Builder
             Width = 1000;
             Height = 500;
 
-            GinTubBuilderManager.AreaRoomOnInitialLoadAdded += GinTubBuilderManager_AreaRoomOnInitialLoadAdded;
+            GinTubBuilderManager.AreaRoomOnInitialLoadRead += GinTubBuilderManager_AreaRoomOnInitialLoadRead;
         }
 
         #endregion
@@ -136,16 +136,16 @@ namespace TBGINTB_Builder
             JSONPropertyManager.Initialize();
         }
 
-        private void GinTubBuilderManager_AreaRoomOnInitialLoadAdded(object sender, GinTubBuilderManager.AreaRoomOnInitialLoadAddedEventArgs args)
+        private void GinTubBuilderManager_AreaRoomOnInitialLoadRead(object sender, GinTubBuilderManager.AreaRoomOnInitialLoadReadEventArgs args)
         {
             if (m_menuItem_areaRoomOnInitialLoad.Items.Count == 0)
             {
                 UserControl_AreaRoomOnInitialLoadModification control = new UserControl_AreaRoomOnInitialLoadModification(args.Area, args.Room);
                 control.SetActiveAndRegisterForGinTubEvents();
                 m_menuItem_areaRoomOnInitialLoad.Items.Add(control);
-                GinTubBuilderManager.LoadAllAreas();
+                GinTubBuilderManager.ReadAllAreas();
             }
-            GinTubBuilderManager.AreaRoomOnInitialLoadAdded -= GinTubBuilderManager_AreaRoomOnInitialLoadAdded;
+            GinTubBuilderManager.AreaRoomOnInitialLoadRead -= GinTubBuilderManager_AreaRoomOnInitialLoadRead;
         }
 
         private void MenuItem_LoadFromDatabase_Click(object sender, RoutedEventArgs e)
@@ -163,7 +163,7 @@ namespace TBGINTB_Builder
                 m_menuItem_file.Items.Add(m_menuItem_importFromXml);
 
                 m_menu_main.Items.Add(m_menuItem_setup);
-                GinTubBuilderManager.LoadAreaRoomOnInitialLoad();
+                GinTubBuilderManager.ReadAreaRoomOnInitialLoad();
             }
         }
 

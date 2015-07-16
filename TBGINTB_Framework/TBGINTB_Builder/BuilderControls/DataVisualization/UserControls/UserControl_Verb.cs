@@ -63,16 +63,16 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.VerbModified += GinTubBuilderManager_VerbModified;
+            GinTubBuilderManager.VerbUpdated += GinTubBuilderManager_VerbUpdated;
 
-            GinTubBuilderManager.VerbTypeAdded += GinTubBuilderManager_VerbTypeAdded;
+            GinTubBuilderManager.VerbTypeRead += GinTubBuilderManager_VerbTypeRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.VerbModified -= GinTubBuilderManager_VerbModified;
+            GinTubBuilderManager.VerbUpdated -= GinTubBuilderManager_VerbUpdated;
 
-            GinTubBuilderManager.VerbTypeAdded -= GinTubBuilderManager_VerbTypeAdded;
+            GinTubBuilderManager.VerbTypeRead -= GinTubBuilderManager_VerbTypeRead;
         }
         #endregion
 
@@ -142,7 +142,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        void GinTubBuilderManager_VerbModified(object sender, GinTubBuilderManager.VerbModifiedEventArgs args)
+        void GinTubBuilderManager_VerbUpdated(object sender, GinTubBuilderManager.VerbUpdatedEventArgs args)
         {
             if (VerbId == args.Id)
             {
@@ -152,7 +152,7 @@ namespace TBGINTB_Builder.BuilderControls
         }
         
 
-        void GinTubBuilderManager_VerbTypeAdded(object sender, GinTubBuilderManager.VerbTypeAddedEventArgs args)
+        void GinTubBuilderManager_VerbTypeRead(object sender, GinTubBuilderManager.VerbTypeReadEventArgs args)
         {
             if (VerbTypeId == args.Id)
                 m_comboBox_verbType.SelectedItem = m_comboBox_verbType.Items.OfType<ComboBox_VerbType.ComboBoxItem_VerbType>().SingleOrDefault(v => v.VerbTypeId == VerbTypeId);

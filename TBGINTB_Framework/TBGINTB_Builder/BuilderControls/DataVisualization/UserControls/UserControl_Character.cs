@@ -62,12 +62,12 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.CharacterModified += GinTubBuilderManager_CharacterModified;
+            GinTubBuilderManager.CharacterUpdated += GinTubBuilderManager_CharacterUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.CharacterModified -= GinTubBuilderManager_CharacterModified;
+            GinTubBuilderManager.CharacterUpdated -= GinTubBuilderManager_CharacterUpdated;
         }
 
         #endregion
@@ -136,7 +136,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        void GinTubBuilderManager_CharacterModified(object sender, GinTubBuilderManager.CharacterModifiedEventArgs args)
+        void GinTubBuilderManager_CharacterUpdated(object sender, GinTubBuilderManager.CharacterUpdatedEventArgs args)
         {
             if (CharacterId == args.Id)
             {

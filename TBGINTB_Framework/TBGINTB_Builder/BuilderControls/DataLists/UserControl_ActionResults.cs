@@ -51,12 +51,12 @@ namespace TBGINTB_Builder.BuilderControls
     
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ActionResultAdded += GinTubBuilderManager_ActionResultAdded;
+            GinTubBuilderManager.ActionResultRead += GinTubBuilderManager_ActionResultRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ActionResultAdded -= GinTubBuilderManager_ActionResultAdded;
+            GinTubBuilderManager.ActionResultRead -= GinTubBuilderManager_ActionResultRead;
         }
 
         #endregion
@@ -78,15 +78,15 @@ namespace TBGINTB_Builder.BuilderControls
             Content = userControl_main;
         }
 
-        private void GinTubBuilderManager_ActionResultAdded(object sender, GinTubBuilderManager.ActionResultAddedEventArgs args)
+        private void GinTubBuilderManager_ActionResultRead(object sender, GinTubBuilderManager.ActionResultReadEventArgs args)
         {
             if (ActionId == args.Action && !m_stackPanel_actionResults.Children.OfType<UserControl_ActionResultModification>().Any(i => i.ActionResultId == args.Id))
             {
                 UserControl_ActionResultModification grid = new UserControl_ActionResultModification(args.Id, args.Result, args.Action, NounId, ParagraphStateId);
                 grid.SetActiveAndRegisterForGinTubEvents();
                 m_stackPanel_actionResults.Children.Add(grid);
-                GinTubBuilderManager.LoadAllResultsForActionResultType(args.Action);
-                GinTubBuilderManager.LoadAllActionsForNoun(NounId);
+                GinTubBuilderManager.ReadAllResultsForActionResultType(args.Action);
+                GinTubBuilderManager.ReadAllActionsForNoun(NounId);
             }
         }
 
@@ -115,7 +115,7 @@ namespace TBGINTB_Builder.BuilderControls
                                     {
                                         Window_ActionResult wwwWin = wwWin as Window_ActionResult;
                                         if (wwwWin != null)
-                                            GinTubBuilderManager.AddActionResult
+                                            GinTubBuilderManager.CreateActionResult
                                             (
                                                 wwwWin.ActionResultResult.Value,
                                                 wwwWin.ActionResultAction.Value

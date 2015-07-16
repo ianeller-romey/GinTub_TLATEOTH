@@ -62,18 +62,18 @@ namespace TBGINTB_Builder.BuilderControls
             foreach (var e in EditingControls)
                 e.IsEnabled = enableEditing;
 
-            GinTubBuilderManager.EventAdded += GinTubBuilderManager_EventAdded;
-            GinTubBuilderManager.ActionAdded += GinTubBuilderManager_ActionAdded;
+            GinTubBuilderManager.EventRead += GinTubBuilderManager_EventRead;
+            GinTubBuilderManager.ActionRead += GinTubBuilderManager_ActionRead;
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.EventActionRequirementModified += GinTubBuilderManager_EventActionRequirementModified;
+            GinTubBuilderManager.EventActionRequirementUpdated += GinTubBuilderManager_EventActionRequirementUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.EventActionRequirementModified -= GinTubBuilderManager_EventActionRequirementModified;
+            GinTubBuilderManager.EventActionRequirementUpdated -= GinTubBuilderManager_EventActionRequirementUpdated;
         }
 
         #endregion
@@ -144,7 +144,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        void GinTubBuilderManager_EventActionRequirementModified(object sender, GinTubBuilderManager.EventActionRequirementModifiedEventArgs args)
+        void GinTubBuilderManager_EventActionRequirementUpdated(object sender, GinTubBuilderManager.EventActionRequirementUpdatedEventArgs args)
         {
             if(EventActionRequirementId == args.Id)
             {
@@ -153,12 +153,12 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        void GinTubBuilderManager_EventAdded(object sender, GinTubBuilderManager.EventAddedEventArgs args)
+        void GinTubBuilderManager_EventRead(object sender, GinTubBuilderManager.EventReadEventArgs args)
         {
             ResetEventActionRequirementEvent(args.Id);
         }
         
-        void GinTubBuilderManager_ActionAdded(object sender, GinTubBuilderManager.ActionAddedEventArgs args)
+        void GinTubBuilderManager_ActionRead(object sender, GinTubBuilderManager.ActionReadEventArgs args)
         {
             if (NounId == args.Noun)
                 ResetEventActionRequirementAction(args.Id);

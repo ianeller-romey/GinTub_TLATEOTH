@@ -13,7 +13,7 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_MessageChoice : UserControl_Gettable, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_MessageChoice : UserControl_Selecttable, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
 
@@ -52,7 +52,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_MessageChoice(int? messageChoiceId, string messageChoiceName, string messageChoiceText, int messageId, bool enableEditing, bool enableGetting)
+        public UserControl_MessageChoice(int? messageChoiceId, string messageChoiceName, string messageChoiceText, int messageId, bool enableEditing, bool enableSelectting)
         {
             MessageChoiceId = messageChoiceId;
             MessageChoiceName = messageChoiceName;
@@ -64,24 +64,24 @@ namespace TBGINTB_Builder.BuilderControls
             foreach (var e in EditingControls)
                 e.IsEnabled = enableEditing;
 
-            if (enableGetting)
+            if (enableSelectting)
                 MouseLeftButtonDown += Grid_MessageData_MouseLeftButtonDown;
 
-            GinTubBuilderManager.MessageAdded += GinTubBuilderManager_MessageAdded;
+            GinTubBuilderManager.MessageRead += GinTubBuilderManager_MessageRead;
 
-            GinTubBuilderManager.LoadAllMessages();
+            GinTubBuilderManager.ReadAllMessages();
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.MessageChoiceModified += GinTubBuilderManager_MessageChoiceModified;
-            GinTubBuilderManager.MessageChoiceGet += GinTubBuilderManager_MessageChoiceGet;
+            GinTubBuilderManager.MessageChoiceUpdated += GinTubBuilderManager_MessageChoiceUpdated;
+            GinTubBuilderManager.MessageChoiceSelect += GinTubBuilderManager_MessageChoiceSelect;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.MessageChoiceModified -= GinTubBuilderManager_MessageChoiceModified;
-            GinTubBuilderManager.MessageChoiceGet -= GinTubBuilderManager_MessageChoiceGet;
+            GinTubBuilderManager.MessageChoiceUpdated -= GinTubBuilderManager_MessageChoiceUpdated;
+            GinTubBuilderManager.MessageChoiceSelect -= GinTubBuilderManager_MessageChoiceSelect;
         }
 
         #endregion
@@ -167,12 +167,12 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void GinTubBuilderManager_MessageAdded(object sender, GinTubBuilderManager.MessageAddedEventArgs args)
+        private void GinTubBuilderManager_MessageRead(object sender, GinTubBuilderManager.MessageReadEventArgs args)
         {
             ResetMessageChoiceMessage(args.Id);
         }
 
-        private void GinTubBuilderManager_MessageChoiceModified(object sender, GinTubBuilderManager.MessageChoiceModifiedEventArgs args)
+        private void GinTubBuilderManager_MessageChoiceUpdated(object sender, GinTubBuilderManager.MessageChoiceUpdatedEventArgs args)
         {
             if (MessageChoiceId == args.Id)
             {
@@ -182,9 +182,9 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void GinTubBuilderManager_MessageChoiceGet(object sender, GinTubBuilderManager.MessageChoiceGetEventArgs args)
+        private void GinTubBuilderManager_MessageChoiceSelect(object sender, GinTubBuilderManager.MessageChoiceSelectEventArgs args)
         {
-            SetGettableBackground(MessageChoiceId == args.Id);
+            SetSelecttableBackground(MessageChoiceId == args.Id);
         }
 
         private void SetMessageChoiceName(string messageChoiceName)
@@ -241,7 +241,7 @@ namespace TBGINTB_Builder.BuilderControls
         private void Grid_MessageData_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (MessageChoiceId.HasValue)
-                GinTubBuilderManager.GetMessageChoice(MessageChoiceId.Value);
+                GinTubBuilderManager.SelectMessageChoice(MessageChoiceId.Value);
         }
 
         #endregion

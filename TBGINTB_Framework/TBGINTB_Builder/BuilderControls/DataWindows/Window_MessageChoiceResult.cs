@@ -42,8 +42,8 @@ namespace TBGINTB_Builder.BuilderControls
             Height = 300;
             Content = CreateControls(messageChoiceResultId, messageChoiceResultResult, messageChoiceResultMessageChoice, messageId);
             m_userControl_messageChoiceResult.SetActiveAndRegisterForGinTubEvents(); // needed for possible results, messageChoices
-            GinTubBuilderManager.LoadAllResultsForResultType(resultTypeId);
-            GinTubBuilderManager.LoadAllMessageChoicesForMessage(messageId);
+            GinTubBuilderManager.ReadAllResultsForResultType(resultTypeId);
+            GinTubBuilderManager.ReadAllMessageChoicesForMessage(messageId);
         }
 
         public Window_MessageChoiceResult(int? messageChoiceResultId, int? messageChoiceResultResult, int? messageChoiceResultMessageChoice, int messageId, TaskOnAccept task) :
@@ -54,8 +54,8 @@ namespace TBGINTB_Builder.BuilderControls
             Content = CreateControls(messageChoiceResultId, messageChoiceResultResult, messageChoiceResultMessageChoice, messageId);
             m_userControl_messageChoiceResult.SetActiveAndRegisterForGinTubEvents(); // needed for possible results, messageChoices
             if (messageChoiceResultMessageChoice.HasValue)
-                GinTubBuilderManager.LoadAllResultsForMessageChoiceResultType(messageChoiceResultMessageChoice.Value);
-            GinTubBuilderManager.LoadAllMessageChoicesForMessage(messageId);
+                GinTubBuilderManager.ReadAllResultsForMessageChoiceResultType(messageChoiceResultMessageChoice.Value);
+            GinTubBuilderManager.ReadAllMessageChoicesForMessage(messageId);
         }
 
         #endregion

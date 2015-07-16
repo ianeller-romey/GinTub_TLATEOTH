@@ -49,12 +49,12 @@ namespace TBGINTB_Builder.BuilderControls
     
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ResultAdded += GinTubBuilderManager_ResultAdded;
+            GinTubBuilderManager.ResultRead += GinTubBuilderManager_ResultRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ResultAdded -= GinTubBuilderManager_ResultAdded;
+            GinTubBuilderManager.ResultRead -= GinTubBuilderManager_ResultRead;
         }
 
         #endregion
@@ -76,15 +76,15 @@ namespace TBGINTB_Builder.BuilderControls
             Content = stackPanel_main;
         }
 
-        private void GinTubBuilderManager_ResultAdded(object sender, GinTubBuilderManager.ResultAddedEventArgs args)
+        private void GinTubBuilderManager_ResultRead(object sender, GinTubBuilderManager.ResultReadEventArgs args)
         {
             if (args.ResultType == ResultTypeId && !m_itemsControl_results.Items.OfType<UserControl_ResultModification>().Any(i => i.ResultId == args.Id))
             {
                 UserControl_ResultModification grid = new UserControl_ResultModification(args.Id, args.Name, args.JSONData, args.ResultType);
                 grid.SetActiveAndRegisterForGinTubEvents();
                 m_itemsControl_results.Items.Add(grid);
-                GinTubBuilderManager.LoadAllResultTypes();
-                GinTubBuilderManager.LoadAllResultTypeJSONPropertiesForResultType(args.ResultType);
+                GinTubBuilderManager.ReadAllResultTypes();
+                GinTubBuilderManager.ReadAllResultTypeJSONPropertiesForResultType(args.ResultType);
             }
         }
 
@@ -101,7 +101,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Result wWin = win as Window_Result;
                         if (wWin != null)
-                            GinTubBuilderManager.AddResult(wWin.ResultName, wWin.ResultJSONData, wWin.ResultTypeId);
+                            GinTubBuilderManager.CreateResult(wWin.ResultName, wWin.ResultJSONData, wWin.ResultTypeId);
                     }
                 );
             window.Show();

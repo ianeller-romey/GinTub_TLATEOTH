@@ -111,9 +111,9 @@ namespace TBGINTB_Builder.Lib
             m_dictionary_dataTypeFormatterValidators = new Dictionary<int, ValidateBeforeFormatting>();
             m_dictionary_dataTypeJTokenTypes = new Dictionary<JTokenType, int>();
 
-            GinTubBuilderManager.JSONPropertyDataTypeAdded += GinTubBuilderManager_JSONPropertyDataTypeAdded;
-            GinTubBuilderManager.LoadAllJSONPropertyDataTypes();
-            GinTubBuilderManager.JSONPropertyDataTypeAdded -= GinTubBuilderManager_JSONPropertyDataTypeAdded;
+            GinTubBuilderManager.JSONPropertyDataTypeRead += GinTubBuilderManager_JSONPropertyDataTypeRead;
+            GinTubBuilderManager.ReadAllJSONPropertyDataTypes();
+            GinTubBuilderManager.JSONPropertyDataTypeRead -= GinTubBuilderManager_JSONPropertyDataTypeRead;
         }
 
         public static List<JSONProperty> ParseJSONIntoJSONProperties(string json)
@@ -149,7 +149,7 @@ namespace TBGINTB_Builder.Lib
 
         #region Private Functionality
 
-        private static void GinTubBuilderManager_JSONPropertyDataTypeAdded(object sender, GinTubBuilderManager.JSONPropertyDataTypeAddedEventArgs args)
+        private static void GinTubBuilderManager_JSONPropertyDataTypeRead(object sender, GinTubBuilderManager.JSONPropertyDataTypeReadEventArgs args)
         {
  	        switch(args.DataType)
             {

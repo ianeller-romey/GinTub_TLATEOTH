@@ -14,7 +14,7 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_RoomState : UserControl_Gettable
+    public class UserControl_RoomState : UserControl_Selecttable
     {
         #region MEMBER FIELDS
 
@@ -31,7 +31,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         public int? RoomStateId { get; private set; }
         public int? RoomStateState { get; private set; }
-        public DateTime? RoomStateTime { get; private set; }
+        public TimeSpan? RoomStateTime { get; private set; }
         public int? LocationId { get; private set; }
         public int RoomId { get; private set; }
 
@@ -55,7 +55,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_RoomState(int? roomStateId, int? roomStateState, DateTime? roomStateTime, int? locationId, int roomId, bool enableEditing)
+        public UserControl_RoomState(int? roomStateId, int? roomStateState, TimeSpan? roomStateTime, int? locationId, int roomId, bool enableEditing)
         {
             RoomStateId = roomStateId;
             RoomStateState = roomStateState;
@@ -73,18 +73,18 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.RoomStateModified += GinTubBuilderManager_RoomStateModified;
-            GinTubBuilderManager.RoomStateGet += GinTubBuilderManager_RoomStateGet;
+            GinTubBuilderManager.RoomStateUpdated += GinTubBuilderManager_RoomStateUpdated;
+            GinTubBuilderManager.RoomStateSelect += GinTubBuilderManager_RoomStateSelect;
 
-            GinTubBuilderManager.LocationAdded += GinTubBuilderManager_LocationAdded;
+            GinTubBuilderManager.LocationRead += GinTubBuilderManager_LocationRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.RoomStateModified -= GinTubBuilderManager_RoomStateModified;
-            GinTubBuilderManager.RoomStateGet -= GinTubBuilderManager_RoomStateGet;
+            GinTubBuilderManager.RoomStateUpdated -= GinTubBuilderManager_RoomStateUpdated;
+            GinTubBuilderManager.RoomStateSelect -= GinTubBuilderManager_RoomStateSelect;
 
-            GinTubBuilderManager.LocationAdded -= GinTubBuilderManager_LocationAdded;
+            GinTubBuilderManager.LocationRead -= GinTubBuilderManager_LocationRead;
         }
 
         #endregion
@@ -155,7 +155,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_time.SetGridRowColumn(label_colon, 1, 1);
 
             m_comboBox_time_minute = new ComboBox();
-            for (int i = 0; i < 60; ++i)
+            for (int i = 0; i < 60; i += 5)
                 m_comboBox_time_minute.Items.Add(string.Format("{0:00}", i));
             grid_time.SetGridRowColumn(m_comboBox_time_minute, 1, 2);
 
@@ -168,7 +168,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void GinTubBuilderManager_RoomStateModified(object sender, GinTubBuilderManager.RoomStateModifiedEventArgs args)
+        private void GinTubBuilderManager_RoomStateUpdated(object sender, GinTubBuilderManager.RoomStateUpdatedEventArgs args)
         {
             if(RoomStateId == args.Id)
             {
@@ -177,16 +177,16 @@ namespace TBGINTB_Builder.BuilderControls
                 SetRoomStateTime(args.Time);
                 RoomId = args.Room;
 
-                GinTubBuilderManager.LoadAllLocations();
+                GinTubBuilderManager.ReadAllLocations();
             }
         }
 
-        private void GinTubBuilderManager_RoomStateGet(object sender, GinTubBuilderManager.RoomStateGetEventArgs args)
+        private void GinTubBuilderManager_RoomStateSelect(object sender, GinTubBuilderManager.RoomStateSelectEventArgs args)
         {
-            SetGettableBackground(RoomStateId == args.Id);
+            SetSelecttableBackground(RoomStateId == args.Id);
         }
 
-        private void GinTubBuilderManager_LocationAdded(object sender, GinTubBuilderManager.LocationAddedEventArgs args)
+        private void GinTubBuilderManager_LocationRead(object sender, GinTubBuilderManager.LocationReadEventArgs args)
         {
             if (LocationId == args.Id)
                 m_comboBox_location.SelectedItem = m_comboBox_location.Items.OfType<ComboBox_Location.ComboBoxItem_Location>().SingleOrDefault(i => i.LocationId == args.Id);
@@ -203,13 +203,13 @@ namespace TBGINTB_Builder.BuilderControls
             m_textBlock_state.Text = (roomStateState.HasValue) ? roomStateState.ToString() : "NewState";
         }
 
-        private void SetRoomStateTime(DateTime? roomStateTime)
+        private void SetRoomStateTime(TimeSpan? roomStateTime)
         {
             RoomStateTime = roomStateTime;
             if (RoomStateTime != null)
             {
-                m_comboBox_time_hour.SelectedItem = m_comboBox_time_hour.Items.OfType<string>().SingleOrDefault(h => int.Parse(h) == RoomStateTime.Value.Hour);
-                m_comboBox_time_minute.SelectedItem = m_comboBox_time_minute.Items.OfType<string>().SingleOrDefault(m => int.Parse(m) == RoomStateTime.Value.Minute);
+                m_comboBox_time_hour.SelectedItem = m_comboBox_time_hour.Items.OfType<string>().SingleOrDefault(h => int.Parse(h) == RoomStateTime.Value.Hours);
+                m_comboBox_time_minute.SelectedItem = m_comboBox_time_minute.Items.OfType<string>().SingleOrDefault(m => int.Parse(m) == RoomStateTime.Value.Minutes);
             }
             else
             {
@@ -232,14 +232,14 @@ namespace TBGINTB_Builder.BuilderControls
                 int
                     hour = int.Parse(m_comboBox_time_hour.SelectedItem.ToString()),
                     minute = int.Parse(m_comboBox_time_minute.SelectedItem.ToString());
-                RoomStateTime = new DateTime(1988, 8, 13, hour, minute, 0);
+                RoomStateTime = new TimeSpan(hour, minute, 0);
             }
         }
 
         private void Grid_RoomStateData_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if(RoomStateId.HasValue)
-                GinTubBuilderManager.GetRoomState(RoomStateId.Value);
+                GinTubBuilderManager.SelectRoomState(RoomStateId.Value);
         }
 
         #endregion

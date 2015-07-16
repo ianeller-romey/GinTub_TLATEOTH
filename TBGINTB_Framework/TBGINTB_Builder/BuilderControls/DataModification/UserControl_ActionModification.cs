@@ -64,7 +64,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyAction = new Button() { Content = "Modify Action" };
-            button_modifyAction.Click += Button_ModifyAction_Click;
+            button_modifyAction.Click += Button_UpdateAction_Click;
             grid_main.SetGridRowColumn(button_modifyAction, 0, 0);
 
             m_userControl_action = new UserControl_Action(actionId, actionVerbType, actionNoun, ParagraphStateId, false, true);
@@ -77,7 +77,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyAction_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateAction_Click(object sender, RoutedEventArgs e)
         {
             Window_Action window =
                 new Window_Action
@@ -90,7 +90,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Action wWin = win as Window_Action;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyAction(wWin.ActionId.Value, wWin.ActionVerbType.Value, wWin.ActionNoun.Value);
+                            GinTubBuilderManager.UpdateAction(wWin.ActionId.Value, wWin.ActionVerbType.Value, wWin.ActionNoun.Value);
                     }
                 );
             window.Show();

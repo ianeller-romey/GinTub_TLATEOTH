@@ -81,14 +81,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.RoomPreviewParagraphStateGet += GinTubBuilderManager_RoomPreviewParagraphStateGet;
-            GinTubBuilderManager.RoomPreviewNounGet += GinTubBuilderManager_RoomPreviewNounGet;
+            GinTubBuilderManager.RoomPreviewParagraphStateSelect += GinTubBuilderManager_RoomPreviewParagraphStateSelect;
+            GinTubBuilderManager.RoomPreviewNounSelect += GinTubBuilderManager_RoomPreviewNounSelect;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.RoomPreviewParagraphStateGet -= GinTubBuilderManager_RoomPreviewParagraphStateGet;
-            GinTubBuilderManager.RoomPreviewNounGet -= GinTubBuilderManager_RoomPreviewNounGet;
+            GinTubBuilderManager.RoomPreviewParagraphStateSelect -= GinTubBuilderManager_RoomPreviewParagraphStateSelect;
+            GinTubBuilderManager.RoomPreviewNounSelect -= GinTubBuilderManager_RoomPreviewNounSelect;
         }
 
         #endregion
@@ -125,17 +125,17 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void GinTubBuilderManager_RoomPreviewParagraphStateGet(object sender, GinTubBuilderManager.RoomPreviewParagraphStateGetEventArgs args)
+        private void GinTubBuilderManager_RoomPreviewParagraphStateSelect(object sender, GinTubBuilderManager.RoomPreviewParagraphStateSelectEventArgs args)
         {
-            AddParagraphState(args.Text, args.Nouns.Select(n => n.Text));
+            CreateParagraphState(args.Text, args.Nouns.Select(n => n.Text));
         }
 
-        private void GinTubBuilderManager_RoomPreviewNounGet(object sender, GinTubBuilderManager.RoomPreviewNounGetEventArgs args)
+        private void GinTubBuilderManager_RoomPreviewNounSelect(object sender, GinTubBuilderManager.RoomPreviewNounSelectEventArgs args)
         {
             throw new NotImplementedException();
         }
 
-        private void AddParagraphState(string paragraphStateText, IEnumerable<string> nounsText)
+        private void CreateParagraphState(string paragraphStateText, IEnumerable<string> nounsText)
         {
             List<string> nounsTextOrdered = nounsText.OrderBy(n => paragraphStateText.IndexOf(n)).ToList();
             List<Run> runs = new List<Run>();
@@ -191,7 +191,7 @@ namespace TBGINTB_Builder.BuilderControls
                 m_textBlock_roomPreview.Inlines.Clear();
                 m_textBlock_roomPreview.Text = string.Empty;
 
-                GinTubBuilderManager.GetRoomPreview(RoomId);
+                GinTubBuilderManager.SelectRoomPreview(RoomId);
             }
         }
 

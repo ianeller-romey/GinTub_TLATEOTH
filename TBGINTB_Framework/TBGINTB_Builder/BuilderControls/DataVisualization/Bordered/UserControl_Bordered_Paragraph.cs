@@ -27,7 +27,6 @@ namespace TBGINTB_Builder.BuilderControls
         public int? ParagraphId { get { return m_userControl_paragraph.ParagraphId; } }
         public int? ParagraphOrder { get { return m_userControl_paragraph.ParagraphOrder; } }
         public int RoomId { get { return m_userControl_paragraph.RoomId; } }
-        public int? RoomStateId { get { return m_userControl_paragraph.RoomStateId; } }
 
         #endregion
 
@@ -36,9 +35,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_Paragraph(int? paragraphId, int? paragraphOrder, int roomId, int? roomStateId, bool enableEditing)
+        public UserControl_Bordered_Paragraph(int? paragraphId, int? paragraphOrder, int roomId, bool enableEditing)
         {
-            CreateControls( paragraphId,  paragraphOrder, roomId,  roomStateId, enableEditing);
+            CreateControls( paragraphId,  paragraphOrder, roomId, enableEditing);
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
@@ -56,9 +55,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? paragraphId, int? paragraphOrder, int roomId, int? roomStateId, bool enableEditing)
+        private void CreateControls(int? paragraphId, int? paragraphOrder, int roomId, bool enableEditing)
         {
-            m_userControl_paragraph = new UserControl_Paragraph(paragraphId, paragraphOrder, roomId, roomStateId, enableEditing);
+            m_userControl_paragraph = new UserControl_Paragraph(paragraphId, paragraphOrder, roomId, enableEditing);
             Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_paragraph };
             Content = border;
         }

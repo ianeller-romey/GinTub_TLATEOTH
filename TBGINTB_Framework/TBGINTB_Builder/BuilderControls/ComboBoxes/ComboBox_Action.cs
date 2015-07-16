@@ -96,14 +96,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ActionAdded += GinTubBuilderManager_ActionAdded;
-            GinTubBuilderManager.ActionModified += GinTubBuilderManager_ActionModified;
+            GinTubBuilderManager.ActionRead += GinTubBuilderManager_ActionRead;
+            GinTubBuilderManager.ActionUpdated += GinTubBuilderManager_ActionUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ActionAdded -= GinTubBuilderManager_ActionAdded;
-            GinTubBuilderManager.ActionModified -= GinTubBuilderManager_ActionModified;
+            GinTubBuilderManager.ActionRead -= GinTubBuilderManager_ActionRead;
+            GinTubBuilderManager.ActionUpdated -= GinTubBuilderManager_ActionUpdated;
         }
 
         #endregion
@@ -111,7 +111,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_ActionAdded(object sender, GinTubBuilderManager.ActionAddedEventArgs args)
+        private void GinTubBuilderManager_ActionRead(object sender, GinTubBuilderManager.ActionReadEventArgs args)
         {
             if (NounId == args.Noun)
             {
@@ -120,7 +120,7 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void GinTubBuilderManager_ActionModified(object sender, GinTubBuilderManager.ActionModifiedEventArgs args)
+        private void GinTubBuilderManager_ActionUpdated(object sender, GinTubBuilderManager.ActionUpdatedEventArgs args)
         {
             if (NounId == args.Noun)
             {
@@ -147,7 +147,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Action wWin = win as Window_Action;
                         if (wWin != null)
-                            GinTubBuilderManager.AddAction(wWin.ActionVerbType.Value, wWin.ActionNoun.Value);
+                            GinTubBuilderManager.CreateAction(wWin.ActionVerbType.Value, wWin.ActionNoun.Value);
                     }
                 );
             window.Show();

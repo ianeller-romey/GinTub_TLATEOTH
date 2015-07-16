@@ -108,14 +108,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.RoomAdded += GinTubBuilderManager_RoomAdded;
-            GinTubBuilderManager.RoomModified += GinTubBuilderManager_RoomModified;
+            GinTubBuilderManager.RoomRead += GinTubBuilderManager_RoomRead;
+            GinTubBuilderManager.RoomUpdated += GinTubBuilderManager_RoomUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.RoomAdded -= GinTubBuilderManager_RoomAdded;
-            GinTubBuilderManager.RoomModified -= GinTubBuilderManager_RoomModified;
+            GinTubBuilderManager.RoomRead -= GinTubBuilderManager_RoomRead;
+            GinTubBuilderManager.RoomUpdated -= GinTubBuilderManager_RoomUpdated;
         }
 
         #endregion
@@ -123,7 +123,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_RoomAdded(object sender, GinTubBuilderManager.RoomAddedEventArgs args)
+        private void GinTubBuilderManager_RoomRead(object sender, GinTubBuilderManager.RoomReadEventArgs args)
         {
             if (AreaId == args.Area)
             {
@@ -132,7 +132,7 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void GinTubBuilderManager_RoomModified(object sender, GinTubBuilderManager.RoomModifiedEventArgs args)
+        private void GinTubBuilderManager_RoomUpdated(object sender, GinTubBuilderManager.RoomUpdatedEventArgs args)
         {
             if (AreaId == args.Area)
             {

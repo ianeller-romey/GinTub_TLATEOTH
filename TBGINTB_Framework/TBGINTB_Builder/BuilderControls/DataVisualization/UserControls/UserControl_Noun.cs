@@ -13,7 +13,7 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Noun : UserControl_Gettable
+    public class UserControl_Noun : UserControl_Selecttable
     {
         #region MEMBER FIELDS
 
@@ -60,18 +60,18 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.NounModified += GinTubBuilderManager_NounModified;
-            GinTubBuilderManager.NounGet += GinTubBuilderManager_NounGet;
+            GinTubBuilderManager.NounUpdated += GinTubBuilderManager_NounUpdated;
+            GinTubBuilderManager.NounSelect += GinTubBuilderManager_NounSelect;
 
-            GinTubBuilderManager.ParagraphStateAdded += GinTubBuilderManager_ParagraphStateAdded;
+            GinTubBuilderManager.ParagraphStateRead += GinTubBuilderManager_ParagraphStateRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.NounModified -= GinTubBuilderManager_NounModified;
-            GinTubBuilderManager.NounGet -= GinTubBuilderManager_NounGet;
+            GinTubBuilderManager.NounUpdated -= GinTubBuilderManager_NounUpdated;
+            GinTubBuilderManager.NounSelect -= GinTubBuilderManager_NounSelect;
 
-            GinTubBuilderManager.ParagraphStateAdded += GinTubBuilderManager_ParagraphStateAdded;
+            GinTubBuilderManager.ParagraphStateRead += GinTubBuilderManager_ParagraphStateRead;
         }
 
         #endregion
@@ -125,7 +125,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        void GinTubBuilderManager_NounModified(object sender, GinTubBuilderManager.NounModifiedEventArgs args)
+        void GinTubBuilderManager_NounUpdated(object sender, GinTubBuilderManager.NounUpdatedEventArgs args)
         {
             if (NounId == args.Id)
             {
@@ -134,12 +134,12 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        void GinTubBuilderManager_NounGet(object sender, GinTubBuilderManager.NounGetEventArgs args)
+        void GinTubBuilderManager_NounSelect(object sender, GinTubBuilderManager.NounSelectEventArgs args)
         {
-            SetGettableBackground(NounId == args.Id);
+            SetSelecttableBackground(NounId == args.Id);
         }
 
-        void GinTubBuilderManager_ParagraphStateAdded(object sender, GinTubBuilderManager.ParagraphStateAddedEventArgs args)
+        void GinTubBuilderManager_ParagraphStateRead(object sender, GinTubBuilderManager.ParagraphStateReadEventArgs args)
         {
             if (ParagraphStateId == args.Id)
                 m_comboBox_text.SelectedItem = m_comboBox_text.Items.OfType<ComboBox_ParagraphStateNouns.ComboBoxItem_PossibleNoun>().SingleOrDefault(i => i.PossibleNounText == NounText);

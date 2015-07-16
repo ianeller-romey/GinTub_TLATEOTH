@@ -60,18 +60,18 @@ namespace TBGINTB_Builder.BuilderControls
             foreach (var e in EditingControls)
                 e.IsEnabled = enableEditing;
 
-            GinTubBuilderManager.ResultAdded += GinTubBuilderManager_ResultAdded;
-            GinTubBuilderManager.MessageChoiceAdded += GinTubBuilderManager_MessageChoiceAdded;
+            GinTubBuilderManager.ResultRead += GinTubBuilderManager_ResultRead;
+            GinTubBuilderManager.MessageChoiceRead += GinTubBuilderManager_MessageChoiceRead;
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.MessageChoiceResultModified += GinTubBuilderManager_MessageChoiceResultModified;
+            GinTubBuilderManager.MessageChoiceResultUpdated += GinTubBuilderManager_MessageChoiceResultUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.MessageChoiceResultModified -= GinTubBuilderManager_MessageChoiceResultModified;
+            GinTubBuilderManager.MessageChoiceResultUpdated -= GinTubBuilderManager_MessageChoiceResultUpdated;
         }
 
         #endregion
@@ -142,7 +142,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        void GinTubBuilderManager_MessageChoiceResultModified(object sender, GinTubBuilderManager.MessageChoiceResultModifiedEventArgs args)
+        void GinTubBuilderManager_MessageChoiceResultUpdated(object sender, GinTubBuilderManager.MessageChoiceResultUpdatedEventArgs args)
         {
             if(MessageChoiceResultId == args.Id)
             {
@@ -151,12 +151,12 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        void GinTubBuilderManager_ResultAdded(object sender, GinTubBuilderManager.ResultAddedEventArgs args)
+        void GinTubBuilderManager_ResultRead(object sender, GinTubBuilderManager.ResultReadEventArgs args)
         {
             ResetMessageChoiceResultResult(args.Id);
         }
         
-        void GinTubBuilderManager_MessageChoiceAdded(object sender, GinTubBuilderManager.MessageChoiceAddedEventArgs args)
+        void GinTubBuilderManager_MessageChoiceRead(object sender, GinTubBuilderManager.MessageChoiceReadEventArgs args)
         {
             if (MessageId == args.Message)
                 ResetMessageChoiceResultMessageChoice(args.Id);

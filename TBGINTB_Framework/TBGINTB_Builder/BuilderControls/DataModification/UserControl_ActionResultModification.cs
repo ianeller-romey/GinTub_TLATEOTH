@@ -66,7 +66,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyActionResult = new Button() { Content = "Modify ActionResult" };
-            button_modifyActionResult.Click += Button_ModifyActionResult_Click;
+            button_modifyActionResult.Click += Button_UpdateActionResult_Click;
             grid_main.SetGridRowColumn(button_modifyActionResult, 0, 0);
 
             m_userControl_actionResult = new UserControl_ActionResult(actionResultId, actionResultResult, actionResultAction, NounId, ParagraphStateId, false);
@@ -79,7 +79,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyActionResult_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateActionResult_Click(object sender, RoutedEventArgs e)
         {
             Window_ActionResult window =
                 new Window_ActionResult
@@ -93,7 +93,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_ActionResult wWin = win as Window_ActionResult;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyActionResult
+                            GinTubBuilderManager.UpdateActionResult
                             (
                                 wWin.ActionResultId.Value,
                                 wWin.ActionResultResult.Value,

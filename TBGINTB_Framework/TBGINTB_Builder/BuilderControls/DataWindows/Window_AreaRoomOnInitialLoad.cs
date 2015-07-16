@@ -41,7 +41,7 @@ namespace TBGINTB_Builder.BuilderControls
             Height = 300;
             Content = CreateControls(areaRoomOnInitialLoadArea, areaRoomOnInitialLoadRoom);
             m_userControl_areaRoomOnInitialLoad.SetActiveAndRegisterForGinTubEvents(); // needed for possible areaRoomOnInitialLoads
-            GinTubBuilderManager.LoadAllAreas();
+            GinTubBuilderManager.ReadAllAreas();
         }
 
         #endregion

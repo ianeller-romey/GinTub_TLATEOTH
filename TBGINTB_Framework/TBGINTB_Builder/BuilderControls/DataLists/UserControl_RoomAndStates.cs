@@ -44,7 +44,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.RoomStateAdded += GinTubBuilderManager_RoomStateAdded;
+            GinTubBuilderManager.RoomStateRead += GinTubBuilderManager_RoomStateRead;
 
             m_grid_rooms.SetActiveAndRegisterForGinTubEvents();
             foreach (var grid in m_stackPanel_roomStates.Children.OfType<UserControl_RoomStateModification>())
@@ -53,7 +53,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.RoomStateAdded -= GinTubBuilderManager_RoomStateAdded;
+            GinTubBuilderManager.RoomStateRead -= GinTubBuilderManager_RoomStateRead;
 
             m_grid_rooms.SetInactiveAndUnregisterFromGinTubEvents();
             foreach (var grid in m_stackPanel_roomStates.Children.OfType<UserControl_RoomStateModification>())
@@ -81,7 +81,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.SetGridRowColumn(button_roomPreview, 0, 0);
 
             Button button_modifyRoom = new Button() { Content = "Modify Room" };
-            button_modifyRoom.Click += Button_ModifyRoom_Click;
+            button_modifyRoom.Click += Button_UpdateRoom_Click;
             grid_main.SetGridRowColumn(button_modifyRoom, 1, 0);
 
             m_grid_rooms = new UserControl_Bordered_Room(roomId, roomName, roomX, roomY, roomZ, areaId, false);
@@ -91,7 +91,7 @@ namespace TBGINTB_Builder.BuilderControls
             ////////
             // RoomStates
             Button button_addRoomState = new Button() { Content = "New Room State ..." };
-            button_addRoomState.Click += Button_AddRoomState_Click;
+            button_addRoomState.Click += Button_CreateRoomState_Click;
             grid_main.SetGridRowColumn(button_addRoomState, 3, 0);
 
             m_stackPanel_roomStates = new StackPanel() { Orientation = Orientation.Vertical };
@@ -108,16 +108,16 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void AddRoomState(int roomStateId, int roomStateState, DateTime? roomStateTime, int locationId, int roomId)
+        private void CreateRoomState(int roomStateId, int roomStateState, TimeSpan? roomStateTime, int locationId, int roomId)
         {
             UserControl_RoomStateModification grid = new UserControl_RoomStateModification(roomStateId, roomStateState, roomStateTime, locationId, roomId);
             m_stackPanel_roomStates.Children.Add(grid);
-            GinTubBuilderManager.LoadAllLocations();
+            GinTubBuilderManager.ReadAllLocations();
         }
 
-        private void GinTubBuilderManager_RoomStateAdded(object sender, GinTubBuilderManager.RoomStateAddedEventArgs args)
+        private void GinTubBuilderManager_RoomStateRead(object sender, GinTubBuilderManager.RoomStateReadEventArgs args)
         {
-            AddRoomState(args.Id, args.State, args.Time, args.Location, args.Room);
+            CreateRoomState(args.Id, args.State, args.Time, args.Location, args.Room);
         }
 
         void Button_RoomPreview_Click(object sender, RoutedEventArgs e)
@@ -125,10 +125,10 @@ namespace TBGINTB_Builder.BuilderControls
             Window_RoomPreview window = new Window_RoomPreview(SelectedRoomId, SelectedRoomName);
             window.SetActiveAndRegisterForGinTubEvents();
             window.Show();
-            GinTubBuilderManager.GetRoomPreview(SelectedRoomId);
+            GinTubBuilderManager.SelectRoomPreview(SelectedRoomId);
         }
 
-        private void Button_ModifyRoom_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateRoom_Click(object sender, RoutedEventArgs e)
         {
             Window_Room window =
                 new Window_Room
@@ -143,7 +143,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Room wWin = win as Window_Room;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyRoom
+                            GinTubBuilderManager.UpdateRoom
                             (
                                 wWin.RoomId.Value,
                                 wWin.RoomName,
@@ -157,7 +157,7 @@ namespace TBGINTB_Builder.BuilderControls
             window.Show();
         }
 
-        private void Button_AddRoomState_Click(object sender, RoutedEventArgs e)
+        private void Button_CreateRoomState_Click(object sender, RoutedEventArgs e)
         {
             Window_RoomState window =
                 new Window_RoomState
@@ -171,7 +171,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_RoomState wWin = win as Window_RoomState;
                         if (wWin != null)
-                            GinTubBuilderManager.AddRoomState(wWin.RoomStateTime, wWin.LocationId.Value, m_grid_rooms.RoomId.Value);
+                            GinTubBuilderManager.CreateRoomState(wWin.RoomStateTime.Value, wWin.LocationId.Value, m_grid_rooms.RoomId.Value);
                     }
                 );
             window.Show();

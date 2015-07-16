@@ -113,7 +113,7 @@ namespace TBGINTB_Builder.BuilderControls
                 m_userControl_verb.SetActiveAndRegisterForGinTubEvents(); // never unregister; we want updates no matter where we are
                 m_grid_main.SetGridRowColumn(m_userControl_verb, 0, 1);
 
-                GinTubBuilderManager.LoadAllVerbsForVerbType(SelectedVerbTypeId.Value);
+                GinTubBuilderManager.ReadAllVerbsForVerbType(SelectedVerbTypeId.Value);
             }
             else if (comboBoxItem == null)
             {

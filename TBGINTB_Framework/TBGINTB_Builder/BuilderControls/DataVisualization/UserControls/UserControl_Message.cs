@@ -13,7 +13,7 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Message : UserControl_Gettable, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Message : UserControl_Selecttable, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
 
@@ -49,7 +49,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Message(int? messageId, string messageName, string messageText, bool enableEditing, bool enableGetting)
+        public UserControl_Message(int? messageId, string messageName, string messageText, bool enableEditing, bool enableSelectting)
         {
             MessageId = messageId;
             MessageName = messageName;
@@ -60,20 +60,20 @@ namespace TBGINTB_Builder.BuilderControls
             foreach (var e in EditingControls)
                 e.IsEnabled = enableEditing;
 
-            if (enableGetting)
+            if (enableSelectting)
                 MouseLeftButtonDown += Grid_MessageData_MouseLeftButtonDown;
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.MessageModified += GinTubBuilderManager_MessageModified;
-            GinTubBuilderManager.MessageGet += GinTubBuilderManager_MessageGet;
+            GinTubBuilderManager.MessageUpdated += GinTubBuilderManager_MessageUpdated;
+            GinTubBuilderManager.MessageSelect += GinTubBuilderManager_MessageSelect;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.MessageModified -= GinTubBuilderManager_MessageModified;
-            GinTubBuilderManager.MessageGet -= GinTubBuilderManager_MessageGet;
+            GinTubBuilderManager.MessageUpdated -= GinTubBuilderManager_MessageUpdated;
+            GinTubBuilderManager.MessageSelect -= GinTubBuilderManager_MessageSelect;
         }
 
         #endregion
@@ -142,7 +142,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void GinTubBuilderManager_MessageModified(object sender, GinTubBuilderManager.MessageModifiedEventArgs args)
+        private void GinTubBuilderManager_MessageUpdated(object sender, GinTubBuilderManager.MessageUpdatedEventArgs args)
         {
             if (MessageId == args.Id)
             {
@@ -151,9 +151,9 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void GinTubBuilderManager_MessageGet(object sender, GinTubBuilderManager.MessageGetEventArgs args)
+        private void GinTubBuilderManager_MessageSelect(object sender, GinTubBuilderManager.MessageSelectEventArgs args)
         {
-            SetGettableBackground(MessageId == args.Id);
+            SetSelecttableBackground(MessageId == args.Id);
         }
 
         private void SetMessageName(string messageName)
@@ -187,7 +187,7 @@ namespace TBGINTB_Builder.BuilderControls
         private void Grid_MessageData_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (MessageId.HasValue)
-                GinTubBuilderManager.GetMessage(MessageId.Value);
+                GinTubBuilderManager.SelectMessage(MessageId.Value);
         }
 
         #endregion

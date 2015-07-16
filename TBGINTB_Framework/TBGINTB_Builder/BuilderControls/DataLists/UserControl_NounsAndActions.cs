@@ -53,8 +53,8 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.NounAdded += GinTubBuilderManager_NounAdded;
-            GinTubBuilderManager.ActionAdded += GinTubBuilderManager_ActionAdded;
+            GinTubBuilderManager.NounRead += GinTubBuilderManager_NounRead;
+            GinTubBuilderManager.ActionRead += GinTubBuilderManager_ActionRead;
 
             foreach (var block in m_stackPanel_nouns.Children.OfType<UserControl_Noun>())
                 block.SetActiveAndRegisterForGinTubEvents();
@@ -65,8 +65,8 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.NounAdded -= GinTubBuilderManager_NounAdded;
-            GinTubBuilderManager.ActionAdded -= GinTubBuilderManager_ActionAdded;
+            GinTubBuilderManager.NounRead -= GinTubBuilderManager_NounRead;
+            GinTubBuilderManager.ActionRead -= GinTubBuilderManager_ActionRead;
 
             foreach (var block in m_stackPanel_nouns.Children.OfType<UserControl_Noun>())
                 block.SetInactiveAndUnregisterFromGinTubEvents();
@@ -90,13 +90,13 @@ namespace TBGINTB_Builder.BuilderControls
             ////////
             // Add Noun
             Button button_addNoun = new Button() { Content = "New Noun ..." };
-            button_addNoun.Click += Button_AddNoun_Click;
+            button_addNoun.Click += Button_CreateNoun_Click;
             m_grid_main.SetGridRowColumn(button_addNoun, 0, 0);
 
             ////////
             // Nouns
             m_button_modifyNoun = new Button() { Content = "Modify Noun", IsEnabled = false };
-            m_button_modifyNoun.Click += Button_ModifyNoun_Click;
+            m_button_modifyNoun.Click += Button_UpdateNoun_Click;
             m_grid_main.SetGridRowColumn(m_button_modifyNoun, 1, 0);
 
             m_stackPanel_nouns = new StackPanel() { Orientation = Orientation.Vertical };
@@ -113,7 +113,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = m_grid_main;
         }
 
-        private void GinTubBuilderManager_NounAdded(object sender, GinTubBuilderManager.NounAddedEventArgs args)
+        private void GinTubBuilderManager_NounRead(object sender, GinTubBuilderManager.NounReadEventArgs args)
         {
             if (ParagraphStateId == args.ParagraphState && !m_stackPanel_nouns.Children.OfType<UserControl_Bordered_Noun>().Any(t => t.NounId == args.Id))
             {
@@ -121,18 +121,18 @@ namespace TBGINTB_Builder.BuilderControls
                 border.MouseLeftButtonDown += UserControl_NounData_MouseLeftButtonDown;
                 border.SetActiveAndRegisterForGinTubEvents();
                 m_stackPanel_nouns.Children.Add(border);
-                GinTubBuilderManager.LoadParagraphStateNounPossibilities(args.ParagraphState);
+                GinTubBuilderManager.ReadParagraphStateNounPossibilities(args.ParagraphState);
             }
         }
 
-        private void GinTubBuilderManager_ActionAdded(object sender, GinTubBuilderManager.ActionAddedEventArgs args)
+        private void GinTubBuilderManager_ActionRead(object sender, GinTubBuilderManager.ActionReadEventArgs args)
         {
             if (SelectedNounId == args.Noun && !m_stackPanel_actions.Children.OfType<UserControl_ActionModification>().Any(a => a.ActionId == args.Id))
             {
                 UserControl_ActionModification grid = new UserControl_ActionModification(args.Id, args.VerbType, args.Noun, ParagraphStateId);
                 m_stackPanel_actions.Children.Add(grid);
-                GinTubBuilderManager.LoadAllVerbTypes();
-                GinTubBuilderManager.LoadAllNounsForParagraphState(ParagraphStateId);
+                GinTubBuilderManager.ReadAllVerbTypes();
+                GinTubBuilderManager.ReadAllNounsForParagraphState(ParagraphStateId);
             }
         }
 
@@ -166,7 +166,7 @@ namespace TBGINTB_Builder.BuilderControls
             if (m_button_addAction == null)
             {
                 m_button_addAction = new Button() { Content = "New Action ...", IsEnabled = false };
-                m_button_addAction.Click += Button_AddAction_Click;
+                m_button_addAction.Click += Button_CreateAction_Click;
                 m_grid_sub.SetGridRowColumn(m_button_addAction, 0, 0);
             }
             if (m_stackPanel_actions == null)
@@ -183,7 +183,7 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void Button_AddNoun_Click(object sender, RoutedEventArgs e)
+        private void Button_CreateNoun_Click(object sender, RoutedEventArgs e)
         {
             Window_Noun window = 
                 new Window_Noun
@@ -195,13 +195,13 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Noun wWin = win as Window_Noun;
                         if (wWin != null)
-                            GinTubBuilderManager.AddNoun(wWin.NounText, wWin.ParagraphStateId);
+                            GinTubBuilderManager.CreateNoun(wWin.NounText, wWin.ParagraphStateId);
                     }
                 );
             window.Show();
         }
 
-        private void Button_ModifyNoun_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateNoun_Click(object sender, RoutedEventArgs e)
         {
             UserControl_Noun grid = m_stackPanel_nouns.Children.OfType<UserControl_Noun>().Single(g => g.NounId.Value == SelectedNounId);
             Window_Noun window = 
@@ -214,13 +214,13 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Noun wWin = win as Window_Noun;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyNoun(wWin.NounId.Value, wWin.NounText, wWin.ParagraphStateId);
+                            GinTubBuilderManager.UpdateNoun(wWin.NounId.Value, wWin.NounText, wWin.ParagraphStateId);
                     }
                 );
             window.Show();
         }
 
-        private void Button_AddAction_Click(object sender, RoutedEventArgs e)
+        private void Button_CreateAction_Click(object sender, RoutedEventArgs e)
         {
             Window_Action window = 
                 new Window_Action
@@ -233,7 +233,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Action wWin = win as Window_Action;
                         if (wWin != null)
-                            GinTubBuilderManager.AddAction(wWin.ActionVerbType.Value, wWin.ActionNoun.Value);
+                            GinTubBuilderManager.CreateAction(wWin.ActionVerbType.Value, wWin.ActionNoun.Value);
                     }
                 );
             window.Show();
@@ -249,7 +249,7 @@ namespace TBGINTB_Builder.BuilderControls
                 m_stackPanel_actions.Children.Clear();
 
                 SelectedNounId = border.NounId.Value;
-                GinTubBuilderManager.GetNoun(SelectedNounId.Value);
+                GinTubBuilderManager.SelectNoun(SelectedNounId.Value);
 
                 m_button_modifyNoun.IsEnabled = true;
                 m_button_addAction.IsEnabled = true;

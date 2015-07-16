@@ -61,7 +61,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyAreaRoomOnInitialLoad = new Button() { Content = "Modify AreaRoomOnInitialLoad" };
-            button_modifyAreaRoomOnInitialLoad.Click += Button_ModifyAreaRoomOnInitialLoad_Click;
+            button_modifyAreaRoomOnInitialLoad.Click += Button_UpdateAreaRoomOnInitialLoad_Click;
             grid_main.SetGridRowColumn(button_modifyAreaRoomOnInitialLoad, 0, 0);
 
             m_userControl_areaRoomOnInitialLoad = new UserControl_AreaRoomOnInitialLoad(areaRoomOnInitialLoadArea, areaRoomOnInitialLoadRoom, false);
@@ -72,7 +72,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyAreaRoomOnInitialLoad_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateAreaRoomOnInitialLoad_Click(object sender, RoutedEventArgs e)
         {
             Window_AreaRoomOnInitialLoad window =
                 new Window_AreaRoomOnInitialLoad
@@ -83,7 +83,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_AreaRoomOnInitialLoad wWin = win as Window_AreaRoomOnInitialLoad;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyAreaRoomOnInitialLoad(wWin.AreaRoomOnInitialLoadArea.Value, wWin.AreaRoomOnInitialLoadRoom.Value);
+                            GinTubBuilderManager.UpdateAreaRoomOnInitialLoad(wWin.AreaRoomOnInitialLoadArea.Value, wWin.AreaRoomOnInitialLoadRoom.Value);
                     }
                 );
             window.Show();

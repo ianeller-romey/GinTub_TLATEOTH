@@ -14,7 +14,7 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Paragraph : UserControl_Gettable, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Paragraph : UserControl_Selecttable, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
 
@@ -28,7 +28,6 @@ namespace TBGINTB_Builder.BuilderControls
         public int? ParagraphId { get; private set; }
         public int? ParagraphOrder { get; private set; }
         public int RoomId { get; private set; }
-        public int? RoomStateId { get; private set; }
 
         public List<UIElement> EditingControls
         {
@@ -48,11 +47,10 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Paragraph(int? paragraphId, int? paragraphOrder, int roomId, int? roomStateId, bool enableEditing)
+        public UserControl_Paragraph(int? paragraphId, int? paragraphOrder, int roomId, bool enableEditing)
         {
             ParagraphId = paragraphId;
             ParagraphOrder = paragraphOrder;
-            RoomStateId = roomStateId;
             RoomId = roomId;
 
             CreateControls();
@@ -63,14 +61,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ParagraphModified += GinTubBuilderManager_ParagraphModified;
-            GinTubBuilderManager.ParagraphGet += GinTubBuilderManager_ParagraphGet;
+            GinTubBuilderManager.ParagraphUpdated += GinTubBuilderManager_ParagraphUpdated;
+            GinTubBuilderManager.ParagraphSelect += GinTubBuilderManager_ParagraphSelect;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ParagraphModified -= GinTubBuilderManager_ParagraphModified;
-            GinTubBuilderManager.ParagraphGet -= GinTubBuilderManager_ParagraphGet;
+            GinTubBuilderManager.ParagraphUpdated -= GinTubBuilderManager_ParagraphUpdated;
+            GinTubBuilderManager.ParagraphSelect -= GinTubBuilderManager_ParagraphSelect;
         }
 
         #endregion
@@ -124,19 +122,18 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void GinTubBuilderManager_ParagraphModified(object sender, GinTubBuilderManager.ParagraphModifiedEventArgs args)
+        private void GinTubBuilderManager_ParagraphUpdated(object sender, GinTubBuilderManager.ParagraphUpdatedEventArgs args)
         {
             if (args.Id == ParagraphId)
             {
                 SetParagraphOrder(args.Order);
-                RoomStateId = args.RoomState;
                 RoomId = args.Room;
             }
         }
 
-        private void GinTubBuilderManager_ParagraphGet(object sender, GinTubBuilderManager.ParagraphGetEventArgs args)
+        private void GinTubBuilderManager_ParagraphSelect(object sender, GinTubBuilderManager.ParagraphSelectEventArgs args)
         {
-            SetGettableBackground(ParagraphId == args.Id);
+            SetSelecttableBackground(ParagraphId == args.Id);
         }
 
         private void SetParagraphOrder(int order)

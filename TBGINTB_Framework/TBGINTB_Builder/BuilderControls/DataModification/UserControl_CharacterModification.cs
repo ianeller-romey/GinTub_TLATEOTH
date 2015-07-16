@@ -62,7 +62,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyCharacter = new Button() { Content = "Modify Character" };
-            button_modifyCharacter.Click += Button_ModifyCharacter_Click;
+            button_modifyCharacter.Click += Button_UpdateCharacter_Click;
             grid_main.SetGridRowColumn(button_modifyCharacter, 0, 0);
 
             m_grid_character = new UserControl_Character(characterId, characterName, characterDescription, false);
@@ -73,7 +73,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyCharacter_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateCharacter_Click(object sender, RoutedEventArgs e)
         {
             Window_Character window =
                 new Window_Character
@@ -85,7 +85,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Character wWin = win as Window_Character;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyCharacter(wWin.CharacterId.Value, wWin.CharacterName, wWin.CharacterDescription);
+                            GinTubBuilderManager.UpdateCharacter(wWin.CharacterId.Value, wWin.CharacterName, wWin.CharacterDescription);
                     }
                 );
             window.Show();

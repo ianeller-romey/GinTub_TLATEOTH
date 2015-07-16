@@ -42,8 +42,8 @@ namespace TBGINTB_Builder.BuilderControls
             Height = 300;
             Content = CreateControls(actionResultId, actionResultResult, actionResultAction, nounId, paragraphStateId);
             m_userControl_actionResult.SetActiveAndRegisterForGinTubEvents(); // needed for possible results, actions
-            GinTubBuilderManager.LoadAllResultsForResultType(resultTypeId);
-            GinTubBuilderManager.LoadAllActionsForNoun(nounId);
+            GinTubBuilderManager.ReadAllResultsForResultType(resultTypeId);
+            GinTubBuilderManager.ReadAllActionsForNoun(nounId);
         }
 
         public Window_ActionResult(int? actionResultId, int? actionResultResult, int? actionResultAction, int nounId, int paragraphStateId, TaskOnAccept task) :
@@ -54,8 +54,8 @@ namespace TBGINTB_Builder.BuilderControls
             Content = CreateControls(actionResultId, actionResultResult, actionResultAction, nounId, paragraphStateId);
             m_userControl_actionResult.SetActiveAndRegisterForGinTubEvents(); // needed for possible results, actions
             if(actionResultAction.HasValue)
-                GinTubBuilderManager.LoadAllResultsForActionResultType(actionResultAction.Value);
-            GinTubBuilderManager.LoadAllActionsForNoun(nounId);
+                GinTubBuilderManager.ReadAllResultsForActionResultType(actionResultAction.Value);
+            GinTubBuilderManager.ReadAllActionsForNoun(nounId);
         }
 
         #endregion

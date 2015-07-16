@@ -27,7 +27,6 @@ namespace TBGINTB_Builder.BuilderControls
         public int? ParagraphId { get { return m_userControl_paragraph.ParagraphId; } }
         public int? ParagraphOrder { get { return m_userControl_paragraph.ParagraphOrder; } }
         public int RoomId { get { return m_userControl_paragraph.RoomId; } }
-        public int? RoomStateId { get { return m_userControl_paragraph.RoomStateId; } }
 
         #endregion
 
@@ -36,14 +35,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public Window_Paragraph(int? paragraphId, int? paragraphOrder, int roomId, int? roomStateId, TaskOnAccept task) :
+        public Window_Paragraph(int? paragraphId, int? paragraphOrder, int roomId, TaskOnAccept task) :
             base("Paragraph Data", task)
         {
             Width = 300;
             Height = 300;
-            Content = CreateControls(paragraphId, paragraphOrder, roomId, roomStateId);
+            Content = CreateControls(paragraphId, paragraphOrder, roomId);
             m_userControl_paragraph.SetActiveAndRegisterForGinTubEvents();
-            GinTubBuilderManager.LoadAllLocations();
+            GinTubBuilderManager.ReadAllLocations();
         }
 
         #endregion
@@ -51,9 +50,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private UIElement CreateControls(int? paragraphId, int? paragraphOrder, int roomId, int? roomStateId)
+        private UIElement CreateControls(int? paragraphId, int? paragraphOrder, int roomId)
         {
-            m_userControl_paragraph = new UserControl_Paragraph(paragraphId, paragraphOrder, roomId, roomStateId, true);
+            m_userControl_paragraph = new UserControl_Paragraph(paragraphId, paragraphOrder, roomId, true);
             return m_userControl_paragraph;
         }
 

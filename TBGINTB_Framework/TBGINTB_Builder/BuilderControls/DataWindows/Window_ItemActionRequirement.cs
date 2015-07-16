@@ -42,8 +42,8 @@ namespace TBGINTB_Builder.BuilderControls
             Height = 300;
             Content = CreateControls(itemActionRequirementId, itemActionRequirementItem, itemActionRequirementAction, nounId, paragraphStateId);
             m_userControl_itemActionRequirement.SetActiveAndRegisterForGinTubEvents(); // needed for possible items, actions
-            GinTubBuilderManager.LoadAllItems();
-            GinTubBuilderManager.LoadAllActionsForNoun(nounId);
+            GinTubBuilderManager.ReadAllItems();
+            GinTubBuilderManager.ReadAllActionsForNoun(nounId);
         }
 
         #endregion

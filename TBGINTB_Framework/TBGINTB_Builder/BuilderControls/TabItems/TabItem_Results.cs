@@ -41,7 +41,7 @@ namespace TBGINTB_Builder.BuilderControls
             if(m_itemsControl_results != null)
                 m_itemsControl_results.SetActiveAndRegisterForGinTubEvents();
 
-            GinTubBuilderManager.LoadAllResultTypes();
+            GinTubBuilderManager.ReadAllResultTypes();
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()

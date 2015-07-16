@@ -71,12 +71,12 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.RoomModified += GinTubBuilderManager_RoomModified;
+            GinTubBuilderManager.RoomUpdated += GinTubBuilderManager_RoomUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.RoomModified -= GinTubBuilderManager_RoomModified;
+            GinTubBuilderManager.RoomUpdated -= GinTubBuilderManager_RoomUpdated;
         }
 
         #endregion
@@ -163,7 +163,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         }
 
-        private void GinTubBuilderManager_RoomModified(object sender, GinTubBuilderManager.RoomModifiedEventArgs args)
+        private void GinTubBuilderManager_RoomUpdated(object sender, GinTubBuilderManager.RoomUpdatedEventArgs args)
         {
             if (args.Id == RoomId)
             {
@@ -210,7 +210,7 @@ namespace TBGINTB_Builder.BuilderControls
         private void UserControl_Room_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (RoomId.HasValue)
-                GinTubBuilderManager.GetRoom(RoomId.Value);
+                GinTubBuilderManager.SelectRoom(RoomId.Value);
         }
 
         #endregion

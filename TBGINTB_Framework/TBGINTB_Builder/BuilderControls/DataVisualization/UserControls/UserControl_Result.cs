@@ -93,18 +93,18 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ResultModified += GinTubBuilderManager_ResultModified;
+            GinTubBuilderManager.ResultUpdated += GinTubBuilderManager_ResultUpdated;
 
-            GinTubBuilderManager.ResultTypeAdded += GinTubBuilderManager_ResultTypeAdded;
-            GinTubBuilderManager.ResultTypeJSONPropertyAdded += GinTubBuilderManager_ResultTypeJSONPropertyAdded;
+            GinTubBuilderManager.ResultTypeRead += GinTubBuilderManager_ResultTypeRead;
+            GinTubBuilderManager.ResultTypeJSONPropertyRead += GinTubBuilderManager_ResultTypeJSONPropertyRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ResultModified -= GinTubBuilderManager_ResultModified;
+            GinTubBuilderManager.ResultUpdated -= GinTubBuilderManager_ResultUpdated;
 
-            GinTubBuilderManager.ResultTypeAdded -= GinTubBuilderManager_ResultTypeAdded;
-            GinTubBuilderManager.ResultTypeJSONPropertyAdded -= GinTubBuilderManager_ResultTypeJSONPropertyAdded;
+            GinTubBuilderManager.ResultTypeRead -= GinTubBuilderManager_ResultTypeRead;
+            GinTubBuilderManager.ResultTypeJSONPropertyRead -= GinTubBuilderManager_ResultTypeJSONPropertyRead;
         }
         #endregion
 
@@ -192,7 +192,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        void GinTubBuilderManager_ResultModified(object sender, GinTubBuilderManager.ResultModifiedEventArgs args)
+        void GinTubBuilderManager_ResultUpdated(object sender, GinTubBuilderManager.ResultUpdatedEventArgs args)
         {
             if (ResultId == args.Id)
             {
@@ -203,20 +203,20 @@ namespace TBGINTB_Builder.BuilderControls
         }
         
 
-        void GinTubBuilderManager_ResultTypeAdded(object sender, GinTubBuilderManager.ResultTypeAddedEventArgs args)
+        void GinTubBuilderManager_ResultTypeRead(object sender, GinTubBuilderManager.ResultTypeReadEventArgs args)
         {
             if (ResultTypeId == args.Id)
                 m_comboBox_resultType.SelectedItem = m_comboBox_resultType.Items.OfType<ComboBox_ResultType.ComboBoxItem_ResultType>().SingleOrDefault(v => v.ResultTypeId == ResultTypeId);
         }
 
-        void GinTubBuilderManager_ResultTypeJSONPropertyAdded(object sender, GinTubBuilderManager.ResultTypeJSONPropertyAddedEventArgs args)
+        void GinTubBuilderManager_ResultTypeJSONPropertyRead(object sender, GinTubBuilderManager.ResultTypeJSONPropertyReadEventArgs args)
         {
 
             if( ResultTypeId == args.ResultType &&
                 m_stackPanel_jsonProperties != null && 
                 !m_stackPanel_jsonProperties.Children.OfType<GroupBox_JSONPropertyValueEditor>().Any(g => g.JSONPropertyName == args.JSONProperty))
             {
-                AddJSONProperty(args.JSONProperty, "", args.DataType);
+                CreateJSONProperty(args.JSONProperty, "", args.DataType);
             }
         }
 
@@ -235,7 +235,7 @@ namespace TBGINTB_Builder.BuilderControls
                 m_stackPanel_jsonProperties = new StackPanel() { Orientation = Orientation.Vertical };
 
                 foreach(var property in JSONPropertyManager.ParseJSONIntoJSONProperties(resultJSONData))
-                    AddJSONProperty
+                    CreateJSONProperty
                         (
                             property.Name,
                             property.Value.ToString(),
@@ -246,7 +246,7 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void AddJSONProperty(string jsonPropertyName, string jsonPropertyValue, int jsonPropertyDataTypeId)
+        private void CreateJSONProperty(string jsonPropertyName, string jsonPropertyValue, int jsonPropertyDataTypeId)
         {
             m_stackPanel_jsonProperties.Children.Add(new GroupBox_JSONPropertyValueEditor(jsonPropertyName, jsonPropertyValue, jsonPropertyDataTypeId));
         }

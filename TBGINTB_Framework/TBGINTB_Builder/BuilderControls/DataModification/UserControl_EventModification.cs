@@ -62,7 +62,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyEvent = new Button() { Content = "Modify Event" };
-            button_modifyEvent.Click += Button_ModifyEvent_Click;
+            button_modifyEvent.Click += Button_UpdateEvent_Click;
             grid_main.SetGridRowColumn(button_modifyEvent, 0, 0);
 
             m_userControl_evnt = new UserControl_Event(evntId, evntName, evntDescription, false);
@@ -73,7 +73,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyEvent_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateEvent_Click(object sender, RoutedEventArgs e)
         {
             Window_Event window =
                 new Window_Event
@@ -85,7 +85,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Event wWin = win as Window_Event;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyEvent(wWin.EventId.Value, wWin.EventName, wWin.EventDescription);
+                            GinTubBuilderManager.UpdateEvent(wWin.EventId.Value, wWin.EventName, wWin.EventDescription);
                     }
                 );
             window.Show();

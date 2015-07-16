@@ -44,14 +44,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.LocationModified += GinTubBuilderManager_LocationModifiedOrGet;
-            GinTubBuilderManager.LocationGet += GinTubBuilderManager_LocationModifiedOrGet;
+            GinTubBuilderManager.LocationUpdated += GinTubBuilderManager_LocationUpdatedOrSelect;
+            GinTubBuilderManager.LocationSelect += GinTubBuilderManager_LocationUpdatedOrSelect;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.LocationModified -= GinTubBuilderManager_LocationModifiedOrGet;
-            GinTubBuilderManager.LocationGet -= GinTubBuilderManager_LocationModifiedOrGet;
+            GinTubBuilderManager.LocationUpdated -= GinTubBuilderManager_LocationUpdatedOrSelect;
+            GinTubBuilderManager.LocationSelect -= GinTubBuilderManager_LocationUpdatedOrSelect;
         }
         #endregion
 
@@ -76,7 +76,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        void GinTubBuilderManager_LocationModifiedOrGet(object sender, GinTubBuilderManager.LocationEventArgs args)
+        void GinTubBuilderManager_LocationUpdatedOrSelect(object sender, GinTubBuilderManager.LocationEventArgs args)
         {
             ComboBox_Location.ComboBoxItem_Location comboBoxItem = null;
             if ((comboBoxItem = m_comboBox_location.SelectedItem as ComboBox_Location.ComboBoxItem_Location) != null && comboBoxItem.LocationId == args.Id)
@@ -136,7 +136,7 @@ namespace TBGINTB_Builder.BuilderControls
             ComboBox_Location comboBox = sender as ComboBox_Location;
             ComboBox_Location.ComboBoxItem_Location comboBoxItem = null;
             if (comboBox != null && (comboBoxItem = comboBox.SelectedItem as ComboBox_Location.ComboBoxItem_Location) != null)
-                GinTubBuilderManager.GetLocation(comboBoxItem.LocationId);
+                GinTubBuilderManager.SelectLocation(comboBoxItem.LocationId);
             else
                 SetLocationFile(null);
         }
@@ -151,7 +151,7 @@ namespace TBGINTB_Builder.BuilderControls
                 {
                     ComboBox_Location.ComboBoxItem_Location comboBoxItem = null;
                     if ((comboBoxItem = m_comboBox_location.SelectedItem as ComboBox_Location.ComboBoxItem_Location) != null)
-                        GinTubBuilderManager.ModifyLocation(comboBoxItem.LocationId, null, file);
+                        GinTubBuilderManager.UpdateLocation(comboBoxItem.LocationId, null, file);
                 }
             }
         }

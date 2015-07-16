@@ -36,9 +36,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_MessageChoice(int? messageChoiceId, string messageChoiceName, string messageChoiceText, int messageId, bool enableEditing, bool enableGetting)
+        public UserControl_Bordered_MessageChoice(int? messageChoiceId, string messageChoiceName, string messageChoiceText, int messageId, bool enableEditing, bool enableSelectting)
         {
-            CreateControls(messageChoiceId, messageChoiceName, messageChoiceText, messageId, enableEditing, enableGetting);
+            CreateControls(messageChoiceId, messageChoiceName, messageChoiceText, messageId, enableEditing, enableSelectting);
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
@@ -56,9 +56,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? messageChoiceId, string messageChoiceName, string messageChoiceText, int messageId, bool enableEditing, bool enableGetting)
+        private void CreateControls(int? messageChoiceId, string messageChoiceName, string messageChoiceText, int messageId, bool enableEditing, bool enableSelectting)
         {
-            m_userControl_messageChoice = new UserControl_MessageChoice(messageChoiceId, messageChoiceName, messageChoiceText, messageId, enableEditing, enableGetting);
+            m_userControl_messageChoice = new UserControl_MessageChoice(messageChoiceId, messageChoiceName, messageChoiceText, messageId, enableEditing, enableSelectting);
             Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_messageChoice };
             Content = border;
         }

@@ -136,33 +136,33 @@ namespace TBGINTB_Builder.Lib
 
         private static Xml.GinTub ExportGinTubToXml()
         {
-            Xml.Item[] items = SelectAllItems().Select(i => Mapper.Map<Xml.Item>(i)).ToArray();
+            Xml.Item[] items = ReadAllItemsDb().Select(i => Mapper.Map<Xml.Item>(i)).ToArray();
 
-            Xml.Event[] events = SelectAllEvents().Select(e => Mapper.Map<Xml.Event>(e)).ToArray();
+            Xml.Event[] events = ReadAllEventsDb().Select(e => Mapper.Map<Xml.Event>(e)).ToArray();
 
-            Xml.Character[] characters = SelectAllCharacters().Select(c => Mapper.Map<Xml.Character>(c)).ToArray();
+            Xml.Character[] characters = ReadAllCharactersDb().Select(c => Mapper.Map<Xml.Character>(c)).ToArray();
 
-            Xml.JSONPropertyDataType[] jsonPropertyDataTypes = SelectAllJSONPropertyDataTypes().Select(t => Mapper.Map<Xml.JSONPropertyDataType>(t)).ToArray();
+            Xml.JSONPropertyDataType[] jsonPropertyDataTypes = ReadAllJSONPropertyDataTypesDb().Select(t => Mapper.Map<Xml.JSONPropertyDataType>(t)).ToArray();
 
-            Xml.ResultType[] resultTypes = SelectAllResultTypes().Select(rt => Mapper.Map<Xml.ResultType>(rt)).ToArray();
+            Xml.ResultType[] resultTypes = ReadAllResultTypesDb().Select(rt => Mapper.Map<Xml.ResultType>(rt)).ToArray();
             for (int i = 0; i < resultTypes.Length; ++i)
                 ExportResultTypeToXml(ref resultTypes[i]);
 
-            Xml.VerbType[] verbTypes = SelectAllVerbTypes().Select(rt => Mapper.Map<Xml.VerbType>(rt)).ToArray();
+            Xml.VerbType[] verbTypes = ReadAllVerbTypesDb().Select(rt => Mapper.Map<Xml.VerbType>(rt)).ToArray();
             for (int i = 0; i < verbTypes.Length; ++i)
                 ExportVerbTypeToXml(ref verbTypes[i]);
 
-            Xml.Location[] locations = SelectAllLocations().Select(l => Mapper.Map<Xml.Location>(l)).ToArray();
+            Xml.Location[] locations = ReadAllLocationsDb().Select(l => Mapper.Map<Xml.Location>(l)).ToArray();
 
-            Xml.Message[] messages = SelectAllMessages().Select(a => Mapper.Map<Xml.Message>(a)).ToArray();
+            Xml.Message[] messages = ReadAllMessagesDb().Select(a => Mapper.Map<Xml.Message>(a)).ToArray();
             for (int i = 0; i < messages.Length; ++i)
                 ExportMessageToXml(ref messages[i]);
 
-            Xml.Area[] areas = SelectAllAreas().Select(a => Mapper.Map<Xml.Area>(a)).ToArray();
+            Xml.Area[] areas = ReadAllAreasDb().Select(a => Mapper.Map<Xml.Area>(a)).ToArray();
             for (int i = 0; i < areas.Length; ++i)
                 ExportAreaToXml(ref areas[i]);
 
-            Xml.AreaRoomOnInitialLoad areaRoomOnInitialLoad = Mapper.Map<Xml.AreaRoomOnInitialLoad>(SelectAreaRoomOnInitialLoad());
+            Xml.AreaRoomOnInitialLoad areaRoomOnInitialLoad = Mapper.Map<Xml.AreaRoomOnInitialLoad>(ReadAreaRoomOnInitialLoadDb());
 
             Xml.GinTub ginTub = new Xml.GinTub();
             ginTub.Items = items;
@@ -180,21 +180,21 @@ namespace TBGINTB_Builder.Lib
 
         private static void ExportResultTypeToXml(ref Xml.ResultType resultType)
         {
-            resultType.ResultTypeJSONProperties = SelectAllResultTypeJSONPropertiesForResultType(resultType.Id).
+            resultType.ResultTypeJSONProperties = ReadAllResultTypeJSONPropertiesForResultTypeDb(resultType.Id).
                 Select(rtjp => Mapper.Map<Xml.ResultTypeJSONProperty>(rtjp)).ToArray();
-            resultType.Results = SelectAllResultsForResultType(resultType.Id).
+            resultType.Results = ReadAllResultsForResultTypeDb(resultType.Id).
                 Select(r => Mapper.Map<Xml.Result>(r)).ToArray();
         }
 
         private static void ExportVerbTypeToXml(ref Xml.VerbType verbType)
         {
-            verbType.Verbs = SelectAllVerbsForVerbType(verbType.Id).
+            verbType.Verbs = ReadAllVerbsForVerbTypeDb(verbType.Id).
                 Select(v => Mapper.Map<Xml.Verb>(v)).ToArray();
         }
 
         private static void ExportMessageToXml(ref Xml.Message message)
         {
-            message.MessageChoices = SelectAllMessageChoicesForMessage(message.Id).
+            message.MessageChoices = ReadAllMessageChoicesForMessageDb(message.Id).
                 Select(mc => Mapper.Map<Xml.MessageChoice>(mc)).ToArray();
             for (int i = 0; i < message.MessageChoices.Length; ++i)
                 ExportMessageChoiceToXml(ref message.MessageChoices[i]);
@@ -202,13 +202,13 @@ namespace TBGINTB_Builder.Lib
 
         private static void ExportMessageChoiceToXml(ref Xml.MessageChoice messageChoice)
         {
-            messageChoice.MessageChoiceResults = SelectAllMessageChoiceResultsForMessageChoice(messageChoice.Id).
+            messageChoice.MessageChoiceResults = ReadAllMessageChoiceResultsForMessageChoiceDb(messageChoice.Id).
                 Select(r => Mapper.Map<Xml.MessageChoiceResult>(r)).ToArray();
         }
 
         private static void ExportAreaToXml(ref Xml.Area area)
         {
-            area.Rooms = SelectAllRoomsInArea(area.Id).
+            area.Rooms = ReadAllRoomsInAreaDb(area.Id).
                 Select(r => Mapper.Map<Xml.Room>(r)).ToArray();
             for (int i = 0; i < area.Rooms.Length; ++i)
                 ExportRoomToXml(ref area.Rooms[i]);
@@ -216,15 +216,15 @@ namespace TBGINTB_Builder.Lib
 
         private static void ExportRoomToXml(ref Xml.Room room)
         {
-            room.Paragraphs = SelectAllParagraphsForRoomAndRoomState(room.Id, null).
+            room.Paragraphs = ReadAllParagraphsForRoomAndRoomStateDb(room.Id, null).
                 Select(p => Mapper.Map<Xml.Paragraph>(p)).ToArray();
             for (int i = 0; i < room.Paragraphs.Length; ++i)
                 ExportParagraphToXml(ref room.Paragraphs[i]);
-            room.RoomStates = SelectAllRoomStatesForRoom(room.Id).
+            room.RoomStates = ReadAllRoomStatesForRoomDb(room.Id).
                 Select(rs => Mapper.Map<Xml.RoomState>(rs)).ToArray();
             foreach(var roomState in room.RoomStates)
             {
-                roomState.Paragraphs = SelectAllParagraphsForRoomAndRoomState(room.Id, roomState.Id).
+                roomState.Paragraphs = ReadAllParagraphsForRoomAndRoomStateDb(room.Id, roomState.Id).
                     Select(p => Mapper.Map<Xml.Paragraph>(p)).ToArray();
                 for (int i = 0; i < roomState.Paragraphs.Length; ++i)
                     ExportParagraphToXml(ref roomState.Paragraphs[i]);
@@ -233,7 +233,7 @@ namespace TBGINTB_Builder.Lib
 
         private static void ExportParagraphToXml(ref Xml.Paragraph paragraph)
         {
-            paragraph.ParagraphStates = SelectAllParagraphStatesForParagraph(paragraph.Id).
+            paragraph.ParagraphStates = ReadAllParagraphStatesForParagraphDb(paragraph.Id).
                 Select(ps => Mapper.Map<Xml.ParagraphState>(ps)).ToArray();
             for (int i = 0; i < paragraph.ParagraphStates.Length; ++i)
                 ExportParagraphStateToXml(ref paragraph.ParagraphStates[i]);
@@ -241,7 +241,7 @@ namespace TBGINTB_Builder.Lib
 
         private static void ExportParagraphStateToXml(ref Xml.ParagraphState paragraphState)
         {
-            paragraphState.Nouns = SelectAllNounsForParagraphState(paragraphState.Id).
+            paragraphState.Nouns = ReadAllNounsForParagraphStateDb(paragraphState.Id).
                 Select(n => Mapper.Map<Xml.Noun>(n)).ToArray();
             for (int i = 0; i < paragraphState.Nouns.Length; ++i)
                 ExportNounToXml(ref paragraphState.Nouns[i]);
@@ -249,7 +249,7 @@ namespace TBGINTB_Builder.Lib
 
         private static void ExportNounToXml(ref Xml.Noun noun)
         {
-            noun.Actions = SelectAllActionsForNoun(noun.Id).
+            noun.Actions = ReadAllActionsForNounDb(noun.Id).
                 Select(a => Mapper.Map<Xml.Action>(a)).ToArray();
             for(int i = 0; i < noun.Actions.Length; ++i)
                 ExportActionToXml(ref noun.Actions[i]);
@@ -257,13 +257,13 @@ namespace TBGINTB_Builder.Lib
 
         private static void ExportActionToXml(ref Xml.Action action)
         {
-            action.ActionResults = SelectAllActionResultsForAction(action.Id).
+            action.ActionResults = ReadAllActionResultsForActionDb(action.Id).
                 Select(a => Mapper.Map<Xml.ActionResult>(a)).ToArray();
-            action.ItemActionRequirements = SelectAllItemActionRequirementsForAction(action.Id).
+            action.ItemActionRequirements = ReadAllItemActionRequirementsForActionDb(action.Id).
                 Select(i => Mapper.Map<Xml.ItemActionRequirement>(i)).ToArray();
-            action.EventActionRequirements = SelectAllEventActionRequirementsForAction(action.Id).
+            action.EventActionRequirements = ReadAllEventActionRequirementsForActionDb(action.Id).
                 Select(e => Mapper.Map<Xml.EventActionRequirement>(e)).ToArray();
-            action.CharacterActionRequirements = SelectAllCharacterActionRequirementsForAction(action.Id).
+            action.CharacterActionRequirements = ReadAllCharacterActionRequirementsForActionDb(action.Id).
                 Select(c => Mapper.Map<Xml.CharacterActionRequirement>(c)).ToArray();
         }
 
@@ -338,19 +338,19 @@ namespace TBGINTB_Builder.Lib
         private static void ImportRoomFromXml(Xml.Room room, int areaId)
         {
             ImportRoom(room.Id, room.Name, room.X, room.Y, room.Z, areaId);
-            foreach (var paragraph in room.Paragraphs)
+            /*foreach (var paragraph in room.Paragraphs)
                 ImportParagraphFromXml(paragraph, room.Id, null);
             foreach(var roomState in room.RoomStates)
             {
                 ImportRoomState(roomState.Id, roomState.State, roomState.Time, roomState.Location, room.Id);
                 foreach (var paragraph in roomState.Paragraphs)
                     ImportParagraphFromXml(paragraph, room.Id, roomState.Id);
-            }
+            }*/
         }
 
-        private static void ImportParagraphFromXml(Xml.Paragraph paragraph, int roomId, int? roomStateId)
+        private static void ImportParagraphFromXml(Xml.Paragraph paragraph, int roomId)
         {
-            ImportParagraph(paragraph.Id, paragraph.Order, roomId, roomStateId);
+            ImportParagraph(paragraph.Id, paragraph.Order, roomId);
             foreach (var paragraphState in paragraph.ParagraphStates)
                 ImportParagraphStateFromXml(paragraphState, paragraph.Id);
         }
@@ -567,7 +567,7 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static void ImportRoomState(int id, int state, DateTime? time, int location, int room)
+        private static void ImportRoomState(int id, int state, TimeSpan time, int location, int room)
         {
             try
             {
@@ -579,11 +579,11 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static void ImportParagraph(int id, int order, int room, int? roomState)
+        private static void ImportParagraph(int id, int order, int room)
         {
             try
             {
-                m_entities.dev_ImportParagraph(id, order, room, roomState);
+                m_entities.dev_ImportParagraph(id, order, room);
             }
             catch (Exception e)
             {

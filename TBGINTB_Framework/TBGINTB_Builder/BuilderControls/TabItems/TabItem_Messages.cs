@@ -38,7 +38,7 @@ namespace TBGINTB_Builder.BuilderControls
             Header = "Messages";
             Content = CreateControls();
 
-            GinTubBuilderManager.LoadAllMessages();
+            GinTubBuilderManager.ReadAllMessages();
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
@@ -50,8 +50,8 @@ namespace TBGINTB_Builder.BuilderControls
             if (m_grid_messageChoiceResults != null)
                 m_grid_messageChoiceResults.SetActiveAndRegisterForGinTubEvents();
 
-            GinTubBuilderManager.MessageGet += GinTubBuilderManager_MessageGet;
-            GinTubBuilderManager.MessageChoiceGet += GinTubBuilderManager_MessageChoiceGet;
+            GinTubBuilderManager.MessageSelect += GinTubBuilderManager_MessageSelect;
+            GinTubBuilderManager.MessageChoiceSelect += GinTubBuilderManager_MessageChoiceSelect;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
@@ -63,8 +63,8 @@ namespace TBGINTB_Builder.BuilderControls
             if (m_grid_messageChoiceResults != null)
                 m_grid_messageChoiceResults.SetInactiveAndUnregisterFromGinTubEvents();
 
-            GinTubBuilderManager.MessageGet -= GinTubBuilderManager_MessageGet;
-            GinTubBuilderManager.MessageChoiceGet -= GinTubBuilderManager_MessageChoiceGet;
+            GinTubBuilderManager.MessageSelect -= GinTubBuilderManager_MessageSelect;
+            GinTubBuilderManager.MessageChoiceSelect -= GinTubBuilderManager_MessageChoiceSelect;
         }
 
         #endregion
@@ -92,12 +92,12 @@ namespace TBGINTB_Builder.BuilderControls
             return m_grid_main;
         }
 
-        private void GinTubBuilderManager_MessageGet(object sender, GinTubBuilderManager.MessageGetEventArgs args)
+        private void GinTubBuilderManager_MessageSelect(object sender, GinTubBuilderManager.MessageSelectEventArgs args)
         {
             LoadMessage(args.Id);
         }
 
-        private void GinTubBuilderManager_MessageChoiceGet(object sender, GinTubBuilderManager.MessageChoiceGetEventArgs args)
+        private void GinTubBuilderManager_MessageChoiceSelect(object sender, GinTubBuilderManager.MessageChoiceSelectEventArgs args)
         {
             LoadMessageChoice(args.Id, args.Message);
         }
@@ -109,7 +109,7 @@ namespace TBGINTB_Builder.BuilderControls
             m_grid_messageChoices = new UserControl_MessageChoices(messageId);
             m_grid_messageChoices.SetActiveAndRegisterForGinTubEvents();
             m_grid_main.SetGridRowColumn(m_grid_messageChoices, 0, 1);
-            GinTubBuilderManager.LoadAllMessageChoicesForMessage(messageId);
+            GinTubBuilderManager.ReadAllMessageChoicesForMessage(messageId);
         }
 
         private void LoadMessageChoice(int messageChoiceId, int messageId)
@@ -119,7 +119,7 @@ namespace TBGINTB_Builder.BuilderControls
             m_grid_messageChoiceResults = new UserControl_MessageChoiceResults(messageChoiceId, messageId);
             m_grid_messageChoiceResults.SetActiveAndRegisterForGinTubEvents();
             m_grid_main.SetGridRowColumn(m_grid_messageChoiceResults, 0, 2);
-            GinTubBuilderManager.LoadAllMessageChoiceResultsForMessageChoice(messageChoiceId);
+            GinTubBuilderManager.ReadAllMessageChoiceResultsForMessageChoice(messageChoiceId);
         }
 
         private void UnloadMessage()

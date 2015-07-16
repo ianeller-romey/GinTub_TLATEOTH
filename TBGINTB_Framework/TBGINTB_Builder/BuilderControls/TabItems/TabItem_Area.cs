@@ -118,7 +118,7 @@ namespace TBGINTB_Builder.BuilderControls
 
             void TextBox_AreaName_TextChanged(object sender, TextChangedEventArgs e)
             {
-                GinTubBuilderManager.ModifyArea(AreaId, m_textBox_areaName.Text);
+                GinTubBuilderManager.UpdateArea(AreaId, m_textBox_areaName.Text);
             }
 
             #endregion
@@ -165,48 +165,48 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.AreaAdded += GinTubBuilderManager_AreaAdded;
-            GinTubBuilderManager.AreaModified += GinTubBuilderManager_AreaModified;
-            GinTubBuilderManager.AreaGet += GinTubBuilderManager_AreaGet;
+            GinTubBuilderManager.AreaRead += GinTubBuilderManager_AreaRead;
+            GinTubBuilderManager.AreaUpdated += GinTubBuilderManager_AreaUpdated;
+            GinTubBuilderManager.AreaSelect += GinTubBuilderManager_AreaSelect;
 
-            GinTubBuilderManager.RoomGet += GinTubBuilderManager_RoomGet;
+            GinTubBuilderManager.RoomSelect += GinTubBuilderManager_RoomSelect;
 
-            GinTubBuilderManager.RoomStateGet += GinTubBuilderManager_RoomStateGet;
+            GinTubBuilderManager.RoomStateSelect += GinTubBuilderManager_RoomStateSelect;
 
-            GinTubBuilderManager.ParagraphGet += GinTubBuilderManager_ParagraphGet;
+            GinTubBuilderManager.ParagraphSelect += GinTubBuilderManager_ParagraphSelect;
 
-            GinTubBuilderManager.ParagraphStateGet += GinTubBuilderManager_ParagraphStateGet;
+            GinTubBuilderManager.ParagraphStateSelect += GinTubBuilderManager_ParagraphStateSelect;
 
-            GinTubBuilderManager.NounGet += GinTubBuilderManager_NounGet;
+            GinTubBuilderManager.NounSelect += GinTubBuilderManager_NounSelect;
 
-            GinTubBuilderManager.ActionGet += GinTubBuilderManager_ActionGet;
+            GinTubBuilderManager.ActionSelect += GinTubBuilderManager_ActionSelect;
 
             if (m_grid_roomsOnFloor != null)
                 m_grid_roomsOnFloor.SetActiveAndRegisterForGinTubEvents();
             if(m_grid_roomAndState != null)
                 m_grid_roomAndState.SetActiveAndRegisterForGinTubEvents();
 
-            GinTubBuilderManager.LoadAllAreas();
+            GinTubBuilderManager.ReadAllAreas();
             m_comboBox_areas.SelectionChanged += ComboBox_Area_SelectionChanged;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.AreaAdded -= GinTubBuilderManager_AreaAdded;
-            GinTubBuilderManager.AreaModified -= GinTubBuilderManager_AreaModified;
-            GinTubBuilderManager.AreaGet -= GinTubBuilderManager_AreaGet;
+            GinTubBuilderManager.AreaRead -= GinTubBuilderManager_AreaRead;
+            GinTubBuilderManager.AreaUpdated -= GinTubBuilderManager_AreaUpdated;
+            GinTubBuilderManager.AreaSelect -= GinTubBuilderManager_AreaSelect;
 
-            GinTubBuilderManager.RoomGet -= GinTubBuilderManager_RoomGet;
+            GinTubBuilderManager.RoomSelect -= GinTubBuilderManager_RoomSelect;
 
-            GinTubBuilderManager.RoomStateGet -= GinTubBuilderManager_RoomStateGet;
+            GinTubBuilderManager.RoomStateSelect -= GinTubBuilderManager_RoomStateSelect;
 
-            GinTubBuilderManager.ParagraphGet -= GinTubBuilderManager_ParagraphGet;
+            GinTubBuilderManager.ParagraphSelect -= GinTubBuilderManager_ParagraphSelect;
 
-            GinTubBuilderManager.ParagraphStateGet -= GinTubBuilderManager_ParagraphStateGet;
+            GinTubBuilderManager.ParagraphStateSelect -= GinTubBuilderManager_ParagraphStateSelect;
 
-            GinTubBuilderManager.NounGet -= GinTubBuilderManager_NounGet;
+            GinTubBuilderManager.NounSelect -= GinTubBuilderManager_NounSelect;
 
-            GinTubBuilderManager.ActionGet -= GinTubBuilderManager_ActionGet;
+            GinTubBuilderManager.ActionSelect -= GinTubBuilderManager_ActionSelect;
 
             if(m_grid_roomsOnFloor != null)
                 m_grid_roomsOnFloor.SetInactiveAndUnregisterFromGinTubEvents();
@@ -286,61 +286,61 @@ namespace TBGINTB_Builder.BuilderControls
             return m_grid_main;
         }
 
-        private void GinTubBuilderManager_AreaAdded(object sender, GinTubBuilderManager.AreaAddedEventArgs args)
+        private void GinTubBuilderManager_AreaRead(object sender, GinTubBuilderManager.AreaReadEventArgs args)
         {
-            AddedArea(args.Id, args.Name);
+            CreateedArea(args.Id, args.Name);
         }
 
-        private void GinTubBuilderManager_AreaModified(object sender, GinTubBuilderManager.AreaModifiedEventArgs args)
+        private void GinTubBuilderManager_AreaUpdated(object sender, GinTubBuilderManager.AreaUpdatedEventArgs args)
         {
             ModifiedArea(args.Id, args.Name);
         }
 
-        private void GinTubBuilderManager_AreaGet(object sender, GinTubBuilderManager.AreaGetEventArgs args)
+        private void GinTubBuilderManager_AreaSelect(object sender, GinTubBuilderManager.AreaSelectEventArgs args)
         {
             LoadArea(args.Id, args.Name, args.MaxX, args.MinX, args.MaxY, args.MinY, args.MinZ, args.MaxZ);
         }
 
-        private void GinTubBuilderManager_RoomGet(object sender, GinTubBuilderManager.RoomGetEventArgs args)
+        private void GinTubBuilderManager_RoomSelect(object sender, GinTubBuilderManager.RoomSelectEventArgs args)
         {
             LoadRoom(args.Id, args.Name, args.X, args.Y, args.Z);
         }
 
-        void GinTubBuilderManager_RoomStateGet(object sender, GinTubBuilderManager.RoomStateGetEventArgs args)
+        void GinTubBuilderManager_RoomStateSelect(object sender, GinTubBuilderManager.RoomStateSelectEventArgs args)
         {
             LoadRoomState(args.Room, args.Id);
         }
 
-        void GinTubBuilderManager_ParagraphGet(object sender, GinTubBuilderManager.ParagraphGetEventArgs args)
+        void GinTubBuilderManager_ParagraphSelect(object sender, GinTubBuilderManager.ParagraphSelectEventArgs args)
         {
             UnloadParagraphState();
-            GinTubBuilderManager.LoadAllParagraphStatesForParagraph(args.Id);
+            GinTubBuilderManager.ReadAllParagraphStatesForParagraph(args.Id);
         }
 
-        void GinTubBuilderManager_ParagraphStateGet(object sender, GinTubBuilderManager.ParagraphStateGetEventArgs args)
+        void GinTubBuilderManager_ParagraphStateSelect(object sender, GinTubBuilderManager.ParagraphStateSelectEventArgs args)
         {
             LoadParagraphState(args.Id);
         }
 
-        void GinTubBuilderManager_NounGet(object sender, GinTubBuilderManager.NounGetEventArgs args)
+        void GinTubBuilderManager_NounSelect(object sender, GinTubBuilderManager.NounSelectEventArgs args)
         {
             UnloadAction();
-            GinTubBuilderManager.LoadAllActionsForNoun(args.Id);
+            GinTubBuilderManager.ReadAllActionsForNoun(args.Id);
         }
 
-        void GinTubBuilderManager_ActionGet(object sender, GinTubBuilderManager.ActionGetEventArgs args)
+        void GinTubBuilderManager_ActionSelect(object sender, GinTubBuilderManager.ActionSelectEventArgs args)
         {
             LoadAction(args.Id);
         }
 
-        private void AddingArea()
+        private void CreateingArea()
         {
             Window_TextEntry window = new Window_TextEntry("Area Name", "");
-            window.Closed += (x, y) => { if (window.Accepted) GinTubBuilderManager.AddArea(window.Text); };
+            window.Closed += (x, y) => { if (window.Accepted) GinTubBuilderManager.CreateArea(window.Text); };
             window.Show();
         }
 
-        private void AddedArea(int id, string name)
+        private void CreateedArea(int id, string name)
         {
             if (m_comboBox_areas.Items.OfType<ComboBoxItem_Area>().Any(a => a.AreaId == id))
                 return;
@@ -370,14 +370,14 @@ namespace TBGINTB_Builder.BuilderControls
             if(minZ < 0)
             {
                 for (int z = minZ; z < 0; ++z)
-                    AddFloorBelow();
+                    CreateFloorBelow();
                 for (int z = 0; z <= maxZ; ++z)
-                    AddFloorAbove();
+                    CreateFloorAbove();
             }
             else
             {
                 for (int z = minZ; z <= maxZ; ++z)
-                    AddFloorAbove();
+                    CreateFloorAbove();
             }
             m_comboBox_z.SelectedItem = m_comboBox_z.Items[m_comboBox_z.Items.Count - 2];
 
@@ -393,12 +393,12 @@ namespace TBGINTB_Builder.BuilderControls
             m_grid_roomAndState = new UserControl_RoomAndStates(roomId, roomName, roomX, roomY, roomZ, AreaId);
             m_grid_sub.SetGridRowColumn(m_grid_roomAndState, 0, 2);
             m_grid_roomAndState.SetActiveAndRegisterForGinTubEvents();
-            GinTubBuilderManager.LoadAllRoomStatesForRoom(roomId);
+            GinTubBuilderManager.ReadAllRoomStatesForRoom(roomId);
 
             m_grid_paragraphsAndStates = new UserControl_ParagraphsAndStates(roomId, null);
             m_grid_sub.SetGridRowColumn(m_grid_paragraphsAndStates, 0, 4);
             m_grid_paragraphsAndStates.SetActiveAndRegisterForGinTubEvents();
-            GinTubBuilderManager.LoadAllParagraphsForRoomAndRoomState(roomId, null);
+            GinTubBuilderManager.ReadAllParagraphsForRoomAndRoomState(roomId, null);
         }
 
         private void LoadRoomState(int roomId, int roomStateId)
@@ -408,7 +408,7 @@ namespace TBGINTB_Builder.BuilderControls
             m_grid_paragraphsAndStates = new UserControl_ParagraphsAndStates(roomId, roomStateId);
             m_grid_sub.SetGridRowColumn(m_grid_paragraphsAndStates, 0, 4);
             m_grid_paragraphsAndStates.SetActiveAndRegisterForGinTubEvents();
-            GinTubBuilderManager.LoadAllParagraphsForRoomAndRoomState(roomId, roomStateId);
+            GinTubBuilderManager.ReadAllParagraphsForRoomAndRoomState(roomId, roomStateId);
         }
 
         private void LoadParagraphState(int paragraphStateId)
@@ -418,7 +418,7 @@ namespace TBGINTB_Builder.BuilderControls
             m_grid_nounsAndActions = new UserControl_NounsAndActions(paragraphStateId);
             m_grid_sub.SetGridRowColumn(m_grid_nounsAndActions, 0, 6);
             m_grid_nounsAndActions.SetActiveAndRegisterForGinTubEvents();
-            GinTubBuilderManager.LoadAllNounsForParagraphState(paragraphStateId);
+            GinTubBuilderManager.ReadAllNounsForParagraphState(paragraphStateId);
         }
 
         private void LoadAction(int actionId)
@@ -434,7 +434,7 @@ namespace TBGINTB_Builder.BuilderControls
                 );
             m_grid_sub.SetGridRowColumn(m_grid_actionResults, 0, 8);
             m_grid_actionResults.SetActiveAndRegisterForGinTubEvents();
-            GinTubBuilderManager.LoadAllActionResultsForAction(actionId);
+            GinTubBuilderManager.ReadAllActionResultsForAction(actionId);
 
             m_grid_actionRequirements =
                 new UserControl_ActionRequirements
@@ -445,10 +445,10 @@ namespace TBGINTB_Builder.BuilderControls
                 );
             m_grid_sub.SetGridRowColumn(m_grid_actionRequirements, 0, 10);
             m_grid_actionRequirements.SetActiveAndRegisterForGinTubEvents();
-            GinTubBuilderManager.LoadAllItemActionRequirementsForAction(actionId);
-            GinTubBuilderManager.LoadAllEventActionRequirementsForAction(actionId);
-            GinTubBuilderManager.LoadAllCharacterActionRequirementsForAction(actionId);
-            GinTubBuilderManager.LoadAllActionsForNoun(m_grid_nounsAndActions.SelectedNounId.Value);
+            GinTubBuilderManager.ReadAllItemActionRequirementsForAction(actionId);
+            GinTubBuilderManager.ReadAllEventActionRequirementsForAction(actionId);
+            GinTubBuilderManager.ReadAllCharacterActionRequirementsForAction(actionId);
+            GinTubBuilderManager.ReadAllActionsForNoun(m_grid_nounsAndActions.SelectedNounId.Value);
         }
 
         private void UnloadArea()
@@ -492,7 +492,7 @@ namespace TBGINTB_Builder.BuilderControls
                 m_grid_sub.Children.Remove(m_grid_actionRequirements);
         }
 
-        private void AddFloorAbove()
+        private void CreateFloorAbove()
         {
             ComboBoxItem_Z item = m_comboBox_z.Items[1] as ComboBoxItem_Z;
             int newFloor = (item == null) ? 0 : item.Z + 1;
@@ -501,7 +501,7 @@ namespace TBGINTB_Builder.BuilderControls
             m_comboBox_z.SelectedItem = item;
         }
 
-        private void AddFloorBelow()
+        private void CreateFloorBelow()
         {
             ComboBoxItem_Z item = m_comboBox_z.Items[m_comboBox_z.Items.Count - 2] as ComboBoxItem_Z;
             int newFloor = (item == null) ? -1 : item.Z - 1;
@@ -523,12 +523,12 @@ namespace TBGINTB_Builder.BuilderControls
             if (sender == m_comboBox_areas && (item = m_comboBox_areas.SelectedItem as ComboBoxItem) != null)
             {
                 if (item == c_comboBoxItem_newArea)
-                    AddingArea();
+                    CreateingArea();
                 else
                 {
                     ComboBoxItem_Area aItem = item as ComboBoxItem_Area;
                     if(aItem != null)
-                        GinTubBuilderManager.GetArea(aItem.AreaId);
+                        GinTubBuilderManager.SelectArea(aItem.AreaId);
                 }
             }
         }
@@ -539,9 +539,9 @@ namespace TBGINTB_Builder.BuilderControls
             if(sender == m_comboBox_z && (item = m_comboBox_z.SelectedItem as ComboBoxItem) != null)
             {
                 if (item == c_comboBoxItem_newFloorAbove)
-                    AddFloorAbove();
+                    CreateFloorAbove();
                 else if (item == c_comboBoxItem_newFloorBelow)
-                    AddFloorBelow();
+                    CreateFloorBelow();
                 else
                 {
                     ComboBoxItem_Z zItem = item as ComboBoxItem_Z;

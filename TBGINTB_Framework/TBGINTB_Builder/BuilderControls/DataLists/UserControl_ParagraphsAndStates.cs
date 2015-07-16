@@ -55,8 +55,8 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ParagraphAdded += GinTubBuilderManager_ParagraphAdded;
-            GinTubBuilderManager.ParagraphStateAdded += GinTubBuilderManager_ParagraphStateAdded;
+            GinTubBuilderManager.ParagraphRead += GinTubBuilderManager_ParagraphRead;
+            GinTubBuilderManager.ParagraphStateRead += GinTubBuilderManager_ParagraphStateRead;
 
             foreach (var block in m_stackPanel_paragraphs.Children.OfType<UserControl_Paragraph>())
                 block.SetActiveAndRegisterForGinTubEvents();
@@ -67,8 +67,8 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ParagraphAdded -= GinTubBuilderManager_ParagraphAdded;
-            GinTubBuilderManager.ParagraphStateAdded -= GinTubBuilderManager_ParagraphStateAdded;
+            GinTubBuilderManager.ParagraphRead -= GinTubBuilderManager_ParagraphRead;
+            GinTubBuilderManager.ParagraphStateRead -= GinTubBuilderManager_ParagraphStateRead;
 
             foreach (var block in m_stackPanel_paragraphs.Children.OfType<UserControl_Paragraph>())
                 block.SetInactiveAndUnregisterFromGinTubEvents();
@@ -92,13 +92,13 @@ namespace TBGINTB_Builder.BuilderControls
             ////////
             // Add paragraph
             Button button_addParagraph = new Button() { Content = "New Paragraph ..." };
-            button_addParagraph.Click += Button_AddParagraph_Click;
+            button_addParagraph.Click += Button_CreateParagraph_Click;
             m_grid_main.SetGridRowColumn(button_addParagraph, 0, 0);
 
             ////////
             // Paragraphs
             m_button_modifyParagraph = new Button() { Content = "Modify Paragraph", IsEnabled = false };
-            m_button_modifyParagraph.Click += Button_ModifyParagraph_Click;
+            m_button_modifyParagraph.Click += Button_UpdateParagraph_Click;
             m_grid_main.SetGridRowColumn(m_button_modifyParagraph, 1, 0);
 
             m_stackPanel_paragraphs = new StackPanel() { Orientation = Orientation.Vertical };
@@ -115,20 +115,20 @@ namespace TBGINTB_Builder.BuilderControls
             Content = m_grid_main;
         }
 
-        private void GinTubBuilderManager_ParagraphAdded(object sender, GinTubBuilderManager.ParagraphAddedEventArgs args)
+        private void GinTubBuilderManager_ParagraphRead(object sender, GinTubBuilderManager.ParagraphReadEventArgs args)
         {
             if (!m_stackPanel_paragraphs.Children.OfType<UserControl_Bordered_ParagraphWithPreview>().Any(t => t.ParagraphId == args.Id))
             {
-                UserControl_Bordered_ParagraphWithPreview border = new UserControl_Bordered_ParagraphWithPreview(args.Id, args.Order, args.Room, args.RoomState, false);
+                UserControl_Bordered_ParagraphWithPreview border = new UserControl_Bordered_ParagraphWithPreview(args.Id, args.Order, args.Room, false);
                 border.MouseLeftButtonDown += UserControl_ParagraphWithPreview_MouseLeftButtonDown;
                 border.SetActiveAndRegisterForGinTubEvents();
                 m_stackPanel_paragraphs.Children.Add(border);
 
-                GinTubBuilderManager.LoadParagraphStateForParagraphPreview(0, args.Id);
+                GinTubBuilderManager.ReadParagraphStateForParagraphPreview(0, args.Id);
             }
         }
 
-        private void GinTubBuilderManager_ParagraphStateAdded(object sender, GinTubBuilderManager.ParagraphStateAddedEventArgs args)
+        private void GinTubBuilderManager_ParagraphStateRead(object sender, GinTubBuilderManager.ParagraphStateReadEventArgs args)
         {
             if (SelectedParagraphId == args.Paragraph && !m_stackPanel_paragraphStates.Children.OfType<UserControl_ParagraphStateModification>().Any(t => t.ParagraphStateId == args.Id))
             {
@@ -167,7 +167,7 @@ namespace TBGINTB_Builder.BuilderControls
             if (m_button_addParagraphState == null)
             {
                 m_button_addParagraphState = new Button() { Content = "New Paragraph Text State ...", IsEnabled = false };
-                m_button_addParagraphState.Click += Button_AddParagraphState_Click;
+                m_button_addParagraphState.Click += Button_CreateParagraphState_Click;
                 m_grid_sub.SetGridRowColumn(m_button_addParagraphState, 0, 0);
             }
             if (m_stackPanel_paragraphStates == null)
@@ -183,7 +183,7 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void Button_AddParagraph_Click(object sender, RoutedEventArgs e)
+        private void Button_CreateParagraph_Click(object sender, RoutedEventArgs e)
         {
             Window_Paragraph window = 
                 new Window_Paragraph
@@ -191,18 +191,17 @@ namespace TBGINTB_Builder.BuilderControls
                     null, 
                     null, 
                     RoomId,
-                    RoomStateId,
                     (win) =>
                     {
                         Window_Paragraph wWin = win as Window_Paragraph;
                         if (wWin != null)
-                            GinTubBuilderManager.AddParagraph(wWin.ParagraphOrder.Value, wWin.RoomId, wWin.RoomStateId);
+                            GinTubBuilderManager.CreateParagraph(wWin.ParagraphOrder.Value, wWin.RoomId);
                     }
                 );
             window.Show();
         }
 
-        private void Button_ModifyParagraph_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateParagraph_Click(object sender, RoutedEventArgs e)
         {
             UserControl_Bordered_ParagraphWithPreview userControl = 
                 m_stackPanel_paragraphs.Children.OfType<UserControl_Bordered_ParagraphWithPreview>().Single(g => g.ParagraphId == SelectedParagraphId);
@@ -212,18 +211,17 @@ namespace TBGINTB_Builder.BuilderControls
                     userControl.ParagraphId, 
                     userControl.ParagraphOrder, 
                     userControl.RoomId,
-                    userControl.RoomStateId,
                     (win) =>
                     {
                         Window_Paragraph wWin = win as Window_Paragraph;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyParagraph(wWin.ParagraphId.Value, wWin.ParagraphOrder.Value, wWin.RoomId, wWin.RoomStateId);
+                            GinTubBuilderManager.UpdateParagraph(wWin.ParagraphId.Value, wWin.ParagraphOrder.Value, wWin.RoomId);
                     }
                 );
             window.Show();
         }
 
-        private void Button_AddParagraphState_Click(object sender, RoutedEventArgs e)
+        private void Button_CreateParagraphState_Click(object sender, RoutedEventArgs e)
         {
             Window_ParagraphState window = 
                 new Window_ParagraphState
@@ -236,7 +234,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_ParagraphState wWin = win as Window_ParagraphState;
                         if (wWin != null)
-                            GinTubBuilderManager.AddParagraphState(wWin.ParagraphStateText, wWin.ParagraphId);
+                            GinTubBuilderManager.CreateParagraphState(wWin.ParagraphStateText, wWin.ParagraphId);
                     }
                 );
             window.Show();
@@ -252,8 +250,8 @@ namespace TBGINTB_Builder.BuilderControls
                 m_stackPanel_paragraphStates.Children.Clear();
 
                 SelectedParagraphId = border.ParagraphId.Value;
-                GinTubBuilderManager.GetParagraph(SelectedParagraphId.Value);
-                GinTubBuilderManager.GetParagraphStateForParagraphPreview(0, SelectedParagraphId.Value);
+                GinTubBuilderManager.SelectParagraph(SelectedParagraphId.Value);
+                GinTubBuilderManager.SelectParagraphStateForParagraphPreview(0, SelectedParagraphId.Value);
 
                 m_button_modifyParagraph.IsEnabled = true;
                 m_button_addParagraphState.IsEnabled = true;

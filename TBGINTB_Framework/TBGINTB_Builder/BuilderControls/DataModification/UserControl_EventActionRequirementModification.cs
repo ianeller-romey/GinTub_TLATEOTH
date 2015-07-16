@@ -66,7 +66,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyEventActionRequirement = new Button() { Content = "Modify EventActionRequirement" };
-            button_modifyEventActionRequirement.Click += Button_ModifyEventActionRequirement_Click;
+            button_modifyEventActionRequirement.Click += Button_UpdateEventActionRequirement_Click;
             grid_main.SetGridRowColumn(button_modifyEventActionRequirement, 0, 0);
 
             m_userControl_actionEventActionRequirement = new UserControl_EventActionRequirement(actionEventActionRequirementId, evntActionRequirementEvent, evntActionRequirementAction, NounId, ParagraphStateId, false);
@@ -77,7 +77,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyEventActionRequirement_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateEventActionRequirement_Click(object sender, RoutedEventArgs e)
         {
             Window_EventActionRequirement window =
                 new Window_EventActionRequirement
@@ -91,7 +91,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_EventActionRequirement wWin = win as Window_EventActionRequirement;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyEventActionRequirement
+                            GinTubBuilderManager.UpdateEventActionRequirement
                             (
                                 wWin.EventActionRequirementId.Value,
                                 wWin.EventActionRequirementEvent.Value,

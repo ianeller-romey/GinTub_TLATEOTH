@@ -66,7 +66,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyItemActionRequirement = new Button() { Content = "Modify ItemActionRequirement" };
-            button_modifyItemActionRequirement.Click += Button_ModifyItemActionRequirement_Click;
+            button_modifyItemActionRequirement.Click += Button_UpdateItemActionRequirement_Click;
             grid_main.SetGridRowColumn(button_modifyItemActionRequirement, 0, 0);
 
             m_userControl_actionItemActionRequirement = new UserControl_ItemActionRequirement(actionItemActionRequirementId, itemActionRequirementItem, itemActionRequirementAction, NounId, ParagraphStateId, false);
@@ -77,7 +77,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyItemActionRequirement_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateItemActionRequirement_Click(object sender, RoutedEventArgs e)
         {
             Window_ItemActionRequirement window =
                 new Window_ItemActionRequirement
@@ -91,7 +91,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_ItemActionRequirement wWin = win as Window_ItemActionRequirement;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyItemActionRequirement
+                            GinTubBuilderManager.UpdateItemActionRequirement
                             (
                                 wWin.ItemActionRequirementId.Value,
                                 wWin.ItemActionRequirementItem.Value,

@@ -34,33 +34,33 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class AreaAddedEventArgs : AreaEventArgs
+        public class AreaReadEventArgs : AreaEventArgs
         {
-            public AreaAddedEventArgs(int id, string name) :  base(id, name) {}
+            public AreaReadEventArgs(int id, string name) :  base(id, name) {}
         }
-        public delegate void AreaAddedEventHandler(object sender, AreaAddedEventArgs args);
-        public static event AreaAddedEventHandler AreaAdded;
-        private static void OnAreaAdded(Area area)
+        public delegate void AreaReadEventHandler(object sender, AreaReadEventArgs args);
+        public static event AreaReadEventHandler AreaRead;
+        private static void OnAreaRead(Area area)
         {
-            if (AreaAdded != null)
-                AreaAdded(typeof(GinTubBuilderManager), new AreaAddedEventArgs(area.Id, area.Name));
-        }
-
-
-        public class AreaModifiedEventArgs : AreaEventArgs
-        {
-            public AreaModifiedEventArgs(int id, string name) : base(id, name) {}
-        }
-        public delegate void AreaModifiedEventHandler(object sender, AreaModifiedEventArgs args);
-        public static event AreaModifiedEventHandler AreaModified;
-        private static void OnAreaModified(Area area)
-        {
-            if (AreaModified != null)
-                AreaModified(typeof(GinTubBuilderManager), new AreaModifiedEventArgs(area.Id, area.Name));
+            if (AreaRead != null)
+                AreaRead(typeof(GinTubBuilderManager), new AreaReadEventArgs(area.Id, area.Name));
         }
 
 
-        public class AreaGetEventArgs : AreaEventArgs
+        public class AreaUpdatedEventArgs : AreaEventArgs
+        {
+            public AreaUpdatedEventArgs(int id, string name) : base(id, name) {}
+        }
+        public delegate void AreaUpdatedEventHandler(object sender, AreaUpdatedEventArgs args);
+        public static event AreaUpdatedEventHandler AreaUpdated;
+        private static void OnAreaUpdated(Area area)
+        {
+            if (AreaUpdated != null)
+                AreaUpdated(typeof(GinTubBuilderManager), new AreaUpdatedEventArgs(area.Id, area.Name));
+        }
+
+
+        public class AreaSelectEventArgs : AreaEventArgs
         {
             public int MaxX { get; set; }
             public int MinX { get; set; }
@@ -69,7 +69,7 @@ namespace TBGINTB_Builder.Lib
             public int MaxZ { get; set; }
             public int MinZ { get; set; }
             public int NumRooms { get; set; }
-            public AreaGetEventArgs(int id, string name, int maxX, int minX, int maxY, int minY, int maxZ, int minZ, int numRooms) :
+            public AreaSelectEventArgs(int id, string name, int maxX, int minX, int maxY, int minY, int maxZ, int minZ, int numRooms) :
                 base(id, name)
             {
                 MaxX = maxX;
@@ -81,12 +81,12 @@ namespace TBGINTB_Builder.Lib
                 NumRooms = numRooms;
             }
         }
-        public delegate void AreaGetEventHandler(object sender, AreaGetEventArgs args);
-        public static event AreaGetEventHandler AreaGet;
-        private static void OnAreaGet(Area area)
+        public delegate void AreaSelectEventHandler(object sender, AreaSelectEventArgs args);
+        public static event AreaSelectEventHandler AreaSelect;
+        private static void OnAreaSelect(Area area)
         {
-            if (AreaGet != null)
-                AreaGet(typeof(GinTubBuilderManager), new AreaGetEventArgs(area.Id, area.Name, area.MaxX, area.MinX, area.MaxY, area.MinY, area.MaxZ, area.MinZ, area.NumRooms));
+            if (AreaSelect != null)
+                AreaSelect(typeof(GinTubBuilderManager), new AreaSelectEventArgs(area.Id, area.Name, area.MaxX, area.MinX, area.MaxY, area.MinY, area.MaxZ, area.MinZ, area.NumRooms));
         }
 
         #endregion
@@ -108,42 +108,42 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class LocationAddedEventArgs : LocationEventArgs
+        public class LocationReadEventArgs : LocationEventArgs
         {
-            public LocationAddedEventArgs(int id, string name, string locationFile) : base(id, name, locationFile) { }
+            public LocationReadEventArgs(int id, string name, string locationFile) : base(id, name, locationFile) { }
         }
-        public delegate void LocationAddedEventHandler(object sender, LocationAddedEventArgs args);
-        public static event LocationAddedEventHandler LocationAdded;
-        private static void OnLocationAdded(Location location)
+        public delegate void LocationReadEventHandler(object sender, LocationReadEventArgs args);
+        public static event LocationReadEventHandler LocationRead;
+        private static void OnLocationRead(Location location)
         {
-            if (LocationAdded != null)
-                LocationAdded(typeof(GinTubBuilderManager), new LocationAddedEventArgs(location.Id, location.Name, location.LocationFile));
-        }
-
-
-        public class LocationModifiedEventArgs : LocationEventArgs
-        {
-            public LocationModifiedEventArgs(int id, string name, string locationFile) : base(id, name, locationFile) { }
-        }
-        public delegate void LocationModifiedEventHandler(object sender, LocationModifiedEventArgs args);
-        public static event LocationModifiedEventHandler LocationModified;
-        private static void OnLocationModified(Location location)
-        {
-            if (LocationModified != null)
-                LocationModified(typeof(GinTubBuilderManager), new LocationModifiedEventArgs(location.Id, location.Name, location.LocationFile));
+            if (LocationRead != null)
+                LocationRead(typeof(GinTubBuilderManager), new LocationReadEventArgs(location.Id, location.Name, location.LocationFile));
         }
 
 
-        public class LocationGetEventArgs : LocationEventArgs
+        public class LocationUpdatedEventArgs : LocationEventArgs
         {
-            public LocationGetEventArgs(int id, string name, string locationFile) : base(id, name, locationFile) { }
+            public LocationUpdatedEventArgs(int id, string name, string locationFile) : base(id, name, locationFile) { }
         }
-        public delegate void LocationGetEventHandler(object sender, LocationGetEventArgs args);
-        public static event LocationGetEventHandler LocationGet;
-        private static void OnLocationGet(Location location)
+        public delegate void LocationUpdatedEventHandler(object sender, LocationUpdatedEventArgs args);
+        public static event LocationUpdatedEventHandler LocationUpdated;
+        private static void OnLocationUpdated(Location location)
         {
-            if (LocationGet != null)
-                LocationGet(typeof(GinTubBuilderManager), new LocationGetEventArgs(location.Id, location.Name, location.LocationFile));
+            if (LocationUpdated != null)
+                LocationUpdated(typeof(GinTubBuilderManager), new LocationUpdatedEventArgs(location.Id, location.Name, location.LocationFile));
+        }
+
+
+        public class LocationSelectEventArgs : LocationEventArgs
+        {
+            public LocationSelectEventArgs(int id, string name, string locationFile) : base(id, name, locationFile) { }
+        }
+        public delegate void LocationSelectEventHandler(object sender, LocationSelectEventArgs args);
+        public static event LocationSelectEventHandler LocationSelect;
+        private static void OnLocationSelect(Location location)
+        {
+            if (LocationSelect != null)
+                LocationSelect(typeof(GinTubBuilderManager), new LocationSelectEventArgs(location.Id, location.Name, location.LocationFile));
         }
 
         #endregion
@@ -171,42 +171,42 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class RoomAddedEventArgs : RoomEventArgs
+        public class RoomReadEventArgs : RoomEventArgs
         {
-            public RoomAddedEventArgs(int id, string name, int x, int y, int z, int area) : base(id, name, x, y, z, area) {}
+            public RoomReadEventArgs(int id, string name, int x, int y, int z, int area) : base(id, name, x, y, z, area) {}
         }
-        public delegate void RoomAddedEventHandler(object sender, RoomAddedEventArgs args);
-        public static event RoomAddedEventHandler RoomAdded;
-        private static void OnRoomAdded(Room room)
+        public delegate void RoomReadEventHandler(object sender, RoomReadEventArgs args);
+        public static event RoomReadEventHandler RoomRead;
+        private static void OnRoomRead(Room room)
         {
-            if (RoomAdded != null)
-                RoomAdded(typeof(GinTubBuilderManager), new RoomAddedEventArgs(room.Id, room.Name, room.X, room.Y, room.Z, room.Area));
-        }
-
-
-        public class RoomModifiedEventArgs : RoomEventArgs
-        {
-            public RoomModifiedEventArgs(int id, string name, int x, int y, int z, int area) : base(id, name, x, y, z, area) {}
-        }
-        public delegate void RoomModifiedEventHandler(object sender, RoomModifiedEventArgs args);
-        public static event RoomModifiedEventHandler RoomModified;
-        private static void OnRoomModified(Room room)
-        {
-            if (RoomModified != null)
-                RoomModified(typeof(GinTubBuilderManager), new RoomModifiedEventArgs(room.Id, room.Name, room.X, room.Y, room.Z, room.Area));
+            if (RoomRead != null)
+                RoomRead(typeof(GinTubBuilderManager), new RoomReadEventArgs(room.Id, room.Name, room.X, room.Y, room.Z, room.Area));
         }
 
 
-        public class RoomGetEventArgs : RoomEventArgs
+        public class RoomUpdatedEventArgs : RoomEventArgs
         {
-            public RoomGetEventArgs(int id, string name, int x, int y, int z, int area) : base(id, name, x, y, z, area) {}
+            public RoomUpdatedEventArgs(int id, string name, int x, int y, int z, int area) : base(id, name, x, y, z, area) {}
         }
-        public delegate void RoomGetEventHandler(object sender, RoomGetEventArgs args);
-        public static event RoomGetEventHandler RoomGet;
-        private static void OnRoomGet(Room room)
+        public delegate void RoomUpdatedEventHandler(object sender, RoomUpdatedEventArgs args);
+        public static event RoomUpdatedEventHandler RoomUpdated;
+        private static void OnRoomUpdated(Room room)
         {
-            if (RoomGet != null)
-                RoomGet(typeof(GinTubBuilderManager), new RoomGetEventArgs(room.Id, room.Name, room.X, room.Y, room.Z, room.Area));
+            if (RoomUpdated != null)
+                RoomUpdated(typeof(GinTubBuilderManager), new RoomUpdatedEventArgs(room.Id, room.Name, room.X, room.Y, room.Z, room.Area));
+        }
+
+
+        public class RoomSelectEventArgs : RoomEventArgs
+        {
+            public RoomSelectEventArgs(int id, string name, int x, int y, int z, int area) : base(id, name, x, y, z, area) {}
+        }
+        public delegate void RoomSelectEventHandler(object sender, RoomSelectEventArgs args);
+        public static event RoomSelectEventHandler RoomSelect;
+        private static void OnRoomSelect(Room room)
+        {
+            if (RoomSelect != null)
+                RoomSelect(typeof(GinTubBuilderManager), new RoomSelectEventArgs(room.Id, room.Name, room.X, room.Y, room.Z, room.Area));
         }
 
         #endregion
@@ -218,10 +218,10 @@ namespace TBGINTB_Builder.Lib
         {
             public int Id { get; set; }
             public int State { get; set; }
-            public DateTime? Time { get; set; }
+            public TimeSpan Time { get; set; }
             public int Location { get; set; }
             public int Room { get; set; }
-            public RoomStateEventArgs(int id, int state, DateTime time, int location, int room)
+            public RoomStateEventArgs(int id, int state, TimeSpan time, int location, int room)
             {
                 Id = id;
                 State = state;
@@ -232,48 +232,48 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class RoomStateAddedEventArgs : RoomStateEventArgs
+        public class RoomStateReadEventArgs : RoomStateEventArgs
         {
-            public RoomStateAddedEventArgs(int id, int state, DateTime time, int location, int room) : 
+            public RoomStateReadEventArgs(int id, int state, TimeSpan time, int location, int room) : 
                 base(id, state, time, location, room) { }
         }
-        public delegate void RoomStateAddedEventHandler(object sender, RoomStateAddedEventArgs args);
-        public static event RoomStateAddedEventHandler RoomStateAdded;
-        private static void OnRoomStateAdded(RoomState roomState)
+        public delegate void RoomStateReadEventHandler(object sender, RoomStateReadEventArgs args);
+        public static event RoomStateReadEventHandler RoomStateRead;
+        private static void OnRoomStateRead(RoomState roomState)
         {
-            if (RoomStateAdded != null)
-                RoomStateAdded(typeof(GinTubBuilderManager),
-                    new RoomStateAddedEventArgs(roomState.Id, roomState.State, roomState.Time, roomState.Location, roomState.Room));
+            if (RoomStateRead != null)
+                RoomStateRead(typeof(GinTubBuilderManager),
+                    new RoomStateReadEventArgs(roomState.Id, roomState.State, roomState.Time, roomState.Location, roomState.Room));
         }
 
 
-        public class RoomStateModifiedEventArgs : RoomStateEventArgs
+        public class RoomStateUpdatedEventArgs : RoomStateEventArgs
         {
-            public RoomStateModifiedEventArgs(int id, int state, DateTime time, int location, int room) :
+            public RoomStateUpdatedEventArgs(int id, int state, TimeSpan time, int location, int room) :
                 base(id, state, time, location, room) { }
         }
-        public delegate void RoomStateModifiedEventHandler(object sender, RoomStateModifiedEventArgs args);
-        public static event RoomStateModifiedEventHandler RoomStateModified;
-        private static void OnRoomStateModified(RoomState roomState)
+        public delegate void RoomStateUpdatedEventHandler(object sender, RoomStateUpdatedEventArgs args);
+        public static event RoomStateUpdatedEventHandler RoomStateUpdated;
+        private static void OnRoomStateUpdated(RoomState roomState)
         {
-            if (RoomStateModified != null)
-                RoomStateModified(typeof(GinTubBuilderManager),
-                    new RoomStateModifiedEventArgs(roomState.Id, roomState.State, roomState.Time, roomState.Location, roomState.Room));
+            if (RoomStateUpdated != null)
+                RoomStateUpdated(typeof(GinTubBuilderManager),
+                    new RoomStateUpdatedEventArgs(roomState.Id, roomState.State, roomState.Time, roomState.Location, roomState.Room));
         }
 
 
-        public class RoomStateGetEventArgs : RoomStateEventArgs
+        public class RoomStateSelectEventArgs : RoomStateEventArgs
         {
-            public RoomStateGetEventArgs(int id, int state, DateTime time, int location, int room) :
+            public RoomStateSelectEventArgs(int id, int state, TimeSpan time, int location, int room) :
                 base(id, state, time, location, room) { }
         }
-        public delegate void RoomStateGetEventHandler(object sender, RoomStateGetEventArgs args);
-        public static event RoomStateGetEventHandler RoomStateGet;
-        private static void OnRoomStateGet(RoomState roomState)
+        public delegate void RoomStateSelectEventHandler(object sender, RoomStateSelectEventArgs args);
+        public static event RoomStateSelectEventHandler RoomStateSelect;
+        private static void OnRoomStateSelect(RoomState roomState)
         {
-            if (RoomStateGet != null)
-                RoomStateGet(typeof(GinTubBuilderManager),
-                    new RoomStateGetEventArgs(roomState.Id, roomState.State, roomState.Time, roomState.Location, roomState.Room));
+            if (RoomStateSelect != null)
+                RoomStateSelect(typeof(GinTubBuilderManager),
+                    new RoomStateSelectEventArgs(roomState.Id, roomState.State, roomState.Time, roomState.Location, roomState.Room));
         }
 
         #endregion
@@ -286,59 +286,117 @@ namespace TBGINTB_Builder.Lib
             public int Id { get; set; }
             public int Order { get; set; }
             public int Room { get; set; }
-            public int? RoomState { get; set; }
-            public ParagraphEventArgs(int id, int order, int room, int? roomState)
+            public ParagraphEventArgs(int id, int order, int room)
             {
                 Id = id;
                 Order = order;
                 Room = room;
-                RoomState = roomState;
             }
         }
 
 
-        public class ParagraphAddedEventArgs : ParagraphEventArgs
+        public class ParagraphReadEventArgs : ParagraphEventArgs
         {
-            public ParagraphAddedEventArgs(int id, int order, int room, int? roomState) :
-                base(id, order, room, roomState) { }
+            public ParagraphReadEventArgs(int id, int order, int room) :
+                base(id, order, room) { }
         }
-        public delegate void ParagraphAddedEventHandler(object sender, ParagraphAddedEventArgs args);
-        public static event ParagraphAddedEventHandler ParagraphAdded;
-        private static void OnParagraphAdded(Paragraph paragraph)
+        public delegate void ParagraphReadEventHandler(object sender, ParagraphReadEventArgs args);
+        public static event ParagraphReadEventHandler ParagraphRead;
+        private static void OnParagraphRead(Paragraph paragraph)
         {
-            if (ParagraphAdded != null)
-                ParagraphAdded(typeof(GinTubBuilderManager),
-                    new ParagraphAddedEventArgs(paragraph.Id, paragraph.Order, paragraph.Room, paragraph.RoomState));
-        }
-
-
-        public class ParagraphModifiedEventArgs : ParagraphEventArgs
-        {
-            public ParagraphModifiedEventArgs(int id, int order, int room, int? roomState) :
-                base(id, order, room, roomState) { }
-        }
-        public delegate void ParagraphModifiedEventHandler(object sender, ParagraphModifiedEventArgs args);
-        public static event ParagraphModifiedEventHandler ParagraphModified;
-        private static void OnParagraphModified(Paragraph paragraph)
-        {
-            if (ParagraphModified != null)
-                ParagraphModified(typeof(GinTubBuilderManager),
-                    new ParagraphModifiedEventArgs(paragraph.Id, paragraph.Order, paragraph.Room, paragraph.RoomState));
+            if (ParagraphRead != null)
+                ParagraphRead(typeof(GinTubBuilderManager),
+                    new ParagraphReadEventArgs(paragraph.Id, paragraph.Order, paragraph.Room));
         }
 
 
-        public class ParagraphGetEventArgs : ParagraphEventArgs
+        public class ParagraphUpdatedEventArgs : ParagraphEventArgs
         {
-            public ParagraphGetEventArgs(int id, int order, int room, int? roomState) :
-                base(id, order, room, roomState) { }
+            public ParagraphUpdatedEventArgs(int id, int order, int room) :
+                base(id, order, room) { }
         }
-        public delegate void ParagraphGetEventHandler(object sender, ParagraphGetEventArgs args);
-        public static event ParagraphGetEventHandler ParagraphGet;
-        private static void OnParagraphGet(Paragraph paragraph)
+        public delegate void ParagraphUpdatedEventHandler(object sender, ParagraphUpdatedEventArgs args);
+        public static event ParagraphUpdatedEventHandler ParagraphUpdated;
+        private static void OnParagraphUpdated(Paragraph paragraph)
         {
-            if (ParagraphGet != null)
-                ParagraphGet(typeof(GinTubBuilderManager),
-                    new ParagraphGetEventArgs(paragraph.Id, paragraph.Order, paragraph.Room, paragraph.RoomState));
+            if (ParagraphUpdated != null)
+                ParagraphUpdated(typeof(GinTubBuilderManager),
+                    new ParagraphUpdatedEventArgs(paragraph.Id, paragraph.Order, paragraph.Room));
+        }
+
+
+        public class ParagraphSelectEventArgs : ParagraphEventArgs
+        {
+            public ParagraphSelectEventArgs(int id, int order, int room) :
+                base(id, order, room) { }
+        }
+        public delegate void ParagraphSelectEventHandler(object sender, ParagraphSelectEventArgs args);
+        public static event ParagraphSelectEventHandler ParagraphSelect;
+        private static void OnParagraphSelect(Paragraph paragraph)
+        {
+            if (ParagraphSelect != null)
+                ParagraphSelect(typeof(GinTubBuilderManager),
+                    new ParagraphSelectEventArgs(paragraph.Id, paragraph.Order, paragraph.Room));
+        }
+
+        #endregion
+
+
+        #region ParagraphRoomStates
+
+        public class ParagraphRoomStateEventArgs : EventArgs
+        {
+            public int Id { get; set; }
+            public int RoomState { get; set; }
+            public int Paragraph { get; set; }
+            public ParagraphRoomStateEventArgs(int id, int roomState, int paragraph)
+            {
+                Id = id;
+                RoomState = roomState;
+                Paragraph = paragraph;
+            }
+        }
+
+
+        public class ParagraphRoomStateReadEventArgs : ParagraphRoomStateEventArgs
+        {
+            public ParagraphRoomStateReadEventArgs(int id, int roomState, int paragraph) : base(id, roomState, paragraph) { }
+        }
+        public delegate void ParagraphRoomStateReadEventHandler(object sender, ParagraphRoomStateReadEventArgs args);
+        public static event ParagraphRoomStateReadEventHandler ParagraphRoomStateRead;
+        private static void OnParagraphRoomStateRead(ParagraphRoomState paragraphRoomState)
+        {
+            if (ParagraphRoomStateRead != null)
+                ParagraphRoomStateRead(typeof(GinTubBuilderManager),
+                    new ParagraphRoomStateReadEventArgs(paragraphRoomState.Id, paragraphRoomState.RoomState, paragraphRoomState.Paragraph));
+        }
+
+
+        public class ParagraphRoomStateUpdatedEventArgs : ParagraphRoomStateEventArgs
+        {
+            public ParagraphRoomStateUpdatedEventArgs(int id, int roomState, int paragraph) : base(id, roomState, paragraph) { }
+        }
+        public delegate void ParagraphRoomStateUpdatedEventHandler(object sender, ParagraphRoomStateUpdatedEventArgs args);
+        public static event ParagraphRoomStateUpdatedEventHandler ParagraphRoomStateUpdated;
+        private static void OnParagraphRoomStateUpdated(ParagraphRoomState paragraphRoomState)
+        {
+            if (ParagraphRoomStateUpdated != null)
+                ParagraphRoomStateUpdated(typeof(GinTubBuilderManager),
+                    new ParagraphRoomStateUpdatedEventArgs(paragraphRoomState.Id, paragraphRoomState.RoomState, paragraphRoomState.Paragraph));
+        }
+
+
+        public class ParagraphRoomStateSelectEventArgs : ParagraphRoomStateEventArgs
+        {
+            public ParagraphRoomStateSelectEventArgs(int id, int roomState, int paragraph) : base(id, roomState, paragraph) { }
+        }
+        public delegate void ParagraphRoomStateSelectEventHandler(object sender, ParagraphRoomStateSelectEventArgs args);
+        public static event ParagraphRoomStateSelectEventHandler ParagraphRoomStateSelect;
+        private static void OnParagraphRoomStateSelect(ParagraphRoomState paragraphRoomState)
+        {
+            if (ParagraphRoomStateSelect != null)
+                ParagraphRoomStateSelect(typeof(GinTubBuilderManager),
+                    new ParagraphRoomStateSelectEventArgs(paragraphRoomState.Id, paragraphRoomState.RoomState, paragraphRoomState.Paragraph));
         }
 
         #endregion
@@ -362,48 +420,48 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class ParagraphStateAddedEventArgs : ParagraphStateEventArgs
+        public class ParagraphStateReadEventArgs : ParagraphStateEventArgs
         {
-            public ParagraphStateAddedEventArgs(int id, string text, int state, int paragraphState) :
+            public ParagraphStateReadEventArgs(int id, string text, int state, int paragraphState) :
                 base(id, text, state, paragraphState) { }
         }
-        public delegate void ParagraphStateAddedEventHandler(object sender, ParagraphStateAddedEventArgs args);
-        public static event ParagraphStateAddedEventHandler ParagraphStateAdded;
-        private static void OnParagraphStateAdded(ParagraphState paragraphState)
+        public delegate void ParagraphStateReadEventHandler(object sender, ParagraphStateReadEventArgs args);
+        public static event ParagraphStateReadEventHandler ParagraphStateRead;
+        private static void OnParagraphStateRead(ParagraphState paragraphState)
         {
-            if (ParagraphStateAdded != null)
-                ParagraphStateAdded(typeof(GinTubBuilderManager),
-                    new ParagraphStateAddedEventArgs(paragraphState.Id, paragraphState.Text, paragraphState.State, paragraphState.Paragraph));
+            if (ParagraphStateRead != null)
+                ParagraphStateRead(typeof(GinTubBuilderManager),
+                    new ParagraphStateReadEventArgs(paragraphState.Id, paragraphState.Text, paragraphState.State, paragraphState.Paragraph));
         }
 
 
-        public class ParagraphStateModifiedEventArgs : ParagraphStateEventArgs
+        public class ParagraphStateUpdatedEventArgs : ParagraphStateEventArgs
         {
-            public ParagraphStateModifiedEventArgs(int id, string text, int state, int paragraphState) :
+            public ParagraphStateUpdatedEventArgs(int id, string text, int state, int paragraphState) :
                 base(id, text, state, paragraphState) { }
         }
-        public delegate void ParagraphStateModifiedEventHandler(object sender, ParagraphStateModifiedEventArgs args);
-        public static event ParagraphStateModifiedEventHandler ParagraphStateModified;
-        private static void OnParagraphStateModified(ParagraphState paragraphState)
+        public delegate void ParagraphStateUpdatedEventHandler(object sender, ParagraphStateUpdatedEventArgs args);
+        public static event ParagraphStateUpdatedEventHandler ParagraphStateUpdated;
+        private static void OnParagraphStateUpdated(ParagraphState paragraphState)
         {
-            if (ParagraphStateModified != null)
-                ParagraphStateModified(typeof(GinTubBuilderManager),
-                    new ParagraphStateModifiedEventArgs(paragraphState.Id, paragraphState.Text, paragraphState.State, paragraphState.Paragraph));
+            if (ParagraphStateUpdated != null)
+                ParagraphStateUpdated(typeof(GinTubBuilderManager),
+                    new ParagraphStateUpdatedEventArgs(paragraphState.Id, paragraphState.Text, paragraphState.State, paragraphState.Paragraph));
         }
 
 
-        public class ParagraphStateGetEventArgs : ParagraphStateEventArgs
+        public class ParagraphStateSelectEventArgs : ParagraphStateEventArgs
         {
-            public ParagraphStateGetEventArgs(int id, string text, int state, int paragraphState) :
+            public ParagraphStateSelectEventArgs(int id, string text, int state, int paragraphState) :
                 base(id, text, state, paragraphState) { }
         }
-        public delegate void ParagraphStateGetEventHandler(object sender, ParagraphStateGetEventArgs args);
-        public static event ParagraphStateGetEventHandler ParagraphStateGet;
-        private static void OnParagraphStateGet(ParagraphState paragraphState)
+        public delegate void ParagraphStateSelectEventHandler(object sender, ParagraphStateSelectEventArgs args);
+        public static event ParagraphStateSelectEventHandler ParagraphStateSelect;
+        private static void OnParagraphStateSelect(ParagraphState paragraphState)
         {
-            if (ParagraphStateGet != null)
-                ParagraphStateGet(typeof(GinTubBuilderManager),
-                    new ParagraphStateGetEventArgs(paragraphState.Id, paragraphState.Text, paragraphState.State, paragraphState.Paragraph));
+            if (ParagraphStateSelect != null)
+                ParagraphStateSelect(typeof(GinTubBuilderManager),
+                    new ParagraphStateSelectEventArgs(paragraphState.Id, paragraphState.Text, paragraphState.State, paragraphState.Paragraph));
         }
 
         #endregion
@@ -425,48 +483,48 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class NounAddedEventArgs : NounEventArgs
+        public class NounReadEventArgs : NounEventArgs
         {
-            public NounAddedEventArgs(int id, string text, int paragraphState) :
+            public NounReadEventArgs(int id, string text, int paragraphState) :
                 base(id, text, paragraphState) { }
         }
-        public delegate void NounAddedEventHandler(object sender, NounAddedEventArgs args);
-        public static event NounAddedEventHandler NounAdded;
-        private static void OnNounAdded(Noun noun)
+        public delegate void NounReadEventHandler(object sender, NounReadEventArgs args);
+        public static event NounReadEventHandler NounRead;
+        private static void OnNounRead(Noun noun)
         {
-            if (NounAdded != null)
-                NounAdded(typeof(GinTubBuilderManager),
-                    new NounAddedEventArgs(noun.Id, noun.Text, noun.ParagraphState));
+            if (NounRead != null)
+                NounRead(typeof(GinTubBuilderManager),
+                    new NounReadEventArgs(noun.Id, noun.Text, noun.ParagraphState));
         }
 
 
-        public class NounModifiedEventArgs : NounEventArgs
+        public class NounUpdatedEventArgs : NounEventArgs
         {
-            public NounModifiedEventArgs(int id, string text, int paragraphState) :
+            public NounUpdatedEventArgs(int id, string text, int paragraphState) :
                 base(id, text, paragraphState) { }
         }
-        public delegate void NounModifiedEventHandler(object sender, NounModifiedEventArgs args);
-        public static event NounModifiedEventHandler NounModified;
-        private static void OnNounModified(Noun noun)
+        public delegate void NounUpdatedEventHandler(object sender, NounUpdatedEventArgs args);
+        public static event NounUpdatedEventHandler NounUpdated;
+        private static void OnNounUpdated(Noun noun)
         {
-            if (NounModified != null)
-                NounModified(typeof(GinTubBuilderManager),
-                    new NounModifiedEventArgs(noun.Id, noun.Text, noun.ParagraphState));
+            if (NounUpdated != null)
+                NounUpdated(typeof(GinTubBuilderManager),
+                    new NounUpdatedEventArgs(noun.Id, noun.Text, noun.ParagraphState));
         }
 
 
-        public class NounGetEventArgs : NounEventArgs
+        public class NounSelectEventArgs : NounEventArgs
         {
-            public NounGetEventArgs(int id, string text, int paragraphState) :
+            public NounSelectEventArgs(int id, string text, int paragraphState) :
                 base(id, text, paragraphState) { }
         }
-        public delegate void NounGetEventHandler(object sender, NounGetEventArgs args);
-        public static event NounGetEventHandler NounGet;
-        private static void OnNounGet(Noun noun)
+        public delegate void NounSelectEventHandler(object sender, NounSelectEventArgs args);
+        public static event NounSelectEventHandler NounSelect;
+        private static void OnNounSelect(Noun noun)
         {
-            if (NounGet != null)
-                NounGet(typeof(GinTubBuilderManager),
-                    new NounGetEventArgs(noun.Id, noun.Text, noun.ParagraphState));
+            if (NounSelect != null)
+                NounSelect(typeof(GinTubBuilderManager),
+                    new NounSelectEventArgs(noun.Id, noun.Text, noun.ParagraphState));
         }
 
         #endregion
@@ -486,42 +544,42 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class VerbTypeAddedEventArgs : VerbTypeEventArgs
+        public class VerbTypeReadEventArgs : VerbTypeEventArgs
         {
-            public VerbTypeAddedEventArgs(int id, string name) : base(id, name) { }
+            public VerbTypeReadEventArgs(int id, string name) : base(id, name) { }
         }
-        public delegate void VerbTypeAddedEventHandler(object sender, VerbTypeAddedEventArgs args);
-        public static event VerbTypeAddedEventHandler VerbTypeAdded;
-        private static void OnVerbTypeAdded(VerbType verbType)
+        public delegate void VerbTypeReadEventHandler(object sender, VerbTypeReadEventArgs args);
+        public static event VerbTypeReadEventHandler VerbTypeRead;
+        private static void OnVerbTypeRead(VerbType verbType)
         {
-            if (VerbTypeAdded != null)
-                VerbTypeAdded(typeof(GinTubBuilderManager), new VerbTypeAddedEventArgs(verbType.Id, verbType.Name));
-        }
-
-
-        public class VerbTypeModifiedEventArgs : VerbTypeEventArgs
-        {
-            public VerbTypeModifiedEventArgs(int id, string name) : base(id, name) { }
-        }
-        public delegate void VerbTypeModifiedEventHandler(object sender, VerbTypeModifiedEventArgs args);
-        public static event VerbTypeModifiedEventHandler VerbTypeModified;
-        private static void OnVerbTypeModified(VerbType verbType)
-        {
-            if (VerbTypeModified != null)
-                VerbTypeModified(typeof(GinTubBuilderManager), new VerbTypeModifiedEventArgs(verbType.Id, verbType.Name));
+            if (VerbTypeRead != null)
+                VerbTypeRead(typeof(GinTubBuilderManager), new VerbTypeReadEventArgs(verbType.Id, verbType.Name));
         }
 
 
-        public class VerbTypeGetEventArgs : VerbTypeEventArgs
+        public class VerbTypeUpdatedEventArgs : VerbTypeEventArgs
         {
-            public VerbTypeGetEventArgs(int id, string name) : base(id, name) { }
+            public VerbTypeUpdatedEventArgs(int id, string name) : base(id, name) { }
         }
-        public delegate void VerbTypeGetEventHandler(object sender, VerbTypeGetEventArgs args);
-        public static event VerbTypeGetEventHandler VerbTypeGet;
-        private static void OnVerbTypeGet(VerbType verbType)
+        public delegate void VerbTypeUpdatedEventHandler(object sender, VerbTypeUpdatedEventArgs args);
+        public static event VerbTypeUpdatedEventHandler VerbTypeUpdated;
+        private static void OnVerbTypeUpdated(VerbType verbType)
         {
-            if (VerbTypeGet != null)
-                VerbTypeGet(typeof(GinTubBuilderManager), new VerbTypeGetEventArgs(verbType.Id, verbType.Name));
+            if (VerbTypeUpdated != null)
+                VerbTypeUpdated(typeof(GinTubBuilderManager), new VerbTypeUpdatedEventArgs(verbType.Id, verbType.Name));
+        }
+
+
+        public class VerbTypeSelectEventArgs : VerbTypeEventArgs
+        {
+            public VerbTypeSelectEventArgs(int id, string name) : base(id, name) { }
+        }
+        public delegate void VerbTypeSelectEventHandler(object sender, VerbTypeSelectEventArgs args);
+        public static event VerbTypeSelectEventHandler VerbTypeSelect;
+        private static void OnVerbTypeSelect(VerbType verbType)
+        {
+            if (VerbTypeSelect != null)
+                VerbTypeSelect(typeof(GinTubBuilderManager), new VerbTypeSelectEventArgs(verbType.Id, verbType.Name));
         }
 
         #endregion
@@ -543,42 +601,42 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class VerbAddedEventArgs : VerbEventArgs
+        public class VerbReadEventArgs : VerbEventArgs
         {
-            public VerbAddedEventArgs(int id, string name, int verbType) : base(id, name, verbType) { }
+            public VerbReadEventArgs(int id, string name, int verbType) : base(id, name, verbType) { }
         }
-        public delegate void VerbAddedEventHandler(object sender, VerbAddedEventArgs args);
-        public static event VerbAddedEventHandler VerbAdded;
-        private static void OnVerbAdded(Verb verb)
+        public delegate void VerbReadEventHandler(object sender, VerbReadEventArgs args);
+        public static event VerbReadEventHandler VerbRead;
+        private static void OnVerbRead(Verb verb)
         {
-            if (VerbAdded != null)
-                VerbAdded(typeof(GinTubBuilderManager), new VerbAddedEventArgs(verb.Id, verb.Name, verb.VerbType));
-        }
-
-
-        public class VerbModifiedEventArgs : VerbEventArgs
-        {
-            public VerbModifiedEventArgs(int id, string name, int verbType) : base(id, name, verbType) { }
-        }
-        public delegate void VerbModifiedEventHandler(object sender, VerbModifiedEventArgs args);
-        public static event VerbModifiedEventHandler VerbModified;
-        private static void OnVerbModified(Verb verb)
-        {
-            if (VerbModified != null)
-                VerbModified(typeof(GinTubBuilderManager), new VerbModifiedEventArgs(verb.Id, verb.Name, verb.VerbType));
+            if (VerbRead != null)
+                VerbRead(typeof(GinTubBuilderManager), new VerbReadEventArgs(verb.Id, verb.Name, verb.VerbType));
         }
 
 
-        public class VerbGetEventArgs : VerbEventArgs
+        public class VerbUpdatedEventArgs : VerbEventArgs
         {
-            public VerbGetEventArgs(int id, string name, int verbType) : base(id, name, verbType) { }
+            public VerbUpdatedEventArgs(int id, string name, int verbType) : base(id, name, verbType) { }
         }
-        public delegate void VerbGetEventHandler(object sender, VerbGetEventArgs args);
-        public static event VerbGetEventHandler VerbGet;
-        private static void OnVerbGet(Verb verb)
+        public delegate void VerbUpdatedEventHandler(object sender, VerbUpdatedEventArgs args);
+        public static event VerbUpdatedEventHandler VerbUpdated;
+        private static void OnVerbUpdated(Verb verb)
         {
-            if (VerbGet != null)
-                VerbGet(typeof(GinTubBuilderManager), new VerbGetEventArgs(verb.Id, verb.Name, verb.VerbType));
+            if (VerbUpdated != null)
+                VerbUpdated(typeof(GinTubBuilderManager), new VerbUpdatedEventArgs(verb.Id, verb.Name, verb.VerbType));
+        }
+
+
+        public class VerbSelectEventArgs : VerbEventArgs
+        {
+            public VerbSelectEventArgs(int id, string name, int verbType) : base(id, name, verbType) { }
+        }
+        public delegate void VerbSelectEventHandler(object sender, VerbSelectEventArgs args);
+        public static event VerbSelectEventHandler VerbSelect;
+        private static void OnVerbSelect(Verb verb)
+        {
+            if (VerbSelect != null)
+                VerbSelect(typeof(GinTubBuilderManager), new VerbSelectEventArgs(verb.Id, verb.Name, verb.VerbType));
         }
 
         #endregion
@@ -602,42 +660,42 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class ActionAddedEventArgs : ActionEventArgs
+        public class ActionReadEventArgs : ActionEventArgs
         {
-            public ActionAddedEventArgs(int id, int verbType, int noun, string name) : base(id, verbType, noun, name) { }
+            public ActionReadEventArgs(int id, int verbType, int noun, string name) : base(id, verbType, noun, name) { }
         }
-        public delegate void ActionAddedEventHandler(object sender, ActionAddedEventArgs args);
-        public static event ActionAddedEventHandler ActionAdded;
-        private static void OnActionAdded(Db.Action action)
+        public delegate void ActionReadEventHandler(object sender, ActionReadEventArgs args);
+        public static event ActionReadEventHandler ActionRead;
+        private static void OnActionRead(Db.Action action)
         {
-            if (ActionAdded != null)
-                ActionAdded(typeof(GinTubBuilderManager), new ActionAddedEventArgs(action.Id, action.VerbType, action.Noun, action.Name));
-        }
-
-
-        public class ActionModifiedEventArgs : ActionEventArgs
-        {
-            public ActionModifiedEventArgs(int id, int verbType, int noun, string name) : base(id, verbType, noun, name) { }
-        }
-        public delegate void ActionModifiedEventHandler(object sender, ActionModifiedEventArgs args);
-        public static event ActionModifiedEventHandler ActionModified;
-        private static void OnActionModified(Db.Action action)
-        {
-            if (ActionModified != null)
-                ActionModified(typeof(GinTubBuilderManager), new ActionModifiedEventArgs(action.Id, action.VerbType, action.Noun, action.Name));
+            if (ActionRead != null)
+                ActionRead(typeof(GinTubBuilderManager), new ActionReadEventArgs(action.Id, action.VerbType, action.Noun, action.Name));
         }
 
 
-        public class ActionGetEventArgs : ActionEventArgs
+        public class ActionUpdatedEventArgs : ActionEventArgs
         {
-            public ActionGetEventArgs(int id, int verbType, int noun, string name) : base(id, verbType, noun, name) { }
+            public ActionUpdatedEventArgs(int id, int verbType, int noun, string name) : base(id, verbType, noun, name) { }
         }
-        public delegate void ActionGetEventHandler(object sender, ActionGetEventArgs args);
-        public static event ActionGetEventHandler ActionGet;
-        private static void OnActionGet(Db.Action action)
+        public delegate void ActionUpdatedEventHandler(object sender, ActionUpdatedEventArgs args);
+        public static event ActionUpdatedEventHandler ActionUpdated;
+        private static void OnActionUpdated(Db.Action action)
         {
-            if (ActionGet != null)
-                ActionGet(typeof(GinTubBuilderManager), new ActionGetEventArgs(action.Id, action.VerbType, action.Noun, action.Name));
+            if (ActionUpdated != null)
+                ActionUpdated(typeof(GinTubBuilderManager), new ActionUpdatedEventArgs(action.Id, action.VerbType, action.Noun, action.Name));
+        }
+
+
+        public class ActionSelectEventArgs : ActionEventArgs
+        {
+            public ActionSelectEventArgs(int id, int verbType, int noun, string name) : base(id, verbType, noun, name) { }
+        }
+        public delegate void ActionSelectEventHandler(object sender, ActionSelectEventArgs args);
+        public static event ActionSelectEventHandler ActionSelect;
+        private static void OnActionSelect(Db.Action action)
+        {
+            if (ActionSelect != null)
+                ActionSelect(typeof(GinTubBuilderManager), new ActionSelectEventArgs(action.Id, action.VerbType, action.Noun, action.Name));
         }
 
         #endregion
@@ -657,42 +715,42 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class ResultTypeAddedEventArgs : ResultTypeEventArgs
+        public class ResultTypeReadEventArgs : ResultTypeEventArgs
         {
-            public ResultTypeAddedEventArgs(int id, string name) : base(id, name) { }
+            public ResultTypeReadEventArgs(int id, string name) : base(id, name) { }
         }
-        public delegate void ResultTypeAddedEventHandler(object sender, ResultTypeAddedEventArgs args);
-        public static event ResultTypeAddedEventHandler ResultTypeAdded;
-        private static void OnResultTypeAdded(ResultType resultType)
+        public delegate void ResultTypeReadEventHandler(object sender, ResultTypeReadEventArgs args);
+        public static event ResultTypeReadEventHandler ResultTypeRead;
+        private static void OnResultTypeRead(ResultType resultType)
         {
-            if (ResultTypeAdded != null)
-                ResultTypeAdded(typeof(GinTubBuilderManager), new ResultTypeAddedEventArgs(resultType.Id, resultType.Name));
-        }
-
-
-        public class ResultTypeModifiedEventArgs : ResultTypeEventArgs
-        {
-            public ResultTypeModifiedEventArgs(int id, string name) : base(id, name) { }
-        }
-        public delegate void ResultTypeModifiedEventHandler(object sender, ResultTypeModifiedEventArgs args);
-        public static event ResultTypeModifiedEventHandler ResultTypeModified;
-        private static void OnResultTypeModified(ResultType resultType)
-        {
-            if (ResultTypeModified != null)
-                ResultTypeModified(typeof(GinTubBuilderManager), new ResultTypeModifiedEventArgs(resultType.Id, resultType.Name));
+            if (ResultTypeRead != null)
+                ResultTypeRead(typeof(GinTubBuilderManager), new ResultTypeReadEventArgs(resultType.Id, resultType.Name));
         }
 
 
-        public class ResultTypeGetEventArgs : ResultTypeEventArgs
+        public class ResultTypeUpdatedEventArgs : ResultTypeEventArgs
         {
-            public ResultTypeGetEventArgs(int id, string name) : base(id, name) { }
+            public ResultTypeUpdatedEventArgs(int id, string name) : base(id, name) { }
         }
-        public delegate void ResultTypeGetEventHandler(object sender, ResultTypeGetEventArgs args);
-        public static event ResultTypeGetEventHandler ResultTypeGet;
-        private static void OnResultTypeGet(ResultType resultType)
+        public delegate void ResultTypeUpdatedEventHandler(object sender, ResultTypeUpdatedEventArgs args);
+        public static event ResultTypeUpdatedEventHandler ResultTypeUpdated;
+        private static void OnResultTypeUpdated(ResultType resultType)
         {
-            if (ResultTypeGet != null)
-                ResultTypeGet(typeof(GinTubBuilderManager), new ResultTypeGetEventArgs(resultType.Id, resultType.Name));
+            if (ResultTypeUpdated != null)
+                ResultTypeUpdated(typeof(GinTubBuilderManager), new ResultTypeUpdatedEventArgs(resultType.Id, resultType.Name));
+        }
+
+
+        public class ResultTypeSelectEventArgs : ResultTypeEventArgs
+        {
+            public ResultTypeSelectEventArgs(int id, string name) : base(id, name) { }
+        }
+        public delegate void ResultTypeSelectEventHandler(object sender, ResultTypeSelectEventArgs args);
+        public static event ResultTypeSelectEventHandler ResultTypeSelect;
+        private static void OnResultTypeSelect(ResultType resultType)
+        {
+            if (ResultTypeSelect != null)
+                ResultTypeSelect(typeof(GinTubBuilderManager), new ResultTypeSelectEventArgs(resultType.Id, resultType.Name));
         }
 
         #endregion
@@ -712,42 +770,42 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class JSONPropertyDataTypeAddedEventArgs : JSONPropertyDataTypeEventArgs
+        public class JSONPropertyDataTypeReadEventArgs : JSONPropertyDataTypeEventArgs
         {
-            public JSONPropertyDataTypeAddedEventArgs(int id, string dataType) : base(id, dataType) { }
+            public JSONPropertyDataTypeReadEventArgs(int id, string dataType) : base(id, dataType) { }
         }
-        public delegate void JSONPropertyDataTypeAddedEventHandler(object sender, JSONPropertyDataTypeAddedEventArgs args);
-        public static event JSONPropertyDataTypeAddedEventHandler JSONPropertyDataTypeAdded;
-        private static void OnJSONPropertyDataTypeAdded(JSONPropertyDataType jsonPropertyDataType)
+        public delegate void JSONPropertyDataTypeReadEventHandler(object sender, JSONPropertyDataTypeReadEventArgs args);
+        public static event JSONPropertyDataTypeReadEventHandler JSONPropertyDataTypeRead;
+        private static void OnJSONPropertyDataTypeRead(JSONPropertyDataType jsonPropertyDataType)
         {
-            if (JSONPropertyDataTypeAdded != null)
-                JSONPropertyDataTypeAdded(typeof(GinTubBuilderManager), new JSONPropertyDataTypeAddedEventArgs(jsonPropertyDataType.Id, jsonPropertyDataType.DataType));
-        }
-
-
-        public class JSONPropertyDataTypeModifiedEventArgs : JSONPropertyDataTypeEventArgs
-        {
-            public JSONPropertyDataTypeModifiedEventArgs(int id, string name) : base(id, name) { }
-        }
-        public delegate void JSONPropertyDataTypeModifiedEventHandler(object sender, JSONPropertyDataTypeModifiedEventArgs args);
-        public static event JSONPropertyDataTypeModifiedEventHandler JSONPropertyDataTypeModified;
-        private static void OnJSONPropertyDataTypeModified(JSONPropertyDataType jsonPropertyDataType)
-        {
-            if (JSONPropertyDataTypeModified != null)
-                JSONPropertyDataTypeModified(typeof(GinTubBuilderManager), new JSONPropertyDataTypeModifiedEventArgs(jsonPropertyDataType.Id, jsonPropertyDataType.DataType));
+            if (JSONPropertyDataTypeRead != null)
+                JSONPropertyDataTypeRead(typeof(GinTubBuilderManager), new JSONPropertyDataTypeReadEventArgs(jsonPropertyDataType.Id, jsonPropertyDataType.DataType));
         }
 
 
-        public class JSONPropertyDataTypeGetEventArgs : JSONPropertyDataTypeEventArgs
+        public class JSONPropertyDataTypeUpdatedEventArgs : JSONPropertyDataTypeEventArgs
         {
-            public JSONPropertyDataTypeGetEventArgs(int id, string name) : base(id, name) { }
+            public JSONPropertyDataTypeUpdatedEventArgs(int id, string name) : base(id, name) { }
         }
-        public delegate void JSONPropertyDataTypeGetEventHandler(object sender, JSONPropertyDataTypeGetEventArgs args);
-        public static event JSONPropertyDataTypeGetEventHandler JSONPropertyDataTypeGet;
-        private static void OnJSONPropertyDataTypeGet(JSONPropertyDataType jsonPropertyDataType)
+        public delegate void JSONPropertyDataTypeUpdatedEventHandler(object sender, JSONPropertyDataTypeUpdatedEventArgs args);
+        public static event JSONPropertyDataTypeUpdatedEventHandler JSONPropertyDataTypeUpdated;
+        private static void OnJSONPropertyDataTypeUpdated(JSONPropertyDataType jsonPropertyDataType)
         {
-            if (JSONPropertyDataTypeGet != null)
-                JSONPropertyDataTypeGet(typeof(GinTubBuilderManager), new JSONPropertyDataTypeGetEventArgs(jsonPropertyDataType.Id, jsonPropertyDataType.DataType));
+            if (JSONPropertyDataTypeUpdated != null)
+                JSONPropertyDataTypeUpdated(typeof(GinTubBuilderManager), new JSONPropertyDataTypeUpdatedEventArgs(jsonPropertyDataType.Id, jsonPropertyDataType.DataType));
+        }
+
+
+        public class JSONPropertyDataTypeSelectEventArgs : JSONPropertyDataTypeEventArgs
+        {
+            public JSONPropertyDataTypeSelectEventArgs(int id, string name) : base(id, name) { }
+        }
+        public delegate void JSONPropertyDataTypeSelectEventHandler(object sender, JSONPropertyDataTypeSelectEventArgs args);
+        public static event JSONPropertyDataTypeSelectEventHandler JSONPropertyDataTypeSelect;
+        private static void OnJSONPropertyDataTypeSelect(JSONPropertyDataType jsonPropertyDataType)
+        {
+            if (JSONPropertyDataTypeSelect != null)
+                JSONPropertyDataTypeSelect(typeof(GinTubBuilderManager), new JSONPropertyDataTypeSelectEventArgs(jsonPropertyDataType.Id, jsonPropertyDataType.DataType));
         }
 
         #endregion
@@ -771,20 +829,20 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class ResultTypeJSONPropertyAddedEventArgs : ResultTypeJSONPropertyEventArgs
+        public class ResultTypeJSONPropertyReadEventArgs : ResultTypeJSONPropertyEventArgs
         {
-            public ResultTypeJSONPropertyAddedEventArgs(int id, string jsonProperty, int dataType, int resultType) :
+            public ResultTypeJSONPropertyReadEventArgs(int id, string jsonProperty, int dataType, int resultType) :
                 base(id, jsonProperty, dataType, resultType) { }
         }
-        public delegate void ResultTypeJSONPropertyAddedEventHandler(object sender, ResultTypeJSONPropertyAddedEventArgs args);
-        public static event ResultTypeJSONPropertyAddedEventHandler ResultTypeJSONPropertyAdded;
-        private static void OnResultTypeJSONPropertyAdded(ResultTypeJSONProperty resultTypeJSONProperty)
+        public delegate void ResultTypeJSONPropertyReadEventHandler(object sender, ResultTypeJSONPropertyReadEventArgs args);
+        public static event ResultTypeJSONPropertyReadEventHandler ResultTypeJSONPropertyRead;
+        private static void OnResultTypeJSONPropertyRead(ResultTypeJSONProperty resultTypeJSONProperty)
         {
-            if (ResultTypeJSONPropertyAdded != null)
-                ResultTypeJSONPropertyAdded
+            if (ResultTypeJSONPropertyRead != null)
+                ResultTypeJSONPropertyRead
                 (
                     typeof(GinTubBuilderManager), 
-                    new ResultTypeJSONPropertyAddedEventArgs
+                    new ResultTypeJSONPropertyReadEventArgs
                     (
                         resultTypeJSONProperty.Id, 
                         resultTypeJSONProperty.JSONProperty, 
@@ -795,19 +853,19 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class ResultTypeJSONPropertyModifiedEventArgs : ResultTypeJSONPropertyEventArgs
+        public class ResultTypeJSONPropertyUpdatedEventArgs : ResultTypeJSONPropertyEventArgs
         {
-            public ResultTypeJSONPropertyModifiedEventArgs(int id, string name, int dataType, int resultType) : base(id, name, dataType, resultType) { }
+            public ResultTypeJSONPropertyUpdatedEventArgs(int id, string name, int dataType, int resultType) : base(id, name, dataType, resultType) { }
         }
-        public delegate void ResultTypeJSONPropertyModifiedEventHandler(object sender, ResultTypeJSONPropertyModifiedEventArgs args);
-        public static event ResultTypeJSONPropertyModifiedEventHandler ResultTypeJSONPropertyModified;
-        private static void OnResultTypeJSONPropertyModified(ResultTypeJSONProperty resultTypeJSONProperty)
+        public delegate void ResultTypeJSONPropertyUpdatedEventHandler(object sender, ResultTypeJSONPropertyUpdatedEventArgs args);
+        public static event ResultTypeJSONPropertyUpdatedEventHandler ResultTypeJSONPropertyUpdated;
+        private static void OnResultTypeJSONPropertyUpdated(ResultTypeJSONProperty resultTypeJSONProperty)
         {
-            if (ResultTypeJSONPropertyModified != null)
-                ResultTypeJSONPropertyModified
+            if (ResultTypeJSONPropertyUpdated != null)
+                ResultTypeJSONPropertyUpdated
                 (
                     typeof(GinTubBuilderManager),
-                    new ResultTypeJSONPropertyModifiedEventArgs
+                    new ResultTypeJSONPropertyUpdatedEventArgs
                     (
                         resultTypeJSONProperty.Id,
                         resultTypeJSONProperty.JSONProperty,
@@ -818,19 +876,19 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class ResultTypeJSONPropertyGetEventArgs : ResultTypeJSONPropertyEventArgs
+        public class ResultTypeJSONPropertySelectEventArgs : ResultTypeJSONPropertyEventArgs
         {
-            public ResultTypeJSONPropertyGetEventArgs(int id, string name, int dataType, int resultType) : base(id, name, dataType, resultType) { }
+            public ResultTypeJSONPropertySelectEventArgs(int id, string name, int dataType, int resultType) : base(id, name, dataType, resultType) { }
         }
-        public delegate void ResultTypeJSONPropertyGetEventHandler(object sender, ResultTypeJSONPropertyGetEventArgs args);
-        public static event ResultTypeJSONPropertyGetEventHandler ResultTypeJSONPropertyGet;
-        private static void OnResultTypeJSONPropertyGet(ResultTypeJSONProperty resultTypeJSONProperty)
+        public delegate void ResultTypeJSONPropertySelectEventHandler(object sender, ResultTypeJSONPropertySelectEventArgs args);
+        public static event ResultTypeJSONPropertySelectEventHandler ResultTypeJSONPropertySelect;
+        private static void OnResultTypeJSONPropertySelect(ResultTypeJSONProperty resultTypeJSONProperty)
         {
-            if (ResultTypeJSONPropertyGet != null)
-                ResultTypeJSONPropertyGet
+            if (ResultTypeJSONPropertySelect != null)
+                ResultTypeJSONPropertySelect
                 (
                     typeof(GinTubBuilderManager),
-                    new ResultTypeJSONPropertyGetEventArgs
+                    new ResultTypeJSONPropertySelectEventArgs
                     (
                         resultTypeJSONProperty.Id,
                         resultTypeJSONProperty.JSONProperty,
@@ -861,42 +919,42 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class ResultAddedEventArgs : ResultEventArgs
+        public class ResultReadEventArgs : ResultEventArgs
         {
-            public ResultAddedEventArgs(int id, string name, string jsonData, int resultType) : base(id, name, jsonData, resultType) { }
+            public ResultReadEventArgs(int id, string name, string jsonData, int resultType) : base(id, name, jsonData, resultType) { }
         }
-        public delegate void ResultAddedEventHandler(object sender, ResultAddedEventArgs args);
-        public static event ResultAddedEventHandler ResultAdded;
-        private static void OnResultAdded(Result result)
+        public delegate void ResultReadEventHandler(object sender, ResultReadEventArgs args);
+        public static event ResultReadEventHandler ResultRead;
+        private static void OnResultRead(Result result)
         {
-            if (ResultAdded != null)
-                ResultAdded(typeof(GinTubBuilderManager), new ResultAddedEventArgs(result.Id, result.Name, result.JSONData, result.ResultType));
-        }
-
-
-        public class ResultModifiedEventArgs : ResultEventArgs
-        {
-            public ResultModifiedEventArgs(int id, string name, string jsonData, int resultType) : base(id, name, jsonData, resultType) { }
-        }
-        public delegate void ResultModifiedEventHandler(object sender, ResultModifiedEventArgs args);
-        public static event ResultModifiedEventHandler ResultModified;
-        private static void OnResultModified(Result result)
-        {
-            if (ResultModified != null)
-                ResultModified(typeof(GinTubBuilderManager), new ResultModifiedEventArgs(result.Id, result.Name, result.JSONData, result.ResultType));
+            if (ResultRead != null)
+                ResultRead(typeof(GinTubBuilderManager), new ResultReadEventArgs(result.Id, result.Name, result.JSONData, result.ResultType));
         }
 
 
-        public class ResultGetEventArgs : ResultEventArgs
+        public class ResultUpdatedEventArgs : ResultEventArgs
         {
-            public ResultGetEventArgs(int id, string name, string jsonData, int resultType) : base(id, name, jsonData, resultType) { }
+            public ResultUpdatedEventArgs(int id, string name, string jsonData, int resultType) : base(id, name, jsonData, resultType) { }
         }
-        public delegate void ResultGetEventHandler(object sender, ResultGetEventArgs args);
-        public static event ResultGetEventHandler ResultGet;
-        private static void OnResultGet(Result result)
+        public delegate void ResultUpdatedEventHandler(object sender, ResultUpdatedEventArgs args);
+        public static event ResultUpdatedEventHandler ResultUpdated;
+        private static void OnResultUpdated(Result result)
         {
-            if (ResultGet != null)
-                ResultGet(typeof(GinTubBuilderManager), new ResultGetEventArgs(result.Id, result.Name, result.JSONData, result.ResultType));
+            if (ResultUpdated != null)
+                ResultUpdated(typeof(GinTubBuilderManager), new ResultUpdatedEventArgs(result.Id, result.Name, result.JSONData, result.ResultType));
+        }
+
+
+        public class ResultSelectEventArgs : ResultEventArgs
+        {
+            public ResultSelectEventArgs(int id, string name, string jsonData, int resultType) : base(id, name, jsonData, resultType) { }
+        }
+        public delegate void ResultSelectEventHandler(object sender, ResultSelectEventArgs args);
+        public static event ResultSelectEventHandler ResultSelect;
+        private static void OnResultSelect(Result result)
+        {
+            if (ResultSelect != null)
+                ResultSelect(typeof(GinTubBuilderManager), new ResultSelectEventArgs(result.Id, result.Name, result.JSONData, result.ResultType));
         }
 
         #endregion
@@ -918,45 +976,45 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class ActionResultAddedEventArgs : ActionResultEventArgs
+        public class ActionResultReadEventArgs : ActionResultEventArgs
         {
-            public ActionResultAddedEventArgs(int id, int result, int action) : base(id, result, action) { }
+            public ActionResultReadEventArgs(int id, int result, int action) : base(id, result, action) { }
         }
-        public delegate void ActionResultAddedEventHandler(object sender, ActionResultAddedEventArgs args);
-        public static event ActionResultAddedEventHandler ActionResultAdded;
-        private static void OnActionResultAdded(ActionResult actionResult)
+        public delegate void ActionResultReadEventHandler(object sender, ActionResultReadEventArgs args);
+        public static event ActionResultReadEventHandler ActionResultRead;
+        private static void OnActionResultRead(ActionResult actionResult)
         {
-            if (ActionResultAdded != null)
-                ActionResultAdded(typeof(GinTubBuilderManager),
-                    new ActionResultAddedEventArgs(actionResult.Id, actionResult.Result, actionResult.Action));
-        }
-
-
-        public class ActionResultModifiedEventArgs : ActionResultEventArgs
-        {
-            public ActionResultModifiedEventArgs(int id, int result, int action) : base(id, result, action) { }
-        }
-        public delegate void ActionResultModifiedEventHandler(object sender, ActionResultModifiedEventArgs args);
-        public static event ActionResultModifiedEventHandler ActionResultModified;
-        private static void OnActionResultModified(ActionResult actionResult)
-        {
-            if (ActionResultModified != null)
-                ActionResultModified(typeof(GinTubBuilderManager),
-                    new ActionResultModifiedEventArgs(actionResult.Id, actionResult.Result, actionResult.Action));
+            if (ActionResultRead != null)
+                ActionResultRead(typeof(GinTubBuilderManager),
+                    new ActionResultReadEventArgs(actionResult.Id, actionResult.Result, actionResult.Action));
         }
 
 
-        public class ActionResultGetEventArgs : ActionResultEventArgs
+        public class ActionResultUpdatedEventArgs : ActionResultEventArgs
         {
-            public ActionResultGetEventArgs(int id, int result, int action) : base(id, result, action) { }
+            public ActionResultUpdatedEventArgs(int id, int result, int action) : base(id, result, action) { }
         }
-        public delegate void ActionResultGetEventHandler(object sender, ActionResultGetEventArgs args);
-        public static event ActionResultGetEventHandler ActionResultGet;
-        private static void OnActionResultGet(ActionResult actionResult)
+        public delegate void ActionResultUpdatedEventHandler(object sender, ActionResultUpdatedEventArgs args);
+        public static event ActionResultUpdatedEventHandler ActionResultUpdated;
+        private static void OnActionResultUpdated(ActionResult actionResult)
         {
-            if (ActionResultGet != null)
-                ActionResultGet(typeof(GinTubBuilderManager),
-                    new ActionResultGetEventArgs(actionResult.Id, actionResult.Result, actionResult.Action));
+            if (ActionResultUpdated != null)
+                ActionResultUpdated(typeof(GinTubBuilderManager),
+                    new ActionResultUpdatedEventArgs(actionResult.Id, actionResult.Result, actionResult.Action));
+        }
+
+
+        public class ActionResultSelectEventArgs : ActionResultEventArgs
+        {
+            public ActionResultSelectEventArgs(int id, int result, int action) : base(id, result, action) { }
+        }
+        public delegate void ActionResultSelectEventHandler(object sender, ActionResultSelectEventArgs args);
+        public static event ActionResultSelectEventHandler ActionResultSelect;
+        private static void OnActionResultSelect(ActionResult actionResult)
+        {
+            if (ActionResultSelect != null)
+                ActionResultSelect(typeof(GinTubBuilderManager),
+                    new ActionResultSelectEventArgs(actionResult.Id, actionResult.Result, actionResult.Action));
         }
 
         #endregion
@@ -978,48 +1036,48 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class ItemAddedEventArgs : ItemEventArgs
+        public class ItemReadEventArgs : ItemEventArgs
         {
-            public ItemAddedEventArgs(int id, string name, string description) :
+            public ItemReadEventArgs(int id, string name, string description) :
                 base(id, name, description) { }
         }
-        public delegate void ItemAddedEventHandler(object sender, ItemAddedEventArgs args);
-        public static event ItemAddedEventHandler ItemAdded;
-        private static void OnItemAdded(Item item)
+        public delegate void ItemReadEventHandler(object sender, ItemReadEventArgs args);
+        public static event ItemReadEventHandler ItemRead;
+        private static void OnItemRead(Item item)
         {
-            if (ItemAdded != null)
-                ItemAdded(typeof(GinTubBuilderManager),
-                    new ItemAddedEventArgs(item.Id, item.Name, item.Description));
+            if (ItemRead != null)
+                ItemRead(typeof(GinTubBuilderManager),
+                    new ItemReadEventArgs(item.Id, item.Name, item.Description));
         }
 
 
-        public class ItemModifiedEventArgs : ItemEventArgs
+        public class ItemUpdatedEventArgs : ItemEventArgs
         {
-            public ItemModifiedEventArgs(int id, string name, string description) :
+            public ItemUpdatedEventArgs(int id, string name, string description) :
                 base(id, name, description) { }
         }
-        public delegate void ItemModifiedEventHandler(object sender, ItemModifiedEventArgs args);
-        public static event ItemModifiedEventHandler ItemModified;
-        private static void OnItemModified(Item item)
+        public delegate void ItemUpdatedEventHandler(object sender, ItemUpdatedEventArgs args);
+        public static event ItemUpdatedEventHandler ItemUpdated;
+        private static void OnItemUpdated(Item item)
         {
-            if (ItemModified != null)
-                ItemModified(typeof(GinTubBuilderManager),
-                    new ItemModifiedEventArgs(item.Id, item.Name, item.Description));
+            if (ItemUpdated != null)
+                ItemUpdated(typeof(GinTubBuilderManager),
+                    new ItemUpdatedEventArgs(item.Id, item.Name, item.Description));
         }
 
 
-        public class ItemGetEventArgs : ItemEventArgs
+        public class ItemSelectEventArgs : ItemEventArgs
         {
-            public ItemGetEventArgs(int id, string name, string description) :
+            public ItemSelectEventArgs(int id, string name, string description) :
                 base(id, name, description) { }
         }
-        public delegate void ItemGetEventHandler(object sender, ItemGetEventArgs args);
-        public static event ItemGetEventHandler ItemGet;
-        private static void OnItemGet(Item item)
+        public delegate void ItemSelectEventHandler(object sender, ItemSelectEventArgs args);
+        public static event ItemSelectEventHandler ItemSelect;
+        private static void OnItemSelect(Item item)
         {
-            if (ItemGet != null)
-                ItemGet(typeof(GinTubBuilderManager),
-                    new ItemGetEventArgs(item.Id, item.Name, item.Description));
+            if (ItemSelect != null)
+                ItemSelect(typeof(GinTubBuilderManager),
+                    new ItemSelectEventArgs(item.Id, item.Name, item.Description));
         }
 
         #endregion
@@ -1041,48 +1099,48 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class EventAddedEventArgs : EventEventArgs
+        public class EventReadEventArgs : EventEventArgs
         {
-            public EventAddedEventArgs(int id, string name, string description) :
+            public EventReadEventArgs(int id, string name, string description) :
                 base(id, name, description) { }
         }
-        public delegate void EventAddedEventHandler(object sender, EventAddedEventArgs args);
-        public static event EventAddedEventHandler EventAdded;
-        private static void OnEventAdded(Event evnt)
+        public delegate void EventReadEventHandler(object sender, EventReadEventArgs args);
+        public static event EventReadEventHandler EventRead;
+        private static void OnEventRead(Event evnt)
         {
-            if (EventAdded != null)
-                EventAdded(typeof(GinTubBuilderManager),
-                    new EventAddedEventArgs(evnt.Id, evnt.Name, evnt.Description));
+            if (EventRead != null)
+                EventRead(typeof(GinTubBuilderManager),
+                    new EventReadEventArgs(evnt.Id, evnt.Name, evnt.Description));
         }
 
 
-        public class EventModifiedEventArgs : EventEventArgs
+        public class EventUpdatedEventArgs : EventEventArgs
         {
-            public EventModifiedEventArgs(int id, string name, string description) :
+            public EventUpdatedEventArgs(int id, string name, string description) :
                 base(id, name, description) { }
         }
-        public delegate void EventModifiedEventHandler(object sender, EventModifiedEventArgs args);
-        public static event EventModifiedEventHandler EventModified;
-        private static void OnEventModified(Event evnt)
+        public delegate void EventUpdatedEventHandler(object sender, EventUpdatedEventArgs args);
+        public static event EventUpdatedEventHandler EventUpdated;
+        private static void OnEventUpdated(Event evnt)
         {
-            if (EventModified != null)
-                EventModified(typeof(GinTubBuilderManager),
-                    new EventModifiedEventArgs(evnt.Id, evnt.Name, evnt.Description));
+            if (EventUpdated != null)
+                EventUpdated(typeof(GinTubBuilderManager),
+                    new EventUpdatedEventArgs(evnt.Id, evnt.Name, evnt.Description));
         }
 
 
-        public class EventGetEventArgs : EventEventArgs
+        public class EventSelectEventArgs : EventEventArgs
         {
-            public EventGetEventArgs(int id, string name, string description) :
+            public EventSelectEventArgs(int id, string name, string description) :
                 base(id, name, description) { }
         }
-        public delegate void EventGetEventHandler(object sender, EventGetEventArgs args);
-        public static event EventGetEventHandler EventGet;
-        private static void OnEventGet(Event evnt)
+        public delegate void EventSelectEventHandler(object sender, EventSelectEventArgs args);
+        public static event EventSelectEventHandler EventSelect;
+        private static void OnEventSelect(Event evnt)
         {
-            if (EventGet != null)
-                EventGet(typeof(GinTubBuilderManager),
-                    new EventGetEventArgs(evnt.Id, evnt.Name, evnt.Description));
+            if (EventSelect != null)
+                EventSelect(typeof(GinTubBuilderManager),
+                    new EventSelectEventArgs(evnt.Id, evnt.Name, evnt.Description));
         }
 
         #endregion
@@ -1104,48 +1162,48 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class CharacterAddedEventArgs : CharacterEventArgs
+        public class CharacterReadEventArgs : CharacterEventArgs
         {
-            public CharacterAddedEventArgs(int id, string name, string description) :
+            public CharacterReadEventArgs(int id, string name, string description) :
                 base(id, name, description) { }
         }
-        public delegate void CharacterAddedCharacterHandler(object sender, CharacterAddedEventArgs args);
-        public static event CharacterAddedCharacterHandler CharacterAdded;
-        private static void OnCharacterAdded(Character character)
+        public delegate void CharacterReadCharacterHandler(object sender, CharacterReadEventArgs args);
+        public static event CharacterReadCharacterHandler CharacterRead;
+        private static void OnCharacterRead(Character character)
         {
-            if (CharacterAdded != null)
-                CharacterAdded(typeof(GinTubBuilderManager),
-                    new CharacterAddedEventArgs(character.Id, character.Name, character.Description));
+            if (CharacterRead != null)
+                CharacterRead(typeof(GinTubBuilderManager),
+                    new CharacterReadEventArgs(character.Id, character.Name, character.Description));
         }
 
 
-        public class CharacterModifiedEventArgs : CharacterEventArgs
+        public class CharacterUpdatedEventArgs : CharacterEventArgs
         {
-            public CharacterModifiedEventArgs(int id, string name, string description) :
+            public CharacterUpdatedEventArgs(int id, string name, string description) :
                 base(id, name, description) { }
         }
-        public delegate void CharacterModifiedCharacterHandler(object sender, CharacterModifiedEventArgs args);
-        public static event CharacterModifiedCharacterHandler CharacterModified;
-        private static void OnCharacterModified(Character character)
+        public delegate void CharacterUpdatedCharacterHandler(object sender, CharacterUpdatedEventArgs args);
+        public static event CharacterUpdatedCharacterHandler CharacterUpdated;
+        private static void OnCharacterUpdated(Character character)
         {
-            if (CharacterModified != null)
-                CharacterModified(typeof(GinTubBuilderManager),
-                    new CharacterModifiedEventArgs(character.Id, character.Name, character.Description));
+            if (CharacterUpdated != null)
+                CharacterUpdated(typeof(GinTubBuilderManager),
+                    new CharacterUpdatedEventArgs(character.Id, character.Name, character.Description));
         }
 
 
-        public class CharacterGetEventArgs : CharacterEventArgs
+        public class CharacterSelectEventArgs : CharacterEventArgs
         {
-            public CharacterGetEventArgs(int id, string name, string description) :
+            public CharacterSelectEventArgs(int id, string name, string description) :
                 base(id, name, description) { }
         }
-        public delegate void CharacterGetCharacterHandler(object sender, CharacterGetEventArgs args);
-        public static event CharacterGetCharacterHandler CharacterGet;
-        private static void OnCharacterGet(Character character)
+        public delegate void CharacterSelectCharacterHandler(object sender, CharacterSelectEventArgs args);
+        public static event CharacterSelectCharacterHandler CharacterSelect;
+        private static void OnCharacterSelect(Character character)
         {
-            if (CharacterGet != null)
-                CharacterGet(typeof(GinTubBuilderManager),
-                    new CharacterGetEventArgs(character.Id, character.Name, character.Description));
+            if (CharacterSelect != null)
+                CharacterSelect(typeof(GinTubBuilderManager),
+                    new CharacterSelectEventArgs(character.Id, character.Name, character.Description));
         }
 
         #endregion
@@ -1167,48 +1225,48 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class ItemActionRequirementAddedEventArgs : ItemActionRequirementEventArgs
+        public class ItemActionRequirementReadEventArgs : ItemActionRequirementEventArgs
         {
-            public ItemActionRequirementAddedEventArgs(int id, int item, int action) :
+            public ItemActionRequirementReadEventArgs(int id, int item, int action) :
                 base(id, item, action) { }
         }
-        public delegate void ItemActionRequirementAddedEventHandler(object sender, ItemActionRequirementAddedEventArgs args);
-        public static event ItemActionRequirementAddedEventHandler ItemActionRequirementAdded;
-        private static void OnItemActionRequirementAdded(ItemActionRequirement itemActionRequirement)
+        public delegate void ItemActionRequirementReadEventHandler(object sender, ItemActionRequirementReadEventArgs args);
+        public static event ItemActionRequirementReadEventHandler ItemActionRequirementRead;
+        private static void OnItemActionRequirementRead(ItemActionRequirement itemActionRequirement)
         {
-            if (ItemActionRequirementAdded != null)
-                ItemActionRequirementAdded(typeof(GinTubBuilderManager),
-                    new ItemActionRequirementAddedEventArgs(itemActionRequirement.Id, itemActionRequirement.Item, itemActionRequirement.Action));
+            if (ItemActionRequirementRead != null)
+                ItemActionRequirementRead(typeof(GinTubBuilderManager),
+                    new ItemActionRequirementReadEventArgs(itemActionRequirement.Id, itemActionRequirement.Item, itemActionRequirement.Action));
         }
 
 
-        public class ItemActionRequirementModifiedEventArgs : ItemActionRequirementEventArgs
+        public class ItemActionRequirementUpdatedEventArgs : ItemActionRequirementEventArgs
         {
-            public ItemActionRequirementModifiedEventArgs(int id, int item, int action) :
+            public ItemActionRequirementUpdatedEventArgs(int id, int item, int action) :
                 base(id, item, action) { }
         }
-        public delegate void ItemActionRequirementModifiedEventHandler(object sender, ItemActionRequirementModifiedEventArgs args);
-        public static event ItemActionRequirementModifiedEventHandler ItemActionRequirementModified;
-        private static void OnItemActionRequirementModified(ItemActionRequirement itemActionRequirement)
+        public delegate void ItemActionRequirementUpdatedEventHandler(object sender, ItemActionRequirementUpdatedEventArgs args);
+        public static event ItemActionRequirementUpdatedEventHandler ItemActionRequirementUpdated;
+        private static void OnItemActionRequirementUpdated(ItemActionRequirement itemActionRequirement)
         {
-            if (ItemActionRequirementModified != null)
-                ItemActionRequirementModified(typeof(GinTubBuilderManager),
-                    new ItemActionRequirementModifiedEventArgs(itemActionRequirement.Id, itemActionRequirement.Item, itemActionRequirement.Action));
+            if (ItemActionRequirementUpdated != null)
+                ItemActionRequirementUpdated(typeof(GinTubBuilderManager),
+                    new ItemActionRequirementUpdatedEventArgs(itemActionRequirement.Id, itemActionRequirement.Item, itemActionRequirement.Action));
         }
 
 
-        public class ItemActionRequirementGetEventArgs : ItemActionRequirementEventArgs
+        public class ItemActionRequirementSelectEventArgs : ItemActionRequirementEventArgs
         {
-            public ItemActionRequirementGetEventArgs(int id, int item, int action) :
+            public ItemActionRequirementSelectEventArgs(int id, int item, int action) :
                 base(id, item, action) { }
         }
-        public delegate void ItemActionRequirementGetEventHandler(object sender, ItemActionRequirementGetEventArgs args);
-        public static event ItemActionRequirementGetEventHandler ItemActionRequirementGet;
-        private static void OnItemActionRequirementGet(ItemActionRequirement itemActionRequirement)
+        public delegate void ItemActionRequirementSelectEventHandler(object sender, ItemActionRequirementSelectEventArgs args);
+        public static event ItemActionRequirementSelectEventHandler ItemActionRequirementSelect;
+        private static void OnItemActionRequirementSelect(ItemActionRequirement itemActionRequirement)
         {
-            if (ItemActionRequirementGet != null)
-                ItemActionRequirementGet(typeof(GinTubBuilderManager),
-                    new ItemActionRequirementGetEventArgs(itemActionRequirement.Id, itemActionRequirement.Item, itemActionRequirement.Action));
+            if (ItemActionRequirementSelect != null)
+                ItemActionRequirementSelect(typeof(GinTubBuilderManager),
+                    new ItemActionRequirementSelectEventArgs(itemActionRequirement.Id, itemActionRequirement.Item, itemActionRequirement.Action));
         }
 
         #endregion
@@ -1230,48 +1288,48 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class EventActionRequirementAddedEventArgs : EventActionRequirementEventArgs
+        public class EventActionRequirementReadEventArgs : EventActionRequirementEventArgs
         {
-            public EventActionRequirementAddedEventArgs(int id, int evnt, int action) :
+            public EventActionRequirementReadEventArgs(int id, int evnt, int action) :
                 base(id, evnt, action) { }
         }
-        public delegate void EventActionRequirementAddedEventHandler(object sender, EventActionRequirementAddedEventArgs args);
-        public static event EventActionRequirementAddedEventHandler EventActionRequirementAdded;
-        private static void OnEventActionRequirementAdded(EventActionRequirement evntActionRequirement)
+        public delegate void EventActionRequirementReadEventHandler(object sender, EventActionRequirementReadEventArgs args);
+        public static event EventActionRequirementReadEventHandler EventActionRequirementRead;
+        private static void OnEventActionRequirementRead(EventActionRequirement evntActionRequirement)
         {
-            if (EventActionRequirementAdded != null)
-                EventActionRequirementAdded(typeof(GinTubBuilderManager),
-                    new EventActionRequirementAddedEventArgs(evntActionRequirement.Id, evntActionRequirement.Event, evntActionRequirement.Action));
+            if (EventActionRequirementRead != null)
+                EventActionRequirementRead(typeof(GinTubBuilderManager),
+                    new EventActionRequirementReadEventArgs(evntActionRequirement.Id, evntActionRequirement.Event, evntActionRequirement.Action));
         }
 
 
-        public class EventActionRequirementModifiedEventArgs : EventActionRequirementEventArgs
+        public class EventActionRequirementUpdatedEventArgs : EventActionRequirementEventArgs
         {
-            public EventActionRequirementModifiedEventArgs(int id, int evnt, int action) :
+            public EventActionRequirementUpdatedEventArgs(int id, int evnt, int action) :
                 base(id, evnt, action) { }
         }
-        public delegate void EventActionRequirementModifiedEventHandler(object sender, EventActionRequirementModifiedEventArgs args);
-        public static event EventActionRequirementModifiedEventHandler EventActionRequirementModified;
-        private static void OnEventActionRequirementModified(EventActionRequirement evntActionRequirement)
+        public delegate void EventActionRequirementUpdatedEventHandler(object sender, EventActionRequirementUpdatedEventArgs args);
+        public static event EventActionRequirementUpdatedEventHandler EventActionRequirementUpdated;
+        private static void OnEventActionRequirementUpdated(EventActionRequirement evntActionRequirement)
         {
-            if (EventActionRequirementModified != null)
-                EventActionRequirementModified(typeof(GinTubBuilderManager),
-                    new EventActionRequirementModifiedEventArgs(evntActionRequirement.Id, evntActionRequirement.Event, evntActionRequirement.Action));
+            if (EventActionRequirementUpdated != null)
+                EventActionRequirementUpdated(typeof(GinTubBuilderManager),
+                    new EventActionRequirementUpdatedEventArgs(evntActionRequirement.Id, evntActionRequirement.Event, evntActionRequirement.Action));
         }
 
 
-        public class EventActionRequirementGetEventArgs : EventActionRequirementEventArgs
+        public class EventActionRequirementSelectEventArgs : EventActionRequirementEventArgs
         {
-            public EventActionRequirementGetEventArgs(int id, int evnt, int action) :
+            public EventActionRequirementSelectEventArgs(int id, int evnt, int action) :
                 base(id, evnt, action) { }
         }
-        public delegate void EventActionRequirementGetEventHandler(object sender, EventActionRequirementGetEventArgs args);
-        public static event EventActionRequirementGetEventHandler EventActionRequirementGet;
-        private static void OnEventActionRequirementGet(EventActionRequirement evntActionRequirement)
+        public delegate void EventActionRequirementSelectEventHandler(object sender, EventActionRequirementSelectEventArgs args);
+        public static event EventActionRequirementSelectEventHandler EventActionRequirementSelect;
+        private static void OnEventActionRequirementSelect(EventActionRequirement evntActionRequirement)
         {
-            if (EventActionRequirementGet != null)
-                EventActionRequirementGet(typeof(GinTubBuilderManager),
-                    new EventActionRequirementGetEventArgs(evntActionRequirement.Id, evntActionRequirement.Event, evntActionRequirement.Action));
+            if (EventActionRequirementSelect != null)
+                EventActionRequirementSelect(typeof(GinTubBuilderManager),
+                    new EventActionRequirementSelectEventArgs(evntActionRequirement.Id, evntActionRequirement.Event, evntActionRequirement.Action));
         }
 
         #endregion
@@ -1293,48 +1351,48 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class CharacterActionRequirementAddedEventArgs : CharacterActionRequirementEventArgs
+        public class CharacterActionRequirementReadEventArgs : CharacterActionRequirementEventArgs
         {
-            public CharacterActionRequirementAddedEventArgs(int id, int character, int action) :
+            public CharacterActionRequirementReadEventArgs(int id, int character, int action) :
                 base(id, character, action) { }
         }
-        public delegate void CharacterActionRequirementAddedEventHandler(object sender, CharacterActionRequirementAddedEventArgs args);
-        public static event CharacterActionRequirementAddedEventHandler CharacterActionRequirementAdded;
-        private static void OnCharacterActionRequirementAdded(CharacterActionRequirement characterActionRequirement)
+        public delegate void CharacterActionRequirementReadEventHandler(object sender, CharacterActionRequirementReadEventArgs args);
+        public static event CharacterActionRequirementReadEventHandler CharacterActionRequirementRead;
+        private static void OnCharacterActionRequirementRead(CharacterActionRequirement characterActionRequirement)
         {
-            if (CharacterActionRequirementAdded != null)
-                CharacterActionRequirementAdded(typeof(GinTubBuilderManager),
-                    new CharacterActionRequirementAddedEventArgs(characterActionRequirement.Id, characterActionRequirement.Character, characterActionRequirement.Action));
+            if (CharacterActionRequirementRead != null)
+                CharacterActionRequirementRead(typeof(GinTubBuilderManager),
+                    new CharacterActionRequirementReadEventArgs(characterActionRequirement.Id, characterActionRequirement.Character, characterActionRequirement.Action));
         }
 
 
-        public class CharacterActionRequirementModifiedEventArgs : CharacterActionRequirementEventArgs
+        public class CharacterActionRequirementUpdatedEventArgs : CharacterActionRequirementEventArgs
         {
-            public CharacterActionRequirementModifiedEventArgs(int id, int character, int action) :
+            public CharacterActionRequirementUpdatedEventArgs(int id, int character, int action) :
                 base(id, character, action) { }
         }
-        public delegate void CharacterActionRequirementModifiedEventHandler(object sender, CharacterActionRequirementModifiedEventArgs args);
-        public static event CharacterActionRequirementModifiedEventHandler CharacterActionRequirementModified;
-        private static void OnCharacterActionRequirementModified(CharacterActionRequirement characterActionRequirement)
+        public delegate void CharacterActionRequirementUpdatedEventHandler(object sender, CharacterActionRequirementUpdatedEventArgs args);
+        public static event CharacterActionRequirementUpdatedEventHandler CharacterActionRequirementUpdated;
+        private static void OnCharacterActionRequirementUpdated(CharacterActionRequirement characterActionRequirement)
         {
-            if (CharacterActionRequirementModified != null)
-                CharacterActionRequirementModified(typeof(GinTubBuilderManager),
-                    new CharacterActionRequirementModifiedEventArgs(characterActionRequirement.Id, characterActionRequirement.Character, characterActionRequirement.Action));
+            if (CharacterActionRequirementUpdated != null)
+                CharacterActionRequirementUpdated(typeof(GinTubBuilderManager),
+                    new CharacterActionRequirementUpdatedEventArgs(characterActionRequirement.Id, characterActionRequirement.Character, characterActionRequirement.Action));
         }
 
 
-        public class CharacterActionRequirementGetEventArgs : CharacterActionRequirementEventArgs
+        public class CharacterActionRequirementSelectEventArgs : CharacterActionRequirementEventArgs
         {
-            public CharacterActionRequirementGetEventArgs(int id, int character, int action) :
+            public CharacterActionRequirementSelectEventArgs(int id, int character, int action) :
                 base(id, character, action) { }
         }
-        public delegate void CharacterActionRequirementGetEventHandler(object sender, CharacterActionRequirementGetEventArgs args);
-        public static event CharacterActionRequirementGetEventHandler CharacterActionRequirementGet;
-        private static void OnCharacterActionRequirementGet(CharacterActionRequirement characterActionRequirement)
+        public delegate void CharacterActionRequirementSelectEventHandler(object sender, CharacterActionRequirementSelectEventArgs args);
+        public static event CharacterActionRequirementSelectEventHandler CharacterActionRequirementSelect;
+        private static void OnCharacterActionRequirementSelect(CharacterActionRequirement characterActionRequirement)
         {
-            if (CharacterActionRequirementGet != null)
-                CharacterActionRequirementGet(typeof(GinTubBuilderManager),
-                    new CharacterActionRequirementGetEventArgs(characterActionRequirement.Id, characterActionRequirement.Character, characterActionRequirement.Action));
+            if (CharacterActionRequirementSelect != null)
+                CharacterActionRequirementSelect(typeof(GinTubBuilderManager),
+                    new CharacterActionRequirementSelectEventArgs(characterActionRequirement.Id, characterActionRequirement.Character, characterActionRequirement.Action));
         }
 
         #endregion
@@ -1356,48 +1414,48 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class MessageAddedEventArgs : MessageEventArgs
+        public class MessageReadEventArgs : MessageEventArgs
         {
-            public MessageAddedEventArgs(int id, string name, string text) :
+            public MessageReadEventArgs(int id, string name, string text) :
                 base(id, name, text) { }
         }
-        public delegate void MessageAddedMessageHandler(object sender, MessageAddedEventArgs args);
-        public static event MessageAddedMessageHandler MessageAdded;
-        private static void OnMessageAdded(Message message)
+        public delegate void MessageReadMessageHandler(object sender, MessageReadEventArgs args);
+        public static event MessageReadMessageHandler MessageRead;
+        private static void OnMessageRead(Message message)
         {
-            if (MessageAdded != null)
-                MessageAdded(typeof(GinTubBuilderManager),
-                    new MessageAddedEventArgs(message.Id, message.Name, message.Text));
+            if (MessageRead != null)
+                MessageRead(typeof(GinTubBuilderManager),
+                    new MessageReadEventArgs(message.Id, message.Name, message.Text));
         }
 
 
-        public class MessageModifiedEventArgs : MessageEventArgs
+        public class MessageUpdatedEventArgs : MessageEventArgs
         {
-            public MessageModifiedEventArgs(int id, string name, string text) :
+            public MessageUpdatedEventArgs(int id, string name, string text) :
                 base(id, name, text) { }
         }
-        public delegate void MessageModifiedMessageHandler(object sender, MessageModifiedEventArgs args);
-        public static event MessageModifiedMessageHandler MessageModified;
-        private static void OnMessageModified(Message message)
+        public delegate void MessageUpdatedMessageHandler(object sender, MessageUpdatedEventArgs args);
+        public static event MessageUpdatedMessageHandler MessageUpdated;
+        private static void OnMessageUpdated(Message message)
         {
-            if (MessageModified != null)
-                MessageModified(typeof(GinTubBuilderManager),
-                    new MessageModifiedEventArgs(message.Id, message.Name, message.Text));
+            if (MessageUpdated != null)
+                MessageUpdated(typeof(GinTubBuilderManager),
+                    new MessageUpdatedEventArgs(message.Id, message.Name, message.Text));
         }
 
 
-        public class MessageGetEventArgs : MessageEventArgs
+        public class MessageSelectEventArgs : MessageEventArgs
         {
-            public MessageGetEventArgs(int id, string name, string text) :
+            public MessageSelectEventArgs(int id, string name, string text) :
                 base(id, name, text) { }
         }
-        public delegate void MessageGetMessageHandler(object sender, MessageGetEventArgs args);
-        public static event MessageGetMessageHandler MessageGet;
-        private static void OnMessageGet(Message message)
+        public delegate void MessageSelectMessageHandler(object sender, MessageSelectEventArgs args);
+        public static event MessageSelectMessageHandler MessageSelect;
+        private static void OnMessageSelect(Message message)
         {
-            if (MessageGet != null)
-                MessageGet(typeof(GinTubBuilderManager),
-                    new MessageGetEventArgs(message.Id, message.Name, message.Text));
+            if (MessageSelect != null)
+                MessageSelect(typeof(GinTubBuilderManager),
+                    new MessageSelectEventArgs(message.Id, message.Name, message.Text));
         }
 
         #endregion
@@ -1421,48 +1479,48 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class MessageChoiceAddedEventArgs : MessageChoiceEventArgs
+        public class MessageChoiceReadEventArgs : MessageChoiceEventArgs
         {
-            public MessageChoiceAddedEventArgs(int id, string name, string text, int message) :
+            public MessageChoiceReadEventArgs(int id, string name, string text, int message) :
                 base(id, name, text, message) { }
         }
-        public delegate void MessageChoiceAddedMessageChoiceHandler(object sender, MessageChoiceAddedEventArgs args);
-        public static event MessageChoiceAddedMessageChoiceHandler MessageChoiceAdded;
-        private static void OnMessageChoiceAdded(MessageChoice messageChoice)
+        public delegate void MessageChoiceReadMessageChoiceHandler(object sender, MessageChoiceReadEventArgs args);
+        public static event MessageChoiceReadMessageChoiceHandler MessageChoiceRead;
+        private static void OnMessageChoiceRead(MessageChoice messageChoice)
         {
-            if (MessageChoiceAdded != null)
-                MessageChoiceAdded(typeof(GinTubBuilderManager),
-                    new MessageChoiceAddedEventArgs(messageChoice.Id, messageChoice.Name, messageChoice.Text, messageChoice.Message));
+            if (MessageChoiceRead != null)
+                MessageChoiceRead(typeof(GinTubBuilderManager),
+                    new MessageChoiceReadEventArgs(messageChoice.Id, messageChoice.Name, messageChoice.Text, messageChoice.Message));
         }
 
 
-        public class MessageChoiceModifiedEventArgs : MessageChoiceEventArgs
+        public class MessageChoiceUpdatedEventArgs : MessageChoiceEventArgs
         {
-            public MessageChoiceModifiedEventArgs(int id, string name, string text, int message) :
+            public MessageChoiceUpdatedEventArgs(int id, string name, string text, int message) :
                 base(id, name, text, message) { }
         }
-        public delegate void MessageChoiceModifiedMessageChoiceHandler(object sender, MessageChoiceModifiedEventArgs args);
-        public static event MessageChoiceModifiedMessageChoiceHandler MessageChoiceModified;
-        private static void OnMessageChoiceModified(MessageChoice messageChoice)
+        public delegate void MessageChoiceUpdatedMessageChoiceHandler(object sender, MessageChoiceUpdatedEventArgs args);
+        public static event MessageChoiceUpdatedMessageChoiceHandler MessageChoiceUpdated;
+        private static void OnMessageChoiceUpdated(MessageChoice messageChoice)
         {
-            if (MessageChoiceModified != null)
-                MessageChoiceModified(typeof(GinTubBuilderManager),
-                    new MessageChoiceModifiedEventArgs(messageChoice.Id, messageChoice.Name, messageChoice.Text, messageChoice.Message));
+            if (MessageChoiceUpdated != null)
+                MessageChoiceUpdated(typeof(GinTubBuilderManager),
+                    new MessageChoiceUpdatedEventArgs(messageChoice.Id, messageChoice.Name, messageChoice.Text, messageChoice.Message));
         }
 
 
-        public class MessageChoiceGetEventArgs : MessageChoiceEventArgs
+        public class MessageChoiceSelectEventArgs : MessageChoiceEventArgs
         {
-            public MessageChoiceGetEventArgs(int id, string name, string text, int message) :
+            public MessageChoiceSelectEventArgs(int id, string name, string text, int message) :
                 base(id, name, text, message) { }
         }
-        public delegate void MessageChoiceGetMessageChoiceHandler(object sender, MessageChoiceGetEventArgs args);
-        public static event MessageChoiceGetMessageChoiceHandler MessageChoiceGet;
-        private static void OnMessageChoiceGet(MessageChoice messageChoice)
+        public delegate void MessageChoiceSelectMessageChoiceHandler(object sender, MessageChoiceSelectEventArgs args);
+        public static event MessageChoiceSelectMessageChoiceHandler MessageChoiceSelect;
+        private static void OnMessageChoiceSelect(MessageChoice messageChoice)
         {
-            if (MessageChoiceGet != null)
-                MessageChoiceGet(typeof(GinTubBuilderManager),
-                    new MessageChoiceGetEventArgs(messageChoice.Id, messageChoice.Name, messageChoice.Text, messageChoice.Message));
+            if (MessageChoiceSelect != null)
+                MessageChoiceSelect(typeof(GinTubBuilderManager),
+                    new MessageChoiceSelectEventArgs(messageChoice.Id, messageChoice.Name, messageChoice.Text, messageChoice.Message));
         }
 
         #endregion
@@ -1484,45 +1542,45 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class MessageChoiceResultAddedEventArgs : MessageChoiceResultEventArgs
+        public class MessageChoiceResultReadEventArgs : MessageChoiceResultEventArgs
         {
-            public MessageChoiceResultAddedEventArgs(int id, int result, int messageChoice) : base(id, result, messageChoice) { }
+            public MessageChoiceResultReadEventArgs(int id, int result, int messageChoice) : base(id, result, messageChoice) { }
         }
-        public delegate void MessageChoiceResultAddedEventHandler(object sender, MessageChoiceResultAddedEventArgs args);
-        public static event MessageChoiceResultAddedEventHandler MessageChoiceResultAdded;
-        private static void OnMessageChoiceResultAdded(MessageChoiceResult messageChoiceResult)
+        public delegate void MessageChoiceResultReadEventHandler(object sender, MessageChoiceResultReadEventArgs args);
+        public static event MessageChoiceResultReadEventHandler MessageChoiceResultRead;
+        private static void OnMessageChoiceResultRead(MessageChoiceResult messageChoiceResult)
         {
-            if (MessageChoiceResultAdded != null)
-                MessageChoiceResultAdded(typeof(GinTubBuilderManager),
-                    new MessageChoiceResultAddedEventArgs(messageChoiceResult.Id, messageChoiceResult.Result, messageChoiceResult.MessageChoice));
-        }
-
-
-        public class MessageChoiceResultModifiedEventArgs : MessageChoiceResultEventArgs
-        {
-            public MessageChoiceResultModifiedEventArgs(int id, int result, int messageChoice) : base(id, result, messageChoice) { }
-        }
-        public delegate void MessageChoiceResultModifiedEventHandler(object sender, MessageChoiceResultModifiedEventArgs args);
-        public static event MessageChoiceResultModifiedEventHandler MessageChoiceResultModified;
-        private static void OnMessageChoiceResultModified(MessageChoiceResult messageChoiceResult)
-        {
-            if (MessageChoiceResultModified != null)
-                MessageChoiceResultModified(typeof(GinTubBuilderManager),
-                    new MessageChoiceResultModifiedEventArgs(messageChoiceResult.Id, messageChoiceResult.Result, messageChoiceResult.MessageChoice));
+            if (MessageChoiceResultRead != null)
+                MessageChoiceResultRead(typeof(GinTubBuilderManager),
+                    new MessageChoiceResultReadEventArgs(messageChoiceResult.Id, messageChoiceResult.Result, messageChoiceResult.MessageChoice));
         }
 
 
-        public class MessageChoiceResultGetEventArgs : MessageChoiceResultEventArgs
+        public class MessageChoiceResultUpdatedEventArgs : MessageChoiceResultEventArgs
         {
-            public MessageChoiceResultGetEventArgs(int id, int result, int messageChoice) : base(id, result, messageChoice) { }
+            public MessageChoiceResultUpdatedEventArgs(int id, int result, int messageChoice) : base(id, result, messageChoice) { }
         }
-        public delegate void MessageChoiceResultGetEventHandler(object sender, MessageChoiceResultGetEventArgs args);
-        public static event MessageChoiceResultGetEventHandler MessageChoiceResultGet;
-        private static void OnMessageChoiceResultGet(MessageChoiceResult messageChoiceResult)
+        public delegate void MessageChoiceResultUpdatedEventHandler(object sender, MessageChoiceResultUpdatedEventArgs args);
+        public static event MessageChoiceResultUpdatedEventHandler MessageChoiceResultUpdated;
+        private static void OnMessageChoiceResultUpdated(MessageChoiceResult messageChoiceResult)
         {
-            if (MessageChoiceResultGet != null)
-                MessageChoiceResultGet(typeof(GinTubBuilderManager),
-                    new MessageChoiceResultGetEventArgs(messageChoiceResult.Id, messageChoiceResult.Result, messageChoiceResult.MessageChoice));
+            if (MessageChoiceResultUpdated != null)
+                MessageChoiceResultUpdated(typeof(GinTubBuilderManager),
+                    new MessageChoiceResultUpdatedEventArgs(messageChoiceResult.Id, messageChoiceResult.Result, messageChoiceResult.MessageChoice));
+        }
+
+
+        public class MessageChoiceResultSelectEventArgs : MessageChoiceResultEventArgs
+        {
+            public MessageChoiceResultSelectEventArgs(int id, int result, int messageChoice) : base(id, result, messageChoice) { }
+        }
+        public delegate void MessageChoiceResultSelectEventHandler(object sender, MessageChoiceResultSelectEventArgs args);
+        public static event MessageChoiceResultSelectEventHandler MessageChoiceResultSelect;
+        private static void OnMessageChoiceResultSelect(MessageChoiceResult messageChoiceResult)
+        {
+            if (MessageChoiceResultSelect != null)
+                MessageChoiceResultSelect(typeof(GinTubBuilderManager),
+                    new MessageChoiceResultSelectEventArgs(messageChoiceResult.Id, messageChoiceResult.Result, messageChoiceResult.MessageChoice));
         }
 
         #endregion
@@ -1550,18 +1608,18 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class RoomPreviewParagraphStateGetEventArgs : RoomPreviewParagraphStateEventArgs
+        public class RoomPreviewParagraphStateSelectEventArgs : RoomPreviewParagraphStateEventArgs
         {
-            public RoomPreviewParagraphStateGetEventArgs(int id, string text, int state, int paragraphState, int room, RoomPreviewNounEventArgs[] nouns) :
+            public RoomPreviewParagraphStateSelectEventArgs(int id, string text, int state, int paragraphState, int room, RoomPreviewNounEventArgs[] nouns) :
                 base(id, text, state, paragraphState, room, nouns) { }
         }
-        public delegate void RoomPreviewParagraphStateGetEventHandler(object sender, RoomPreviewParagraphStateGetEventArgs args);
-        public static event RoomPreviewParagraphStateGetEventHandler RoomPreviewParagraphStateGet;
-        private static void OnRoomPreviewParagraphStateGet(RoomPreviewParagraphState roomPreviewParagraphState)
+        public delegate void RoomPreviewParagraphStateSelectEventHandler(object sender, RoomPreviewParagraphStateSelectEventArgs args);
+        public static event RoomPreviewParagraphStateSelectEventHandler RoomPreviewParagraphStateSelect;
+        private static void OnRoomPreviewParagraphStateSelect(RoomPreviewParagraphState roomPreviewParagraphState)
         {
-            if (RoomPreviewParagraphStateGet != null)
-                RoomPreviewParagraphStateGet(typeof(GinTubBuilderManager),
-                    new RoomPreviewParagraphStateGetEventArgs
+            if (RoomPreviewParagraphStateSelect != null)
+                RoomPreviewParagraphStateSelect(typeof(GinTubBuilderManager),
+                    new RoomPreviewParagraphStateSelectEventArgs
                     (
                         roomPreviewParagraphState.Id, 
                         roomPreviewParagraphState.Text, 
@@ -1593,18 +1651,18 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class RoomPreviewNounGetEventArgs : RoomPreviewNounEventArgs
+        public class RoomPreviewNounSelectEventArgs : RoomPreviewNounEventArgs
         {
-            public RoomPreviewNounGetEventArgs(int id, string text, int paragraphState, int room) :
+            public RoomPreviewNounSelectEventArgs(int id, string text, int paragraphState, int room) :
                 base(id, text, paragraphState, room) { }
         }
-        public delegate void RoomPreviewNounGetEventHandler(object sender, RoomPreviewNounGetEventArgs args);
-        public static event RoomPreviewNounGetEventHandler RoomPreviewNounGet;
-        private static void OnRoomPreviewNounGet(RoomPreviewNoun roomPreviewNoun)
+        public delegate void RoomPreviewNounSelectEventHandler(object sender, RoomPreviewNounSelectEventArgs args);
+        public static event RoomPreviewNounSelectEventHandler RoomPreviewNounSelect;
+        private static void OnRoomPreviewNounSelect(RoomPreviewNoun roomPreviewNoun)
         {
-            if (RoomPreviewNounGet != null)
-                RoomPreviewNounGet(typeof(GinTubBuilderManager),
-                    new RoomPreviewNounGetEventArgs
+            if (RoomPreviewNounSelect != null)
+                RoomPreviewNounSelect(typeof(GinTubBuilderManager),
+                    new RoomPreviewNounSelectEventArgs
                     (
                         roomPreviewNoun.Id,
                         roomPreviewNoun.Text,
@@ -1630,42 +1688,42 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class AreaRoomOnInitialLoadAddedEventArgs : AreaRoomOnInitialLoadEventArgs
+        public class AreaRoomOnInitialLoadReadEventArgs : AreaRoomOnInitialLoadEventArgs
         {
-            public AreaRoomOnInitialLoadAddedEventArgs(int? area, int? room) : base(area, room) { }
+            public AreaRoomOnInitialLoadReadEventArgs(int? area, int? room) : base(area, room) { }
         }
-        public delegate void AreaRoomOnInitialLoadAddedEventHandler(object sender, AreaRoomOnInitialLoadAddedEventArgs args);
-        public static event AreaRoomOnInitialLoadAddedEventHandler AreaRoomOnInitialLoadAdded;
-        private static void OnAreaRoomOnInitialLoadAdded(AreaRoomOnInitialLoad areaRoomOnInitialLoad)
+        public delegate void AreaRoomOnInitialLoadReadEventHandler(object sender, AreaRoomOnInitialLoadReadEventArgs args);
+        public static event AreaRoomOnInitialLoadReadEventHandler AreaRoomOnInitialLoadRead;
+        private static void OnAreaRoomOnInitialLoadRead(AreaRoomOnInitialLoad areaRoomOnInitialRead)
         {
-            if (AreaRoomOnInitialLoadAdded != null)
-                AreaRoomOnInitialLoadAdded(typeof(GinTubBuilderManager), new AreaRoomOnInitialLoadAddedEventArgs(areaRoomOnInitialLoad.Area, areaRoomOnInitialLoad.Room));
-        }
-
-
-        public class AreaRoomOnInitialLoadModifiedEventArgs : AreaRoomOnInitialLoadEventArgs
-        {
-            public AreaRoomOnInitialLoadModifiedEventArgs(int? area, int? room) : base(area, room) { }
-        }
-        public delegate void AreaRoomOnInitialLoadModifiedEventHandler(object sender, AreaRoomOnInitialLoadModifiedEventArgs args);
-        public static event AreaRoomOnInitialLoadModifiedEventHandler AreaRoomOnInitialLoadModified;
-        private static void OnAreaRoomOnInitialLoadModified(AreaRoomOnInitialLoad areaRoomOnInitialLoad)
-        {
-            if (AreaRoomOnInitialLoadModified != null)
-                AreaRoomOnInitialLoadModified(typeof(GinTubBuilderManager), new AreaRoomOnInitialLoadModifiedEventArgs(areaRoomOnInitialLoad.Area, areaRoomOnInitialLoad.Room));
+            if (AreaRoomOnInitialLoadRead != null)
+                AreaRoomOnInitialLoadRead(typeof(GinTubBuilderManager), new AreaRoomOnInitialLoadReadEventArgs(areaRoomOnInitialRead.Area, areaRoomOnInitialRead.Room));
         }
 
 
-        public class AreaRoomOnInitialLoadGetEventArgs : AreaRoomOnInitialLoadEventArgs
+        public class AreaRoomOnInitialLoadUpdatedEventArgs : AreaRoomOnInitialLoadEventArgs
         {
-            public AreaRoomOnInitialLoadGetEventArgs(int? area, int? room) : base(area, room) { }
+            public AreaRoomOnInitialLoadUpdatedEventArgs(int? area, int? room) : base(area, room) { }
         }
-        public delegate void AreaRoomOnInitialLoadGetEventHandler(object sender, AreaRoomOnInitialLoadGetEventArgs args);
-        public static event AreaRoomOnInitialLoadGetEventHandler AreaRoomOnInitialLoadGet;
-        private static void OnAreaRoomOnInitialLoadGet(AreaRoomOnInitialLoad areaRoomOnInitialLoad)
+        public delegate void AreaRoomOnInitialLoadUpdatedEventHandler(object sender, AreaRoomOnInitialLoadUpdatedEventArgs args);
+        public static event AreaRoomOnInitialLoadUpdatedEventHandler AreaRoomOnInitialLoadUpdated;
+        private static void OnAreaRoomOnInitialLoadUpdated(AreaRoomOnInitialLoad areaRoomOnInitialRead)
         {
-            if (AreaRoomOnInitialLoadGet != null)
-                AreaRoomOnInitialLoadGet(typeof(GinTubBuilderManager), new AreaRoomOnInitialLoadGetEventArgs(areaRoomOnInitialLoad.Area, areaRoomOnInitialLoad.Room));
+            if (AreaRoomOnInitialLoadUpdated != null)
+                AreaRoomOnInitialLoadUpdated(typeof(GinTubBuilderManager), new AreaRoomOnInitialLoadUpdatedEventArgs(areaRoomOnInitialRead.Area, areaRoomOnInitialRead.Room));
+        }
+
+
+        public class AreaRoomOnInitialLoadSelectEventArgs : AreaRoomOnInitialLoadEventArgs
+        {
+            public AreaRoomOnInitialLoadSelectEventArgs(int? area, int? room) : base(area, room) { }
+        }
+        public delegate void AreaRoomOnInitialLoadSelectEventHandler(object sender, AreaRoomOnInitialLoadSelectEventArgs args);
+        public static event AreaRoomOnInitialLoadSelectEventHandler AreaRoomOnInitialLoadSelect;
+        private static void OnAreaRoomOnInitialLoadSelect(AreaRoomOnInitialLoad areaRoomOnInitialRead)
+        {
+            if (AreaRoomOnInitialLoadSelect != null)
+                AreaRoomOnInitialLoadSelect(typeof(GinTubBuilderManager), new AreaRoomOnInitialLoadSelectEventArgs(areaRoomOnInitialRead.Area, areaRoomOnInitialRead.Room));
         }
 
         #endregion
@@ -1679,31 +1737,31 @@ namespace TBGINTB_Builder.Lib
 
         #region Areas
 
-        public static void AddArea(string areaName)
+        public static void CreateArea(string areaName)
         {
-            int id = InsertArea(areaName);
-            Area area = SelectArea(id);
-            OnAreaAdded(area);
+            int id = CreateAreaDb(areaName);
+            Area area = ReadAreaDb(id);
+            OnAreaRead(area);
         }
 
-        public static void ModifyArea(int areaId, string areaName)
+        public static void UpdateArea(int areaId, string areaName)
         {
-            UpdateArea(areaId, areaName);
-            Area area = SelectArea(areaId);
-            OnAreaModified(area);
+            UpdateAreaDb(areaId, areaName);
+            Area area = ReadAreaDb(areaId);
+            OnAreaUpdated(area);
         }
 
-        public static void GetArea(int areaId)
+        public static void SelectArea(int areaId)
         {
-            Area area = SelectArea(areaId);
-            OnAreaGet(area);
+            Area area = ReadAreaDb(areaId);
+            OnAreaSelect(area);
         }
 
-        public static void LoadAllAreas()
+        public static void ReadAllAreas()
         {
-            List<Area> areas = SelectAllAreas();
+            List<Area> areas = ReadAllAreasDb();
             foreach (var area in areas)
-                OnAreaAdded(area);
+                OnAreaRead(area);
         }
 
         #endregion
@@ -1711,31 +1769,31 @@ namespace TBGINTB_Builder.Lib
 
         #region Locations
 
-        public static void AddLocation(string locationName, string locationFile)
+        public static void CreateLocation(string locationName, string locationFile)
         {
-            int id = InsertLocation(locationName, locationFile);
-            Location location = SelectLocation(id);
-            OnLocationAdded(location);
+            int id = CreateLocationDb(locationName, locationFile);
+            Location location = ReadLocationDb(id);
+            OnLocationRead(location);
         }
 
-        public static void ModifyLocation(int locationId, string locationName, string locationFile)
+        public static void UpdateLocation(int locationId, string locationName, string locationFile)
         {
-            UpdateLocation(locationId, locationName, locationFile);
-            Location location = SelectLocation(locationId);
-            OnLocationModified(location);
+            UpdateLocationDb(locationId, locationName, locationFile);
+            Location location = ReadLocationDb(locationId);
+            OnLocationUpdated(location);
         }
 
-        public static void GetLocation(int locationId)
+        public static void SelectLocation(int locationId)
         {
-            Location location = SelectLocation(locationId);
-            OnLocationGet(location);
+            Location location = ReadLocationDb(locationId);
+            OnLocationSelect(location);
         }
 
-        public static void LoadAllLocations()
+        public static void ReadAllLocations()
         {
-            List<Location> locations = SelectAllLocations();
+            List<Location> locations = ReadAllLocationsDb();
             foreach (var location in locations)
-                OnLocationAdded(location);
+                OnLocationRead(location);
         }
 
         #endregion
@@ -1743,38 +1801,43 @@ namespace TBGINTB_Builder.Lib
 
         #region Rooms
 
-        public static void AddRoom(string roomName, int roomX, int roomY, int roomZ, int areaId)
+        public static void CreateRoom(string roomName, int roomX, int roomY, int roomZ, int areaId)
         {
-            int id = InsertRoom(roomName, roomX, roomY, roomZ, areaId);
-            Room room = SelectRoom(id);
-            OnRoomAdded(room);
+            Tuple<int, int> ids = CreateRoomDb(roomName, roomX, roomY, roomZ, areaId);
+
+            Room room = ReadRoomDb(ids.Item1);
+            OnRoomRead(room);
+
+            RoomState roomState = ReadRoomStateDb(ids.Item2);
+            OnRoomStateRead(roomState);
+
         }
 
-        public static void ModifyRoom(int roomId, string roomName, int roomX, int roomY, int roomZ, int areaId)
+        public static void UpdateRoom(int roomId, string roomName, int roomX, int roomY, int roomZ, int areaId)
         {
-            UpdateRoom(roomId, roomName, roomX, roomY, roomZ, areaId);
-            Room room = SelectRoom(roomId);
-            OnRoomModified(room);
+            UpdateRoomDb(roomId, roomName, roomX, roomY, roomZ, areaId);
+            Room room = ReadRoomDb(roomId);
+            OnRoomUpdated(room);
         }
 
-        public static void GetRoom(int roomId)
+        public static void SelectRoom(int roomId)
         {
-            Room room = SelectRoom(roomId);
-            OnRoomGet(room);
+            Room room = ReadRoomDb(roomId);
+            OnRoomSelect(room);
         }
 
-        public static void LoadAllRoomsInArea(int areaId)
+        public static void ReadAllRoomsInArea(int areaId)
         {
-            List<Room> rooms = SelectAllRoomsInArea(areaId);
+            List<Room> rooms = ReadAllRoomsInAreaDb(areaId);
             foreach (var room in rooms)
-                OnRoomAdded(room);
+                OnRoomRead(room);
         }
 
-        public static void LoadAllRoomsInAreaOnFloor(int areaId, int z)
+        public static void ReadAllRoomsInAreaOnFloor(int areaId, int z)
         {
-            List<Room> rooms = SelectAllRoomsInAreaOnFloor(areaId, z);
+            List<Room> rooms = ReadAllRoomsInAreaOnFloorDb(areaId, z);
             foreach (var room in rooms)
-                OnRoomAdded(room);
+                OnRoomRead(room);
         }
 
         #endregion
@@ -1782,31 +1845,31 @@ namespace TBGINTB_Builder.Lib
 
         #region RoomStates
 
-        public static void AddRoomState(DateTime? roomStateTime, int locationId, int roomId)
+        public static void CreateRoomState(TimeSpan roomStateTime, int locationId, int roomId)
         {
-            int id = InsertRoomState(roomStateTime, locationId, roomId);
-            RoomState roomState = SelectRoomState(id);
-            OnRoomStateAdded(roomState);
+            int id = CreateRoomStateDb(roomStateTime, locationId, roomId);
+            RoomState roomState = ReadRoomStateDb(id);
+            OnRoomStateRead(roomState);
         }
 
-        public static void ModifyRoomState(int roomStateId, int roomStateState, DateTime? roomStateTime, int locationId, int roomId)
+        public static void UpdateRoomState(int roomStateId, int roomStateState, TimeSpan roomStateTime, int locationId, int roomId)
         {
-            UpdateRoomState(roomStateId, roomStateState, roomStateTime, locationId, roomId);
-            RoomState roomState = SelectRoomState(roomStateId);
-            OnRoomStateModified(roomState);
+            UpdateRoomStateDb(roomStateId, roomStateState, roomStateTime, locationId, roomId);
+            RoomState roomState = ReadRoomStateDb(roomStateId);
+            OnRoomStateUpdated(roomState);
         }
 
-        public static void GetRoomState(int roomStateId)
+        public static void SelectRoomState(int roomStateId)
         {
-            RoomState roomState = SelectRoomState(roomStateId);
-            OnRoomStateGet(roomState);
+            RoomState roomState = ReadRoomStateDb(roomStateId);
+            OnRoomStateSelect(roomState);
         }
 
-        public static void LoadAllRoomStatesForRoom(int roomId)
+        public static void ReadAllRoomStatesForRoom(int roomId)
         {
-            List<RoomState> roomStates = SelectAllRoomStatesForRoom(roomId);
+            List<RoomState> roomStates = ReadAllRoomStatesForRoomDb(roomId);
             foreach (var roomState in roomStates)
-                OnRoomStateAdded(roomState);
+                OnRoomStateRead(roomState);
         }
 
         #endregion
@@ -1814,38 +1877,42 @@ namespace TBGINTB_Builder.Lib
 
         #region Paragraphs
 
-        public static void AddParagraph(int paragraphOrder, int roomId, int? roomStateId)
+        public static void CreateParagraph(int paragraphOrder, int roomId)
         {
-            int id = InsertParagraph(paragraphOrder, roomId, roomStateId);
-            Paragraph paragraph = SelectParagraph(id);
-            OnParagraphAdded(paragraph);
+            Tuple<int, int> ids = CreateParagraphDb(paragraphOrder, roomId);
+
+            Paragraph paragraph = ReadParagraphDb(ids.Item1);
+            OnParagraphRead(paragraph);
+
+            ParagraphState paragraphState = ReadParagraphStateDb(ids.Item2);
+            OnParagraphStateRead(paragraphState);
         }
 
-        public static void ModifyParagraph(int paragraphId, int paragraphOrder, int roomId, int? roomStateId)
+        public static void UpdateParagraph(int paragraphId, int paragraphOrder, int roomId)
         {
-            UpdateParagraph(paragraphId, paragraphOrder, roomId, roomStateId);
-            Paragraph paragraph = SelectParagraph(paragraphId);
-            OnParagraphModified(paragraph);
+            UpdateParagraphDb(paragraphId, paragraphOrder, roomId);
+            Paragraph paragraph = ReadParagraphDb(paragraphId);
+            OnParagraphUpdated(paragraph);
         }
 
-        public static void GetParagraph(int paragraphId)
+        public static void SelectParagraph(int paragraphId)
         {
-            Paragraph paragraph = SelectParagraph(paragraphId);
-            OnParagraphGet(paragraph);
+            Paragraph paragraph = ReadParagraphDb(paragraphId);
+            OnParagraphSelect(paragraph);
         }
 
-        public static void LoadAllParagraphForRoom(int roomId)
+        public static void ReadAllParagraphForRoom(int roomId)
         {
-            List<Paragraph> paragraphs = SelectAllParagraphsForRoom(roomId);
+            List<Paragraph> paragraphs = ReadAllParagraphsForRoomDb(roomId);
             foreach (var paragraph in paragraphs)
-                OnParagraphAdded(paragraph);
+                OnParagraphRead(paragraph);
         }
 
-        public static void LoadAllParagraphsForRoomAndRoomState(int roomId, int? roomStateId)
+        public static void ReadAllParagraphsForRoomAndRoomState(int roomId, int? roomStateId)
         {
-            List<Paragraph> paragraphs = SelectAllParagraphsForRoomAndRoomState(roomId, roomStateId);
+            List<Paragraph> paragraphs = ReadAllParagraphsForRoomAndRoomStateDb(roomId, roomStateId);
             foreach (var paragraph in paragraphs)
-                OnParagraphAdded(paragraph);
+                OnParagraphRead(paragraph);
         }
 
         #endregion
@@ -1853,51 +1920,51 @@ namespace TBGINTB_Builder.Lib
 
         #region ParagraphStates
 
-        public static void AddParagraphState(string paragraphStateText, int paragraphId)
+        public static void CreateParagraphState(string paragraphStateText, int paragraphId)
         {
-            int id = InsertParagraphState(paragraphStateText, paragraphId);
-            ParagraphState paragraphState = SelectParagraphState(id);
-            OnParagraphStateAdded(paragraphState);
+            int id = CreateParagraphStateDb(paragraphStateText, paragraphId);
+            ParagraphState paragraphState = ReadParagraphStateDb(id);
+            OnParagraphStateRead(paragraphState);
         }
 
-        public static void ModifyParagraphState(int paragraphStateId, string paragraphStateText, int paragraphStateState, int paragraphId)
+        public static void UpdateParagraphState(int paragraphStateId, string paragraphStateText, int paragraphStateState, int paragraphId)
         {
-            UpdateParagraphState(paragraphStateId, paragraphStateText, paragraphStateState, paragraphId);
-            ParagraphState paragraphState = SelectParagraphState(paragraphStateId);
-            OnParagraphStateModified(paragraphState);
+            UpdateParagraphStateDb(paragraphStateId, paragraphStateText, paragraphStateState, paragraphId);
+            ParagraphState paragraphState = ReadParagraphStateDb(paragraphStateId);
+            OnParagraphStateUpdated(paragraphState);
         }
 
-        public static void GetParagraphState(int paragraphStateId)
+        public static void SelectParagraphState(int paragraphStateId)
         {
-            ParagraphState paragraphState = SelectParagraphState(paragraphStateId);
-            OnParagraphStateGet(paragraphState);
+            ParagraphState paragraphState = ReadParagraphStateDb(paragraphStateId);
+            OnParagraphStateSelect(paragraphState);
         }
 
-        public static void LoadAllParagraphStatesForParagraph(int paragraphId)
+        public static void ReadAllParagraphStatesForParagraph(int paragraphId)
         {
-            List<ParagraphState> paragraphStates = SelectAllParagraphStatesForParagraph(paragraphId);
+            List<ParagraphState> paragraphStates = ReadAllParagraphStatesForParagraphDb(paragraphId);
             foreach (var paragraphState in paragraphStates)
-                OnParagraphStateAdded(paragraphState);
+                OnParagraphStateRead(paragraphState);
         }
 
-        public static void LoadParagraphStateNounPossibilities(int paragraphStateId)
+        public static void ReadParagraphStateNounPossibilities(int paragraphStateId)
         {
-            ParagraphState paragraphState = SelectParagraphState(paragraphStateId);
-            OnParagraphStateAdded(paragraphState);
+            ParagraphState paragraphState = ReadParagraphStateDb(paragraphStateId);
+            OnParagraphStateRead(paragraphState);
         }
 
-        public static void LoadParagraphStateForParagraphPreview(int paragraphStateState, int paragraphId)
+        public static void ReadParagraphStateForParagraphPreview(int paragraphStateState, int paragraphId)
         {
-            ParagraphState paragraphState = SelectParagraphStateForParagraphPreview(paragraphStateState, paragraphId);
+            ParagraphState paragraphState = ReadParagraphStateForParagraphPreviewDb(paragraphStateState, paragraphId);
             if(paragraphState != null)
-                OnParagraphStateAdded(paragraphState);
+                OnParagraphStateRead(paragraphState);
         }
 
-        public static void GetParagraphStateForParagraphPreview(int paragraphStateState, int paragraphId)
+        public static void SelectParagraphStateForParagraphPreview(int paragraphStateState, int paragraphId)
         {
-            ParagraphState paragraphState = SelectParagraphStateForParagraphPreview(paragraphStateState, paragraphId);
+            ParagraphState paragraphState = ReadParagraphStateForParagraphPreviewDb(paragraphStateState, paragraphId);
             if (paragraphState != null)
-                OnParagraphStateGet(paragraphState);
+                OnParagraphStateSelect(paragraphState);
         }
 
         #endregion
@@ -1905,31 +1972,31 @@ namespace TBGINTB_Builder.Lib
 
         #region Nouns
 
-        public static void AddNoun(string nounText, int paragraphStateId)
+        public static void CreateNoun(string nounText, int paragraphStateId)
         {
-            int id = InsertNoun(nounText, paragraphStateId);
-            Noun noun = SelectNoun(id);
-            OnNounAdded(noun);
+            int id = CreateNounDb(nounText, paragraphStateId);
+            Noun noun = ReadNounDb(id);
+            OnNounRead(noun);
         }
 
-        public static void ModifyNoun(int nounId, string nounText, int paragraphStateId)
+        public static void UpdateNoun(int nounId, string nounText, int paragraphStateId)
         {
-            UpdateNoun(nounId, nounText, paragraphStateId);
-            Noun noun = SelectNoun(nounId);
-            OnNounModified(noun);
+            UpdateNounDb(nounId, nounText, paragraphStateId);
+            Noun noun = ReadNounDb(nounId);
+            OnNounUpdated(noun);
         }
 
-        public static void GetNoun(int nounId)
+        public static void SelectNoun(int nounId)
         {
-            Noun noun = SelectNoun(nounId);
-            OnNounGet(noun);
+            Noun noun = ReadNounDb(nounId);
+            OnNounSelect(noun);
         }
 
-        public static void LoadAllNounsForParagraphState(int paragraphStateId)
+        public static void ReadAllNounsForParagraphState(int paragraphStateId)
         {
-            List<Noun> nouns = SelectAllNounsForParagraphState(paragraphStateId);
+            List<Noun> nouns = ReadAllNounsForParagraphStateDb(paragraphStateId);
             foreach (var noun in nouns)
-                OnNounAdded(noun);
+                OnNounRead(noun);
         }
 
         #endregion
@@ -1937,31 +2004,31 @@ namespace TBGINTB_Builder.Lib
 
         #region VerbTypes
 
-        public static void AddVerbType(string verbTypeName)
+        public static void CreateVerbType(string verbTypeName)
         {
-            int id = InsertVerbType(verbTypeName);
-            VerbType verbType = SelectVerbType(id);
-            OnVerbTypeAdded(verbType);
+            int id = CreateVerbTypeDb(verbTypeName);
+            VerbType verbType = ReadVerbTypeDb(id);
+            OnVerbTypeRead(verbType);
         }
 
-        public static void ModifyVerbType(int verbTypeId, string verbTypeName)
+        public static void UpdateVerbType(int verbTypeId, string verbTypeName)
         {
-            UpdateVerbType(verbTypeId, verbTypeName);
-            VerbType verbType = SelectVerbType(verbTypeId);
-            OnVerbTypeModified(verbType);
+            UpdateVerbTypeDb(verbTypeId, verbTypeName);
+            VerbType verbType = ReadVerbTypeDb(verbTypeId);
+            OnVerbTypeUpdated(verbType);
         }
 
-        public static void GetVerbType(int verbTypeId)
+        public static void SelectVerbType(int verbTypeId)
         {
-            VerbType verbType = SelectVerbType(verbTypeId);
-            OnVerbTypeGet(verbType);
+            VerbType verbType = ReadVerbTypeDb(verbTypeId);
+            OnVerbTypeSelect(verbType);
         }
 
-        public static void LoadAllVerbTypes()
+        public static void ReadAllVerbTypes()
         {
-            List<VerbType> verbTypes = SelectAllVerbTypes();
+            List<VerbType> verbTypes = ReadAllVerbTypesDb();
             foreach (var verbType in verbTypes)
-                OnVerbTypeAdded(verbType);
+                OnVerbTypeRead(verbType);
         }
 
         #endregion
@@ -1969,31 +2036,31 @@ namespace TBGINTB_Builder.Lib
 
         #region Verbs
 
-        public static void AddVerb(string verbName, int verbTypeId)
+        public static void CreateVerb(string verbName, int verbTypeId)
         {
-            int id = InsertVerb(verbName, verbTypeId);
-            Verb verb = SelectVerb(id);
-            OnVerbAdded(verb);
+            int id = CreateVerbDb(verbName, verbTypeId);
+            Verb verb = ReadVerbDb(id);
+            OnVerbRead(verb);
         }
 
-        public static void ModifyVerb(int verbId, string verbName, int verbTypeId)
+        public static void UpdateVerb(int verbId, string verbName, int verbTypeId)
         {
-            UpdateVerb(verbId, verbName, verbTypeId);
-            Verb verb = SelectVerb(verbId);
-            OnVerbModified(verb);
+            UpdateVerbDb(verbId, verbName, verbTypeId);
+            Verb verb = ReadVerbDb(verbId);
+            OnVerbUpdated(verb);
         }
 
-        public static void GetVerb(int verbId)
+        public static void SelectVerb(int verbId)
         {
-            Verb verb = SelectVerb(verbId);
-            OnVerbGet(verb);
+            Verb verb = ReadVerbDb(verbId);
+            OnVerbSelect(verb);
         }
 
-        public static void LoadAllVerbsForVerbType(int verbTypeId)
+        public static void ReadAllVerbsForVerbType(int verbTypeId)
         {
-            List<Verb> verbs = SelectAllVerbsForVerbType(verbTypeId);
+            List<Verb> verbs = ReadAllVerbsForVerbTypeDb(verbTypeId);
             foreach (var verb in verbs)
-                OnVerbAdded(verb);
+                OnVerbRead(verb);
         }
 
         #endregion
@@ -2001,31 +2068,31 @@ namespace TBGINTB_Builder.Lib
 
         #region Actions
 
-        public static void AddAction(int actionVerbType, int actionNoun)
+        public static void CreateAction(int actionVerbType, int actionNoun)
         {
-            int id = InsertAction(actionVerbType, actionNoun);
-            Db.Action action = SelectAction(id);
-            OnActionAdded(action);
+            int id = CreateActionDb(actionVerbType, actionNoun);
+            Db.Action action = ReadActionDb(id);
+            OnActionRead(action);
         }
 
-        public static void ModifyAction(int actionId, int actionVerbType, int actionNoun)
+        public static void UpdateAction(int actionId, int actionVerbType, int actionNoun)
         {
-            UpdateAction(actionId, actionVerbType, actionNoun);
-            Db.Action action = SelectAction(actionId);
-            OnActionModified(action);
+            UpdateActionDb(actionId, actionVerbType, actionNoun);
+            Db.Action action = ReadActionDb(actionId);
+            OnActionUpdated(action);
         }
 
-        public static void GetAction(int actionId)
+        public static void SelectAction(int actionId)
         {
-            Db.Action action = SelectAction(actionId);
-            OnActionGet(action);
+            Db.Action action = ReadActionDb(actionId);
+            OnActionSelect(action);
         }
 
-        public static void LoadAllActionsForNoun(int nounId)
+        public static void ReadAllActionsForNoun(int nounId)
         {
-            List<Db.Action> actions = SelectAllActionsForNoun(nounId);
+            List<Db.Action> actions = ReadAllActionsForNounDb(nounId);
             foreach (var action in actions)
-                OnActionAdded(action);
+                OnActionRead(action);
         }
 
         #endregion
@@ -2033,31 +2100,31 @@ namespace TBGINTB_Builder.Lib
 
         #region ResultTypes
 
-        public static void AddResultType(string resultTypeName)
+        public static void CreateResultType(string resultTypeName)
         {
-            int id = InsertResultType(resultTypeName);
-            ResultType resultType = SelectResultType(id);
-            OnResultTypeAdded(resultType);
+            int id = CreateResultTypeDb(resultTypeName);
+            ResultType resultType = ReadResultTypeDb(id);
+            OnResultTypeRead(resultType);
         }
 
-        public static void ModifyResultType(int resultTypeId, string resultTypeName)
+        public static void UpdateResultType(int resultTypeId, string resultTypeName)
         {
-            UpdateResultType(resultTypeId, resultTypeName);
-            ResultType resultType = SelectResultType(resultTypeId);
-            OnResultTypeModified(resultType);
+            UpdateResultTypeDb(resultTypeId, resultTypeName);
+            ResultType resultType = ReadResultTypeDb(resultTypeId);
+            OnResultTypeUpdated(resultType);
         }
 
-        public static void GetResultType(int resultTypeId)
+        public static void SelectResultType(int resultTypeId)
         {
-            ResultType resultType = SelectResultType(resultTypeId);
-            OnResultTypeGet(resultType);
+            ResultType resultType = ReadResultTypeDb(resultTypeId);
+            OnResultTypeSelect(resultType);
         }
 
-        public static void LoadAllResultTypes()
+        public static void ReadAllResultTypes()
         {
-            List<ResultType> resultTypes = SelectAllResultTypes();
+            List<ResultType> resultTypes = ReadAllResultTypesDb();
             foreach (var resultType in resultTypes)
-                OnResultTypeAdded(resultType);
+                OnResultTypeRead(resultType);
         }
 
         #endregion
@@ -2065,31 +2132,31 @@ namespace TBGINTB_Builder.Lib
 
         #region JSONPropertyDataTypes
 
-        public static void AddJSONPropertyDataType(string jsonPropertyDataTypeDataType)
+        public static void CreateJSONPropertyDataType(string jsonPropertyDataTypeDataType)
         {
-            int id = InsertJSONPropertyDataType(jsonPropertyDataTypeDataType);
-            JSONPropertyDataType jsonPropertyDataType = SelectJSONPropertyDataType(id);
-            OnJSONPropertyDataTypeAdded(jsonPropertyDataType);
+            int id = CreateJSONPropertyDataTypeDb(jsonPropertyDataTypeDataType);
+            JSONPropertyDataType jsonPropertyDataType = ReadJSONPropertyDataTypeDb(id);
+            OnJSONPropertyDataTypeRead(jsonPropertyDataType);
         }
 
-        public static void ModifyJSONPropertyDataType(int jsonPropertyDataTypeId, string jsonPropertyDataTypeDataType)
+        public static void UpdateJSONPropertyDataType(int jsonPropertyDataTypeId, string jsonPropertyDataTypeDataType)
         {
-            UpdateJSONPropertyDataType(jsonPropertyDataTypeId, jsonPropertyDataTypeDataType);
-            JSONPropertyDataType jsonPropertyDataType = SelectJSONPropertyDataType(jsonPropertyDataTypeId);
-            OnJSONPropertyDataTypeModified(jsonPropertyDataType);
+            UpdateJSONPropertyDataTypeDb(jsonPropertyDataTypeId, jsonPropertyDataTypeDataType);
+            JSONPropertyDataType jsonPropertyDataType = ReadJSONPropertyDataTypeDb(jsonPropertyDataTypeId);
+            OnJSONPropertyDataTypeUpdated(jsonPropertyDataType);
         }
 
-        public static void GetJSONPropertyDataType(int jsonPropertyDataTypeId)
+        public static void SelectJSONPropertyDataType(int jsonPropertyDataTypeId)
         {
-            JSONPropertyDataType jsonPropertyDataType = SelectJSONPropertyDataType(jsonPropertyDataTypeId);
-            OnJSONPropertyDataTypeGet(jsonPropertyDataType);
+            JSONPropertyDataType jsonPropertyDataType = ReadJSONPropertyDataTypeDb(jsonPropertyDataTypeId);
+            OnJSONPropertyDataTypeSelect(jsonPropertyDataType);
         }
 
-        public static void LoadAllJSONPropertyDataTypes()
+        public static void ReadAllJSONPropertyDataTypes()
         {
-            List<JSONPropertyDataType> jsonPropertyDataTypes = SelectAllJSONPropertyDataTypes();
+            List<JSONPropertyDataType> jsonPropertyDataTypes = ReadAllJSONPropertyDataTypesDb();
             foreach (var jsonPropertyDataType in jsonPropertyDataTypes)
-                OnJSONPropertyDataTypeAdded(jsonPropertyDataType);
+                OnJSONPropertyDataTypeRead(jsonPropertyDataType);
         }
 
         #endregion
@@ -2097,31 +2164,31 @@ namespace TBGINTB_Builder.Lib
 
         #region ResultTypeJSONProperties
 
-        public static void AddResultTypeJSONProperty(string resultTypeJSONPropertyJSONProperty, int resultTypeJSONPropertyDataType, int resultTypeJSONPropertyResultTypeId)
+        public static void CreateResultTypeJSONProperty(string resultTypeJSONPropertyJSONProperty, int resultTypeJSONPropertyDataType, int resultTypeJSONPropertyResultTypeId)
         {
-            int id = InsertResultTypeJSONProperty(resultTypeJSONPropertyJSONProperty, resultTypeJSONPropertyDataType, resultTypeJSONPropertyResultTypeId);
-            ResultTypeJSONProperty resultTypeJSONProperty = SelectResultTypeJSONProperty(id);
-            OnResultTypeJSONPropertyAdded(resultTypeJSONProperty);
+            int id = CreateResultTypeJSONPropertyDb(resultTypeJSONPropertyJSONProperty, resultTypeJSONPropertyDataType, resultTypeJSONPropertyResultTypeId);
+            ResultTypeJSONProperty resultTypeJSONProperty = ReadResultTypeJSONPropertyDb(id);
+            OnResultTypeJSONPropertyRead(resultTypeJSONProperty);
         }
 
-        public static void ModifyResultTypeJSONProperty(int resultTypeJSONPropertyId, string resultTypeJSONPropertyJSONProperty, int resultTypeJSONPropertyDataType, int resultTypeJSONPropertyResultTypeId)
+        public static void UpdateResultTypeJSONProperty(int resultTypeJSONPropertyId, string resultTypeJSONPropertyJSONProperty, int resultTypeJSONPropertyDataType, int resultTypeJSONPropertyResultTypeId)
         {
-            UpdateResultTypeJSONProperty(resultTypeJSONPropertyId, resultTypeJSONPropertyJSONProperty, resultTypeJSONPropertyDataType, resultTypeJSONPropertyResultTypeId);
-            ResultTypeJSONProperty resultTypeJSONProperty = SelectResultTypeJSONProperty(resultTypeJSONPropertyId);
-            OnResultTypeJSONPropertyModified(resultTypeJSONProperty);
+            UpdateResultTypeJSONPropertyDb(resultTypeJSONPropertyId, resultTypeJSONPropertyJSONProperty, resultTypeJSONPropertyDataType, resultTypeJSONPropertyResultTypeId);
+            ResultTypeJSONProperty resultTypeJSONProperty = ReadResultTypeJSONPropertyDb(resultTypeJSONPropertyId);
+            OnResultTypeJSONPropertyUpdated(resultTypeJSONProperty);
         }
 
-        public static void GetResultTypeJSONProperty(int resultTypeJSONPropertyId)
+        public static void SelectResultTypeJSONProperty(int resultTypeJSONPropertyId)
         {
-            ResultTypeJSONProperty resultTypeJSONProperty = SelectResultTypeJSONProperty(resultTypeJSONPropertyId);
-            OnResultTypeJSONPropertyGet(resultTypeJSONProperty);
+            ResultTypeJSONProperty resultTypeJSONProperty = ReadResultTypeJSONPropertyDb(resultTypeJSONPropertyId);
+            OnResultTypeJSONPropertySelect(resultTypeJSONProperty);
         }
 
-        public static void LoadAllResultTypeJSONPropertiesForResultType(int resultTypeId)
+        public static void ReadAllResultTypeJSONPropertiesForResultType(int resultTypeId)
         {
-            List<ResultTypeJSONProperty> resultTypeJSONProperties = SelectAllResultTypeJSONPropertiesForResultType(resultTypeId);
+            List<ResultTypeJSONProperty> resultTypeJSONProperties = ReadAllResultTypeJSONPropertiesForResultTypeDb(resultTypeId);
             foreach (var resultTypeJSONProperty in resultTypeJSONProperties)
-                OnResultTypeJSONPropertyAdded(resultTypeJSONProperty);
+                OnResultTypeJSONPropertyRead(resultTypeJSONProperty);
         }
 
         #endregion
@@ -2129,45 +2196,45 @@ namespace TBGINTB_Builder.Lib
 
         #region Results
 
-        public static void AddResult(string resultName, string resultJSONData, int resultTypeId)
+        public static void CreateResult(string resultName, string resultJSONData, int resultTypeId)
         {
-            int id = InsertResult(resultName, resultJSONData, resultTypeId);
-            Result result = SelectResult(id);
-            OnResultAdded(result);
+            int id = CreateResultDb(resultName, resultJSONData, resultTypeId);
+            Result result = ReadResultDb(id);
+            OnResultRead(result);
         }
 
-        public static void ModifyResult(int resultId, string resultName, string resultJSONData, int resultTypeId)
+        public static void UpdateResult(int resultId, string resultName, string resultJSONData, int resultTypeId)
         {
-            UpdateResult(resultId, resultName, resultJSONData, resultTypeId);
-            Result result = SelectResult(resultId);
-            OnResultModified(result);
+            UpdateResultDb(resultId, resultName, resultJSONData, resultTypeId);
+            Result result = ReadResultDb(resultId);
+            OnResultUpdated(result);
         }
 
-        public static void GetResult(int resultId)
+        public static void SelectResult(int resultId)
         {
-            Result result = SelectResult(resultId);
-            OnResultGet(result);
+            Result result = ReadResultDb(resultId);
+            OnResultSelect(result);
         }
 
-        public static void LoadAllResultsForResultType(int resultTypeId)
+        public static void ReadAllResultsForResultType(int resultTypeId)
         {
-            List<Result> results = SelectAllResultsForResultType(resultTypeId);
+            List<Result> results = ReadAllResultsForResultTypeDb(resultTypeId);
             foreach (var result in results)
-                OnResultAdded(result);
+                OnResultRead(result);
         }
 
-        public static void LoadAllResultsForActionResultType(int actionId)
+        public static void ReadAllResultsForActionResultType(int actionId)
         {
-            List<Result> results = SelectAllResultsForActionResultType(actionId);
+            List<Result> results = ReadAllResultsForActionResultTypeDb(actionId);
             foreach (var result in results)
-                OnResultAdded(result);
+                OnResultRead(result);
         }
 
-        public static void LoadAllResultsForMessageChoiceResultType(int messageChoiceId)
+        public static void ReadAllResultsForMessageChoiceResultType(int messageChoiceId)
         {
-            List<Result> results = SelectAllResultsForMessageChoiceResultType(messageChoiceId);
+            List<Result> results = ReadAllResultsForMessageChoiceResultTypeDb(messageChoiceId);
             foreach (var result in results)
-                OnResultAdded(result);
+                OnResultRead(result);
         }
 
         #endregion
@@ -2175,31 +2242,31 @@ namespace TBGINTB_Builder.Lib
 
         #region ActionResults
 
-        public static void AddActionResult(int actionResultResult, int actionResultAction)
+        public static void CreateActionResult(int actionResultResult, int actionResultAction)
         {
-            int id = InsertActionResult(actionResultResult, actionResultAction);
-            ActionResult actionResult = SelectActionResult(id);
-            OnActionResultAdded(actionResult);
+            int id = CreateActionResultDb(actionResultResult, actionResultAction);
+            ActionResult actionResult = ReadActionResultDb(id);
+            OnActionResultRead(actionResult);
         }
 
-        public static void ModifyActionResult(int actionResultId, int actionResultResult, int actionResultAction)
+        public static void UpdateActionResult(int actionResultId, int actionResultResult, int actionResultAction)
         {
-            UpdateActionResult(actionResultId, actionResultResult, actionResultAction);
-            ActionResult actionResult = SelectActionResult(actionResultId);
-            OnActionResultModified(actionResult);
+            UpdateActionResultDb(actionResultId, actionResultResult, actionResultAction);
+            ActionResult actionResult = ReadActionResultDb(actionResultId);
+            OnActionResultUpdated(actionResult);
         }
 
-        public static void GetActionResult(int actionResultId)
+        public static void SelectActionResult(int actionResultId)
         {
-            ActionResult actionResult = SelectActionResult(actionResultId);
-            OnActionResultGet(actionResult);
+            ActionResult actionResult = ReadActionResultDb(actionResultId);
+            OnActionResultSelect(actionResult);
         }
 
-        public static void LoadAllActionResultsForAction(int actionId)
+        public static void ReadAllActionResultsForAction(int actionId)
         {
-            List<ActionResult> actionResults = SelectAllActionResultsForAction(actionId);
+            List<ActionResult> actionResults = ReadAllActionResultsForActionDb(actionId);
             foreach (var actionResult in actionResults)
-                OnActionResultAdded(actionResult);
+                OnActionResultRead(actionResult);
         }
 
         #endregion
@@ -2207,31 +2274,31 @@ namespace TBGINTB_Builder.Lib
 
         #region Items
 
-        public static void AddItem(string itemName, string itemDescription)
+        public static void CreateItem(string itemName, string itemDescription)
         {
-            int id = InsertItem(itemName, itemDescription);
-            Item item = SelectItem(id);
-            OnItemAdded(item);
+            int id = CreateItemDb(itemName, itemDescription);
+            Item item = ReadItemDb(id);
+            OnItemRead(item);
         }
 
-        public static void ModifyItem(int itemId, string itemName, string itemDescription)
+        public static void UpdateItem(int itemId, string itemName, string itemDescription)
         {
-            UpdateItem(itemId, itemName, itemDescription);
-            Item item = SelectItem(itemId);
-            OnItemModified(item);
+            UpdateItemDb(itemId, itemName, itemDescription);
+            Item item = ReadItemDb(itemId);
+            OnItemUpdated(item);
         }
 
-        public static void GetItem(int itemId)
+        public static void SelectItem(int itemId)
         {
-            Item item = SelectItem(itemId);
-            OnItemGet(item);
+            Item item = ReadItemDb(itemId);
+            OnItemSelect(item);
         }
 
-        public static void LoadAllItems()
+        public static void ReadAllItems()
         {
-            List<Item> items = SelectAllItems();
+            List<Item> items = ReadAllItemsDb();
             foreach (var item in items)
-                OnItemAdded(item);
+                OnItemRead(item);
         }
 
         #endregion
@@ -2239,31 +2306,31 @@ namespace TBGINTB_Builder.Lib
 
         #region Events
 
-        public static void AddEvent(string evntName, string evntDescription)
+        public static void CreateEvent(string evntName, string evntDescription)
         {
-            int id = InsertEvent(evntName, evntDescription);
-            Event evnt = SelectEvent(id);
-            OnEventAdded(evnt);
+            int id = CreateEventDb(evntName, evntDescription);
+            Event evnt = ReadEventDb(id);
+            OnEventRead(evnt);
         }
 
-        public static void ModifyEvent(int evntId, string evntName, string evntDescription)
+        public static void UpdateEvent(int evntId, string evntName, string evntDescription)
         {
-            UpdateEvent(evntId, evntName, evntDescription);
-            Event evnt = SelectEvent(evntId);
-            OnEventModified(evnt);
+            UpdateEventDb(evntId, evntName, evntDescription);
+            Event evnt = ReadEventDb(evntId);
+            OnEventUpdated(evnt);
         }
 
-        public static void GetEvent(int evntId)
+        public static void SelectEvent(int evntId)
         {
-            Event evnt = SelectEvent(evntId);
-            OnEventGet(evnt);
+            Event evnt = ReadEventDb(evntId);
+            OnEventSelect(evnt);
         }
 
-        public static void LoadAllEvents()
+        public static void ReadAllEvents()
         {
-            List<Event> evnts = SelectAllEvents();
+            List<Event> evnts = ReadAllEventsDb();
             foreach (var evnt in evnts)
-                OnEventAdded(evnt);
+                OnEventRead(evnt);
         }
 
         #endregion
@@ -2271,31 +2338,31 @@ namespace TBGINTB_Builder.Lib
 
         #region Characters
 
-        public static void AddCharacter(string characterName, string characterDescription)
+        public static void CreateCharacter(string characterName, string characterDescription)
         {
-            int id = InsertCharacter(characterName, characterDescription);
-            Character character = SelectCharacter(id);
-            OnCharacterAdded(character);
+            int id = CreateCharacterDb(characterName, characterDescription);
+            Character character = ReadCharacterDb(id);
+            OnCharacterRead(character);
         }
 
-        public static void ModifyCharacter(int characterId, string characterName, string characterDescription)
+        public static void UpdateCharacter(int characterId, string characterName, string characterDescription)
         {
-            UpdateCharacter(characterId, characterName, characterDescription);
-            Character character = SelectCharacter(characterId);
-            OnCharacterModified(character);
+            UpdateCharacterDb(characterId, characterName, characterDescription);
+            Character character = ReadCharacterDb(characterId);
+            OnCharacterUpdated(character);
         }
 
-        public static void GetCharacter(int characterId)
+        public static void SelectCharacter(int characterId)
         {
-            Character character = SelectCharacter(characterId);
-            OnCharacterGet(character);
+            Character character = ReadCharacterDb(characterId);
+            OnCharacterSelect(character);
         }
 
-        public static void LoadAllCharacters()
+        public static void ReadAllCharacters()
         {
-            List<Character> characters = SelectAllCharacters();
+            List<Character> characters = ReadAllCharactersDb();
             foreach (var character in characters)
-                OnCharacterAdded(character);
+                OnCharacterRead(character);
         }
 
         #endregion
@@ -2303,31 +2370,31 @@ namespace TBGINTB_Builder.Lib
 
         #region ItemActionRequirements
 
-        public static void AddItemActionRequirement(int itemActionRequirementItem, int itemActionRequirementAction)
+        public static void CreateItemActionRequirement(int itemActionRequirementItem, int itemActionRequirementAction)
         {
-            int id = InsertItemActionRequirement(itemActionRequirementItem, itemActionRequirementAction);
-            ItemActionRequirement itemActionRequirement = SelectItemActionRequirement(id);
-            OnItemActionRequirementAdded(itemActionRequirement);
+            int id = CreateItemActionRequirementDb(itemActionRequirementItem, itemActionRequirementAction);
+            ItemActionRequirement itemActionRequirement = ReadItemActionRequirementDb(id);
+            OnItemActionRequirementRead(itemActionRequirement);
         }
 
-        public static void ModifyItemActionRequirement(int itemActionRequirementId, int itemActionRequirementItem, int itemActionRequirementAction)
+        public static void UpdateItemActionRequirement(int itemActionRequirementId, int itemActionRequirementItem, int itemActionRequirementAction)
         {
-            UpdateItemActionRequirement(itemActionRequirementId, itemActionRequirementItem, itemActionRequirementAction);
-            ItemActionRequirement itemActionRequirement = SelectItemActionRequirement(itemActionRequirementId);
-            OnItemActionRequirementModified(itemActionRequirement);
+            UpdateItemActionRequirementDb(itemActionRequirementId, itemActionRequirementItem, itemActionRequirementAction);
+            ItemActionRequirement itemActionRequirement = ReadItemActionRequirementDb(itemActionRequirementId);
+            OnItemActionRequirementUpdated(itemActionRequirement);
         }
 
-        public static void GetItemActionRequirement(int itemActionRequirementId)
+        public static void SelectItemActionRequirement(int itemActionRequirementId)
         {
-            ItemActionRequirement itemActionRequirement = SelectItemActionRequirement(itemActionRequirementId);
-            OnItemActionRequirementGet(itemActionRequirement);
+            ItemActionRequirement itemActionRequirement = ReadItemActionRequirementDb(itemActionRequirementId);
+            OnItemActionRequirementSelect(itemActionRequirement);
         }
 
-        public static void LoadAllItemActionRequirementsForAction(int action)
+        public static void ReadAllItemActionRequirementsForAction(int action)
         {
-            List<ItemActionRequirement> itemActionRequirements = SelectAllItemActionRequirementsForAction(action);
+            List<ItemActionRequirement> itemActionRequirements = ReadAllItemActionRequirementsForActionDb(action);
             foreach (var itemActionRequirement in itemActionRequirements)
-                OnItemActionRequirementAdded(itemActionRequirement);
+                OnItemActionRequirementRead(itemActionRequirement);
         }
 
         #endregion
@@ -2335,31 +2402,31 @@ namespace TBGINTB_Builder.Lib
 
         #region EventActionRequirements
 
-        public static void AddEventActionRequirement(int evntActionRequirementEvent, int evntActionRequirementAction)
+        public static void CreateEventActionRequirement(int evntActionRequirementEvent, int evntActionRequirementAction)
         {
-            int id = InsertEventActionRequirement(evntActionRequirementEvent, evntActionRequirementAction);
-            EventActionRequirement evntActionRequirement = SelectEventActionRequirement(id);
-            OnEventActionRequirementAdded(evntActionRequirement);
+            int id = CreateEventActionRequirementDb(evntActionRequirementEvent, evntActionRequirementAction);
+            EventActionRequirement evntActionRequirement = ReadEventActionRequirementDb(id);
+            OnEventActionRequirementRead(evntActionRequirement);
         }
 
-        public static void ModifyEventActionRequirement(int evntActionRequirementId, int evntActionRequirementEvent, int evntActionRequirementAction)
+        public static void UpdateEventActionRequirement(int evntActionRequirementId, int evntActionRequirementEvent, int evntActionRequirementAction)
         {
-            UpdateEventActionRequirement(evntActionRequirementId, evntActionRequirementEvent, evntActionRequirementAction);
-            EventActionRequirement evntActionRequirement = SelectEventActionRequirement(evntActionRequirementId);
-            OnEventActionRequirementModified(evntActionRequirement);
+            UpdateEventActionRequirementDb(evntActionRequirementId, evntActionRequirementEvent, evntActionRequirementAction);
+            EventActionRequirement evntActionRequirement = ReadEventActionRequirementDb(evntActionRequirementId);
+            OnEventActionRequirementUpdated(evntActionRequirement);
         }
 
-        public static void GetEventActionRequirement(int evntActionRequirementId)
+        public static void SelectEventActionRequirement(int evntActionRequirementId)
         {
-            EventActionRequirement evntActionRequirement = SelectEventActionRequirement(evntActionRequirementId);
-            OnEventActionRequirementGet(evntActionRequirement);
+            EventActionRequirement evntActionRequirement = ReadEventActionRequirementDb(evntActionRequirementId);
+            OnEventActionRequirementSelect(evntActionRequirement);
         }
 
-        public static void LoadAllEventActionRequirementsForAction(int action)
+        public static void ReadAllEventActionRequirementsForAction(int action)
         {
-            List<EventActionRequirement> evntActionRequirements = SelectAllEventActionRequirementsForAction(action);
+            List<EventActionRequirement> evntActionRequirements = ReadAllEventActionRequirementsForActionDb(action);
             foreach (var evntActionRequirement in evntActionRequirements)
-                OnEventActionRequirementAdded(evntActionRequirement);
+                OnEventActionRequirementRead(evntActionRequirement);
         }
 
         #endregion
@@ -2367,31 +2434,31 @@ namespace TBGINTB_Builder.Lib
 
         #region CharacterActionRequirements
 
-        public static void AddCharacterActionRequirement(int characterActionRequirementCharacter, int characterActionRequirementAction)
+        public static void CreateCharacterActionRequirement(int characterActionRequirementCharacter, int characterActionRequirementAction)
         {
-            int id = InsertCharacterActionRequirement(characterActionRequirementCharacter, characterActionRequirementAction);
-            CharacterActionRequirement characterActionRequirement = SelectCharacterActionRequirement(id);
-            OnCharacterActionRequirementAdded(characterActionRequirement);
+            int id = CreateCharacterActionRequirementDb(characterActionRequirementCharacter, characterActionRequirementAction);
+            CharacterActionRequirement characterActionRequirement = ReadCharacterActionRequirementDb(id);
+            OnCharacterActionRequirementRead(characterActionRequirement);
         }
 
-        public static void ModifyCharacterActionRequirement(int characterActionRequirementId, int characterActionRequirementCharacter, int characterActionRequirementAction)
+        public static void UpdateCharacterActionRequirement(int characterActionRequirementId, int characterActionRequirementCharacter, int characterActionRequirementAction)
         {
-            UpdateCharacterActionRequirement(characterActionRequirementId, characterActionRequirementCharacter, characterActionRequirementAction);
-            CharacterActionRequirement characterActionRequirement = SelectCharacterActionRequirement(characterActionRequirementId);
-            OnCharacterActionRequirementModified(characterActionRequirement);
+            UpdateCharacterActionRequirementDb(characterActionRequirementId, characterActionRequirementCharacter, characterActionRequirementAction);
+            CharacterActionRequirement characterActionRequirement = ReadCharacterActionRequirementDb(characterActionRequirementId);
+            OnCharacterActionRequirementUpdated(characterActionRequirement);
         }
 
-        public static void GetCharacterActionRequirement(int characterActionRequirementId)
+        public static void SelectCharacterActionRequirement(int characterActionRequirementId)
         {
-            CharacterActionRequirement characterActionRequirement = SelectCharacterActionRequirement(characterActionRequirementId);
-            OnCharacterActionRequirementGet(characterActionRequirement);
+            CharacterActionRequirement characterActionRequirement = ReadCharacterActionRequirementDb(characterActionRequirementId);
+            OnCharacterActionRequirementSelect(characterActionRequirement);
         }
 
-        public static void LoadAllCharacterActionRequirementsForAction(int action)
+        public static void ReadAllCharacterActionRequirementsForAction(int action)
         {
-            List<CharacterActionRequirement> characterActionRequirements = SelectAllCharacterActionRequirementsForAction(action);
+            List<CharacterActionRequirement> characterActionRequirements = ReadAllCharacterActionRequirementsForActionDb(action);
             foreach (var characterActionRequirement in characterActionRequirements)
-                OnCharacterActionRequirementAdded(characterActionRequirement);
+                OnCharacterActionRequirementRead(characterActionRequirement);
         }
 
         #endregion
@@ -2399,31 +2466,31 @@ namespace TBGINTB_Builder.Lib
 
         #region Messages
 
-        public static void AddMessage(string messageName, string messageText)
+        public static void CreateMessage(string messageName, string messageText)
         {
-            int id = InsertMessage(messageName, messageText);
-            Message message = SelectMessage(id);
-            OnMessageAdded(message);
+            int id = CreateMessageDb(messageName, messageText);
+            Message message = ReadMessageDb(id);
+            OnMessageRead(message);
         }
 
-        public static void ModifyMessage(int messageId, string messageName, string messageText)
+        public static void UpdateMessage(int messageId, string messageName, string messageText)
         {
-            UpdateMessage(messageId, messageName, messageText);
-            Message message = SelectMessage(messageId);
-            OnMessageModified(message);
+            UpdateMessageDb(messageId, messageName, messageText);
+            Message message = ReadMessageDb(messageId);
+            OnMessageUpdated(message);
         }
 
-        public static void GetMessage(int messageId)
+        public static void SelectMessage(int messageId)
         {
-            Message message = SelectMessage(messageId);
-            OnMessageGet(message);
+            Message message = ReadMessageDb(messageId);
+            OnMessageSelect(message);
         }
 
-        public static void LoadAllMessages()
+        public static void ReadAllMessages()
         {
-            List<Message> messages = SelectAllMessages();
+            List<Message> messages = ReadAllMessagesDb();
             foreach (var message in messages)
-                OnMessageAdded(message);
+                OnMessageRead(message);
         }
 
         #endregion
@@ -2431,31 +2498,31 @@ namespace TBGINTB_Builder.Lib
 
         #region MessageChoiceChoices
 
-        public static void AddMessageChoice(string messageChoiceName, string messageChoiceText, int messageChoiceMessage)
+        public static void CreateMessageChoice(string messageChoiceName, string messageChoiceText, int messageChoiceMessage)
         {
-            int id = InsertMessageChoice(messageChoiceName, messageChoiceText, messageChoiceMessage);
-            MessageChoice messageChoice = SelectMessageChoice(id);
-            OnMessageChoiceAdded(messageChoice);
+            int id = CreateMessageChoiceDb(messageChoiceName, messageChoiceText, messageChoiceMessage);
+            MessageChoice messageChoice = ReadMessageChoiceDb(id);
+            OnMessageChoiceRead(messageChoice);
         }
 
-        public static void ModifyMessageChoice(int messageChoiceId, string messageChoiceName, string messageChoiceText, int messageChoiceMessage)
+        public static void UpdateMessageChoice(int messageChoiceId, string messageChoiceName, string messageChoiceText, int messageChoiceMessage)
         {
-            UpdateMessageChoice(messageChoiceId, messageChoiceName, messageChoiceText, messageChoiceMessage);
-            MessageChoice messageChoice = SelectMessageChoice(messageChoiceId);
-            OnMessageChoiceModified(messageChoice);
+            UpdateMessageChoiceDb(messageChoiceId, messageChoiceName, messageChoiceText, messageChoiceMessage);
+            MessageChoice messageChoice = ReadMessageChoiceDb(messageChoiceId);
+            OnMessageChoiceUpdated(messageChoice);
         }
 
-        public static void GetMessageChoice(int messageChoiceId)
+        public static void SelectMessageChoice(int messageChoiceId)
         {
-            MessageChoice messageChoice = SelectMessageChoice(messageChoiceId);
-            OnMessageChoiceGet(messageChoice);
+            MessageChoice messageChoice = ReadMessageChoiceDb(messageChoiceId);
+            OnMessageChoiceSelect(messageChoice);
         }
 
-        public static void LoadAllMessageChoicesForMessage(int messageId)
+        public static void ReadAllMessageChoicesForMessage(int messageId)
         {
-            List<MessageChoice> messageChoices = SelectAllMessageChoicesForMessage(messageId);
+            List<MessageChoice> messageChoices = ReadAllMessageChoicesForMessageDb(messageId);
             foreach (var messageChoice in messageChoices)
-                OnMessageChoiceAdded(messageChoice);
+                OnMessageChoiceRead(messageChoice);
         }
 
         #endregion
@@ -2463,31 +2530,31 @@ namespace TBGINTB_Builder.Lib
 
         #region MessageChoiceResults
 
-        public static void AddMessageChoiceResult(int messageChoiceResultResult, int messageChoiceResultMessageChoice)
+        public static void CreateMessageChoiceResult(int messageChoiceResultResult, int messageChoiceResultMessageChoice)
         {
-            int id = InsertMessageChoiceResult(messageChoiceResultResult, messageChoiceResultMessageChoice);
-            MessageChoiceResult messageChoiceResult = SelectMessageChoiceResult(id);
-            OnMessageChoiceResultAdded(messageChoiceResult);
+            int id = CreateMessageChoiceResultDb(messageChoiceResultResult, messageChoiceResultMessageChoice);
+            MessageChoiceResult messageChoiceResult = ReadMessageChoiceResultDb(id);
+            OnMessageChoiceResultRead(messageChoiceResult);
         }
 
-        public static void ModifyMessageChoiceResult(int messageChoiceResultId, int messageChoiceResultResult, int messageChoiceResultMessageChoice)
+        public static void UpdateMessageChoiceResult(int messageChoiceResultId, int messageChoiceResultResult, int messageChoiceResultMessageChoice)
         {
-            UpdateMessageChoiceResult(messageChoiceResultId, messageChoiceResultResult, messageChoiceResultMessageChoice);
-            MessageChoiceResult messageChoiceResult = SelectMessageChoiceResult(messageChoiceResultId);
-            OnMessageChoiceResultModified(messageChoiceResult);
+            UpdateMessageChoiceResultDb(messageChoiceResultId, messageChoiceResultResult, messageChoiceResultMessageChoice);
+            MessageChoiceResult messageChoiceResult = ReadMessageChoiceResultDb(messageChoiceResultId);
+            OnMessageChoiceResultUpdated(messageChoiceResult);
         }
 
-        public static void GetMessageChoiceResult(int messageChoiceResultId)
+        public static void SelectMessageChoiceResult(int messageChoiceResultId)
         {
-            MessageChoiceResult messageChoiceResult = SelectMessageChoiceResult(messageChoiceResultId);
-            OnMessageChoiceResultGet(messageChoiceResult);
+            MessageChoiceResult messageChoiceResult = ReadMessageChoiceResultDb(messageChoiceResultId);
+            OnMessageChoiceResultSelect(messageChoiceResult);
         }
 
-        public static void LoadAllMessageChoiceResultsForMessageChoice(int messageChoiceId)
+        public static void ReadAllMessageChoiceResultsForMessageChoice(int messageChoiceId)
         {
-            List<MessageChoiceResult> messageChoiceResults = SelectAllMessageChoiceResultsForMessageChoice(messageChoiceId);
+            List<MessageChoiceResult> messageChoiceResults = ReadAllMessageChoiceResultsForMessageChoiceDb(messageChoiceId);
             foreach (var messageChoiceResult in messageChoiceResults)
-                OnMessageChoiceResultAdded(messageChoiceResult);
+                OnMessageChoiceResultRead(messageChoiceResult);
         }
 
         #endregion
@@ -2495,11 +2562,11 @@ namespace TBGINTB_Builder.Lib
 
         #region RoomPreviews
 
-        public static void GetRoomPreview(int room)
+        public static void SelectRoomPreview(int room)
         {
-            var roomPreview = SelectRoomPreview(room);
+            var roomPreview = ReadRoomPreviewDb(room);
             foreach (var paragraphState in roomPreview.Item1)
-                OnRoomPreviewParagraphStateGet(paragraphState);
+                OnRoomPreviewParagraphStateSelect(paragraphState);
         }
 
         #endregion
@@ -2507,24 +2574,24 @@ namespace TBGINTB_Builder.Lib
 
         #region AreaRoomOnInitialLoads
 
-        public static void AddAreaRoomOnInitialLoad(int areaId, int roomId)
+        public static void CreateAreaRoomOnInitialLoad(int areaId, int roomId)
         {
-            UpsertAreaRoomOnInitialLoad(areaId, roomId);
-            AreaRoomOnInitialLoad areaRoomOnInitialLoad = SelectAreaRoomOnInitialLoad();
-            OnAreaRoomOnInitialLoadAdded(areaRoomOnInitialLoad);
+            UpsertAreaRoomOnInitialLoadDb(areaId, roomId);
+            AreaRoomOnInitialLoad areaRoomOnInitialRead = ReadAreaRoomOnInitialLoadDb();
+            OnAreaRoomOnInitialLoadRead(areaRoomOnInitialRead);
         }
 
-        public static void ModifyAreaRoomOnInitialLoad(int areaId, int roomId)
+        public static void UpdateAreaRoomOnInitialLoad(int areaId, int roomId)
         {
-            UpsertAreaRoomOnInitialLoad(areaId, roomId);
-            AreaRoomOnInitialLoad areaRoomOnInitialLoad = SelectAreaRoomOnInitialLoad();
-            OnAreaRoomOnInitialLoadModified(areaRoomOnInitialLoad);
+            UpsertAreaRoomOnInitialLoadDb(areaId, roomId);
+            AreaRoomOnInitialLoad areaRoomOnInitialRead = ReadAreaRoomOnInitialLoadDb();
+            OnAreaRoomOnInitialLoadUpdated(areaRoomOnInitialRead);
         }
 
-        public static void LoadAreaRoomOnInitialLoad()
+        public static void ReadAreaRoomOnInitialLoad()
         {
-            AreaRoomOnInitialLoad areaRoomOnInitialLoad = SelectAreaRoomOnInitialLoad();
-            OnAreaRoomOnInitialLoadAdded(areaRoomOnInitialLoad);
+            AreaRoomOnInitialLoad areaRoomOnInitialRead = ReadAreaRoomOnInitialLoadDb();
+            OnAreaRoomOnInitialLoadRead(areaRoomOnInitialRead);
         }
 
         #endregion
@@ -2536,112 +2603,112 @@ namespace TBGINTB_Builder.Lib
 
         private static void InitializeSprocsToDbModelMap()
         {
-            Mapper.CreateMap<dev_GetArea_Result, Area>();
-            Mapper.CreateMap<dev_GetAllAreas_Result, Area>();
+            Mapper.CreateMap<dev_ReadArea_Result, Area>();
+            Mapper.CreateMap<dev_ReadAllAreas_Result, Area>();
 
-            Mapper.CreateMap<dev_GetLocation_Result, Location>();
-            Mapper.CreateMap<dev_GetAllLocations_Result, Location>();
+            Mapper.CreateMap<dev_ReadLocation_Result, Location>();
+            Mapper.CreateMap<dev_ReadAllLocations_Result, Location>();
 
-            Mapper.CreateMap<dev_GetRoom_Result, Room>();
-            Mapper.CreateMap<dev_GetAllRoomsInArea_Result, Room>();
-            Mapper.CreateMap<dev_GetAllRoomsInAreaOnFloor_Result, Room>();
+            Mapper.CreateMap<dev_ReadRoom_Result, Room>();
+            Mapper.CreateMap<dev_ReadAllRoomsInArea_Result, Room>();
+            Mapper.CreateMap<dev_ReadAllRoomsInAreaOnFloor_Result, Room>();
 
-            Mapper.CreateMap<dev_GetRoomState_Result, RoomState>();
-            Mapper.CreateMap<dev_GetAllRoomStatesForRoom_Result, RoomState>();
+            Mapper.CreateMap<dev_ReadRoomState_Result, RoomState>();
+            Mapper.CreateMap<dev_ReadAllRoomStatesForRoom_Result, RoomState>();
 
-            Mapper.CreateMap<dev_GetParagraph_Result, Paragraph>();
-            Mapper.CreateMap<dev_GetAllParagraphsForRoom_Result, Paragraph>();
-            Mapper.CreateMap<dev_GetAllParagraphsForRoomAndRoomState_Result, Paragraph>();
+            Mapper.CreateMap<dev_ReadParagraph_Result, Paragraph>();
+            Mapper.CreateMap<dev_ReadAllParagraphsForRoom_Result, Paragraph>();
+            Mapper.CreateMap<dev_ReadAllParagraphsForRoomAndRoomState_Result, Paragraph>();
 
-            Mapper.CreateMap<dev_GetParagraphState_Result, ParagraphState>();
-            Mapper.CreateMap<dev_GetAllParagraphStatesForParagraph_Result, ParagraphState>();
-            Mapper.CreateMap<dev_GetParagraphStateForParagraphPreview_Result, ParagraphState>();
+            Mapper.CreateMap<dev_ReadParagraphState_Result, ParagraphState>();
+            Mapper.CreateMap<dev_ReadAllParagraphStatesForParagraph_Result, ParagraphState>();
+            Mapper.CreateMap<dev_ReadParagraphStateForParagraphPreview_Result, ParagraphState>();
 
-            Mapper.CreateMap<dev_GetNoun_Result, Noun>();
-            Mapper.CreateMap<dev_GetAllNounsForParagraphState_Result, Noun>();
+            Mapper.CreateMap<dev_ReadNoun_Result, Noun>();
+            Mapper.CreateMap<dev_ReadAllNounsForParagraphState_Result, Noun>();
 
-            Mapper.CreateMap<dev_GetVerbType_Result, VerbType>();
-            Mapper.CreateMap<dev_GetAllVerbTypes_Result, VerbType>();
+            Mapper.CreateMap<dev_ReadVerbType_Result, VerbType>();
+            Mapper.CreateMap<dev_ReadAllVerbTypes_Result, VerbType>();
 
-            Mapper.CreateMap<dev_GetVerb_Result, Verb>();
-            Mapper.CreateMap<dev_GetAllVerbsForVerbType_Result, Verb>();
+            Mapper.CreateMap<dev_ReadVerb_Result, Verb>();
+            Mapper.CreateMap<dev_ReadAllVerbsForVerbType_Result, Verb>();
 
-            Mapper.CreateMap<dev_GetAction_Result, Db.Action>();
-            Mapper.CreateMap<dev_GetAllActionsForNoun_Result, Db.Action>();
+            Mapper.CreateMap<dev_ReadAction_Result, Db.Action>();
+            Mapper.CreateMap<dev_ReadAllActionsForNoun_Result, Db.Action>();
 
-            Mapper.CreateMap<dev_GetResultType_Result, ResultType>();
-            Mapper.CreateMap<dev_GetAllResultTypes_Result, ResultType>();
+            Mapper.CreateMap<dev_ReadResultType_Result, ResultType>();
+            Mapper.CreateMap<dev_ReadAllResultTypes_Result, ResultType>();
 
-            Mapper.CreateMap<dev_GetJSONPropertyDataType_Result, JSONPropertyDataType>();
-            Mapper.CreateMap<dev_GetAllJSONPropertyDataTypes_Result, JSONPropertyDataType>();
+            Mapper.CreateMap<dev_ReadJSONPropertyDataType_Result, JSONPropertyDataType>();
+            Mapper.CreateMap<dev_ReadAllJSONPropertyDataTypes_Result, JSONPropertyDataType>();
 
-            Mapper.CreateMap<dev_GetResultTypeJSONProperty_Result, ResultTypeJSONProperty>();
-            Mapper.CreateMap<dev_GetAllResultTypeJSONPropertiesForResultType_Result, ResultTypeJSONProperty>();
+            Mapper.CreateMap<dev_ReadResultTypeJSONProperty_Result, ResultTypeJSONProperty>();
+            Mapper.CreateMap<dev_ReadAllResultTypeJSONPropertiesForResultType_Result, ResultTypeJSONProperty>();
 
-            Mapper.CreateMap<dev_GetResult_Result, Result>();
-            Mapper.CreateMap<dev_GetAllResultsForResultType_Result, Result>();
-            Mapper.CreateMap<dev_GetAllResultsForMessageChoiceResultType_Result, Result>();
-            Mapper.CreateMap<dev_GetAllResultsForActionResultType_Result, Result>();
+            Mapper.CreateMap<dev_ReadResult_Result, Result>();
+            Mapper.CreateMap<dev_ReadAllResultsForResultType_Result, Result>();
+            Mapper.CreateMap<dev_ReadAllResultsForMessageChoiceResultType_Result, Result>();
+            Mapper.CreateMap<dev_ReadAllResultsForActionResultType_Result, Result>();
 
-            Mapper.CreateMap<dev_GetActionResult_Result, ActionResult>();
-            Mapper.CreateMap<dev_GetAllActionResultsForAction_Result, ActionResult>();
+            Mapper.CreateMap<dev_ReadActionResult_Result, ActionResult>();
+            Mapper.CreateMap<dev_ReadAllActionResultsForAction_Result, ActionResult>();
 
-            Mapper.CreateMap<dev_GetItem_Result, Item>();
-            Mapper.CreateMap<dev_GetAllItems_Result, Item>();
+            Mapper.CreateMap<dev_ReadItem_Result, Item>();
+            Mapper.CreateMap<dev_ReadAllItems_Result, Item>();
 
-            Mapper.CreateMap<dev_GetEvent_Result, Event>();
-            Mapper.CreateMap<dev_GetAllEvents_Result, Event>();
+            Mapper.CreateMap<dev_ReadEvent_Result, Event>();
+            Mapper.CreateMap<dev_ReadAllEvents_Result, Event>();
 
-            Mapper.CreateMap<dev_GetCharacter_Result, Character>();
-            Mapper.CreateMap<dev_GetAllCharacters_Result, Character>();
+            Mapper.CreateMap<dev_ReadCharacter_Result, Character>();
+            Mapper.CreateMap<dev_ReadAllCharacters_Result, Character>();
 
-            Mapper.CreateMap<dev_GetAllItemActionRequirementsForAction_Result, ItemActionRequirement>();
-            Mapper.CreateMap<dev_GetItemActionRequirement_Result, ItemActionRequirement>();
+            Mapper.CreateMap<dev_ReadAllItemActionRequirementsForAction_Result, ItemActionRequirement>();
+            Mapper.CreateMap<dev_ReadItemActionRequirement_Result, ItemActionRequirement>();
 
-            Mapper.CreateMap<dev_GetAllEventActionRequirementsForAction_Result, EventActionRequirement>();
-            Mapper.CreateMap<dev_GetEventActionRequirement_Result, EventActionRequirement>();
+            Mapper.CreateMap<dev_ReadAllEventActionRequirementsForAction_Result, EventActionRequirement>();
+            Mapper.CreateMap<dev_ReadEventActionRequirement_Result, EventActionRequirement>();
 
-            Mapper.CreateMap<dev_GetAllCharacterActionRequirementsForAction_Result, CharacterActionRequirement>();
-            Mapper.CreateMap<dev_GetCharacterActionRequirement_Result, CharacterActionRequirement>();
+            Mapper.CreateMap<dev_ReadAllCharacterActionRequirementsForAction_Result, CharacterActionRequirement>();
+            Mapper.CreateMap<dev_ReadCharacterActionRequirement_Result, CharacterActionRequirement>();
 
-            Mapper.CreateMap<dev_GetMessage_Result, Message>();
-            Mapper.CreateMap<dev_GetAllMessages_Result, Message>();
+            Mapper.CreateMap<dev_ReadMessage_Result, Message>();
+            Mapper.CreateMap<dev_ReadAllMessages_Result, Message>();
 
-            Mapper.CreateMap<dev_GetMessageChoice_Result, MessageChoice>();
-            Mapper.CreateMap<dev_GetAllMessageChoicesForMessage_Result, MessageChoice>();
+            Mapper.CreateMap<dev_ReadMessageChoice_Result, MessageChoice>();
+            Mapper.CreateMap<dev_ReadAllMessageChoicesForMessage_Result, MessageChoice>();
 
-            Mapper.CreateMap<dev_GetMessageChoiceResult_Result, MessageChoiceResult>();
-            Mapper.CreateMap<dev_GetAllMessageChoiceResultsForMessageChoice_Result, MessageChoiceResult>();
+            Mapper.CreateMap<dev_ReadMessageChoiceResult_Result, MessageChoiceResult>();
+            Mapper.CreateMap<dev_ReadAllMessageChoiceResultsForMessageChoice_Result, MessageChoiceResult>();
 
-            Mapper.CreateMap<dev_GetRoomPreviewNouns_Result, RoomPreviewNoun>();
-            Mapper.CreateMap<dev_GetRoomPreviewParagraphStates_Result, RoomPreviewParagraphState>();
+            Mapper.CreateMap<dev_ReadRoomPreviewNouns_Result, RoomPreviewNoun>();
+            Mapper.CreateMap<dev_ReadRoomPreviewParagraphStates_Result, RoomPreviewParagraphState>();
             Mapper.CreateMap<RoomPreviewNoun[], RoomPreviewParagraphState>()
                 .ForMember(dest => dest.Nouns, opt => opt.MapFrom(src => src));
 
-            Mapper.CreateMap<dev_GetAreaRoomOnInitialLoad_Result, AreaRoomOnInitialLoad>();
+            Mapper.CreateMap<dev_ReadAreaRoomOnInitialLoad_Result, AreaRoomOnInitialLoad>();
         }
 
         #region Areas
 
-        private static int InsertArea(string name)
+        private static int CreateAreaDb(string name)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddArea(name);
+                databaseResult = m_entities.dev_CreateArea(name);
             }
             catch(Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddArea", e);
+                throw new GinTubDatabaseException("dev_CreateArea", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddArea", new Exception("No [Id] was returned after [Area] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateArea", new Exception("No [Id] was returned after [Area] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateArea(int id, string name)
+        private static void UpdateAreaDb(int id, string name)
         {
             try
             {
@@ -2653,37 +2720,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Area SelectArea(int id)
+        private static Area ReadAreaDb(int id)
         {
-            ObjectResult<dev_GetArea_Result> databaseResult = null;
+            ObjectResult<dev_ReadArea_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetArea(id);
+                databaseResult = m_entities.dev_ReadArea(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetArea", e);
+                throw new GinTubDatabaseException("dev_ReadArea", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetArea", new Exception(string.Format("No [Areas] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadArea", new Exception(string.Format("No [Areas] record found with [Id] = {0}.", id)));
 
             Area area = Mapper.Map<Area>(databaseResult.Single());
             return area;
         }
 
-        private static List<Area> SelectAllAreas()
+        private static List<Area> ReadAllAreasDb()
         {
-            ObjectResult<dev_GetAllAreas_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllAreas_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllAreas();
+                databaseResult = m_entities.dev_ReadAllAreas();
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllAreas", e);
+                throw new GinTubDatabaseException("dev_ReadAllAreas", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllAreas", new Exception("No [Areas] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllAreas", new Exception("No [Areas] records found."));
 
             List<Area> areas = databaseResult.Select(r => Mapper.Map<Area>(r)).ToList();
             return areas;
@@ -2694,25 +2761,25 @@ namespace TBGINTB_Builder.Lib
 
         #region Locations
 
-        private static int InsertLocation(string name, string locationFile)
+        private static int CreateLocationDb(string name, string locationFile)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddLocation(name, locationFile);
+                databaseResult = m_entities.dev_CreateLocation(name, locationFile);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddLocation", e);
+                throw new GinTubDatabaseException("dev_CreateLocation", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddLocation", new Exception("No [Id] was returned after [Location] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateLocation", new Exception("No [Id] was returned after [Location] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateLocation(int id, string name, string locationFile)
+        private static void UpdateLocationDb(int id, string name, string locationFile)
         {
             try
             {
@@ -2724,37 +2791,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Location SelectLocation(int id)
+        private static Location ReadLocationDb(int id)
         {
-            ObjectResult<dev_GetLocation_Result> databaseResult = null;
+            ObjectResult<dev_ReadLocation_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetLocation(id);
+                databaseResult = m_entities.dev_ReadLocation(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetLocation", e);
+                throw new GinTubDatabaseException("dev_ReadLocation", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetLocation", new Exception(string.Format("No [Locations] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadLocation", new Exception(string.Format("No [Locations] record found with [Id] = {0}.", id)));
 
             Location location = Mapper.Map<Location>(databaseResult.Single());
             return location;
         }
 
-        private static List<Location> SelectAllLocations()
+        private static List<Location> ReadAllLocationsDb()
         {
-            ObjectResult<dev_GetAllLocations_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllLocations_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllLocations();
+                databaseResult = m_entities.dev_ReadAllLocations();
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllLocations", e);
+                throw new GinTubDatabaseException("dev_ReadAllLocations", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllLocations", new Exception("No [Locations] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllLocations", new Exception("No [Locations] records found."));
 
             List<Location> locations = databaseResult.Select(r => Mapper.Map<Location>(r)).ToList();
             return locations;
@@ -2765,25 +2832,35 @@ namespace TBGINTB_Builder.Lib
 
         #region Rooms
 
-        private static int InsertRoom(string name, int x, int y, int z, int area)
+        private static Tuple<int, int> CreateRoomDb(string name, int x, int y, int z, int area)
         {
             ObjectResult<decimal?> databaseResult = null;
+            int roomId, roomStateId;
             try
             {
-                databaseResult = m_entities.dev_AddRoom(name, x, y, z, area);
+                databaseResult = m_entities.dev_CreateRoom(name, x, y, z, area);
+                var result = databaseResult.FirstOrDefault();
+                if (!result.HasValue)
+                    throw new GinTubDatabaseException("dev_CreateRoom", new Exception("No [Id] was returned after [Room] INSERT."));
+
+                roomId = (int)result.Value;
+
+                databaseResult = databaseResult.GetNextResult<decimal?>();
+                result = databaseResult.FirstOrDefault();
+                if (!result.HasValue)
+                    throw new GinTubDatabaseException("dev_CreateRoom", new Exception("No [Id] was returned for automatic [RoomState] INSERT after [Room] INSERT."));
+
+                roomStateId = (int)result.Value;
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddRoom", e);
+                throw new GinTubDatabaseException("dev_CreateRoom", e);
             }
-            var result = databaseResult.FirstOrDefault();
-            if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddRoom", new Exception("No [Id] was returned after [Room] INSERT."));
 
-            return (int)result.Value;
+            return new Tuple<int, int>(roomId, roomStateId);
         }
 
-        private static void UpdateRoom(int id, string name, int x, int y, int z, int area)
+        private static void UpdateRoomDb(int id, string name, int x, int y, int z, int area)
         {
             try
             {
@@ -2795,55 +2872,55 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Room SelectRoom(int id)
+        private static Room ReadRoomDb(int id)
         {
-            ObjectResult<dev_GetRoom_Result> databaseResult = null;
+            ObjectResult<dev_ReadRoom_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetRoom(id);
+                databaseResult = m_entities.dev_ReadRoom(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetRoom", e);
+                throw new GinTubDatabaseException("dev_ReadRoom", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetRoom", new Exception(string.Format("No [Rooms] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadRoom", new Exception(string.Format("No [Rooms] record found with [Id] = {0}.", id)));
 
             Room room = Mapper.Map<Room>(databaseResult.Single());
             return room;
         }
 
-        private static List<Room> SelectAllRoomsInArea(int area)
+        private static List<Room> ReadAllRoomsInAreaDb(int area)
         {
-            ObjectResult<dev_GetAllRoomsInArea_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllRoomsInArea_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllRoomsInArea(area);
+                databaseResult = m_entities.dev_ReadAllRoomsInArea(area);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllRoomsInArea", e);
+                throw new GinTubDatabaseException("dev_ReadAllRoomsInArea", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllRoomsInArea", new Exception("No [Rooms] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllRoomsInArea", new Exception("No [Rooms] records found."));
 
             List<Room> rooms = databaseResult.Select(r => Mapper.Map<Room>(r)).ToList();
             return rooms;
         }
 
-        private static List<Room> SelectAllRoomsInAreaOnFloor(int area, int z)
+        private static List<Room> ReadAllRoomsInAreaOnFloorDb(int area, int z)
         {
-            ObjectResult<dev_GetAllRoomsInAreaOnFloor_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllRoomsInAreaOnFloor_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllRoomsInAreaOnFloor(area, z);
+                databaseResult = m_entities.dev_ReadAllRoomsInAreaOnFloor(area, z);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllRoomsInAreaOnFloor", e);
+                throw new GinTubDatabaseException("dev_ReadAllRoomsInAreaOnFloor", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllRoomsInAreaOnFloor", new Exception("No [Rooms] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllRoomsInAreaOnFloor", new Exception("No [Rooms] records found."));
 
             List<Room> rooms = databaseResult.Select(r => Mapper.Map<Room>(r)).ToList();
             return rooms;
@@ -2854,25 +2931,25 @@ namespace TBGINTB_Builder.Lib
 
         #region RoomStates
 
-        private static int InsertRoomState(DateTime? time, int location, int room)
+        private static int CreateRoomStateDb(TimeSpan time, int location, int room)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddRoomState(time, location, room);
+                databaseResult = m_entities.dev_CreateRoomState(time, location, room);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddRoomState", e);
+                throw new GinTubDatabaseException("dev_CreateRoomState", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddRoomState", new Exception("No [Id] was returned after [RoomState] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateRoomState", new Exception("No [Id] was returned after [RoomState] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateRoomState(int id, int state, DateTime? time, int location, int room)
+        private static void UpdateRoomStateDb(int id, int state, TimeSpan time, int location, int room)
         {
             try
             {
@@ -2884,37 +2961,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static RoomState SelectRoomState(int id)
+        private static RoomState ReadRoomStateDb(int id)
         {
-            ObjectResult<dev_GetRoomState_Result> databaseResult = null;
+            ObjectResult<dev_ReadRoomState_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetRoomState(id);
+                databaseResult = m_entities.dev_ReadRoomState(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetRoomState", e);
+                throw new GinTubDatabaseException("dev_ReadRoomState", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetRoomState", new Exception(string.Format("No [RoomStates] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadRoomState", new Exception(string.Format("No [RoomStates] record found with [Id] = {0}.", id)));
 
             RoomState roomState = Mapper.Map<RoomState>(databaseResult.Single());
             return roomState;
         }
 
-        private static List<RoomState> SelectAllRoomStatesForRoom(int room)
+        private static List<RoomState> ReadAllRoomStatesForRoomDb(int room)
         {
-            ObjectResult<dev_GetAllRoomStatesForRoom_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllRoomStatesForRoom_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllRoomStatesForRoom(room);
+                databaseResult = m_entities.dev_ReadAllRoomStatesForRoom(room);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllRoomStatesForRoom", e);
+                throw new GinTubDatabaseException("dev_ReadAllRoomStatesForRoom", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllRoomStatesForRoom", new Exception("No [RoomStates] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllRoomStatesForRoom", new Exception("No [RoomStates] records found."));
 
             List<RoomState> roomStates = databaseResult.Select(r => Mapper.Map<RoomState>(r)).ToList();
             return roomStates;
@@ -2925,29 +3002,39 @@ namespace TBGINTB_Builder.Lib
 
         #region Paragraphs
 
-        private static int InsertParagraph(int order, int room, int? roomState)
+        private static Tuple<int, int> CreateParagraphDb(int order, int room)
         {
             ObjectResult<decimal?> databaseResult = null;
+            int paragraphId, paragraphStateId;
             try
             {
-                databaseResult = m_entities.dev_AddParagraph(order, room, roomState);
+                databaseResult = m_entities.dev_CreateParagraph(order, room);
+                var result = databaseResult.FirstOrDefault();
+                if (!result.HasValue)
+                    throw new GinTubDatabaseException("dev_CreateParagraph", new Exception("No [Id] was returned after [Paragraph] INSERT."));
+
+                paragraphId = (int)result.Value;
+
+                databaseResult = databaseResult.GetNextResult<decimal?>();
+                result = databaseResult.FirstOrDefault();
+                if (!result.HasValue)
+                    throw new GinTubDatabaseException("dev_CreateParagraph", new Exception("No [Id] was returned after automatic [ParagraphState] INSERT after [Paragraph] INSERT."));
+
+                paragraphStateId = (int)result.Value;
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddParagraph", e);
+                throw new GinTubDatabaseException("dev_CreateParagraph", e);
             }
-            var result = databaseResult.FirstOrDefault();
-            if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddParagraph", new Exception("No [Id] was returned after [Paragraph] INSERT."));
 
-            return (int)result.Value;
+            return new Tuple<int, int>(paragraphId, paragraphStateId);
         }
 
-        private static void UpdateParagraph(int id, int order, int room, int? roomState)
+        private static void UpdateParagraphDb(int id, int order, int room)
         {
             try
             {
-                m_entities.dev_UpdateParagraph(id, order, room, roomState);
+                m_entities.dev_UpdateParagraph(id, order, room);
             }
             catch (Exception e)
             {
@@ -2955,55 +3042,55 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Paragraph SelectParagraph(int id)
+        private static Paragraph ReadParagraphDb(int id)
         {
-            ObjectResult<dev_GetParagraph_Result> databaseResult = null;
+            ObjectResult<dev_ReadParagraph_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetParagraph(id);
+                databaseResult = m_entities.dev_ReadParagraph(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetParagraph", e);
+                throw new GinTubDatabaseException("dev_ReadParagraph", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetParagraph", new Exception(string.Format("No [Paragraphs] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadParagraph", new Exception(string.Format("No [Paragraphs] record found with [Id] = {0}.", id)));
 
             Paragraph paragraph = Mapper.Map<Paragraph>(databaseResult.Single());
             return paragraph;
         }
 
-        private static List<Paragraph> SelectAllParagraphsForRoom(int room)
+        private static List<Paragraph> ReadAllParagraphsForRoomDb(int room)
         {
-            ObjectResult<dev_GetAllParagraphsForRoom_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllParagraphsForRoom_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllParagraphsForRoom(room);
+                databaseResult = m_entities.dev_ReadAllParagraphsForRoom(room);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllParagraphsForRoom", e);
+                throw new GinTubDatabaseException("dev_ReadAllParagraphsForRoom", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllParagraphsForRoom", new Exception("No [Paragraphs] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllParagraphsForRoom", new Exception("No [Paragraphs] records found."));
 
             List<Paragraph> paragraphs = databaseResult.Select(r => Mapper.Map<Paragraph>(r)).ToList();
             return paragraphs;
         }
 
-        private static List<Paragraph> SelectAllParagraphsForRoomAndRoomState(int room, int? roomState)
+        private static List<Paragraph> ReadAllParagraphsForRoomAndRoomStateDb(int room, int? roomState)
         {
-            ObjectResult<dev_GetAllParagraphsForRoomAndRoomState_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllParagraphsForRoomAndRoomState_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllParagraphsForRoomAndRoomState(room, roomState);
+                databaseResult = m_entities.dev_ReadAllParagraphsForRoomAndRoomState(room, roomState);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllParagraphsForRoomAndRoomState", e);
+                throw new GinTubDatabaseException("dev_ReadAllParagraphsForRoomAndRoomState", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllParagraphsForRoomAndRoomState", new Exception("No [Paragraphs] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllParagraphsForRoomAndRoomState", new Exception("No [Paragraphs] records found."));
 
             List<Paragraph> paragraphs = databaseResult.Select(r => Mapper.Map<Paragraph>(r)).ToList();
             return paragraphs;
@@ -3014,25 +3101,25 @@ namespace TBGINTB_Builder.Lib
 
         #region ParagraphStates
 
-        private static int InsertParagraphState(string text, int paragraph)
+        private static int CreateParagraphStateDb(string text, int paragraph)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddParagraphState(text, paragraph);
+                databaseResult = m_entities.dev_CreateParagraphState(text, paragraph);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddParagraphState", e);
+                throw new GinTubDatabaseException("dev_CreateParagraphState", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddParagraphState", new Exception("No [Id] was returned after [ParagraphState] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateParagraphState", new Exception("No [Id] was returned after [ParagraphState] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateParagraphState(int id, string text, int state, int paragraph)
+        private static void UpdateParagraphStateDb(int id, string text, int state, int paragraph)
         {
             try
             {
@@ -3044,55 +3131,55 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static ParagraphState SelectParagraphState(int id)
+        private static ParagraphState ReadParagraphStateDb(int id)
         {
-            ObjectResult<dev_GetParagraphState_Result> databaseResult = null;
+            ObjectResult<dev_ReadParagraphState_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetParagraphState(id);
+                databaseResult = m_entities.dev_ReadParagraphState(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetParagraphState", e);
+                throw new GinTubDatabaseException("dev_ReadParagraphState", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetParagraphState", new Exception(string.Format("No [ParagraphStates] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadParagraphState", new Exception(string.Format("No [ParagraphStates] record found with [Id] = {0}.", id)));
 
             ParagraphState paragraphState = Mapper.Map<ParagraphState>(databaseResult.Single());
             return paragraphState;
         }
 
-        private static List<ParagraphState> SelectAllParagraphStatesForParagraph(int paragraph)
+        private static List<ParagraphState> ReadAllParagraphStatesForParagraphDb(int paragraph)
         {
-            ObjectResult<dev_GetAllParagraphStatesForParagraph_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllParagraphStatesForParagraph_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllParagraphStatesForParagraph(paragraph);
+                databaseResult = m_entities.dev_ReadAllParagraphStatesForParagraph(paragraph);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllParagraphStatesForParagraph", e);
+                throw new GinTubDatabaseException("dev_ReadAllParagraphStatesForParagraph", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllParagraphStatesForParagraph", new Exception("No [ParagraphStates] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllParagraphStatesForParagraph", new Exception("No [ParagraphStates] records found."));
 
             List<ParagraphState> paragraphStates = databaseResult.Select(r => Mapper.Map<ParagraphState>(r)).ToList();
             return paragraphStates;
         }
 
-        private static ParagraphState SelectParagraphStateForParagraphPreview(int state, int paragraph)
+        private static ParagraphState ReadParagraphStateForParagraphPreviewDb(int state, int paragraph)
         {
-            ObjectResult<dev_GetParagraphStateForParagraphPreview_Result> databaseResult = null;
+            ObjectResult<dev_ReadParagraphStateForParagraphPreview_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetParagraphStateForParagraphPreview(state, paragraph);
+                databaseResult = m_entities.dev_ReadParagraphStateForParagraphPreview(state, paragraph);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetParagraphStateForParagraphPreview", e);
+                throw new GinTubDatabaseException("dev_ReadParagraphStateForParagraphPreview", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetParagraphStateForParagraphPreview", new Exception(string.Format("No [ParagraphStates] record found with [State] = {0} for Paragraph with [Id] = {1}.", state, paragraph)));
+                throw new GinTubDatabaseException("dev_ReadParagraphStateForParagraphPreview", new Exception(string.Format("No [ParagraphStates] record found with [State] = {0} for Paragraph with [Id] = {1}.", state, paragraph)));
 
             ParagraphState paragraphState = Mapper.Map<ParagraphState>(databaseResult.SingleOrDefault());
             return paragraphState;
@@ -3101,27 +3188,98 @@ namespace TBGINTB_Builder.Lib
         #endregion
 
 
-        #region Nouns
+        #region ParagraphRoomStates
 
-        private static int InsertNoun(string text, int paragraphState)
+        private static int CreateParagraphRoomStateDb(int roomState, int paragraph)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddNoun(text, paragraphState);
+                databaseResult = m_entities.dev_CreateParagraphRoomState(roomState, paragraph);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddNoun", e);
+                throw new GinTubDatabaseException("dev_CreateParagraphRoomState", e);
+            }
+            var reslt = databaseResult.FirstOrDefault();
+            if (!reslt.HasValue)
+                throw new GinTubDatabaseException("dev_CreateParagraphRoomState", new Exception("No [Id] was returned after [ParagraphRoomState] INSERT."));
+
+            return (int)reslt.Value;
+        }
+
+        private static void UpdateParagraphRoomStateDb(int id, int roomState, int paragraph)
+        {
+            try
+            {
+                m_entities.dev_UpdateParagraphRoomState(id, roomState, paragraph);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_UpdateParagraphRoomState", e);
+            }
+        }
+
+        private static ParagraphRoomState ReadParagraphRoomStateDb(int id)
+        {
+            ObjectResult<dev_ReadParagraphRoomState_Result> databaseResult = null;
+            try
+            {
+                databaseResult = m_entities.dev_ReadParagraphRoomState(id);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_ReadParagraphRoomState", e);
+            }
+            if (databaseResult == null)
+                throw new GinTubDatabaseException("dev_ReadParagraphRoomState", new Exception(string.Format("No [ParagraphRoomStates] record found with [Id] = {0}.", id)));
+
+            ParagraphRoomState paragraphRoomState = Mapper.Map<ParagraphRoomState>(databaseResult.Single());
+            return paragraphRoomState;
+        }
+
+        private static List<ParagraphRoomState> ReadAllParagraphRoomStatesForParagraphDb(int paragraph)
+        {
+            ObjectResult<dev_ReadAllParagraphRoomStatesForParagraph_Result> databaseResult = null;
+            try
+            {
+                databaseResult = m_entities.dev_ReadAllParagraphRoomStatesForParagraph(paragraph);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_ReadAllParagraphRoomStatesForParagraph", e);
+            }
+            if (databaseResult == null)
+                throw new GinTubDatabaseException("dev_ReadAllParagraphRoomStatesForParagraph", new Exception("No [ParagraphRoomStates] records found."));
+
+            List<ParagraphRoomState> paragraphRoomStates = databaseResult.Select(r => Mapper.Map<ParagraphRoomState>(r)).ToList();
+            return paragraphRoomStates;
+        }
+
+        #endregion
+
+
+        #region Nouns
+
+        private static int CreateNounDb(string text, int paragraphState)
+        {
+            ObjectResult<decimal?> databaseResult = null;
+            try
+            {
+                databaseResult = m_entities.dev_CreateNoun(text, paragraphState);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_CreateNoun", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddNoun", new Exception("No [Id] was returned after [Noun] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateNoun", new Exception("No [Id] was returned after [Noun] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateNoun(int id, string text, int paragraphState)
+        private static void UpdateNounDb(int id, string text, int paragraphState)
         {
             try
             {
@@ -3133,37 +3291,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Noun SelectNoun(int id)
+        private static Noun ReadNounDb(int id)
         {
-            ObjectResult<dev_GetNoun_Result> databaseResult = null;
+            ObjectResult<dev_ReadNoun_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetNoun(id);
+                databaseResult = m_entities.dev_ReadNoun(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetNoun", e);
+                throw new GinTubDatabaseException("dev_ReadNoun", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetNoun", new Exception(string.Format("No [Nouns] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadNoun", new Exception(string.Format("No [Nouns] record found with [Id] = {0}.", id)));
 
             Noun noun = Mapper.Map<Noun>(databaseResult.Single());
             return noun;
         }
 
-        private static List<Noun> SelectAllNounsForParagraphState(int paragraphState)
+        private static List<Noun> ReadAllNounsForParagraphStateDb(int paragraphState)
         {
-            ObjectResult<dev_GetAllNounsForParagraphState_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllNounsForParagraphState_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllNounsForParagraphState(paragraphState);
+                databaseResult = m_entities.dev_ReadAllNounsForParagraphState(paragraphState);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllNounsForParagraphState", e);
+                throw new GinTubDatabaseException("dev_ReadAllNounsForParagraphState", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllNounsForParagraphState", new Exception("No [Nouns] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllNounsForParagraphState", new Exception("No [Nouns] records found."));
 
             List<Noun> nouns = databaseResult.Select(r => Mapper.Map<Noun>(r)).ToList();
             return nouns;
@@ -3174,25 +3332,25 @@ namespace TBGINTB_Builder.Lib
 
         #region VerbTypes
 
-        private static int InsertVerbType(string name)
+        private static int CreateVerbTypeDb(string name)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddVerbType(name);
+                databaseResult = m_entities.dev_CreateVerbType(name);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddVerbType", e);
+                throw new GinTubDatabaseException("dev_CreateVerbType", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddVerbType", new Exception("No [Id] was returned after [VerbType] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateVerbType", new Exception("No [Id] was returned after [VerbType] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateVerbType(int id, string name)
+        private static void UpdateVerbTypeDb(int id, string name)
         {
             try
             {
@@ -3204,37 +3362,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static VerbType SelectVerbType(int id)
+        private static VerbType ReadVerbTypeDb(int id)
         {
-            ObjectResult<dev_GetVerbType_Result> databaseResult = null;
+            ObjectResult<dev_ReadVerbType_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetVerbType(id);
+                databaseResult = m_entities.dev_ReadVerbType(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetVerbType", e);
+                throw new GinTubDatabaseException("dev_ReadVerbType", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetVerbType", new Exception(string.Format("No [VerbTypes] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadVerbType", new Exception(string.Format("No [VerbTypes] record found with [Id] = {0}.", id)));
 
             VerbType verbType = Mapper.Map<VerbType>(databaseResult.Single());
             return verbType;
         }
 
-        private static List<VerbType> SelectAllVerbTypes()
+        private static List<VerbType> ReadAllVerbTypesDb()
         {
-            ObjectResult<dev_GetAllVerbTypes_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllVerbTypes_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllVerbTypes();
+                databaseResult = m_entities.dev_ReadAllVerbTypes();
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllVerbTypes", e);
+                throw new GinTubDatabaseException("dev_ReadAllVerbTypes", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllVerbTypes", new Exception("No [VerbTypes] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllVerbTypes", new Exception("No [VerbTypes] records found."));
 
             List<VerbType> verbTypes = databaseResult.Select(r => Mapper.Map<VerbType>(r)).ToList();
             return verbTypes;
@@ -3245,25 +3403,25 @@ namespace TBGINTB_Builder.Lib
 
         #region Verbs
 
-        private static int InsertVerb(string name, int verbType)
+        private static int CreateVerbDb(string name, int verbType)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddVerb(name, verbType);
+                databaseResult = m_entities.dev_CreateVerb(name, verbType);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddVerb", e);
+                throw new GinTubDatabaseException("dev_CreateVerb", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddVerb", new Exception("No [Id] was returned after [Verb] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateVerb", new Exception("No [Id] was returned after [Verb] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateVerb(int id, string name, int verbType)
+        private static void UpdateVerbDb(int id, string name, int verbType)
         {
             try
             {
@@ -3275,37 +3433,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Verb SelectVerb(int id)
+        private static Verb ReadVerbDb(int id)
         {
-            ObjectResult<dev_GetVerb_Result> databaseResult = null;
+            ObjectResult<dev_ReadVerb_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetVerb(id);
+                databaseResult = m_entities.dev_ReadVerb(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetVerb", e);
+                throw new GinTubDatabaseException("dev_ReadVerb", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetVerb", new Exception(string.Format("No [Verbs] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadVerb", new Exception(string.Format("No [Verbs] record found with [Id] = {0}.", id)));
 
             Verb verb = Mapper.Map<Verb>(databaseResult.Single());
             return verb;
         }
 
-        private static List<Verb> SelectAllVerbsForVerbType(int verbType)
+        private static List<Verb> ReadAllVerbsForVerbTypeDb(int verbType)
         {
-            ObjectResult<dev_GetAllVerbsForVerbType_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllVerbsForVerbType_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllVerbsForVerbType(verbType);
+                databaseResult = m_entities.dev_ReadAllVerbsForVerbType(verbType);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllVerbsForVerbType", e);
+                throw new GinTubDatabaseException("dev_ReadAllVerbsForVerbType", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllVerbsForVerbType", new Exception("No [Verbs] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllVerbsForVerbType", new Exception("No [Verbs] records found."));
 
             List<Verb> verbs = databaseResult.Select(r => Mapper.Map<Verb>(r)).ToList();
             return verbs;
@@ -3316,25 +3474,25 @@ namespace TBGINTB_Builder.Lib
 
         #region Actions
 
-        private static int InsertAction(int verbType, int noun)
+        private static int CreateActionDb(int verbType, int noun)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddAction(verbType, noun);
+                databaseResult = m_entities.dev_CreateAction(verbType, noun);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddAction", e);
+                throw new GinTubDatabaseException("dev_CreateAction", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddAction", new Exception("No [Id] was returned after [Action] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateAction", new Exception("No [Id] was returned after [Action] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateAction(int id, int verbType, int noun)
+        private static void UpdateActionDb(int id, int verbType, int noun)
         {
             try
             {
@@ -3346,37 +3504,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Db.Action SelectAction(int id)
+        private static Db.Action ReadActionDb(int id)
         {
-            ObjectResult<dev_GetAction_Result> databaseResult = null;
+            ObjectResult<dev_ReadAction_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAction(id);
+                databaseResult = m_entities.dev_ReadAction(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAction", e);
+                throw new GinTubDatabaseException("dev_ReadAction", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAction", new Exception(string.Format("No [Actions] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadAction", new Exception(string.Format("No [Actions] record found with [Id] = {0}.", id)));
 
             Db.Action action = Mapper.Map<Db.Action>(databaseResult.Single());
             return action;
         }
 
-        private static List<Db.Action> SelectAllActionsForNoun(int noun)
+        private static List<Db.Action> ReadAllActionsForNounDb(int noun)
         {
-            ObjectResult<dev_GetAllActionsForNoun_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllActionsForNoun_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllActionsForNoun(noun);
+                databaseResult = m_entities.dev_ReadAllActionsForNoun(noun);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllActionsForNoun", e);
+                throw new GinTubDatabaseException("dev_ReadAllActionsForNoun", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllActionsForNoun", new Exception("No [Actions] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllActionsForNoun", new Exception("No [Actions] records found."));
 
             List<Db.Action> actions = databaseResult.Select(r => Mapper.Map<Db.Action>(r)).ToList();
             return actions;
@@ -3387,25 +3545,25 @@ namespace TBGINTB_Builder.Lib
 
         #region ResultTypes
 
-        private static int InsertResultType(string name)
+        private static int CreateResultTypeDb(string name)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddResultType(name);
+                databaseResult = m_entities.dev_CreateResultType(name);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddResultType", e);
+                throw new GinTubDatabaseException("dev_CreateResultType", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddResultType", new Exception("No [Id] was returned after [ResultType] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateResultType", new Exception("No [Id] was returned after [ResultType] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateResultType(int id, string name)
+        private static void UpdateResultTypeDb(int id, string name)
         {
             try
             {
@@ -3417,37 +3575,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static ResultType SelectResultType(int id)
+        private static ResultType ReadResultTypeDb(int id)
         {
-            ObjectResult<dev_GetResultType_Result> databaseResult = null;
+            ObjectResult<dev_ReadResultType_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetResultType(id);
+                databaseResult = m_entities.dev_ReadResultType(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetResultType", e);
+                throw new GinTubDatabaseException("dev_ReadResultType", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetResultType", new Exception(string.Format("No [ResultTypes] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadResultType", new Exception(string.Format("No [ResultTypes] record found with [Id] = {0}.", id)));
 
             ResultType resultType = Mapper.Map<ResultType>(databaseResult.Single());
             return resultType;
         }
 
-        private static List<ResultType> SelectAllResultTypes()
+        private static List<ResultType> ReadAllResultTypesDb()
         {
-            ObjectResult<dev_GetAllResultTypes_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllResultTypes_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllResultTypes();
+                databaseResult = m_entities.dev_ReadAllResultTypes();
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllResultTypes", e);
+                throw new GinTubDatabaseException("dev_ReadAllResultTypes", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllResultTypes", new Exception("No [ResultTypes] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllResultTypes", new Exception("No [ResultTypes] records found."));
 
             List<ResultType> resultTypes = databaseResult.Select(r => Mapper.Map<ResultType>(r)).ToList();
             return resultTypes;
@@ -3458,25 +3616,25 @@ namespace TBGINTB_Builder.Lib
 
         #region JSONPropertyDataTypes
 
-        private static int InsertJSONPropertyDataType(string dataType)
+        private static int CreateJSONPropertyDataTypeDb(string dataType)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddJSONPropertyDataType(dataType);
+                databaseResult = m_entities.dev_CreateJSONPropertyDataType(dataType);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddJSONPropertyDataType", e);
+                throw new GinTubDatabaseException("dev_CreateJSONPropertyDataType", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddJSONPropertyDataType", new Exception("No [Id] was returned after [JSONPropertyDataType] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateJSONPropertyDataType", new Exception("No [Id] was returned after [JSONPropertyDataType] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateJSONPropertyDataType(int id, string dataType)
+        private static void UpdateJSONPropertyDataTypeDb(int id, string dataType)
         {
             try
             {
@@ -3488,37 +3646,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static JSONPropertyDataType SelectJSONPropertyDataType(int id)
+        private static JSONPropertyDataType ReadJSONPropertyDataTypeDb(int id)
         {
-            ObjectResult<dev_GetJSONPropertyDataType_Result> databaseResult = null;
+            ObjectResult<dev_ReadJSONPropertyDataType_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetJSONPropertyDataType(id);
+                databaseResult = m_entities.dev_ReadJSONPropertyDataType(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetJSONPropertyDataType", e);
+                throw new GinTubDatabaseException("dev_ReadJSONPropertyDataType", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetJSONPropertyDataType", new Exception(string.Format("No [JSONPropertyDataTypes] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadJSONPropertyDataType", new Exception(string.Format("No [JSONPropertyDataTypes] record found with [Id] = {0}.", id)));
 
             JSONPropertyDataType jsonPropertyDataType = Mapper.Map<JSONPropertyDataType>(databaseResult.Single());
             return jsonPropertyDataType;
         }
 
-        private static List<JSONPropertyDataType> SelectAllJSONPropertyDataTypes()
+        private static List<JSONPropertyDataType> ReadAllJSONPropertyDataTypesDb()
         {
-            ObjectResult<dev_GetAllJSONPropertyDataTypes_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllJSONPropertyDataTypes_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllJSONPropertyDataTypes();
+                databaseResult = m_entities.dev_ReadAllJSONPropertyDataTypes();
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllJSONPropertyDataTypes", e);
+                throw new GinTubDatabaseException("dev_ReadAllJSONPropertyDataTypes", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllJSONPropertyDataTypes", new Exception("No [JSONPropertyDataTypes] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllJSONPropertyDataTypes", new Exception("No [JSONPropertyDataTypes] records found."));
 
             List<JSONPropertyDataType> jsonPropertyDataTypes = databaseResult.Select(r => Mapper.Map<JSONPropertyDataType>(r)).ToList();
             return jsonPropertyDataTypes;
@@ -3529,25 +3687,25 @@ namespace TBGINTB_Builder.Lib
 
         #region ResultTypeJSONProperties
 
-        private static int InsertResultTypeJSONProperty(string jsonProperty, int dataType, int resultType)
+        private static int CreateResultTypeJSONPropertyDb(string jsonProperty, int dataType, int resultType)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddResultTypeJSONProperty(jsonProperty, dataType, resultType);
+                databaseResult = m_entities.dev_CreateResultTypeJSONProperty(jsonProperty, dataType, resultType);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddResultTypeJSONProperty", e);
+                throw new GinTubDatabaseException("dev_CreateResultTypeJSONProperty", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddResultTypeJSONProperty", new Exception("No [Id] was returned after [ResultTypeJSONProperty] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateResultTypeJSONProperty", new Exception("No [Id] was returned after [ResultTypeJSONProperty] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateResultTypeJSONProperty(int id, string jsonProperty, int dataType, int resultType)
+        private static void UpdateResultTypeJSONPropertyDb(int id, string jsonProperty, int dataType, int resultType)
         {
             try
             {
@@ -3559,37 +3717,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static ResultTypeJSONProperty SelectResultTypeJSONProperty(int id)
+        private static ResultTypeJSONProperty ReadResultTypeJSONPropertyDb(int id)
         {
-            ObjectResult<dev_GetResultTypeJSONProperty_Result> databaseResult = null;
+            ObjectResult<dev_ReadResultTypeJSONProperty_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetResultTypeJSONProperty(id);
+                databaseResult = m_entities.dev_ReadResultTypeJSONProperty(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetResultTypeJSONProperty", e);
+                throw new GinTubDatabaseException("dev_ReadResultTypeJSONProperty", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetResultTypeJSONProperty", new Exception(string.Format("No [ResultTypeJSONProperties] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadResultTypeJSONProperty", new Exception(string.Format("No [ResultTypeJSONProperties] record found with [Id] = {0}.", id)));
 
             ResultTypeJSONProperty resultTypeJSONProperty = Mapper.Map<ResultTypeJSONProperty>(databaseResult.Single());
             return resultTypeJSONProperty;
         }
 
-        private static List<ResultTypeJSONProperty> SelectAllResultTypeJSONPropertiesForResultType(int resultType)
+        private static List<ResultTypeJSONProperty> ReadAllResultTypeJSONPropertiesForResultTypeDb(int resultType)
         {
-            ObjectResult<dev_GetAllResultTypeJSONPropertiesForResultType_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllResultTypeJSONPropertiesForResultType_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllResultTypeJSONPropertiesForResultType(resultType);
+                databaseResult = m_entities.dev_ReadAllResultTypeJSONPropertiesForResultType(resultType);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllResultTypeJSONPropertiesForResultType", e);
+                throw new GinTubDatabaseException("dev_ReadAllResultTypeJSONPropertiesForResultType", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllResultTypeJSONPropertiesForResultType", new Exception("No [ResultTypeJSONProperties] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllResultTypeJSONPropertiesForResultType", new Exception("No [ResultTypeJSONProperties] records found."));
 
             List<ResultTypeJSONProperty> resultTypeJSONProperties = databaseResult.Select(r => Mapper.Map<ResultTypeJSONProperty>(r)).ToList();
             return resultTypeJSONProperties;
@@ -3600,25 +3758,25 @@ namespace TBGINTB_Builder.Lib
 
         #region Results
 
-        private static int InsertResult(string name, string jsonData, int resultType)
+        private static int CreateResultDb(string name, string jsonData, int resultType)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddResult(name, jsonData, resultType);
+                databaseResult = m_entities.dev_CreateResult(name, jsonData, resultType);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddResult", e);
+                throw new GinTubDatabaseException("dev_CreateResult", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddResult", new Exception("No [Id] was returned after [Result] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateResult", new Exception("No [Id] was returned after [Result] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateResult(int id, string name, string jsonData, int resultType)
+        private static void UpdateResultDb(int id, string name, string jsonData, int resultType)
         {
             try
             {
@@ -3630,73 +3788,73 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Result SelectResult(int id)
+        private static Result ReadResultDb(int id)
         {
-            ObjectResult<dev_GetResult_Result> databaseResult = null;
+            ObjectResult<dev_ReadResult_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetResult(id);
+                databaseResult = m_entities.dev_ReadResult(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetResult", e);
+                throw new GinTubDatabaseException("dev_ReadResult", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetResult", new Exception(string.Format("No [Results] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadResult", new Exception(string.Format("No [Results] record found with [Id] = {0}.", id)));
 
             Result result = Mapper.Map<Result>(databaseResult.Single());
             return result;
         }
 
-        private static List<Result> SelectAllResultsForResultType(int resultType)
+        private static List<Result> ReadAllResultsForResultTypeDb(int resultType)
         {
-            ObjectResult<dev_GetAllResultsForResultType_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllResultsForResultType_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllResultsForResultType(resultType);
+                databaseResult = m_entities.dev_ReadAllResultsForResultType(resultType);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllResultsForResultType", e);
+                throw new GinTubDatabaseException("dev_ReadAllResultsForResultType", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllResultsForResultType", new Exception("No [Results] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllResultsForResultType", new Exception("No [Results] records found."));
 
             List<Result> results = databaseResult.Select(r => Mapper.Map<Result>(r)).ToList();
             return results;
         }
 
-        private static List<Result> SelectAllResultsForActionResultType(int action)
+        private static List<Result> ReadAllResultsForActionResultTypeDb(int action)
         {
-            ObjectResult<dev_GetAllResultsForActionResultType_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllResultsForActionResultType_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllResultsForActionResultType(action);
+                databaseResult = m_entities.dev_ReadAllResultsForActionResultType(action);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllResultsForActionResultType", e);
+                throw new GinTubDatabaseException("dev_ReadAllResultsForActionResultType", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllResultsForActionResultType", new Exception("No [Results] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllResultsForActionResultType", new Exception("No [Results] records found."));
 
             List<Result> results = databaseResult.Select(r => Mapper.Map<Result>(r)).ToList();
             return results;
         }
 
-        private static List<Result> SelectAllResultsForMessageChoiceResultType(int messageChoice)
+        private static List<Result> ReadAllResultsForMessageChoiceResultTypeDb(int messageChoice)
         {
-            ObjectResult<dev_GetAllResultsForMessageChoiceResultType_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllResultsForMessageChoiceResultType_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllResultsForMessageChoiceResultType(messageChoice);
+                databaseResult = m_entities.dev_ReadAllResultsForMessageChoiceResultType(messageChoice);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllResultsForMessageChoiceResultType", e);
+                throw new GinTubDatabaseException("dev_ReadAllResultsForMessageChoiceResultType", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllResultsForMessageChoiceResultType", new Exception("No [Results] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllResultsForMessageChoiceResultType", new Exception("No [Results] records found."));
 
             List<Result> results = databaseResult.Select(r => Mapper.Map<Result>(r)).ToList();
             return results;
@@ -3707,25 +3865,25 @@ namespace TBGINTB_Builder.Lib
 
         #region ActionResults
 
-        private static int InsertActionResult(int result, int action)
+        private static int CreateActionResultDb(int result, int action)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddActionResult(result, action);
+                databaseResult = m_entities.dev_CreateActionResult(result, action);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddActionResult", e);
+                throw new GinTubDatabaseException("dev_CreateActionResult", e);
             }
             var reslt = databaseResult.FirstOrDefault();
             if (!reslt.HasValue)
-                throw new GinTubDatabaseException("dev_AddActionResult", new Exception("No [Id] was returned after [ActionResult] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateActionResult", new Exception("No [Id] was returned after [ActionResult] INSERT."));
 
             return (int)reslt.Value;
         }
 
-        private static void UpdateActionResult(int id, int result, int action)
+        private static void UpdateActionResultDb(int id, int result, int action)
         {
             try
             {
@@ -3737,37 +3895,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static ActionResult SelectActionResult(int id)
+        private static ActionResult ReadActionResultDb(int id)
         {
-            ObjectResult<dev_GetActionResult_Result> databaseResult = null;
+            ObjectResult<dev_ReadActionResult_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetActionResult(id);
+                databaseResult = m_entities.dev_ReadActionResult(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetActionResult", e);
+                throw new GinTubDatabaseException("dev_ReadActionResult", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetActionResult", new Exception(string.Format("No [ActionResults] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadActionResult", new Exception(string.Format("No [ActionResults] record found with [Id] = {0}.", id)));
 
             ActionResult actionResult = Mapper.Map<ActionResult>(databaseResult.Single());
             return actionResult;
         }
 
-        private static List<ActionResult> SelectAllActionResultsForAction(int action)
+        private static List<ActionResult> ReadAllActionResultsForActionDb(int action)
         {
-            ObjectResult<dev_GetAllActionResultsForAction_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllActionResultsForAction_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllActionResultsForAction(action);
+                databaseResult = m_entities.dev_ReadAllActionResultsForAction(action);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllActionResultsForAction", e);
+                throw new GinTubDatabaseException("dev_ReadAllActionResultsForAction", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllActionResultsForAction", new Exception("No [ActionResults] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllActionResultsForAction", new Exception("No [ActionResults] records found."));
 
             List<ActionResult> actionResults = databaseResult.Select(r => Mapper.Map<ActionResult>(r)).ToList();
             return actionResults;
@@ -3778,25 +3936,25 @@ namespace TBGINTB_Builder.Lib
 
         #region Items
 
-        private static int InsertItem(string name, string description)
+        private static int CreateItemDb(string name, string description)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddItem(name, description);
+                databaseResult = m_entities.dev_CreateItem(name, description);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddItem", e);
+                throw new GinTubDatabaseException("dev_CreateItem", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddItem", new Exception("No [Id] was returned after [Item] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateItem", new Exception("No [Id] was returned after [Item] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateItem(int id, string name, string description)
+        private static void UpdateItemDb(int id, string name, string description)
         {
             try
             {
@@ -3808,37 +3966,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Item SelectItem(int id)
+        private static Item ReadItemDb(int id)
         {
-            ObjectResult<dev_GetItem_Result> databaseResult = null;
+            ObjectResult<dev_ReadItem_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetItem(id);
+                databaseResult = m_entities.dev_ReadItem(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetItem", e);
+                throw new GinTubDatabaseException("dev_ReadItem", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetItem", new Exception(string.Format("No [Items] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadItem", new Exception(string.Format("No [Items] record found with [Id] = {0}.", id)));
 
             Item item = Mapper.Map<Item>(databaseResult.Single());
             return item;
         }
 
-        private static List<Item> SelectAllItems()
+        private static List<Item> ReadAllItemsDb()
         {
-            ObjectResult<dev_GetAllItems_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllItems_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllItems();
+                databaseResult = m_entities.dev_ReadAllItems();
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllItems", e);
+                throw new GinTubDatabaseException("dev_ReadAllItems", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllItems", new Exception("No [Items] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllItems", new Exception("No [Items] records found."));
 
             List<Item> items = databaseResult.Select(r => Mapper.Map<Item>(r)).ToList();
             return items;
@@ -3849,25 +4007,25 @@ namespace TBGINTB_Builder.Lib
 
         #region Events
 
-        private static int InsertEvent(string name, string description)
+        private static int CreateEventDb(string name, string description)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddEvent(name, description);
+                databaseResult = m_entities.dev_CreateEvent(name, description);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddEvent", e);
+                throw new GinTubDatabaseException("dev_CreateEvent", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddEvent", new Exception("No [Id] was returned after [Event] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateEvent", new Exception("No [Id] was returned after [Event] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateEvent(int id, string name, string description)
+        private static void UpdateEventDb(int id, string name, string description)
         {
             try
             {
@@ -3879,37 +4037,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Event SelectEvent(int id)
+        private static Event ReadEventDb(int id)
         {
-            ObjectResult<dev_GetEvent_Result> databaseResult = null;
+            ObjectResult<dev_ReadEvent_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetEvent(id);
+                databaseResult = m_entities.dev_ReadEvent(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetEvent", e);
+                throw new GinTubDatabaseException("dev_ReadEvent", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetEvent", new Exception(string.Format("No [Events] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadEvent", new Exception(string.Format("No [Events] record found with [Id] = {0}.", id)));
 
             Event evnt = Mapper.Map<Event>(databaseResult.Single());
             return evnt;
         }
 
-        private static List<Event> SelectAllEvents()
+        private static List<Event> ReadAllEventsDb()
         {
-            ObjectResult<dev_GetAllEvents_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllEvents_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllEvents();
+                databaseResult = m_entities.dev_ReadAllEvents();
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllEvents", e);
+                throw new GinTubDatabaseException("dev_ReadAllEvents", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllEvents", new Exception("No [Events] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllEvents", new Exception("No [Events] records found."));
 
             List<Event> evnts = databaseResult.Select(r => Mapper.Map<Event>(r)).ToList();
             return evnts;
@@ -3920,25 +4078,25 @@ namespace TBGINTB_Builder.Lib
 
         #region Characters
 
-        private static int InsertCharacter(string name, string description)
+        private static int CreateCharacterDb(string name, string description)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddCharacter(name, description);
+                databaseResult = m_entities.dev_CreateCharacter(name, description);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddCharacter", e);
+                throw new GinTubDatabaseException("dev_CreateCharacter", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddCharacter", new Exception("No [Id] was returned after [Character] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateCharacter", new Exception("No [Id] was returned after [Character] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateCharacter(int id, string name, string description)
+        private static void UpdateCharacterDb(int id, string name, string description)
         {
             try
             {
@@ -3950,37 +4108,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Character SelectCharacter(int id)
+        private static Character ReadCharacterDb(int id)
         {
-            ObjectResult<dev_GetCharacter_Result> databaseResult = null;
+            ObjectResult<dev_ReadCharacter_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetCharacter(id);
+                databaseResult = m_entities.dev_ReadCharacter(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetCharacter", e);
+                throw new GinTubDatabaseException("dev_ReadCharacter", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetCharacter", new Exception(string.Format("No [Characters] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadCharacter", new Exception(string.Format("No [Characters] record found with [Id] = {0}.", id)));
 
             Character character = Mapper.Map<Character>(databaseResult.Single());
             return character;
         }
 
-        private static List<Character> SelectAllCharacters()
+        private static List<Character> ReadAllCharactersDb()
         {
-            ObjectResult<dev_GetAllCharacters_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllCharacters_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllCharacters();
+                databaseResult = m_entities.dev_ReadAllCharacters();
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllCharacters", e);
+                throw new GinTubDatabaseException("dev_ReadAllCharacters", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllCharacters", new Exception("No [Characters] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllCharacters", new Exception("No [Characters] records found."));
 
             List<Character> characters = databaseResult.Select(r => Mapper.Map<Character>(r)).ToList();
             return characters;
@@ -3991,25 +4149,25 @@ namespace TBGINTB_Builder.Lib
 
         #region ItemActionRequirements
 
-        private static int InsertItemActionRequirement(int item, int action)
+        private static int CreateItemActionRequirementDb(int item, int action)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddItemActionRequirement(item, action);
+                databaseResult = m_entities.dev_CreateItemActionRequirement(item, action);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddItemActionRequirement", e);
+                throw new GinTubDatabaseException("dev_CreateItemActionRequirement", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddItemActionRequirement", new Exception("No [Id] was returned after [ItemActionRequirement] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateItemActionRequirement", new Exception("No [Id] was returned after [ItemActionRequirement] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateItemActionRequirement(int id, int item, int action)
+        private static void UpdateItemActionRequirementDb(int id, int item, int action)
         {
             try
             {
@@ -4021,37 +4179,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static ItemActionRequirement SelectItemActionRequirement(int id)
+        private static ItemActionRequirement ReadItemActionRequirementDb(int id)
         {
-            ObjectResult<dev_GetItemActionRequirement_Result> databaseResult = null;
+            ObjectResult<dev_ReadItemActionRequirement_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetItemActionRequirement(id);
+                databaseResult = m_entities.dev_ReadItemActionRequirement(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetItemActionRequirement", e);
+                throw new GinTubDatabaseException("dev_ReadItemActionRequirement", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetItemActionRequirement", new Exception(string.Format("No [ItemActionRequirements] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadItemActionRequirement", new Exception(string.Format("No [ItemActionRequirements] record found with [Id] = {0}.", id)));
 
             ItemActionRequirement itemActionRequirement = Mapper.Map<ItemActionRequirement>(databaseResult.Single());
             return itemActionRequirement;
         }
 
-        private static List<ItemActionRequirement> SelectAllItemActionRequirementsForAction(int action)
+        private static List<ItemActionRequirement> ReadAllItemActionRequirementsForActionDb(int action)
         {
-            ObjectResult<dev_GetAllItemActionRequirementsForAction_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllItemActionRequirementsForAction_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllItemActionRequirementsForAction(action);
+                databaseResult = m_entities.dev_ReadAllItemActionRequirementsForAction(action);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllItemActionRequirementsForAction", e);
+                throw new GinTubDatabaseException("dev_ReadAllItemActionRequirementsForAction", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllItemActionRequirementsForAction", new Exception("No [ItemActionRequirements] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllItemActionRequirementsForAction", new Exception("No [ItemActionRequirements] records found."));
 
             List<ItemActionRequirement> itemActionRequirements = databaseResult.Select(r => Mapper.Map<ItemActionRequirement>(r)).ToList();
             return itemActionRequirements;
@@ -4062,25 +4220,25 @@ namespace TBGINTB_Builder.Lib
 
         #region EventActionRequirements
 
-        private static int InsertEventActionRequirement(int evnt, int action)
+        private static int CreateEventActionRequirementDb(int evnt, int action)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddEventActionRequirement(evnt, action);
+                databaseResult = m_entities.dev_CreateEventActionRequirement(evnt, action);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddEventActionRequirement", e);
+                throw new GinTubDatabaseException("dev_CreateEventActionRequirement", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddEventActionRequirement", new Exception("No [Id] was returned after [EventActionRequirement] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateEventActionRequirement", new Exception("No [Id] was returned after [EventActionRequirement] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateEventActionRequirement(int id, int evnt, int action)
+        private static void UpdateEventActionRequirementDb(int id, int evnt, int action)
         {
             try
             {
@@ -4092,37 +4250,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static EventActionRequirement SelectEventActionRequirement(int id)
+        private static EventActionRequirement ReadEventActionRequirementDb(int id)
         {
-            ObjectResult<dev_GetEventActionRequirement_Result> databaseResult = null;
+            ObjectResult<dev_ReadEventActionRequirement_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetEventActionRequirement(id);
+                databaseResult = m_entities.dev_ReadEventActionRequirement(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetEventActionRequirement", e);
+                throw new GinTubDatabaseException("dev_ReadEventActionRequirement", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetEventActionRequirement", new Exception(string.Format("No [EventActionRequirements] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadEventActionRequirement", new Exception(string.Format("No [EventActionRequirements] record found with [Id] = {0}.", id)));
 
             EventActionRequirement evntActionRequirement = Mapper.Map<EventActionRequirement>(databaseResult.Single());
             return evntActionRequirement;
         }
 
-        private static List<EventActionRequirement> SelectAllEventActionRequirementsForAction(int action)
+        private static List<EventActionRequirement> ReadAllEventActionRequirementsForActionDb(int action)
         {
-            ObjectResult<dev_GetAllEventActionRequirementsForAction_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllEventActionRequirementsForAction_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllEventActionRequirementsForAction(action);
+                databaseResult = m_entities.dev_ReadAllEventActionRequirementsForAction(action);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllEventActionRequirementsForAction", e);
+                throw new GinTubDatabaseException("dev_ReadAllEventActionRequirementsForAction", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllEventActionRequirementsForAction", new Exception("No [EventActionRequirements] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllEventActionRequirementsForAction", new Exception("No [EventActionRequirements] records found."));
 
             List<EventActionRequirement> evntActionRequirements = databaseResult.Select(r => Mapper.Map<EventActionRequirement>(r)).ToList();
             return evntActionRequirements;
@@ -4133,25 +4291,25 @@ namespace TBGINTB_Builder.Lib
 
         #region CharacterActionRequirements
 
-        private static int InsertCharacterActionRequirement(int character, int action)
+        private static int CreateCharacterActionRequirementDb(int character, int action)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddCharacterActionRequirement(character, action);
+                databaseResult = m_entities.dev_CreateCharacterActionRequirement(character, action);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddCharacterActionRequirement", e);
+                throw new GinTubDatabaseException("dev_CreateCharacterActionRequirement", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddCharacterActionRequirement", new Exception("No [Id] was returned after [CharacterActionRequirement] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateCharacterActionRequirement", new Exception("No [Id] was returned after [CharacterActionRequirement] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateCharacterActionRequirement(int id, int character, int action)
+        private static void UpdateCharacterActionRequirementDb(int id, int character, int action)
         {
             try
             {
@@ -4163,37 +4321,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static CharacterActionRequirement SelectCharacterActionRequirement(int id)
+        private static CharacterActionRequirement ReadCharacterActionRequirementDb(int id)
         {
-            ObjectResult<dev_GetCharacterActionRequirement_Result> databaseResult = null;
+            ObjectResult<dev_ReadCharacterActionRequirement_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetCharacterActionRequirement(id);
+                databaseResult = m_entities.dev_ReadCharacterActionRequirement(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetCharacterActionRequirement", e);
+                throw new GinTubDatabaseException("dev_ReadCharacterActionRequirement", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetCharacterActionRequirement", new Exception(string.Format("No [CharacterActionRequirements] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadCharacterActionRequirement", new Exception(string.Format("No [CharacterActionRequirements] record found with [Id] = {0}.", id)));
 
             CharacterActionRequirement characterActionRequirement = Mapper.Map<CharacterActionRequirement>(databaseResult.Single());
             return characterActionRequirement;
         }
 
-        private static List<CharacterActionRequirement> SelectAllCharacterActionRequirementsForAction(int action)
+        private static List<CharacterActionRequirement> ReadAllCharacterActionRequirementsForActionDb(int action)
         {
-            ObjectResult<dev_GetAllCharacterActionRequirementsForAction_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllCharacterActionRequirementsForAction_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllCharacterActionRequirementsForAction(action);
+                databaseResult = m_entities.dev_ReadAllCharacterActionRequirementsForAction(action);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllCharacterActionRequirementsForAction", e);
+                throw new GinTubDatabaseException("dev_ReadAllCharacterActionRequirementsForAction", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllCharacterActionRequirementsForAction", new Exception("No [CharacterActionRequirements] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllCharacterActionRequirementsForAction", new Exception("No [CharacterActionRequirements] records found."));
 
             List<CharacterActionRequirement> characterActionRequirements = databaseResult.Select(r => Mapper.Map<CharacterActionRequirement>(r)).ToList();
             return characterActionRequirements;
@@ -4204,25 +4362,25 @@ namespace TBGINTB_Builder.Lib
 
         #region Messages
 
-        private static int InsertMessage(string name, string text)
+        private static int CreateMessageDb(string name, string text)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddMessage(name, text);
+                databaseResult = m_entities.dev_CreateMessage(name, text);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddMessage", e);
+                throw new GinTubDatabaseException("dev_CreateMessage", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddMessage", new Exception("No [Id] was returned after [Message] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateMessage", new Exception("No [Id] was returned after [Message] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateMessage(int id, string name, string text)
+        private static void UpdateMessageDb(int id, string name, string text)
         {
             try
             {
@@ -4234,37 +4392,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static Message SelectMessage(int id)
+        private static Message ReadMessageDb(int id)
         {
-            ObjectResult<dev_GetMessage_Result> databaseResult = null;
+            ObjectResult<dev_ReadMessage_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetMessage(id);
+                databaseResult = m_entities.dev_ReadMessage(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetMessage", e);
+                throw new GinTubDatabaseException("dev_ReadMessage", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetMessage", new Exception(string.Format("No [Messages] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadMessage", new Exception(string.Format("No [Messages] record found with [Id] = {0}.", id)));
 
             Message message = Mapper.Map<Message>(databaseResult.Single());
             return message;
         }
 
-        private static List<Message> SelectAllMessages()
+        private static List<Message> ReadAllMessagesDb()
         {
-            ObjectResult<dev_GetAllMessages_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllMessages_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllMessages();
+                databaseResult = m_entities.dev_ReadAllMessages();
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllMessages", e);
+                throw new GinTubDatabaseException("dev_ReadAllMessages", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllMessages", new Exception("No [Messages] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllMessages", new Exception("No [Messages] records found."));
 
             List<Message> messages = databaseResult.Select(r => Mapper.Map<Message>(r)).ToList();
             return messages;
@@ -4275,25 +4433,25 @@ namespace TBGINTB_Builder.Lib
 
         #region MessageChoices
 
-        private static int InsertMessageChoice(string name, string text, int message)
+        private static int CreateMessageChoiceDb(string name, string text, int message)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddMessageChoice(name, text, message);
+                databaseResult = m_entities.dev_CreateMessageChoice(name, text, message);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddMessageChoice", e);
+                throw new GinTubDatabaseException("dev_CreateMessageChoice", e);
             }
             var result = databaseResult.FirstOrDefault();
             if (!result.HasValue)
-                throw new GinTubDatabaseException("dev_AddMessageChoice", new Exception("No [Id] was returned after [MessageChoice] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateMessageChoice", new Exception("No [Id] was returned after [MessageChoice] INSERT."));
 
             return (int)result.Value;
         }
 
-        private static void UpdateMessageChoice(int id, string name, string text, int message)
+        private static void UpdateMessageChoiceDb(int id, string name, string text, int message)
         {
             try
             {
@@ -4305,37 +4463,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static MessageChoice SelectMessageChoice(int id)
+        private static MessageChoice ReadMessageChoiceDb(int id)
         {
-            ObjectResult<dev_GetMessageChoice_Result> databaseResult = null;
+            ObjectResult<dev_ReadMessageChoice_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetMessageChoice(id);
+                databaseResult = m_entities.dev_ReadMessageChoice(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetMessageChoice", e);
+                throw new GinTubDatabaseException("dev_ReadMessageChoice", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetMessageChoice", new Exception(string.Format("No [MessageChoices] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadMessageChoice", new Exception(string.Format("No [MessageChoices] record found with [Id] = {0}.", id)));
 
             MessageChoice messageChoice = Mapper.Map<MessageChoice>(databaseResult.Single());
             return messageChoice;
         }
 
-        private static List<MessageChoice> SelectAllMessageChoicesForMessage(int message)
+        private static List<MessageChoice> ReadAllMessageChoicesForMessageDb(int message)
         {
-            ObjectResult<dev_GetAllMessageChoicesForMessage_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllMessageChoicesForMessage_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllMessageChoicesForMessage(message);
+                databaseResult = m_entities.dev_ReadAllMessageChoicesForMessage(message);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllMessageChoicesForMessage", e);
+                throw new GinTubDatabaseException("dev_ReadAllMessageChoicesForMessage", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllMessageChoicesForMessage", new Exception("No [MessageChoices] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllMessageChoicesForMessage", new Exception("No [MessageChoices] records found."));
 
             List<MessageChoice> messageChoices = databaseResult.Select(r => Mapper.Map<MessageChoice>(r)).ToList();
             return messageChoices;
@@ -4346,25 +4504,25 @@ namespace TBGINTB_Builder.Lib
 
         #region MessageChoiceResults
 
-        private static int InsertMessageChoiceResult(int result, int messageChoice)
+        private static int CreateMessageChoiceResultDb(int result, int messageChoice)
         {
             ObjectResult<decimal?> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_AddMessageChoiceResult(result, messageChoice);
+                databaseResult = m_entities.dev_CreateMessageChoiceResult(result, messageChoice);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_AddMessageChoiceResult", e);
+                throw new GinTubDatabaseException("dev_CreateMessageChoiceResult", e);
             }
             var reslt = databaseResult.FirstOrDefault();
             if (!reslt.HasValue)
-                throw new GinTubDatabaseException("dev_AddMessageChoiceResult", new Exception("No [Id] was returned after [MessageChoiceResult] INSERT."));
+                throw new GinTubDatabaseException("dev_CreateMessageChoiceResult", new Exception("No [Id] was returned after [MessageChoiceResult] INSERT."));
 
             return (int)reslt.Value;
         }
 
-        private static void UpdateMessageChoiceResult(int id, int result, int messageChoice)
+        private static void UpdateMessageChoiceResultDb(int id, int result, int messageChoice)
         {
             try
             {
@@ -4376,37 +4534,37 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static MessageChoiceResult SelectMessageChoiceResult(int id)
+        private static MessageChoiceResult ReadMessageChoiceResultDb(int id)
         {
-            ObjectResult<dev_GetMessageChoiceResult_Result> databaseResult = null;
+            ObjectResult<dev_ReadMessageChoiceResult_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetMessageChoiceResult(id);
+                databaseResult = m_entities.dev_ReadMessageChoiceResult(id);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetMessageChoiceResult", e);
+                throw new GinTubDatabaseException("dev_ReadMessageChoiceResult", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetMessageChoiceResult", new Exception(string.Format("No [MessageChoiceResults] record found with [Id] = {0}.", id)));
+                throw new GinTubDatabaseException("dev_ReadMessageChoiceResult", new Exception(string.Format("No [MessageChoiceResults] record found with [Id] = {0}.", id)));
 
             MessageChoiceResult messageChoiceResult = Mapper.Map<MessageChoiceResult>(databaseResult.Single());
             return messageChoiceResult;
         }
 
-        private static List<MessageChoiceResult> SelectAllMessageChoiceResultsForMessageChoice(int messageChoice)
+        private static List<MessageChoiceResult> ReadAllMessageChoiceResultsForMessageChoiceDb(int messageChoice)
         {
-            ObjectResult<dev_GetAllMessageChoiceResultsForMessageChoice_Result> databaseResult = null;
+            ObjectResult<dev_ReadAllMessageChoiceResultsForMessageChoice_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAllMessageChoiceResultsForMessageChoice(messageChoice);
+                databaseResult = m_entities.dev_ReadAllMessageChoiceResultsForMessageChoice(messageChoice);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAllMessageChoiceResultsForMessageChoice", e);
+                throw new GinTubDatabaseException("dev_ReadAllMessageChoiceResultsForMessageChoice", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAllMessageChoiceResultsForMessageChoice", new Exception("No [MessageChoiceResults] records found."));
+                throw new GinTubDatabaseException("dev_ReadAllMessageChoiceResultsForMessageChoice", new Exception("No [MessageChoiceResults] records found."));
 
             List<MessageChoiceResult> messageChoiceResults = databaseResult.Select(r => Mapper.Map<MessageChoiceResult>(r)).ToList();
             return messageChoiceResults;
@@ -4417,23 +4575,23 @@ namespace TBGINTB_Builder.Lib
 
         #region RoomPreviews
 
-        private static Tuple<List<RoomPreviewParagraphState>> SelectRoomPreview(int room)
+        private static Tuple<List<RoomPreviewParagraphState>> ReadRoomPreviewDb(int room)
         {
             List<RoomPreviewParagraphState> roomPreviewParagraphStates = new List<RoomPreviewParagraphState>();
             List<RoomPreviewNoun> roomPreviewNouns = new List<RoomPreviewNoun>();
             try
             {
-                var paragraphStates = m_entities.dev_GetRoomPreview(room);
+                var paragraphStates = m_entities.dev_ReadRoomPreview(room);
                 roomPreviewParagraphStates.AddRange(paragraphStates.Select(r => Mapper.Map<RoomPreviewParagraphState>(r)));
 
-                var noun = paragraphStates.GetNextResult<dev_GetRoomPreviewNouns_Result>();
+                var noun = paragraphStates.GetNextResult<dev_ReadRoomPreviewNouns_Result>();
                 roomPreviewNouns.AddRange(noun.Select(r => Mapper.Map<RoomPreviewNoun>(r)));
                 foreach (var roomPreviewParagraphState in roomPreviewParagraphStates)
                     Mapper.Map(roomPreviewNouns.Where(n => n.ParagraphState == roomPreviewParagraphState.Id).ToArray(), roomPreviewParagraphState);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetRoomPreview", e);
+                throw new GinTubDatabaseException("dev_ReadRoomPreview", e);
             }
 
             return new Tuple<List<RoomPreviewParagraphState>>(roomPreviewParagraphStates);
@@ -4444,7 +4602,7 @@ namespace TBGINTB_Builder.Lib
 
         #region AreaRoomOnInitialLoads
 
-        private static void UpsertAreaRoomOnInitialLoad(int area, int room)
+        private static void UpsertAreaRoomOnInitialLoadDb(int area, int room)
         {
             try
             {
@@ -4456,22 +4614,22 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static AreaRoomOnInitialLoad SelectAreaRoomOnInitialLoad()
+        private static AreaRoomOnInitialLoad ReadAreaRoomOnInitialLoadDb()
         {
-            ObjectResult<dev_GetAreaRoomOnInitialLoad_Result> databaseResult = null;
+            ObjectResult<dev_ReadAreaRoomOnInitialLoad_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_GetAreaRoomOnInitialLoad();
+                databaseResult = m_entities.dev_ReadAreaRoomOnInitialLoad();
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_GetAreaRoomOnInitialLoad", e);
+                throw new GinTubDatabaseException("dev_ReadAreaRoomOnInitialLoad", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_GetAreaRoomOnInitialLoad", new Exception("No [AreaRoomOnInitialLoads] record found."));
+                throw new GinTubDatabaseException("dev_ReadAreaRoomOnInitialLoad", new Exception("No [AreaRoomOnInitialLoads] record found."));
 
-            AreaRoomOnInitialLoad areaRoomOnInitialLoad = Mapper.Map<AreaRoomOnInitialLoad>(databaseResult.Single());
-            return areaRoomOnInitialLoad;
+            AreaRoomOnInitialLoad areaRoomOnInitialRead = Mapper.Map<AreaRoomOnInitialLoad>(databaseResult.Single());
+            return areaRoomOnInitialRead;
         }
 
         #endregion

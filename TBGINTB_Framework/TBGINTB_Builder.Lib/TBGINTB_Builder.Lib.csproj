@@ -139,172 +139,184 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>devSchema.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetActionResult_Result.cs">
+    <Compile Include="Repository\dev_ReadActionResult_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAction_Result.cs">
+    <Compile Include="Repository\dev_ReadAction_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllActionResultsForAction_Result.cs">
+    <Compile Include="Repository\dev_ReadAllActionResultsForAction_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllActionsForNoun_Result.cs">
+    <Compile Include="Repository\dev_ReadAllActionsForNoun_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllAreas_Result.cs">
+    <Compile Include="Repository\dev_ReadAllAreas_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllCharacterActionRequirementsForAction_Result.cs">
+    <Compile Include="Repository\dev_ReadAllCharacterActionRequirementsForAction_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllCharacters_Result.cs">
+    <Compile Include="Repository\dev_ReadAllCharacters_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllEventActionRequirementsForAction_Result.cs">
+    <Compile Include="Repository\dev_ReadAllEventActionRequirementsForAction_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllEvents_Result.cs">
+    <Compile Include="Repository\dev_ReadAllEvents_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllItemActionRequirementsForAction_Result.cs">
+    <Compile Include="Repository\dev_ReadAllItemActionRequirementsForAction_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllItems_Result.cs">
+    <Compile Include="Repository\dev_ReadAllItems_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllJSONPropertyDataTypes_Result.cs">
+    <Compile Include="Repository\dev_ReadAllJSONPropertyDataTypes_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllLocations_Result.cs">
+    <Compile Include="Repository\dev_ReadAllLocations_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllMessageChoiceResultsForMessageChoice_Result.cs">
+    <Compile Include="Repository\dev_ReadAllMessageChoiceResultsForMessageChoice_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllMessageChoicesForMessage_Result.cs">
+    <Compile Include="Repository\dev_ReadAllMessageChoicesForMessage_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllMessages_Result.cs">
+    <Compile Include="Repository\dev_ReadAllMessages_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllNounsForParagraphState_Result.cs">
+    <Compile Include="Repository\dev_ReadAllNounsForParagraphState_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllParagraphsForRoomAndRoomState_Result.cs">
+    <Compile Include="Repository\dev_ReadAllParagraphRoomStatesForParagraph_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllParagraphsForRoom_Result.cs">
+    <Compile Include="Repository\dev_ReadAllParagraphRoomStatesForRoomState_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllParagraphStatesForParagraph_Result.cs">
+    <Compile Include="Repository\dev_ReadAllParagraphsForRoomAndRoomState_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllResultsForActionResultType_Result.cs">
+    <Compile Include="Repository\dev_ReadAllParagraphsForRoom_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllResultsForMessageChoiceResultType_Result.cs">
+    <Compile Include="Repository\dev_ReadAllParagraphStatesForParagraph_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllResultsForResultType_Result.cs">
+    <Compile Include="Repository\dev_ReadAllResultsForActionResultType_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllResultTypeJSONPropertiesForResultType_Result.cs">
+    <Compile Include="Repository\dev_ReadAllResultsForMessageChoiceResultType_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllResultTypes_Result.cs">
+    <Compile Include="Repository\dev_ReadAllResultsForResultType_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllRoomsInAreaOnFloor_Result.cs">
+    <Compile Include="Repository\dev_ReadAllResultTypeJSONPropertiesForResultType_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllRoomsInArea_Result.cs">
+    <Compile Include="Repository\dev_ReadAllResultTypes_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllRoomStatesForRoom_Result.cs">
+    <Compile Include="Repository\dev_ReadAllRoomsInAreaOnFloor_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllVerbsForVerbType_Result.cs">
+    <Compile Include="Repository\dev_ReadAllRoomsInArea_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAllVerbTypes_Result.cs">
+    <Compile Include="Repository\dev_ReadAllRoomStatesForRoom_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetAreaRoomOnInitialLoad_Result.cs">
+    <Compile Include="Repository\dev_ReadAllVerbsForVerbType_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetArea_Result.cs">
+    <Compile Include="Repository\dev_ReadAllVerbTypes_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetCharacterActionRequirement_Result.cs">
+    <Compile Include="Repository\dev_ReadAreaRoomOnInitialLoad_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetCharacter_Result.cs">
+    <Compile Include="Repository\dev_ReadArea_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetEventActionRequirement_Result.cs">
+    <Compile Include="Repository\dev_ReadCharacterActionRequirement_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetEvent_Result.cs">
+    <Compile Include="Repository\dev_ReadCharacter_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetItemActionRequirement_Result.cs">
+    <Compile Include="Repository\dev_ReadEventActionRequirement_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetItem_Result.cs">
+    <Compile Include="Repository\dev_ReadEvent_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetJSONPropertyDataType_Result.cs">
+    <Compile Include="Repository\dev_ReadItemActionRequirement_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetLocation_Result.cs">
+    <Compile Include="Repository\dev_ReadItem_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetMessageChoiceResult_Result.cs">
+    <Compile Include="Repository\dev_ReadJSONPropertyDataType_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetMessageChoice_Result.cs">
+    <Compile Include="Repository\dev_ReadLocation_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetMessage_Result.cs">
+    <Compile Include="Repository\dev_ReadMessageChoiceResult_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetNoun_Result.cs">
+    <Compile Include="Repository\dev_ReadMessageChoice_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetParagraphStateForParagraphPreview_Result.cs">
+    <Compile Include="Repository\dev_ReadMessage_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetParagraphState_Result.cs">
+    <Compile Include="Repository\dev_ReadNoun_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetParagraph_Result.cs">
+    <Compile Include="Repository\dev_ReadParagraphRoomState_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetResultTypeJSONProperty_Result.cs">
+    <Compile Include="Repository\dev_ReadParagraphStateForParagraphPreview_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetResultType_Result.cs">
+    <Compile Include="Repository\dev_ReadParagraphState_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetResult_Result.cs">
+    <Compile Include="Repository\dev_ReadParagraph_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetRoomPreviewNouns_Result.cs">
+    <Compile Include="Repository\dev_ReadResultTypeJSONProperty_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetRoomPreviewParagraphStates_Result.cs">
+    <Compile Include="Repository\dev_ReadResultType_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetRoomState_Result.cs">
+    <Compile Include="Repository\dev_ReadResult_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetRoom_Result.cs">
+    <Compile Include="Repository\dev_ReadRoomPreviewNouns_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetVerbType_Result.cs">
+    <Compile Include="Repository\dev_ReadRoomPreviewParagraphStates_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_GetVerb_Result.cs">
+    <Compile Include="Repository\dev_ReadRoomPreview_Result.cs">
+      <DependentUpon>devSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\dev_ReadRoomState_Result.cs">
+      <DependentUpon>devSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\dev_ReadRoom_Result.cs">
+      <DependentUpon>devSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\dev_ReadVerbType_Result.cs">
+      <DependentUpon>devSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\dev_ReadVerb_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -334,7 +346,6 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -342,6 +353,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

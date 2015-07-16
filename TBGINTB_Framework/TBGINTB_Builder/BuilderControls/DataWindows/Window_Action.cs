@@ -42,8 +42,8 @@ namespace TBGINTB_Builder.BuilderControls
             Height = 300;
             Content = CreateControls(actionId, actionVerbType, actionNoun, paragraphStateId);
             m_userControl_action.SetActiveAndRegisterForGinTubEvents(); // needed for possible nouns
-            GinTubBuilderManager.LoadAllVerbTypes();
-            GinTubBuilderManager.LoadAllNounsForParagraphState(paragraphStateId);
+            GinTubBuilderManager.ReadAllVerbTypes();
+            GinTubBuilderManager.ReadAllNounsForParagraphState(paragraphStateId);
         }
 
         #endregion

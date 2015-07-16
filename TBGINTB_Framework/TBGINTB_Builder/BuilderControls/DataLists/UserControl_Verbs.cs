@@ -49,12 +49,12 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.VerbAdded += GinTubBuilderManager_VerbAdded;
+            GinTubBuilderManager.VerbRead += GinTubBuilderManager_VerbRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.VerbAdded -= GinTubBuilderManager_VerbAdded;
+            GinTubBuilderManager.VerbRead -= GinTubBuilderManager_VerbRead;
         }
 
         #endregion
@@ -76,14 +76,14 @@ namespace TBGINTB_Builder.BuilderControls
             Content = stackPanel_main;
         }
 
-        private void GinTubBuilderManager_VerbAdded(object sender, GinTubBuilderManager.VerbAddedEventArgs args)
+        private void GinTubBuilderManager_VerbRead(object sender, GinTubBuilderManager.VerbReadEventArgs args)
         {
             if (args.VerbType == VerbTypeId && !m_itemsControl_results.Items.OfType<UserControl_VerbModification>().Any(i => i.VerbId == args.Id))
             {
                 UserControl_VerbModification grid = new UserControl_VerbModification(args.Id, args.Name, args.VerbType);
                 grid.SetActiveAndRegisterForGinTubEvents();
                 m_itemsControl_results.Items.Add(grid);
-                GinTubBuilderManager.LoadAllVerbTypes();
+                GinTubBuilderManager.ReadAllVerbTypes();
             }
         }
 
@@ -99,7 +99,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_Verb wWin = win as Window_Verb;
                         if (wWin != null)
-                            GinTubBuilderManager.AddVerb(wWin.VerbName, wWin.VerbTypeId);
+                            GinTubBuilderManager.CreateVerb(wWin.VerbName, wWin.VerbTypeId);
                     }
                 );
             window.Show();

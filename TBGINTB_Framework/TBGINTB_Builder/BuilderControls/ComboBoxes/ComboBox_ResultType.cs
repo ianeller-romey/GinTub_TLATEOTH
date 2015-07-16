@@ -75,14 +75,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ResultTypeAdded += GinTubBuilderManager_ResultTypeAdded;
-            GinTubBuilderManager.ResultTypeModified += GinTubBuilderManager_ResultTypeModified;
+            GinTubBuilderManager.ResultTypeRead += GinTubBuilderManager_ResultTypeRead;
+            GinTubBuilderManager.ResultTypeUpdated += GinTubBuilderManager_ResultTypeUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ResultTypeAdded -= GinTubBuilderManager_ResultTypeAdded;
-            GinTubBuilderManager.ResultTypeModified -= GinTubBuilderManager_ResultTypeModified;
+            GinTubBuilderManager.ResultTypeRead -= GinTubBuilderManager_ResultTypeRead;
+            GinTubBuilderManager.ResultTypeUpdated -= GinTubBuilderManager_ResultTypeUpdated;
         }
 
         #endregion
@@ -90,13 +90,13 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_ResultTypeAdded(object sender, GinTubBuilderManager.ResultTypeAddedEventArgs args)
+        private void GinTubBuilderManager_ResultTypeRead(object sender, GinTubBuilderManager.ResultTypeReadEventArgs args)
         {
             if (!Items.OfType<ComboBoxItem_ResultType>().Any(i => i.ResultTypeId == args.Id))
                 Items.Add(new ComboBoxItem_ResultType(args.Id, args.Name));
         }
 
-        private void GinTubBuilderManager_ResultTypeModified(object sender, GinTubBuilderManager.ResultTypeModifiedEventArgs args)
+        private void GinTubBuilderManager_ResultTypeUpdated(object sender, GinTubBuilderManager.ResultTypeUpdatedEventArgs args)
         {
             ComboBoxItem_ResultType item = Items.OfType<ComboBoxItem_ResultType>().SingleOrDefault(i => i.ResultTypeId == args.Id);
             if (item != null)
@@ -106,7 +106,7 @@ namespace TBGINTB_Builder.BuilderControls
         private void NewResultTypeDialog()
         {
             Window_TextEntry window = new Window_TextEntry("Result Type", "");
-            window.Closed += (x, y) => { if (window.Accepted) GinTubBuilderManager.AddResultType(window.Text); };
+            window.Closed += (x, y) => { if (window.Accepted) GinTubBuilderManager.CreateResultType(window.Text); };
             window.Show();
         }
 

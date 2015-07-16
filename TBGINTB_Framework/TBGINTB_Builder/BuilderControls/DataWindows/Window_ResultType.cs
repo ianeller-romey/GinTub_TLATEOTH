@@ -41,7 +41,7 @@ namespace TBGINTB_Builder.BuilderControls
             Height = 300;
             Content = CreateControls(resultTypeId, resultTypeName);
             m_userControl_resultType.SetActiveAndRegisterForGinTubEvents(); // needed for possible nouns
-            GinTubBuilderManager.LoadAllResultTypes();
+            GinTubBuilderManager.ReadAllResultTypes();
         }
 
         #endregion

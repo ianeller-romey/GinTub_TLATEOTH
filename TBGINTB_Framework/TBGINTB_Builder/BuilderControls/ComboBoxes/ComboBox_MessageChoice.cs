@@ -94,14 +94,14 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.MessageChoiceAdded += GinTubBuilderManager_MessageChoiceAdded;
-            GinTubBuilderManager.MessageChoiceModified += GinTubBuilderManager_MessageChoiceModified;
+            GinTubBuilderManager.MessageChoiceRead += GinTubBuilderManager_MessageChoiceRead;
+            GinTubBuilderManager.MessageChoiceUpdated += GinTubBuilderManager_MessageChoiceUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.MessageChoiceAdded -= GinTubBuilderManager_MessageChoiceAdded;
-            GinTubBuilderManager.MessageChoiceModified -= GinTubBuilderManager_MessageChoiceModified;
+            GinTubBuilderManager.MessageChoiceRead -= GinTubBuilderManager_MessageChoiceRead;
+            GinTubBuilderManager.MessageChoiceUpdated -= GinTubBuilderManager_MessageChoiceUpdated;
         }
 
         #endregion
@@ -109,7 +109,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void GinTubBuilderManager_MessageChoiceAdded(object sender, GinTubBuilderManager.MessageChoiceAddedEventArgs args)
+        private void GinTubBuilderManager_MessageChoiceRead(object sender, GinTubBuilderManager.MessageChoiceReadEventArgs args)
         {
             if (MessageId == args.Message)
             {
@@ -118,7 +118,7 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void GinTubBuilderManager_MessageChoiceModified(object sender, GinTubBuilderManager.MessageChoiceModifiedEventArgs args)
+        private void GinTubBuilderManager_MessageChoiceUpdated(object sender, GinTubBuilderManager.MessageChoiceUpdatedEventArgs args)
         {
             if (MessageId == args.Message)
             {
@@ -145,7 +145,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_MessageChoice wWin = win as Window_MessageChoice;
                         if (wWin != null)
-                            GinTubBuilderManager.AddMessageChoice
+                            GinTubBuilderManager.CreateMessageChoice
                             (
                                 wWin.MessageChoiceName,
                                 wWin.MessageChoiceText,

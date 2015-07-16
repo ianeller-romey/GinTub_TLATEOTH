@@ -49,12 +49,12 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ResultTypeJSONPropertyAdded += GinTubBuilderManager_ResultTypeJSONPropertyAdded;
+            GinTubBuilderManager.ResultTypeJSONPropertyRead += GinTubBuilderManager_ResultTypeJSONPropertyRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ResultTypeJSONPropertyAdded -= GinTubBuilderManager_ResultTypeJSONPropertyAdded;
+            GinTubBuilderManager.ResultTypeJSONPropertyRead -= GinTubBuilderManager_ResultTypeJSONPropertyRead;
         }
 
         #endregion
@@ -76,7 +76,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = stackPanel_main;
         }
 
-        private void GinTubBuilderManager_ResultTypeJSONPropertyAdded(object sender, GinTubBuilderManager.ResultTypeJSONPropertyAddedEventArgs args)
+        private void GinTubBuilderManager_ResultTypeJSONPropertyRead(object sender, GinTubBuilderManager.ResultTypeJSONPropertyReadEventArgs args)
         {
             if (args.ResultType == ResultTypeId && !m_itemsControl_results.Items.OfType<UserControl_ResultTypeJSONPropertyModification>().Any(i => i.ResultTypeJSONPropertyId == args.Id))
             {
@@ -90,8 +90,8 @@ namespace TBGINTB_Builder.BuilderControls
                     );
                 grid.SetActiveAndRegisterForGinTubEvents();
                 m_itemsControl_results.Items.Add(grid);
-                GinTubBuilderManager.LoadAllJSONPropertyDataTypes();
-                GinTubBuilderManager.LoadAllResultTypes();
+                GinTubBuilderManager.ReadAllJSONPropertyDataTypes();
+                GinTubBuilderManager.ReadAllResultTypes();
             }
         }
 
@@ -108,7 +108,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_ResultTypeJSONProperty wWin = win as Window_ResultTypeJSONProperty;
                         if (wWin != null)
-                            GinTubBuilderManager.AddResultTypeJSONProperty
+                            GinTubBuilderManager.CreateResultTypeJSONProperty
                             (
                                 wWin.ResultTypeJSONPropertyJSONProperty, 
                                 wWin.ResultTypeJSONPropertyDataType.Value, 

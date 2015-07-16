@@ -49,12 +49,12 @@ namespace TBGINTB_Builder.BuilderControls
     
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.MessageChoiceResultAdded += GinTubBuilderManager_MessageChoiceResultAdded;
+            GinTubBuilderManager.MessageChoiceResultRead += GinTubBuilderManager_MessageChoiceResultRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.MessageChoiceResultAdded -= GinTubBuilderManager_MessageChoiceResultAdded;
+            GinTubBuilderManager.MessageChoiceResultRead -= GinTubBuilderManager_MessageChoiceResultRead;
         }
 
         #endregion
@@ -76,15 +76,15 @@ namespace TBGINTB_Builder.BuilderControls
             Content = userControl_main;
         }
 
-        private void GinTubBuilderManager_MessageChoiceResultAdded(object sender, GinTubBuilderManager.MessageChoiceResultAddedEventArgs args)
+        private void GinTubBuilderManager_MessageChoiceResultRead(object sender, GinTubBuilderManager.MessageChoiceResultReadEventArgs args)
         {
             if (MessageChoiceId == args.MessageChoice && !m_stackPanel_messageChoiceResults.Children.OfType<UserControl_MessageChoiceResultModification>().Any(i => i.MessageChoiceResultId == args.Id))
             {
                 UserControl_MessageChoiceResultModification grid = new UserControl_MessageChoiceResultModification(args.Id, args.Result, args.MessageChoice, MessageId);
                 grid.SetActiveAndRegisterForGinTubEvents();
                 m_stackPanel_messageChoiceResults.Children.Add(grid);
-                GinTubBuilderManager.LoadAllResultsForMessageChoiceResultType(args.MessageChoice);
-                GinTubBuilderManager.LoadAllMessageChoicesForMessage(MessageId);
+                GinTubBuilderManager.ReadAllResultsForMessageChoiceResultType(args.MessageChoice);
+                GinTubBuilderManager.ReadAllMessageChoicesForMessage(MessageId);
             }
         }
 
@@ -112,7 +112,7 @@ namespace TBGINTB_Builder.BuilderControls
                                     {
                                         Window_MessageChoiceResult wwwWin = wwWin as Window_MessageChoiceResult;
                                         if (wwwWin != null)
-                                            GinTubBuilderManager.AddMessageChoiceResult
+                                            GinTubBuilderManager.CreateMessageChoiceResult
                                             (
                                                 wwwWin.MessageChoiceResultResult.Value,
                                                 wwwWin.MessageChoiceResultMessageChoice.Value

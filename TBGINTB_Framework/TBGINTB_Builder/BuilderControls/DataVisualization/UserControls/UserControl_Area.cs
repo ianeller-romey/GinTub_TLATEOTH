@@ -58,12 +58,12 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.AreaModified += GinTubBuilderManager_AreaModified;
+            GinTubBuilderManager.AreaUpdated += GinTubBuilderManager_AreaUpdated;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.AreaModified -= GinTubBuilderManager_AreaModified;
+            GinTubBuilderManager.AreaUpdated -= GinTubBuilderManager_AreaUpdated;
         }
 
         #endregion
@@ -116,7 +116,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void GinTubBuilderManager_AreaModified(object sender, GinTubBuilderManager.AreaModifiedEventArgs args)
+        private void GinTubBuilderManager_AreaUpdated(object sender, GinTubBuilderManager.AreaUpdatedEventArgs args)
         {
             if (AreaId == args.Id)
                 SetAreaName(args.Name);

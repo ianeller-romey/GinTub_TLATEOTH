@@ -63,7 +63,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             Button button_modifyParagraphState = new Button() { Content = "Modify Paragraph State" };
-            button_modifyParagraphState.Click += Button_ModifyParagraphState_Click;
+            button_modifyParagraphState.Click += Button_UpdateParagraphState_Click;
             grid_main.SetGridRowColumn(button_modifyParagraphState, 0, 0);
 
             m_userControl_paragraphState = new UserControl_ParagraphState(paragraphStateId, paragraphStateText, paragraphStateState, paragraphId, false, true);
@@ -76,7 +76,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = border;
         }
 
-        private void Button_ModifyParagraphState_Click(object sender, RoutedEventArgs e)
+        private void Button_UpdateParagraphState_Click(object sender, RoutedEventArgs e)
         {
             Window_ParagraphState window = 
                 new Window_ParagraphState
@@ -89,7 +89,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_ParagraphState wWin = win as Window_ParagraphState;
                         if (wWin != null)
-                            GinTubBuilderManager.ModifyParagraphState
+                            GinTubBuilderManager.UpdateParagraphState
                             (
                                 wWin.ParagraphStateId.Value,
                                 wWin.ParagraphStateText,

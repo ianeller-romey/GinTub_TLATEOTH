@@ -59,9 +59,9 @@ namespace TBGINTB_Builder.BuilderControls
     
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ItemActionRequirementAdded += GinTubBuilderManager_ItemActionRequirementAdded;
-            GinTubBuilderManager.EventActionRequirementAdded += GinTubBuilderManager_EventActionRequirementAdded;
-            GinTubBuilderManager.CharacterActionRequirementAdded += GinTubBuilderManager_CharacterActionRequirementAdded;
+            GinTubBuilderManager.ItemActionRequirementRead += GinTubBuilderManager_ItemActionRequirementRead;
+            GinTubBuilderManager.EventActionRequirementRead += GinTubBuilderManager_EventActionRequirementRead;
+            GinTubBuilderManager.CharacterActionRequirementRead += GinTubBuilderManager_CharacterActionRequirementRead;
 
             foreach (var block in m_stackPanel_itemActionRequirements.Children.OfType<UserControl_ItemActionRequirementModification>())
                 block.SetActiveAndRegisterForGinTubEvents();
@@ -73,9 +73,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ItemActionRequirementAdded -= GinTubBuilderManager_ItemActionRequirementAdded;
-            GinTubBuilderManager.EventActionRequirementAdded -= GinTubBuilderManager_EventActionRequirementAdded;
-            GinTubBuilderManager.CharacterActionRequirementAdded -= GinTubBuilderManager_CharacterActionRequirementAdded;
+            GinTubBuilderManager.ItemActionRequirementRead -= GinTubBuilderManager_ItemActionRequirementRead;
+            GinTubBuilderManager.EventActionRequirementRead -= GinTubBuilderManager_EventActionRequirementRead;
+            GinTubBuilderManager.CharacterActionRequirementRead -= GinTubBuilderManager_CharacterActionRequirementRead;
 
             foreach (var block in m_stackPanel_itemActionRequirements.Children.OfType<UserControl_ItemActionRequirementModification>())
                 block.SetInactiveAndUnregisterFromGinTubEvents();
@@ -144,39 +144,39 @@ namespace TBGINTB_Builder.BuilderControls
             Content = tabControl_main;
         }
 
-        private void GinTubBuilderManager_ItemActionRequirementAdded(object sender, GinTubBuilderManager.ItemActionRequirementAddedEventArgs args)
+        private void GinTubBuilderManager_ItemActionRequirementRead(object sender, GinTubBuilderManager.ItemActionRequirementReadEventArgs args)
         {
             if (ActionId == args.Action && !m_stackPanel_itemActionRequirements.Children.OfType<UserControl_ItemActionRequirementModification>().Any(i => i.ItemActionRequirementId == args.Id))
             {
                 UserControl_ItemActionRequirementModification grid = new UserControl_ItemActionRequirementModification(args.Id, args.Item, args.Action, NounId, ParagraphStateId);
                 grid.SetActiveAndRegisterForGinTubEvents();
                 m_stackPanel_itemActionRequirements.Children.Add(grid);
-                GinTubBuilderManager.LoadAllItems();
-                GinTubBuilderManager.LoadAllActionsForNoun(NounId);
+                GinTubBuilderManager.ReadAllItems();
+                GinTubBuilderManager.ReadAllActionsForNoun(NounId);
             }
         }
 
-        private void GinTubBuilderManager_EventActionRequirementAdded(object sender, GinTubBuilderManager.EventActionRequirementAddedEventArgs args)
+        private void GinTubBuilderManager_EventActionRequirementRead(object sender, GinTubBuilderManager.EventActionRequirementReadEventArgs args)
         {
             if (ActionId == args.Action && !m_stackPanel_evntActionRequirements.Children.OfType<UserControl_EventActionRequirementModification>().Any(i => i.EventActionRequirementId == args.Id))
             {
                 UserControl_EventActionRequirementModification grid = new UserControl_EventActionRequirementModification(args.Id, args.Event, args.Action, NounId, ParagraphStateId);
                 grid.SetActiveAndRegisterForGinTubEvents();
                 m_stackPanel_evntActionRequirements.Children.Add(grid);
-                GinTubBuilderManager.LoadAllEvents();
-                GinTubBuilderManager.LoadAllActionsForNoun(NounId);
+                GinTubBuilderManager.ReadAllEvents();
+                GinTubBuilderManager.ReadAllActionsForNoun(NounId);
             }
         }
 
-        private void GinTubBuilderManager_CharacterActionRequirementAdded(object sender, GinTubBuilderManager.CharacterActionRequirementAddedEventArgs args)
+        private void GinTubBuilderManager_CharacterActionRequirementRead(object sender, GinTubBuilderManager.CharacterActionRequirementReadEventArgs args)
         {
             if (ActionId == args.Action && !m_stackPanel_characterActionRequirements.Children.OfType<UserControl_CharacterActionRequirementModification>().Any(i => i.CharacterActionRequirementId == args.Id))
             {
                 UserControl_CharacterActionRequirementModification grid = new UserControl_CharacterActionRequirementModification(args.Id, args.Character, args.Action, NounId, ParagraphStateId);
                 grid.SetActiveAndRegisterForGinTubEvents();
                 m_stackPanel_characterActionRequirements.Children.Add(grid);
-                GinTubBuilderManager.LoadAllCharacters();
-                GinTubBuilderManager.LoadAllActionsForNoun(NounId);
+                GinTubBuilderManager.ReadAllCharacters();
+                GinTubBuilderManager.ReadAllActionsForNoun(NounId);
             }
         }
 
@@ -194,7 +194,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_ItemActionRequirement wWin = win as Window_ItemActionRequirement;
                         if (wWin != null)
-                            GinTubBuilderManager.AddItemActionRequirement
+                            GinTubBuilderManager.CreateItemActionRequirement
                             (
                                 wWin.ItemActionRequirementItem.Value,
                                 wWin.ItemActionRequirementAction.Value
@@ -218,7 +218,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_EventActionRequirement wWin = win as Window_EventActionRequirement;
                         if (wWin != null)
-                            GinTubBuilderManager.AddEventActionRequirement
+                            GinTubBuilderManager.CreateEventActionRequirement
                             (
                                 wWin.EventActionRequirementEvent.Value,
                                 wWin.EventActionRequirementAction.Value
@@ -242,7 +242,7 @@ namespace TBGINTB_Builder.BuilderControls
                     {
                         Window_CharacterActionRequirement wWin = win as Window_CharacterActionRequirement;
                         if (wWin != null)
-                            GinTubBuilderManager.AddCharacterActionRequirement
+                            GinTubBuilderManager.CreateCharacterActionRequirement
                             (
                                 wWin.CharacterActionRequirementCharacter.Value,
                                 wWin.CharacterActionRequirementAction.Value

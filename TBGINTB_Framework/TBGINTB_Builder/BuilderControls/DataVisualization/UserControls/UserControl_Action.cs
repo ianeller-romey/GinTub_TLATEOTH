@@ -13,7 +13,7 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Action : UserControl_Gettable
+    public class UserControl_Action : UserControl_Selecttable
     {
         #region MEMBER FIELDS
 
@@ -49,7 +49,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Action(int? actionId, int? actionVerbType, int? actionNoun, int paragraphStateId, bool enableEditing, bool enableGetting)
+        public UserControl_Action(int? actionId, int? actionVerbType, int? actionNoun, int paragraphStateId, bool enableEditing, bool enableSelectting)
         {
             ActionId = actionId;
             ActionVerbType = actionVerbType;
@@ -60,23 +60,23 @@ namespace TBGINTB_Builder.BuilderControls
 
             foreach (var e in EditingControls)
                 e.IsEnabled = enableEditing;
-            if(enableGetting)
+            if(enableSelectting)
                 MouseLeftButtonDown += UserControl_Action_MouseLeftButtonDown;
 
-            GinTubBuilderManager.VerbTypeAdded += GinTubBuilderManager_VerbTypeAdded;
-            GinTubBuilderManager.NounAdded += GinTubBuilderManager_NounAdded;
+            GinTubBuilderManager.VerbTypeRead += GinTubBuilderManager_VerbTypeRead;
+            GinTubBuilderManager.NounRead += GinTubBuilderManager_NounRead;
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.ActionModified += GinTubBuilderManager_ActionModified;
-            GinTubBuilderManager.ActionGet += GinTubBuilderManager_ActionGet;
+            GinTubBuilderManager.ActionUpdated += GinTubBuilderManager_ActionUpdated;
+            GinTubBuilderManager.ActionSelect += GinTubBuilderManager_ActionSelect;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.ActionModified -= GinTubBuilderManager_ActionModified;
-            GinTubBuilderManager.ActionGet -= GinTubBuilderManager_ActionGet;
+            GinTubBuilderManager.ActionUpdated -= GinTubBuilderManager_ActionUpdated;
+            GinTubBuilderManager.ActionSelect -= GinTubBuilderManager_ActionSelect;
         }
 
         #endregion
@@ -147,7 +147,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        private void GinTubBuilderManager_ActionModified(object sender, GinTubBuilderManager.ActionModifiedEventArgs args)
+        private void GinTubBuilderManager_ActionUpdated(object sender, GinTubBuilderManager.ActionUpdatedEventArgs args)
         {
             if(ActionId == args.Id)
             {
@@ -156,17 +156,17 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        private void GinTubBuilderManager_ActionGet(object sender, GinTubBuilderManager.ActionGetEventArgs args)
+        private void GinTubBuilderManager_ActionSelect(object sender, GinTubBuilderManager.ActionSelectEventArgs args)
         {
-            SetGettableBackground(ActionId == args.Id);
+            SetSelecttableBackground(ActionId == args.Id);
         }
 
-        private void GinTubBuilderManager_VerbTypeAdded(object sender, GinTubBuilderManager.VerbTypeAddedEventArgs args)
+        private void GinTubBuilderManager_VerbTypeRead(object sender, GinTubBuilderManager.VerbTypeReadEventArgs args)
         {
             ResetActionVerbType(args.Id);
         }
 
-        private void GinTubBuilderManager_NounAdded(object sender, GinTubBuilderManager.NounAddedEventArgs args)
+        private void GinTubBuilderManager_NounRead(object sender, GinTubBuilderManager.NounReadEventArgs args)
         {
             if (ParagraphStateId == args.ParagraphState)
                 ResetActionNoun(args.Id);
@@ -223,7 +223,7 @@ namespace TBGINTB_Builder.BuilderControls
         private void UserControl_Action_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (ActionId.HasValue)
-                GinTubBuilderManager.GetAction(ActionId.Value);
+                GinTubBuilderManager.SelectAction(ActionId.Value);
         }
 
         #endregion
