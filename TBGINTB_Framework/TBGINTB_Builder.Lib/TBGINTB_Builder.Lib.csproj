@@ -304,9 +304,6 @@
     <Compile Include="Repository\dev_ReadRoomPreviewParagraphStates_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\dev_ReadRoomPreview_Result.cs">
-      <DependentUpon>devSchema.tt</DependentUpon>
-    </Compile>
     <Compile Include="Repository\dev_ReadRoomState_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>

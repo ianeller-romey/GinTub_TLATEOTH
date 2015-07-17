@@ -237,7 +237,7 @@ namespace TBGINTB_Builder.Lib.Repository
             var roomParameter = room.HasValue ?
                 new ObjectParameter("room", room) :
                 new ObjectParameter("room", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("dev_CreateParagraph", orderParameter, roomParameter);
         }
     
@@ -1526,13 +1526,13 @@ namespace TBGINTB_Builder.Lib.Repository
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<dev_ReadRoom_Result>("dev_ReadRoom", idParameter);
         }
     
-        public virtual ObjectResult<dev_ReadRoomPreview_Result> dev_ReadRoomPreview(Nullable<int> roompreview)
+        public virtual ObjectResult<dev_ReadRoomPreviewParagraphStates_Result> dev_ReadRoomPreview(Nullable<int> roompreview)
         {
             var roompreviewParameter = roompreview.HasValue ?
                 new ObjectParameter("roompreview", roompreview) :
                 new ObjectParameter("roompreview", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<dev_ReadRoomPreview_Result>("dev_ReadRoomPreview", roompreviewParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<dev_ReadRoomPreviewParagraphStates_Result>("dev_ReadRoomPreview", roompreviewParameter);
         }
     
         public virtual ObjectResult<dev_ReadRoomPreviewNouns_Result> dev_ReadRoomPreviewNouns(Nullable<int> room)

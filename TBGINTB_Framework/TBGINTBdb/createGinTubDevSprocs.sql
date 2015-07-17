@@ -1045,12 +1045,15 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SELECT [Id],
-		   [State],
-		   [Time],
-		   [Location],
-		   [Room]
-	FROM [dbo].[RoomStates]
+	SELECT rs.[Id],
+		   rs.[State],
+		   rs.[Time],
+		   rs.[Location],
+		   rsn.[Name],
+		   rs.[Room]
+	FROM [dbo].[RoomStates] rs
+	INNER JOIN [dev].[RoomStateNames] rsn
+	ON rs.[Id] = rsn.[RoomState]
 	WHERE [Room] = @room
 
 END
@@ -1072,12 +1075,15 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SELECT [Id],
-		   [State],
-		   [Time],
-		   [Location],
-		   [Room]
-	FROM [dbo].[RoomStates]
+	SELECT rs.[Id],
+		   rs.[State],
+		   rs.[Time],
+		   rs.[Location],
+		   rsn.[Name],
+		   rs.[Room]
+	FROM [dbo].[RoomStates] rs
+	INNER JOIN [dev].[RoomStateNames] rsn
+	ON rs.[Id] = rsn.[RoomState]
 	WHERE [Id] = @id
 
 END
@@ -1493,11 +1499,14 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SELECT [Id],
-		   [RoomState],
-		   [Paragraph]
-	FROM [dbo].[ParagraphRoomStates]
-	WHERE [Paragraph] = @paragraph
+	SELECT prs.[Id],
+		   prs.[RoomState],
+		   rsn.[Name] as [RoomStateName],
+		   prs.[Paragraph]
+	FROM [dbo].[ParagraphRoomStates] prs
+	INNER JOIN [dev].[RoomStateNames] rsn
+	ON prs.[RoomState] = rsn.[RoomState]
+	WHERE prs.[Paragraph] = @paragraph
 
 END
 GO
@@ -1518,11 +1527,14 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SELECT [Id],
-		   [RoomState],
-		   [Paragraph]
-	FROM [dbo].[ParagraphRoomStates]
-	WHERE [RoomState] = @roomstate
+	SELECT prs.[Id],
+		   prs.[RoomState],
+		   rsn.[Name] as [RoomStateName],
+		   prs.[Paragraph]
+	FROM [dbo].[ParagraphRoomStates] prs
+	INNER JOIN [dev].[RoomStateNames] rsn
+	ON prs.[RoomState] = rsn.[RoomState]
+	WHERE prs.[RoomState] = @roomstate
 
 END
 GO
@@ -1543,11 +1555,14 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SELECT [Id],
-		   [RoomState],
-		   [Paragraph]
-	FROM [dbo].[ParagraphRoomStates]
-	WHERE [Id] = @id
+	SELECT prs.[Id],
+		   prs.[RoomState],
+		   rsn.[Name] as [RoomStateName],
+		   prs.[Paragraph]
+	FROM [dbo].[ParagraphRoomStates] prs
+	INNER JOIN [dev].[RoomStateNames] rsn
+	ON prs.[RoomState] = rsn.[RoomState]
+	WHERE prs.[Id] = @id
 
 END
 GO

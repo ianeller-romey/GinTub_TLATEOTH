@@ -15,8 +15,9 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
         int m_id;
         int m_room;
         int m_state;
-        int m_location;
         TimeSpan m_time;
+        int m_location;
+        string m_name;
 
         [DataMember]
         public int Id
@@ -52,6 +53,17 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
         }
 
         [DataMember]
+        public TimeSpan Time
+        {
+            get { return m_time; }
+            private set
+            {
+                if (m_time != value)
+                    m_time = value;
+            }
+        }
+
+        [DataMember]
         public int Location
         {
             get { return m_location; }
@@ -63,13 +75,13 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
         }
 
         [DataMember]
-        public TimeSpan Time
+        public string Name
         {
-            get { return m_time; }
+            get { return m_name; }
             private set
             {
-                if (m_time != value)
-                    m_time = value;
+                if (m_name != value)
+                    m_name = value;
             }
         }
     }

@@ -14,6 +14,7 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
     {
         int m_id;
         int m_roomState;
+        string m_roomStateName;
         int m_paragraph;
 
         [DataMember]
@@ -35,6 +36,17 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
             {
                 if (m_roomState != value)
                     m_roomState = value;
+            }
+        }
+
+        [DataMember]
+        public string RoomStateName
+        {
+            get { return m_roomStateName; }
+            private set
+            {
+                if (m_roomStateName != value)
+                    m_roomStateName = value;
             }
         }
 

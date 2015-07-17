@@ -144,7 +144,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        void GinTubBuilderManager_ActionResultUpdated(object sender, GinTubBuilderManager.ActionResultUpdatedEventArgs args)
+        private void GinTubBuilderManager_ActionResultUpdated(object sender, GinTubBuilderManager.ActionResultUpdatedEventArgs args)
         {
             if(ActionResultId == args.Id)
             {
@@ -153,12 +153,12 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
-        void GinTubBuilderManager_ResultRead(object sender, GinTubBuilderManager.ResultReadEventArgs args)
+        private void GinTubBuilderManager_ResultRead(object sender, GinTubBuilderManager.ResultReadEventArgs args)
         {
             ResetActionResultResult(args.Id);
         }
-        
-        void GinTubBuilderManager_ActionRead(object sender, GinTubBuilderManager.ActionReadEventArgs args)
+
+        private void GinTubBuilderManager_ActionRead(object sender, GinTubBuilderManager.ActionReadEventArgs args)
         {
             if (NounId == args.Noun)
                 ResetActionResultAction(args.Id);
@@ -198,14 +198,14 @@ namespace TBGINTB_Builder.BuilderControls
                 m_comboBox_action.SelectedItem = item;
         }
 
-        void ComboBox_Result_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_Result_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox_Result.ComboBoxItem_Result item;
             if (m_comboBox_result.SelectedItem != null && (item = m_comboBox_result.SelectedItem as ComboBox_Result.ComboBoxItem_Result) != null)
                 ActionResultResult = item.ResultId;
         }
 
-        void ComboBox_Action_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_Action_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox_Action.ComboBoxItem_Action item;
             if (m_comboBox_action.SelectedItem != null && (item = m_comboBox_action.SelectedItem as ComboBox_Action.ComboBoxItem_Action) != null)

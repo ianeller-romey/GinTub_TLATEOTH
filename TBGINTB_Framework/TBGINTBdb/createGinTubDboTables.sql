@@ -775,6 +775,50 @@ IF NOT EXISTS (SELECT 1 FROM [sys].[tables] t
 	)
 GO
 
+
+IF EXISTS (SELECT 1 FROM [sys].[views] WHERE [name] = 'RoomStateNames')
+	DROP VIEW [dev].[RoomStateNames]
+GO	
+
+CREATE VIEW [dev].[RoomStateNames] AS
+	SELECT [Id] as [RoomState],
+		   'State ' + CONVERT(varchar(10), [State]) + ' at ' + CONVERT(varchar(8), [Time], 8) as [Name]
+	FROM [dbo].[RoomStates]	
+	
+GO
+
+
+IF EXISTS (SELECT 1 FROM [sys].[views] WHERE [name] = 'ActionNames')
+	DROP VIEW [dev].[ActionNames]
+GO	
+
+CREATE VIEW [dev].[ActionNames] AS
+	SELECT a.[Id] AS [Action],
+		   vt.[Name] + ' on ' + n.[Text] AS [Name]
+	FROM [dbo].[Actions] a
+	INNER JOIN [dbo].[VerbTypes] vt
+	ON a.[VerbType] = vt.[Id]
+	INNER JOIN [dbo].[Nouns] n
+	ON a.[Noun] = n.[Id]
+	
+GO
+
+IF EXISTS (SELECT 1 FROM [sys].[views] WHERE [name] = 'ActionResultTypes')
+	DROP VIEW [dev].[ActionResultTypes]
+GO	
+
+CREATE VIEW [dev].[ActionResultTypes] AS
+	SELECT a.[Id] as [Action],
+		   rt.[Id] as [ResultType]
+	FROM [dbo].[ResultTypes] rt 
+	INNER JOIN [dbo].[Results] r
+	ON rt.[Id] = r.[ResultType]
+	INNER JOIN [dbo].[ActionResults] ar
+	ON ar.[Result] = r.[Id]
+	INNER JOIN [dbo].[Actions] a
+	on a.[Id] = ar.[Action]
+	
+GO
 IF EXISTS (SELECT 1 FROM [sys].[views] WHERE [name] = 'Results')
 	DROP VIEW [dev].[Results]
 GO
@@ -816,38 +860,6 @@ CREATE VIEW [dev].[MessageChoices] AS
 	FROM [dbo].[MessageChoices] m
 	LEFT JOIN [dev].[MessageChoiceNames] mn
 	ON mn.[MessageChoice] = m.[Id]
-	
-GO
-
-IF EXISTS (SELECT 1 FROM [sys].[views] WHERE [name] = 'ActionNames')
-	DROP VIEW [dev].[ActionNames]
-GO	
-
-CREATE VIEW [dev].[ActionNames] AS
-	SELECT a.[Id] AS [Action],
-		   vt.[Name] + ' on ' + n.[Text] AS [Name]
-	FROM [dbo].[Actions] a
-	INNER JOIN [dbo].[VerbTypes] vt
-	ON a.[VerbType] = vt.[Id]
-	INNER JOIN [dbo].[Nouns] n
-	ON a.[Noun] = n.[Id]
-	
-GO
-
-IF EXISTS (SELECT 1 FROM [sys].[views] WHERE [name] = 'ActionResultTypes')
-	DROP VIEW [dev].[ActionResultTypes]
-GO	
-
-CREATE VIEW [dev].[ActionResultTypes] AS
-	SELECT a.[Id] as [Action],
-		   rt.[Id] as [ResultType]
-	FROM [dbo].[ResultTypes] rt 
-	INNER JOIN [dbo].[Results] r
-	ON rt.[Id] = r.[ResultType]
-	INNER JOIN [dbo].[ActionResults] ar
-	ON ar.[Result] = r.[Id]
-	INNER JOIN [dbo].[Actions] a
-	on a.[Id] = ar.[Action]
 	
 GO
 

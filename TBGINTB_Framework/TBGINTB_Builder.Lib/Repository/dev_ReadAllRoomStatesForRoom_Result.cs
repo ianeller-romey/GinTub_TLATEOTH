@@ -18,5 +18,6 @@ namespace TBGINTB_Builder.Lib.Repository
         public System.TimeSpan Time { get; set; }
         public int Location { get; set; }
         public int Room { get; set; }
+        public string Name { get; set; }
     }
 }
