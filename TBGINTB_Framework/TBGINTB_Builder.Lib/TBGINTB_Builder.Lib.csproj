@@ -91,6 +91,7 @@
     <Compile Include="Model\XmlModel\MessageChoiceResult.cs" />
     <Compile Include="Model\XmlModel\Noun.cs" />
     <Compile Include="Model\XmlModel\Paragraph.cs" />
+    <Compile Include="Model\XmlModel\ParagraphRoomState.cs" />
     <Compile Include="Model\XmlModel\ParagraphState.cs" />
     <Compile Include="Model\XmlModel\Result.cs" />
     <Compile Include="Model\XmlModel\ResultType.cs" />

@@ -91,6 +91,8 @@ namespace TBGINTB_Builder.Lib
 
             Mapper.CreateMap<Db.Paragraph, Xml.Paragraph>();
 
+            Mapper.CreateMap<Db.ParagraphRoomState, Xml.ParagraphRoomState>();
+
             Mapper.CreateMap<Db.ParagraphState, Xml.ParagraphState>();
 
             Mapper.CreateMap<Db.Noun, Xml.Noun>();
@@ -222,17 +224,12 @@ namespace TBGINTB_Builder.Lib
                 ExportParagraphToXml(ref room.Paragraphs[i]);
             room.RoomStates = ReadAllRoomStatesForRoomDb(room.Id).
                 Select(rs => Mapper.Map<Xml.RoomState>(rs)).ToArray();
-            foreach(var roomState in room.RoomStates)
-            {
-                roomState.Paragraphs = ReadAllParagraphsForRoomAndRoomStateDb(room.Id, roomState.Id).
-                    Select(p => Mapper.Map<Xml.Paragraph>(p)).ToArray();
-                for (int i = 0; i < roomState.Paragraphs.Length; ++i)
-                    ExportParagraphToXml(ref roomState.Paragraphs[i]);
-            }
         }
 
         private static void ExportParagraphToXml(ref Xml.Paragraph paragraph)
         {
+            paragraph.ParagraphRoomStates = ReadAllParagraphRoomStatesForParagraphDb(paragraph.Id).
+                Select(prs => Mapper.Map<Xml.ParagraphRoomState>(prs)).ToArray();
             paragraph.ParagraphStates = ReadAllParagraphStatesForParagraphDb(paragraph.Id).
                 Select(ps => Mapper.Map<Xml.ParagraphState>(ps)).ToArray();
             for (int i = 0; i < paragraph.ParagraphStates.Length; ++i)
@@ -338,19 +335,17 @@ namespace TBGINTB_Builder.Lib
         private static void ImportRoomFromXml(Xml.Room room, int areaId)
         {
             ImportRoom(room.Id, room.Name, room.X, room.Y, room.Z, areaId);
-            /*foreach (var paragraph in room.Paragraphs)
-                ImportParagraphFromXml(paragraph, room.Id, null);
             foreach(var roomState in room.RoomStates)
-            {
                 ImportRoomState(roomState.Id, roomState.State, roomState.Time, roomState.Location, room.Id);
-                foreach (var paragraph in roomState.Paragraphs)
-                    ImportParagraphFromXml(paragraph, room.Id, roomState.Id);
-            }*/
+            foreach (var paragraph in room.Paragraphs)
+                ImportParagraphFromXml(paragraph, room.Id);
         }
 
         private static void ImportParagraphFromXml(Xml.Paragraph paragraph, int roomId)
         {
             ImportParagraph(paragraph.Id, paragraph.Order, roomId);
+            foreach (var paragraphRoomState in paragraph.ParagraphRoomStates)
+                ImportParagraphRoomState(paragraphRoomState.Id, paragraphRoomState.RoomState, paragraph.Id);
             foreach (var paragraphState in paragraph.ParagraphStates)
                 ImportParagraphStateFromXml(paragraphState, paragraph.Id);
         }
@@ -588,6 +583,18 @@ namespace TBGINTB_Builder.Lib
             catch (Exception e)
             {
                 throw new GinTubDatabaseException("dev_ImportParagraph", e);
+            }
+        }
+
+        private static void ImportParagraphRoomState(int id, int roomState, int paragraph)
+        {
+            try
+            {
+                m_entities.dev_ImportParagraphRoomState(id, roomState, paragraph);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_ImportParagraphRoomState", e);
             }
         }
 

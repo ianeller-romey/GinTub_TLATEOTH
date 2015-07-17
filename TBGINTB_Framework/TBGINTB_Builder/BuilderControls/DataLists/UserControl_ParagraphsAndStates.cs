@@ -22,7 +22,8 @@ namespace TBGINTB_Builder.BuilderControls
             m_grid_main,
             m_grid_sub;
         StackPanel m_stackPanel_paragraphs;
-        Button 
+        Button
+            m_button_selectParagraphRoomStates,
             m_button_modifyParagraph,
             m_button_addParagraphState;
         GridSplitter m_gridSplitter_paragraphStates;
@@ -87,6 +88,7 @@ namespace TBGINTB_Builder.BuilderControls
             m_grid_main = new Grid();
             m_grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             m_grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            m_grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             m_grid_main.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100.0, GridUnitType.Star) });
 
             ////////
@@ -96,10 +98,16 @@ namespace TBGINTB_Builder.BuilderControls
             m_grid_main.SetGridRowColumn(button_addParagraph, 0, 0);
 
             ////////
+            // Paragraph RoomStates
+            m_button_selectParagraphRoomStates = new Button() { Content = "Select Paragraph RoomStates", IsEnabled = false };
+            m_button_selectParagraphRoomStates.Click += Button_SelectParagraphRoomStates_Click;
+            m_grid_main.SetGridRowColumn(m_button_selectParagraphRoomStates, 1, 0);
+
+            ////////
             // Paragraphs
             m_button_modifyParagraph = new Button() { Content = "Modify Paragraph", IsEnabled = false };
             m_button_modifyParagraph.Click += Button_UpdateParagraph_Click;
-            m_grid_main.SetGridRowColumn(m_button_modifyParagraph, 1, 0);
+            m_grid_main.SetGridRowColumn(m_button_modifyParagraph, 2, 0);
 
             m_stackPanel_paragraphs = new StackPanel() { Orientation = Orientation.Vertical };
             ScrollViewer scrollViewer_paragraphs =
@@ -108,7 +116,7 @@ namespace TBGINTB_Builder.BuilderControls
                     VerticalScrollBarVisibility = ScrollBarVisibility.Visible
                 };
             scrollViewer_paragraphs.Content = m_stackPanel_paragraphs;
-            m_grid_main.SetGridRowColumn(scrollViewer_paragraphs, 2, 0);
+            m_grid_main.SetGridRowColumn(scrollViewer_paragraphs, 3, 0);
 
             ////////
             // Fin
@@ -139,9 +147,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         private void ShowParagraphStateControls()
         {
-            if (m_grid_main.RowDefinitions.Count == 3)
+            if (m_grid_main.RowDefinitions.Count == 4)
             {
-                m_grid_main.RowDefinitions[2].Height = new GridLength(25.0, GridUnitType.Star);
+                m_grid_main.RowDefinitions[3].Height = new GridLength(25.0, GridUnitType.Star);
                 m_grid_main.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(5.0, GridUnitType.Pixel) });
                 m_grid_main.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(75.0, GridUnitType.Star) });
             }
@@ -155,14 +163,14 @@ namespace TBGINTB_Builder.BuilderControls
                         VerticalAlignment = System.Windows.VerticalAlignment.Stretch, 
                         Background = Brushes.Black 
                     };
-                m_grid_main.SetGridRowColumn(m_gridSplitter_paragraphStates, 3, 0);
+                m_grid_main.SetGridRowColumn(m_gridSplitter_paragraphStates, 4, 0);
             }
             if(m_grid_sub == null)
             {
                 m_grid_sub = new Grid();
                 m_grid_sub.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
                 m_grid_sub.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100.0, GridUnitType.Star) });
-                m_grid_main.SetGridRowColumn(m_grid_sub, 4, 0);
+                m_grid_main.SetGridRowColumn(m_grid_sub, 5, 0);
             }
             if (m_button_addParagraphState == null)
             {
@@ -196,6 +204,30 @@ namespace TBGINTB_Builder.BuilderControls
                         Window_Paragraph wWin = win as Window_Paragraph;
                         if (wWin != null)
                             GinTubBuilderManager.CreateParagraph(wWin.ParagraphOrder.Value, wWin.RoomId);
+                    }
+                );
+            window.Show();
+        }
+
+        private void Button_SelectParagraphRoomStates_Click(object sender, RoutedEventArgs e)
+        {
+            Window_ParagraphRoomStates window =
+                new Window_ParagraphRoomStates
+                (
+                    RoomId,
+                    SelectedParagraphId.Value,
+                    (win) =>
+                    {
+                        Window_ParagraphRoomStates wWin = win as Window_ParagraphRoomStates;
+                        if(wWin != null)
+                        {
+                            int paragraphId = wWin.ParagraphId;
+                            IEnumerable<int> roomStates = wWin.RoomStates.ToList();
+
+                            GinTubBuilderManager.DeleteAllParagraphRoomStatesForParagraph(paragraphId);
+                            foreach (int roomStateId in roomStates)
+                                GinTubBuilderManager.CreateParagraphRoomState(roomStateId, paragraphId);
+                        }
                     }
                 );
             window.Show();
@@ -253,6 +285,7 @@ namespace TBGINTB_Builder.BuilderControls
                 GinTubBuilderManager.SelectParagraph(SelectedParagraphId.Value);
                 GinTubBuilderManager.SelectParagraphStateForParagraphPreview(0, SelectedParagraphId.Value);
 
+                m_button_selectParagraphRoomStates.IsEnabled = true;
                 m_button_modifyParagraph.IsEnabled = true;
                 m_button_addParagraphState.IsEnabled = true;
             }

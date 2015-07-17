@@ -75,7 +75,7 @@ BEGIN
 		[Location] int NOT NULL FOREIGN KEY REFERENCES [dbo].[Locations]([Id]),
 		[Room] int NOT NULL FOREIGN KEY REFERENCES [dbo].[Rooms]([Id])
 	)
-	CREATE UNIQUE NONCLUSTERED INDEX IX__RoomStates__RoomState ON [dbo].[RoomStates]([Room], [State])
+	CREATE NONCLUSTERED INDEX IX__RoomStates__RoomState ON [dbo].[RoomStates]([Room], [State])
 	INCLUDE([Time], [Location])
 	DBCC CHECKIDENT ('[dbo].[RoomStates]', RESEED, 0)
 END

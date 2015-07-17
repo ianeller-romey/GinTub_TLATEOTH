@@ -18,7 +18,7 @@ namespace TBGINTB_Builder.BuilderControls
     {
         #region MEMBER FIELDS
 
-        private StackPanel m_stackPanel_paragraphRoomStates;
+        private StackPanel m_stackPanel_groupedParagraphRoomStates;
 
         #endregion
 
@@ -31,10 +31,9 @@ namespace TBGINTB_Builder.BuilderControls
         {
             get
             {
-                return m_stackPanel_paragraphRoomStates.Children.OfType<UserControl_ParagraphRoomState>()
-                    .Where(x => x.ParagraphRoomStateParagraph != null)
-                    .Select(x => x.ParagraphRoomStateRoomState)
-                    .ToList();
+                return m_stackPanel_groupedParagraphRoomStates.Children.OfType<UserControl_GroupedParagraphRoomStates>()
+                    .Select(x => x.RoomStates)
+                    .Aggregate((x, y) => x.Concat(y));
             }
         }
 
@@ -74,25 +73,54 @@ namespace TBGINTB_Builder.BuilderControls
 
         private void CreateControls()
         {
-            m_stackPanel_paragraphRoomStates = new StackPanel() { Orientation = Orientation.Vertical };
+            m_stackPanel_groupedParagraphRoomStates = new StackPanel() { Orientation = Orientation.Vertical };
 
-            Content = m_stackPanel_paragraphRoomStates;
+            Content = m_stackPanel_groupedParagraphRoomStates;
         }
 
         private void GinTubBuilderManager_ParagraphRoomStateRead(object sender, GinTubBuilderManager.ParagraphRoomStateReadEventArgs args)
         {
-            if (ParagraphId == args.Paragraph && !m_stackPanel_paragraphRoomStates.Children.OfType<UserControl_ParagraphRoomState>().Any(i => i.ParagraphRoomStateId == args.Id))
-            {
-                UserControl_ParagraphRoomState grid = new UserControl_ParagraphRoomState(args.Id, args.Paragraph, args.Paragraph, args.RoomState, args.RoomStateName, true);
-                grid.SetActiveAndRegisterForGinTubEvents();
-                m_stackPanel_paragraphRoomStates.Children.Add(grid);
-            }
+            // Is this the first time we've seen this state?
+            // If so, add a group
+            UserControl_GroupedParagraphRoomStates userControl = 
+                m_stackPanel_groupedParagraphRoomStates.Children.OfType<UserControl_GroupedParagraphRoomStates>().FirstOrDefault(x => x.RoomStateState == args.RoomStateState);
+            if (ParagraphId == args.Paragraph && userControl == null)
+                userControl = AddGroupedParagraphRoomState(args.RoomStateState);
+
+            if(!userControl.RoomStates.Contains(args.RoomStateState))
+                userControl.AddParagraphRoomState(args.Id, args.Paragraph, args.Paragraph, args.RoomState, args.RoomStateName, args.RoomStateTime, true);
         }
 
-        //private void GinTubBuilderManager_RoomStateRead(object sender, GinTubBuilderManager.RoomStateReadEventArgs args)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        private void GinTubBuilderManager_RoomStateRead(object sender, GinTubBuilderManager.RoomStateReadEventArgs args)
+        {
+            // Is this the first time we've seen this state?
+            // If so, add a group
+            UserControl_GroupedParagraphRoomStates userControl =
+                m_stackPanel_groupedParagraphRoomStates.Children.OfType<UserControl_GroupedParagraphRoomStates>().FirstOrDefault(x => x.RoomStateState == args.State);
+            if (RoomId == args.Room && userControl == null)
+                userControl = AddGroupedParagraphRoomState(args.State);
+
+            if(!userControl.RoomStates.Contains(args.Id))
+                userControl.AddParagraphRoomState(null, null, ParagraphId, args.Id, args.Name, args.Time, true);
+        }
+
+        private UserControl_GroupedParagraphRoomStates AddGroupedParagraphRoomState(int roomStateState)
+        {
+
+            var userControl = new UserControl_GroupedParagraphRoomStates(RoomId, roomStateState, ParagraphId);
+            var userControl_greater =
+                    m_stackPanel_groupedParagraphRoomStates.Children.OfType<UserControl_GroupedParagraphRoomStates>()
+                    .FirstOrDefault(x => x.RoomStateState > roomStateState);
+            if (userControl_greater != null)
+                m_stackPanel_groupedParagraphRoomStates.Children.Insert
+                (
+                    m_stackPanel_groupedParagraphRoomStates.Children.IndexOf(userControl_greater),
+                    userControl
+                );
+            else
+                m_stackPanel_groupedParagraphRoomStates.Children.Add(userControl);
+            return userControl;
+        }
 
         #endregion
 

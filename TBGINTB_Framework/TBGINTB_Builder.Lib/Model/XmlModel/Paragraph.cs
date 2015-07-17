@@ -14,6 +14,7 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
     {
         int m_id;
         int m_order;
+        ParagraphRoomState[] m_paragraphRoomStates;
         ParagraphState[] m_paragraphStates;
 
         [XmlAttribute("Id")]
@@ -35,6 +36,17 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
             {
                 if (m_order != value)
                     m_order = value;
+            }
+        }
+
+        [XmlArray("ParagraphRoomStates")]
+        public ParagraphRoomState[] ParagraphRoomStates
+        {
+            get { return m_paragraphRoomStates; }
+            set
+            {
+                if (m_paragraphRoomStates != value)
+                    m_paragraphRoomStates = value;
             }
         }
 

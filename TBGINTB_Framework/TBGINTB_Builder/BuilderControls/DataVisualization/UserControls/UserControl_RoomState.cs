@@ -18,7 +18,7 @@ namespace TBGINTB_Builder.BuilderControls
     {
         #region MEMBER FIELDS
 
-        TextBlock m_textBlock_state;
+        TextBox m_textBox_state;
         ComboBox_Location m_comboBox_location;
         ComboBox
             m_comboBox_time_hour,
@@ -41,6 +41,7 @@ namespace TBGINTB_Builder.BuilderControls
             {
                 return new List<UIElement>
                 {
+                    m_textBox_state,
                     m_comboBox_location,
                     m_comboBox_time_hour,
                     m_comboBox_time_minute
@@ -98,20 +99,41 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+
+            ////////
+            // Id Grid
+            Grid grid_id = new Grid();
+            grid_id.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            grid_id.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            grid_main.SetGridRowColumn(grid_id, 0, 0);
+
+            ////////
+            // Id
+            TextBlock textBlock_id =
+                new TextBlock()
+                {
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Text = (RoomStateId.HasValue) ? RoomStateId.ToString() : "NewRoomState"
+                };
+            Label label_roomId = new Label() { Content = "Id:", FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Center };
+            grid_id.SetGridRowColumn(textBlock_id, 0, 1);
+            grid_id.SetGridRowColumn(label_roomId, 0, 0);
             
             ////////
             // State Grid
             Grid grid_state = new Grid();
             grid_state.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
             grid_state.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-            grid_main.SetGridRowColumn(grid_state, 0, 0);
+            grid_main.SetGridRowColumn(grid_state, 1, 0);
 
             ////////
             // State
-            m_textBlock_state = new TextBlock() { VerticalAlignment = VerticalAlignment.Center };
+            m_textBox_state = new TextBox() { VerticalAlignment = VerticalAlignment.Center };
+            m_textBox_state.TextChanged += TextBox_State_TextChanged;
             SetRoomStateState(RoomStateState);
             Label label_state = new Label() { Content = "State:", FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Center };
-            grid_state.SetGridRowColumn(m_textBlock_state, 0, 1);
+            grid_state.SetGridRowColumn(m_textBox_state, 0, 1);
             grid_state.SetGridRowColumn(label_state, 0, 0);
 
             ////////
@@ -122,7 +144,7 @@ namespace TBGINTB_Builder.BuilderControls
                     Orientation = Orientation.Horizontal,
                     HorizontalAlignment = HorizontalAlignment.Center
                 };
-            grid_main.SetGridRowColumn(stackPanel_location, 1, 0);
+            grid_main.SetGridRowColumn(stackPanel_location, 2, 0);
 
             Label label_location = new Label() { Content = "Location: ", FontWeight = FontWeights.Bold };
             stackPanel_location.Children.Add(label_location);
@@ -140,7 +162,7 @@ namespace TBGINTB_Builder.BuilderControls
             grid_time.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
             grid_time.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
             grid_time.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-            grid_main.SetGridRowColumn(grid_time, 2, 0);
+            grid_main.SetGridRowColumn(grid_time, 3, 0);
 
             Label label_time = new Label() { Content = "Time: ", FontWeight = FontWeights.Bold };
             Grid.SetColumnSpan(label_time, 3);
@@ -200,7 +222,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         private void SetRoomStateState(int? roomStateState)
         {
-            m_textBlock_state.Text = (roomStateState.HasValue) ? roomStateState.ToString() : "NewState";
+            m_textBox_state.Text = (roomStateState.HasValue) ? roomStateState.ToString() : "";
         }
 
         private void SetRoomStateTime(TimeSpan? roomStateTime)
@@ -218,21 +240,37 @@ namespace TBGINTB_Builder.BuilderControls
             }
         }
 
+        void TextBox_State_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if(textBox == m_textBox_state)
+            {
+                int state;
+                if (int.TryParse(m_textBox_state.Text, out state))
+                    RoomStateState = state;
+            }
+        }
+
         private void ComboBox_Location_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ComboBox comboBox = sender as ComboBox;
             ComboBox_Location.ComboBoxItem_Location item;
-            if (m_comboBox_location.SelectedItem != null && (item = m_comboBox_location.SelectedItem as ComboBox_Location.ComboBoxItem_Location) != null)
+            if (comboBox == m_comboBox_location && m_comboBox_location.SelectedItem != null && (item = m_comboBox_location.SelectedItem as ComboBox_Location.ComboBoxItem_Location) != null)
                 LocationId = item.LocationId;
         }
 
         private void ComboBox_Time_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (m_comboBox_time_hour.SelectedItem != null && m_comboBox_time_minute.SelectedItem != null)
+            ComboBox comboBox = sender as ComboBox;
+            if (sender == m_comboBox_time_hour || sender == m_comboBox_time_minute)
             {
-                int
-                    hour = int.Parse(m_comboBox_time_hour.SelectedItem.ToString()),
-                    minute = int.Parse(m_comboBox_time_minute.SelectedItem.ToString());
-                RoomStateTime = new TimeSpan(hour, minute, 0);
+                if (m_comboBox_time_hour.SelectedItem != null && m_comboBox_time_minute.SelectedItem != null)
+                {
+                    int
+                        hour = int.Parse(m_comboBox_time_hour.SelectedItem.ToString()),
+                        minute = int.Parse(m_comboBox_time_minute.SelectedItem.ToString());
+                    RoomStateTime = new TimeSpan(hour, minute, 0);
+                }
             }
         }
 

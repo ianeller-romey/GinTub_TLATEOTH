@@ -17,5 +17,7 @@ namespace TBGINTB_Builder.Lib.Repository
         public int RoomState { get; set; }
         public int Paragraph { get; set; }
         public string RoomStateName { get; set; }
+        public int RoomStateState { get; set; }
+        public System.TimeSpan RoomStateTime { get; set; }
     }
 }

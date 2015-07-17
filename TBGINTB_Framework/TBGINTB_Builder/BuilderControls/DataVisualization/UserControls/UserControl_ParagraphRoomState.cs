@@ -16,7 +16,7 @@ namespace TBGINTB_Builder.BuilderControls
     {
         #region MEMBER FIELDS
 
-        UserControl_RoomStateName m_userControl_roomStateName;
+        UserControl_RoomStateNameAndTime m_userControl_roomStateName;
         CheckBox m_checkBox_paragraphState;
 
         #endregion
@@ -28,6 +28,7 @@ namespace TBGINTB_Builder.BuilderControls
         public int? ParagraphRoomStateParagraph { get; private set; }
         public int ParagraphRoomStateRoomState { get { return m_userControl_roomStateName.RoomStateId; } }
         public string ParagraphRoomStateRoomStateName { get { return m_userControl_roomStateName.RoomStateName; } }
+        public TimeSpan ParagraphRoomStateRoomStateTime { get { return m_userControl_roomStateName.RoomStateTime; } }
         private int ParagraphRoomStateParagraphToCheck { get; set; }
 
         public List<UIElement> EditingControls
@@ -54,7 +55,8 @@ namespace TBGINTB_Builder.BuilderControls
             int? paragraphRoomStateParagraph, 
             int paragraphRoomStateParagraphToCheck, 
             int paragraphRoomStateRoomState, 
-            string paragraphRoomStateRoomStateName, 
+            string paragraphRoomStateRoomStateName,
+            TimeSpan paragraphRoomStateRoomStateTime,
             bool enableEditing
         )
         {
@@ -62,7 +64,7 @@ namespace TBGINTB_Builder.BuilderControls
             ParagraphRoomStateParagraph = paragraphRoomStateParagraph;
             ParagraphRoomStateParagraphToCheck = paragraphRoomStateParagraphToCheck;
 
-            CreateControls(paragraphRoomStateRoomState, paragraphRoomStateRoomStateName);
+            CreateControls(paragraphRoomStateRoomState, paragraphRoomStateRoomStateName, paragraphRoomStateRoomStateTime);
 
             foreach (var e in EditingControls)
                 e.IsEnabled = enableEditing;
@@ -81,7 +83,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int paragraphRoomStateRoomState, string paragraphRoomStateRoomStateName)
+        private void CreateControls(int paragraphRoomStateRoomState, string paragraphRoomStateRoomStateName, TimeSpan paragraphRoomStateRoomStateTime)
         {
             Grid grid_main = new Grid();
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
@@ -108,33 +110,24 @@ namespace TBGINTB_Builder.BuilderControls
             grid_id.SetGridRowColumn(label_id, 0, 0);
 
             ////////
-            // RoomState Grid
-            Grid grid_roomState = new Grid();
-            grid_roomState.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-            grid_roomState.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100.0, GridUnitType.Star) });
-            grid_main.SetGridRowColumn(grid_roomState, 1, 0);
-
-            ////////
             // RoomState
-            m_userControl_roomStateName = new UserControl_RoomStateName(paragraphRoomStateRoomState, paragraphRoomStateRoomStateName);
+            m_userControl_roomStateName = new UserControl_RoomStateNameAndTime(paragraphRoomStateRoomState, paragraphRoomStateRoomStateName, paragraphRoomStateRoomStateTime);
             m_userControl_roomStateName.SetActiveAndRegisterForGinTubEvents(); // never unregister; we want updates no matter where we are
-            Label label_roomState = new Label() { Content = "RoomState:", FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Center };
-            grid_roomState.SetGridRowColumn(m_userControl_roomStateName, 1, 0);
-            grid_roomState.SetGridRowColumn(label_roomState, 0, 0);
+            grid_main.SetGridRowColumn(m_userControl_roomStateName, 1, 0);
 
             ////////
             // Paragraph Grid
             Grid grid_paragraph = new Grid();
-            grid_paragraph.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-            grid_paragraph.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100.0, GridUnitType.Star) });
+            grid_paragraph.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            grid_paragraph.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
             grid_main.SetGridRowColumn(grid_paragraph, 2, 0);
 
             ////////
             // Paragraph
-            m_checkBox_paragraphState = new CheckBox() { IsChecked = ParagraphRoomStateParagraph.HasValue };
+            m_checkBox_paragraphState = new CheckBox() { IsChecked = ParagraphRoomStateParagraph.HasValue, VerticalAlignment = System.Windows.VerticalAlignment.Center };
             m_checkBox_paragraphState.Checked += CheckBox_Paragraph_Checked;
-            Label label_paragraph = new Label() { Content = "Paragraph:", FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Center };
-            grid_paragraph.SetGridRowColumn(m_checkBox_paragraphState, 1, 0);
+            Label label_paragraph = new Label() { Content = "Use Paragraph?", FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Center };
+            grid_paragraph.SetGridRowColumn(m_checkBox_paragraphState, 0, 1);
             grid_paragraph.SetGridRowColumn(label_paragraph, 0, 0);
 
             ////////

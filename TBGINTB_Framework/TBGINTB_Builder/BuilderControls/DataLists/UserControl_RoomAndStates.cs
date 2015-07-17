@@ -108,16 +108,17 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
+        private void GinTubBuilderManager_RoomStateRead(object sender, GinTubBuilderManager.RoomStateReadEventArgs args)
+        {
+            if(SelectedRoomId == args.Room && !m_stackPanel_roomStates.Children.OfType<UserControl_RoomStateModification>().Any(x => x.RoomStateId == args.Id))
+                CreateRoomState(args.Id, args.State, args.Time, args.Location, args.Room);
+        }
+
         private void CreateRoomState(int roomStateId, int roomStateState, TimeSpan? roomStateTime, int locationId, int roomId)
         {
             UserControl_RoomStateModification grid = new UserControl_RoomStateModification(roomStateId, roomStateState, roomStateTime, locationId, roomId);
             m_stackPanel_roomStates.Children.Add(grid);
             GinTubBuilderManager.ReadAllLocations();
-        }
-
-        private void GinTubBuilderManager_RoomStateRead(object sender, GinTubBuilderManager.RoomStateReadEventArgs args)
-        {
-            CreateRoomState(args.Id, args.State, args.Time, args.Location, args.Room);
         }
 
         void Button_RoomPreview_Click(object sender, RoutedEventArgs e)

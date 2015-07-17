@@ -1373,12 +1373,16 @@
           <Property Type="Int32" Name="RoomState" Nullable="false" />
           <Property Type="Int32" Name="Paragraph" Nullable="false" />
           <Property Type="String" Name="RoomStateName" Nullable="true" MaxLength="28" />
+          <Property Type="Int32" Name="RoomStateState" Nullable="false" />
+          <Property Type="Time" Name="RoomStateTime" Nullable="false" />
         </ComplexType>
         <ComplexType Name="dev_ReadAllParagraphRoomStatesForRoomState_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="Int32" Name="RoomState" Nullable="false" />
           <Property Type="Int32" Name="Paragraph" Nullable="false" />
           <Property Type="String" Name="RoomStateName" Nullable="true" MaxLength="28" />
+          <Property Type="Int32" Name="RoomStateState" Nullable="false" />
+          <Property Type="Time" Name="RoomStateTime" Nullable="false" />
         </ComplexType>
         <ComplexType Name="dev_ReadAllParagraphsForRoom_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1548,6 +1552,8 @@
           <Property Type="Int32" Name="RoomState" Nullable="false" />
           <Property Type="Int32" Name="Paragraph" Nullable="false" />
           <Property Type="String" Name="RoomStateName" Nullable="true" MaxLength="28" />
+          <Property Type="Int32" Name="RoomStateState" Nullable="false" />
+          <Property Type="Time" Name="RoomStateTime" Nullable="false" />
         </ComplexType>
         <ComplexType Name="dev_ReadParagraphState_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1868,6 +1874,8 @@
                 <ScalarProperty Name="RoomState" ColumnName="RoomState" />
                 <ScalarProperty Name="Paragraph" ColumnName="Paragraph" />
                 <ScalarProperty Name="RoomStateName" ColumnName="RoomStateName" />
+                <ScalarProperty Name="RoomStateState" ColumnName="RoomStateState" />
+                <ScalarProperty Name="RoomStateTime" ColumnName="RoomStateTime" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1878,6 +1886,8 @@
                 <ScalarProperty Name="RoomState" ColumnName="RoomState" />
                 <ScalarProperty Name="Paragraph" ColumnName="Paragraph" />
                 <ScalarProperty Name="RoomStateName" ColumnName="RoomStateName" />
+                <ScalarProperty Name="RoomStateState" ColumnName="RoomStateState" />
+                <ScalarProperty Name="RoomStateTime" ColumnName="RoomStateTime" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2163,6 +2173,8 @@
                 <ScalarProperty Name="RoomState" ColumnName="RoomState" />
                 <ScalarProperty Name="Paragraph" ColumnName="Paragraph" />
                 <ScalarProperty Name="RoomStateName" ColumnName="RoomStateName" />
+                <ScalarProperty Name="RoomStateState" ColumnName="RoomStateState" />
+                <ScalarProperty Name="RoomStateTime" ColumnName="RoomStateTime" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

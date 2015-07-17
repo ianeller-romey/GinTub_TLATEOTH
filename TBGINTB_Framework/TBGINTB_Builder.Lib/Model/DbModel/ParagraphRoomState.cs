@@ -15,6 +15,8 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
         int m_id;
         int m_roomState;
         string m_roomStateName;
+        int m_roomStateState;
+        TimeSpan m_roomStateTime;
         int m_paragraph;
 
         [DataMember]
@@ -47,6 +49,28 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
             {
                 if (m_roomStateName != value)
                     m_roomStateName = value;
+            }
+        }
+
+        [DataMember]
+        public int RoomStateState
+        {
+            get { return m_roomStateState; }
+            private set
+            {
+                if (m_roomStateState != value)
+                    m_roomStateState = value;
+            }
+        }
+
+        [DataMember]
+        public TimeSpan RoomStateTime
+        {
+            get { return m_roomStateTime; }
+            private set
+            {
+                if (m_roomStateTime != value)
+                    m_roomStateTime = value;
             }
         }
 

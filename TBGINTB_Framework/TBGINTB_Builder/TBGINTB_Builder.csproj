@@ -73,6 +73,8 @@
     <Compile Include="BuilderControls\ComboBoxes\ComboBox_Room.cs" />
     <Compile Include="BuilderControls\ComboBoxes\ComboBox_Area.cs" />
     <Compile Include="BuilderControls\ComboBoxes\ComboBox_JSONPropertyDataType.cs" />
+    <Compile Include="BuilderControls\DataVisualization\Bordered\UserControl_Bordered_ParagraphRoomState.cs" />
+    <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_GroupedParagraphRoomStates.cs" />
     <Compile Include="BuilderControls\DataLists\UserControl_ParagraphRoomStates.cs" />
     <Compile Include="BuilderControls\DataLists\UserControl_MessageChoiceResults.cs" />
     <Compile Include="BuilderControls\DataLists\UserControl_MessageChoices.cs" />
@@ -118,7 +120,7 @@
     <Compile Include="BuilderControls\DataVisualization\Bordered\UserControl_Bordered_Room.cs" />
     <Compile Include="BuilderControls\DataVisualization\Bordered\UserControl_Bordered_RoomState.cs" />
     <Compile Include="BuilderControls\DataVisualization\Bordered\UserControl_Bordered_Verb.cs" />
-    <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_RoomStateName.cs" />
+    <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_RoomStateNameAndTime.cs" />
     <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_ParagraphRoomState.cs" />
     <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_AreaRoomOnInitialLoad.cs" />
     <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_MessageChoiceResult.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_Area.cs" />
     <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_ResultType.cs" />
     <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_Result.cs" />
+    <Compile Include="BuilderControls\DataWindows\Window_ParagraphRoomStates.cs" />
     <Compile Include="BuilderControls\DataWindows\Window_MessageChoiceResult.cs" />
     <Compile Include="BuilderControls\DataWindows\Window_MessageChoice.cs" />
     <Compile Include="BuilderControls\DataWindows\Window_Message.cs" />

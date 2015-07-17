@@ -15,8 +15,7 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
         int m_id;
         int m_state;
         int m_location;
-        DateTime m_time;
-        Paragraph[] m_paragraphs;
+        TimeSpan m_time;
 
         [XmlAttribute("Id")]
         public int Id
@@ -52,24 +51,13 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
         }
 
         [XmlElement("Time")]
-        public DateTime Time
+        public TimeSpan Time
         {
             get { return m_time; }
             set
             {
                 if (m_time != value)
                     m_time = value;
-            }
-        }
-
-        [XmlArray("Paragraphs")]
-        public Paragraph[] Paragraphs
-        {
-            get { return m_paragraphs; }
-            set
-            {
-                if (m_paragraphs != value)
-                    m_paragraphs = value;
             }
         }
     }

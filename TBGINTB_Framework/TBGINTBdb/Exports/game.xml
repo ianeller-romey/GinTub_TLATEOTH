@@ -373,13 +373,18 @@
             <RoomState Id="0">
               <State>0</State>
               <Location>0</Location>
-              <Time>1988-08-13T00:00:00</Time>
+              <Time>00:00:00</Time>
               <Paragraphs />
             </RoomState>
           </RoomStates>
           <Paragraphs>
             <Paragraph Id="0">
               <Order>0</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="0">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
               <ParagraphStates>
                 <ParagraphState Id="0">
                   <Text>You sit in the driver’s seat of an old, poorly maintained sedan.</Text>
@@ -390,6 +395,11 @@
             </Paragraph>
             <Paragraph Id="1">
               <Order>1</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="1">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
               <ParagraphStates>
                 <ParagraphState Id="1">
                   <Text>The interior is cramped, smelling vaguely of dust and fast food.</Text>
@@ -400,6 +410,11 @@
             </Paragraph>
             <Paragraph Id="2">
               <Order>2</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="2">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
               <ParagraphStates>
                 <ParagraphState Id="2">
                   <Text>Muted gray light pours in through the windows, nearly the exact same shade as the fabric lining the vehicle's seats.</Text>
@@ -410,6 +425,11 @@
             </Paragraph>
             <Paragraph Id="3">
               <Order>3</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="3">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
               <ParagraphStates>
                 <ParagraphState Id="3">
                   <Text>Splashes of water cling to the windshield; evidence of a recently concluded rain shower.</Text>
@@ -437,6 +457,11 @@
             </Paragraph>
             <Paragraph Id="4">
               <Order>4</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="4">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
               <ParagraphStates>
                 <ParagraphState Id="4">
                   <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag, a pair of kitchen scissors, and a small flashlight.</Text>
@@ -885,6 +910,11 @@
             </Paragraph>
             <Paragraph Id="5">
               <Order>5</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="5">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
               <ParagraphStates>
                 <ParagraphState Id="5">
                   <Text>The garish light emanating from the laptop lying open before you has ignited a small tic in your right temple.</Text>
@@ -945,6 +975,11 @@
             </Paragraph>
             <Paragraph Id="6">
               <Order>6</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="6">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
               <ParagraphStates>
                 <ParagraphState Id="6">
                   <Text>The door to your left is unlocked.</Text>

@@ -421,6 +421,9 @@ BEGIN
 	
 	DELETE
 	FROM [dbo].[ParagraphRoomStates]
+	
+	DELETE
+	FROM [dev].[PlaceholderLocation]
 
 	DELETE
 	FROM [dbo].[Locations]
@@ -1364,10 +1367,10 @@ BEGIN
 		   p.[Order],
 		   p.[Room]
 	FROM [dbo].[Paragraphs] p
-	INNER JOIN [dbo].[ParagraphRoomStates] prs
+	LEFT JOIN [dbo].[ParagraphRoomStates] prs
 	ON p.[Id] = prs.[Paragraph]
 	WHERE p.[Room] = @room
-	AND prs.[RoomState] = @roomstate
+	AND (prs.[RoomState] = @roomstate OR @roomstate IS NULL)
 	ORDER BY [Order]
 
 END
@@ -1502,8 +1505,12 @@ BEGIN
 	SELECT prs.[Id],
 		   prs.[RoomState],
 		   rsn.[Name] as [RoomStateName],
+		   rs.[State] as [RoomStateState],
+		   rs.[Time] as [RoomStateTime],
 		   prs.[Paragraph]
 	FROM [dbo].[ParagraphRoomStates] prs
+	INNER JOIN [dbo].[RoomStates] rs
+	ON prs.[RoomState] = rs.[Id]
 	INNER JOIN [dev].[RoomStateNames] rsn
 	ON prs.[RoomState] = rsn.[RoomState]
 	WHERE prs.[Paragraph] = @paragraph
@@ -1530,8 +1537,12 @@ BEGIN
 	SELECT prs.[Id],
 		   prs.[RoomState],
 		   rsn.[Name] as [RoomStateName],
+		   rs.[State] as [RoomStateState],
+		   rs.[Time] as [RoomStateTime],
 		   prs.[Paragraph]
 	FROM [dbo].[ParagraphRoomStates] prs
+	INNER JOIN [dbo].[RoomStates] rs
+	ON prs.[RoomState] = rs.[Id]
 	INNER JOIN [dev].[RoomStateNames] rsn
 	ON prs.[RoomState] = rsn.[RoomState]
 	WHERE prs.[RoomState] = @roomstate
@@ -1558,8 +1569,12 @@ BEGIN
 	SELECT prs.[Id],
 		   prs.[RoomState],
 		   rsn.[Name] as [RoomStateName],
+		   rs.[State] as [RoomStateState],
+		   rs.[Time] as [RoomStateTime],
 		   prs.[Paragraph]
 	FROM [dbo].[ParagraphRoomStates] prs
+	INNER JOIN [dbo].[RoomStates] rs
+	ON prs.[RoomState] = rs.[Id]
 	INNER JOIN [dev].[RoomStateNames] rsn
 	ON prs.[RoomState] = rsn.[RoomState]
 	WHERE prs.[Id] = @id
