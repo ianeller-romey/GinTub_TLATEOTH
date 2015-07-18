@@ -32,19 +32,15 @@ namespace GinTub.Services.OperationContracts
 
         [OperationContract]
         [WebInvoke(Method = "GET",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json,
-        UriTemplate = "LoadAllVerbTypes")]
-        DataContracts.VerbUseData LoadAllVerbTypes();
+        UriTemplate = "GetAllVerbTypes")]
+        DataContracts.VerbUseData GetAllVerbTypes();
 
         [OperationContract]
-        [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
-        RequestFormat = WebMessageFormat.Json,
+        [WebInvoke(Method = "GET",
         ResponseFormat = WebMessageFormat.Json,
-        UriTemplate = "GetNounsForParagraphState")]
-        DataContracts.PlayData GetNounsForParagraphState(int paragraphStateId);
+        UriTemplate = "GetNounsForParagraphState/{paragraphStateId}")]
+        DataContracts.PlayData GetNounsForParagraphState(string paragraphStateId);
 
         [OperationContract]
         [WebInvoke(Method = "POST",

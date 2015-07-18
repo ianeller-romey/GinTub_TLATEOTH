@@ -11,10 +11,9 @@ namespace GinTub.Repository.Entities.Database
 {
     using System;
     
-    public partial class GetMessageChoiceResults_Result
+    public partial class ReadAllVerbTypes_Result
     {
         public int Id { get; set; }
-        public string JSONData { get; set; }
-        public int ResultType { get; set; }
+        public string Name { get; set; }
     }
 }

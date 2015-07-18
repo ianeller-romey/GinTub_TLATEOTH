@@ -32,17 +32,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="FastMapper, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="FastMapper">
       <HintPath>..\packages\FastMapper.1.2.0\lib\net40\FastMapper.dll</HintPath>
-      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -71,40 +72,55 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dboSchema.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Database\f_PlayerHasRequirementsForAction_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Database\GetActionResults_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Database\GetMessageChoiceResults_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Database\LoadAllVerbTypes_Result.cs">
+    <Compile Include="Entities\Database\PlayerMoveXYZ_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Database\LoadArea_Result.cs">
+    <Compile Include="Entities\Database\ReadAllVerbTypes_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Database\LoadMessageChoicesForMessage_Result.cs">
+    <Compile Include="Entities\Database\ReadAreaForPlayer_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Database\LoadMessageId_Result.cs">
+    <Compile Include="Entities\Database\ReadArea_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Database\LoadMessage_Result.cs">
+    <Compile Include="Entities\Database\ReadGame_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Database\LoadNounsForParagraphState_Result.cs">
+    <Compile Include="Entities\Database\ReadMessageChoicesForMessage_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Database\LoadNounsForRoom_Result.cs">
+    <Compile Include="Entities\Database\ReadMessageForPlayer_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Database\LoadParagraphStatesForRoom_Result.cs">
+    <Compile Include="Entities\Database\ReadMessage_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Database\LoadRoomStatesForRoom_Result.cs">
+    <Compile Include="Entities\Database\ReadNounsForParagraphState_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Database\LoadRoom_Result.cs">
+    <Compile Include="Entities\Database\ReadNounsForPlayerRoom_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Database\ReadParagraphStatesForPlayerRoom_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Database\ReadRoomForPlayer_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Database\ReadRoomStatesForPlayerRoom_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Database\ReadRoom_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="GinTubRepository.cs" />

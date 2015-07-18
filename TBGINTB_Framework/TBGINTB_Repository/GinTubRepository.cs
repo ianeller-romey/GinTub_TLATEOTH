@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Objects;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,27 +37,27 @@ namespace GinTub.Repository
             return playerId;
         }
 
-        public IEnumerable<VerbType> LoadAllVerbTypes()
+        public IEnumerable<VerbType> ReadAllVerbTypes()
         {
-            IEnumerable<VerbType> verbTypes;
+            IEnumerable<VerbType> verbTypes = null;
             using (var entities = new GinTubEntities())
             {
-                var verbTypeResults = entities.LoadAllVerbTypes();
+                var verbTypeResults = entities.ReadAllVerbTypes();
                 verbTypes = verbTypeResults.Select(v => TypeAdapter.Adapt<VerbType>(v)).ToList();
             }
             return verbTypes;
         }
 
-        public AreaData LoadGame(Guid playerId)
+        public AreaData ReadGame(Guid playerId)
         {
-            Area area;
-            RoomData roomData;
+            Area area = null;
+            RoomData roomData = null;
             using (var entities = new GinTubEntities())
             {
-                var areaResults = entities.LoadGame(playerId);
+                var areaResults = entities.ReadGame(playerId);
                 area = TypeAdapter.Adapt<Area>(areaResults.Single());
 
-                var roomResults = areaResults.GetNextResult<LoadRoom_Result>();
+                var roomResults = areaResults.GetNextResult<ReadRoom_Result>();
                 roomData = RoomResultsFromDB(roomResults);
             }
             return new AreaData(area, roomData.Item1, roomData.Item2, roomData.Item3);
@@ -65,10 +65,10 @@ namespace GinTub.Repository
 
         public IEnumerable<Noun> GetNounsForParagraphState(int paragraphStateId)
         {
-            IEnumerable<Noun> nouns;
+            IEnumerable<Noun> nouns = null;
             using(var entities = new GinTubEntities())
             {
-                var nounResults = entities.LoadNounsForParagraphState(paragraphStateId);
+                var nounResults = entities.ReadNounsForParagraphState(paragraphStateId);
                 nouns = nounResults.Select(n => TypeAdapter.Adapt<Noun>(n)).ToList();
             }
             return nouns;
@@ -76,7 +76,7 @@ namespace GinTub.Repository
 
         public IEnumerable<Result> GetActionResults(Guid playerId, int nounId, int verbTypeId)
         {
-            IEnumerable<Result> results;
+            IEnumerable<Result> results = null;
             using(var entities = new GinTubEntities())
             {
                 var resultResults = entities.GetActionResults(playerId, nounId, verbTypeId);
@@ -85,15 +85,15 @@ namespace GinTub.Repository
             return results;
         }
 
-        public Message LoadMessage(int messageId)
+        public Message ReadMessage(int messageId)
         {
-            Message message;
+            Message message = null;
             using(var entities = new GinTubEntities())
             {
-                var messageResult = entities.LoadMessageId(messageId);
+                var messageResult = entities.ReadMessage(messageId);
                 message = messageResult.Select(m => TypeAdapter.Adapt<Message>(m)).First();
 
-                var messageChoiceResults = messageResult.GetNextResult<LoadMessageChoicesForMessage_Result>();
+                var messageChoiceResults = messageResult.GetNextResult<ReadMessageChoicesForMessage_Result>();
                 if(messageChoiceResults != null)
                     message.MessageChoices = messageChoiceResults.Select(mc => TypeAdapter.Adapt<MessageChoice>(mc)).ToArray();
             }
@@ -105,21 +105,21 @@ namespace GinTub.Repository
 
         #region Private Functionality
 
-        public RoomData RoomResultsFromDB(ObjectResult<LoadRoom_Result> roomResults)
+        public RoomData RoomResultsFromDB(ObjectResult<ReadRoom_Result> roomResults)
         {
-            Room room;
-            IEnumerable<RoomState> roomStates;
-            IEnumerable<ParagraphState> paragraphStates;
+            Room room = null;
+            IEnumerable<RoomState> roomStates = null;
+            IEnumerable<ParagraphState> paragraphStates = null;
 
             room = roomResults.Select(x => TypeAdapter.Adapt<Room>(x)).FirstOrDefault();
 
-            var roomStateResults = roomResults.GetNextResult<LoadRoomStatesForRoom_Result>();
+            var roomStateResults = roomResults.GetNextResult<ReadRoomStatesForPlayerRoom_Result>();
             roomStates = roomStateResults.Select(x => TypeAdapter.Adapt<RoomState>(x)).ToList();
 
-            var paragraphStateResults = roomStateResults.GetNextResult<LoadParagraphStatesForRoom_Result>();
+            var paragraphStateResults = roomStateResults.GetNextResult<ReadParagraphStatesForPlayerRoom_Result>();
             paragraphStates = paragraphStateResults.Select(x => TypeAdapter.Adapt<ParagraphState>(x)).ToList();
 
-            var nounResults = paragraphStateResults.GetNextResult<LoadNounsForRoom_Result>();
+            var nounResults = paragraphStateResults.GetNextResult<ReadNounsForPlayerRoom_Result>();
             IEnumerable<Noun> nouns = nounResults.Select(x => TypeAdapter.Adapt<Noun>(x)).ToList();
 
             foreach (var paragraphState in paragraphStates)

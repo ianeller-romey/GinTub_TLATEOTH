@@ -13,11 +13,11 @@ namespace GinTub.Repository.Interface
     {
         Guid? PlayerLogin(string userName, string domainName, string domain, string password);
 
-        IEnumerable<VerbType> LoadAllVerbTypes();
+        IEnumerable<VerbType> ReadAllVerbTypes();
 
-        Tuple<Area, Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> LoadGame(Guid playerId);
+        Tuple<Area, Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> ReadGame(Guid playerId);
 
-        Message LoadMessage(int messageId);
+        Message ReadMessage(int messageId);
 
         IEnumerable<Noun> GetNounsForParagraphState(int paragraphStateId);
 

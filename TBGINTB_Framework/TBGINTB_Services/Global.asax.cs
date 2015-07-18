@@ -37,23 +37,6 @@ namespace GinTub
                             .ToList()
                 );
 
-            /*
-            // Create Json.Net formatter serializing DateTime using the ISO 8601 format
-            var serializerSettings = new JsonSerializerSettings();
-            serializerSettings.Converters.Add(new IsoDateTimeConverter());
-
-            var config = HttpHostConfiguration.Create().Configuration;
-            config.OperationHandlerFactory.Formatters.Clear();
-            config.OperationHandlerFactory.Formatters.Insert(0, new JsonNetMediaTypeFormatter(serializerSettings));
-
-            var httpServiceFactory = new HttpServiceHostFactory
-                                    {
-                                        OperationHandlerFactory = config.OperationHandlerFactory,
-                                        MessageHandlerFactory = config.MessageHandlerFactory
-                                    };
-            RouteTable.Routes.Add(new ServiceRoute("Service1", httpServiceFactory, typeof(Service1)));
-            */
-
             RouteTable.Routes.Add(new ServiceRoute("", new WebServiceHostFactory(), typeof(GinTub.Services.GinTubService)));
         }
 

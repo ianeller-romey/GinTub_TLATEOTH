@@ -11,10 +11,10 @@ namespace GinTub.Repository.Entities.Database
 {
     using System;
     
-    public partial class GetMessageChoiceResults_Result
+    public partial class ReadNounsForParagraphState_Result
     {
         public int Id { get; set; }
-        public string JSONData { get; set; }
-        public int ResultType { get; set; }
+        public string Text { get; set; }
+        public int ParagraphState { get; set; }
     }
 }

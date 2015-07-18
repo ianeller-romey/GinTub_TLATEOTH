@@ -6,17 +6,17 @@ var ServicesEngine = function () {
     this.messengerEngine.register("GameStateEngine.doAction", this, this.doAction);
 };
 
-ServicesEngine.prototype.loadAllVerbTypes = function () {
+ServicesEngine.prototype.getAllVerbTypes = function () {
     var that = this;
 
     $.ajax({
-        url: "http://ironandrose/gintub/lion/gintubservices/GinTubService.svc/LoadAllVerbTypes",
+        url: "http://ironandrose/gintub/lion/gintubservices/GinTubService.svc/GetAllVerbTypes",
         type: 'get',
         dataType: 'text',
         contentType: 'application/json',
         success: function (data, status) {
             var verbUseData = JSON.parse(data);
-            that.messengerEngine.post("ServicesEngine.loadAllVerbTypes", verbUseData.LoadAllVerbTypesResult);
+            that.messengerEngine.post("ServicesEngine.getAllVerbTypes", verbUseData.GetAllVerbTypesResult);
         },
         error: function (request, status, error) {
             var iii = 0;
@@ -29,12 +29,12 @@ ServicesEngine.prototype.getNounsForParagraphState = function (paragraphStateId)
 
     $.ajax({
         url: "http://ironandrose/gintub/lion/gintubservices/GinTubService.svc/GetNounsForParagraphState",
-        type: 'post',
+        type: 'get',
         dataType: 'text',
         contentType: 'application/json',
-        data: JSON.stringify({
+        data: {
             paragraphStateId: paragraphStateId
-        }),
+        },
         success: function (data, status) {
             var nounData = JSON.parse(data);
             that.messengerEngine.post("ServicesEngine.getNounsForParagraphState", nounData.GetNounsForParagraphStateResult);

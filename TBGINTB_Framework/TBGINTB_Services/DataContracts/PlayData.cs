@@ -12,7 +12,7 @@ namespace GinTub.Services.DataContracts
     [DataContract]
     public class MessageChoiceData
     {
-        [DataMember]
+        [DataMember(Name="id")]
         public int Id { get; set; }
         [DataMember]
         public string Text { get; set; }

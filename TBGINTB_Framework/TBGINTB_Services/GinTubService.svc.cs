@@ -72,9 +72,9 @@ namespace GinTub.Services
             return new PlayerLogin() { PlayerId = playerId };
         }
 
-        public VerbUseData LoadAllVerbTypes()
+        public VerbUseData GetAllVerbTypes()
         {
-            var result = _repository.LoadAllVerbTypes();
+            var result = _repository.ReadAllVerbTypes();
             return new VerbUseData()
                 {
                     VerbTypes = result.Select(v => TypeAdapter.Adapt<VerbTypeData>(v)).ToList()
@@ -83,7 +83,7 @@ namespace GinTub.Services
 
         public PlayData LoadGame(Guid playerId)
         {
-            var result = _repository.LoadGame(playerId);
+            var result = _repository.ReadGame(playerId);
             return new PlayData()
                 {
                     Area = TypeAdapter.Adapt<AreaData>(result.Item1),
@@ -93,25 +93,31 @@ namespace GinTub.Services
                 };
         }
 
-        public PlayData GetNounsForParagraphState(int paragraphStateId)
+        public PlayData GetNounsForParagraphState(string paragraphStateId)
         {
-            var result = _repository.GetNounsForParagraphState(paragraphStateId);
-            return new PlayData()
+            PlayData data = new PlayData();
+
+            int paragraphStateIntId;
+            if (int.TryParse(paragraphStateId, out paragraphStateIntId))
             {
-                Message = new MessageData()
-                {
-                    Id = -1,
-                    Text =
-                        (result.Any())
-                        ? 
-                            string.Format
-                            (
-                                "You take special notice of the {0}.",
-                                result.Select(n => n.Text).Aggregate((x, y) => string.Format("{0}, {1}", x, y))
-                            )
-                        : "Nothing in particular catches your eye here."
-                }
-            };
+                var result = _repository.GetNounsForParagraphState(paragraphStateIntId);
+                data.Message = 
+                    new MessageData()
+                    {
+                        Id = -1,
+                        Text =
+                            (result.Any())
+                            ?
+                                string.Format
+                                (
+                                    "You take special notice of the {0}.",
+                                    result.Select(n => n.Text).Aggregate((x, y) => string.Format("{0}, {1}", x, y))
+                                )
+                            : "Nothing in particular catches your eye here."
+                    };
+            }
+
+            return data;
         }
 
         public PlayData DoAction(Guid playerId, int? nounId, int verbTypeId)
@@ -159,7 +165,7 @@ namespace GinTub.Services
         public void Result_MessageActivation(dynamic data, ref PlayData playData)
         {
             int messageId = data.messageId;
-            var result = _repository.LoadMessage(messageId);
+            var result = _repository.ReadMessage(messageId);
             playData.Message = TypeAdapter.Adapt<MessageData>(result);
         }
 

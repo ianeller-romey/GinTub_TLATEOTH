@@ -114,7 +114,7 @@ BEGIN
 	INSERT INTO [dbo].[PlayerGameStates] ([Player], [LastRoom])
 	SELECT TOP 1 @playerId,
 				 [Room]
-	FROM [dbo].[AreaRoomOnInitialRead] WITH(NOLOCK)
+	FROM [dbo].[AreaRoomOnInitialLoad] WITH(NOLOCK)
 	
 	SELECT @playerId
 
@@ -299,7 +299,7 @@ ALTER PROCEDURE [dbo].[ReadMessageForPlayer]
 AS
 BEGIN
 
-	EXEC [dbo].[ReadMessageId]
+	EXEC [dbo].[ReadMessage]
 	@message = @message
 	
 	EXEC [dbo].[ReadMessageChoicesForMessage]
