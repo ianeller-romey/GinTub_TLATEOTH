@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\v-iaelle\Documents\GitHub\GinTub_TLATEOTH\TBGINTB_Framework\TBGINTB_Repository\Entities\Database\dboSchema.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Ian Eller-Romey\Documents\GitHub\GinTub_TLATEOTH\TBGINTB_Framework\TBGINTB_Repository\Entities\Database\dboSchema.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

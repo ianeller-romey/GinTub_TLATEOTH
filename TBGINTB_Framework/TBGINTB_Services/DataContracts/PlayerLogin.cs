@@ -9,10 +9,10 @@ using System.ServiceModel.Web;
 namespace GinTub.Services.DataContracts
 {
 
-    [DataContract]
+    [DataContract(Name = "playerLogin")]
     public class PlayerLogin
     {
-        [DataMember] 
+        [DataMember(Name = "playerId")]
         public Guid? PlayerId { get; set; }
     }
 

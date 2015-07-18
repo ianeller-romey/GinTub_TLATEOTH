@@ -9,19 +9,20 @@ using System.ServiceModel.Web;
 namespace GinTub.Services.DataContracts
 {
 
-    [DataContract]
+    [DataContract(Name = "verbTypeData")]
     public class VerbTypeData
     {
-        [DataMember] 
+        [DataMember(Name = "id")]
         public int Id { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "name")]
         public string Name { get; set; }
     }
 
-    [DataContract]
+    [DataContract(Name = "verbUseData")]
     public class VerbUseData
     {
-        [DataMember]
+        [DataMember(Name = "verbTypes")]
         public IEnumerable<VerbTypeData> VerbTypes { get; set; }
     }
 

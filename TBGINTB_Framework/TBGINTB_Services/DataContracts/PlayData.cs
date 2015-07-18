@@ -9,97 +9,116 @@ using System.ServiceModel.Web;
 namespace GinTub.Services.DataContracts
 {
 
-    [DataContract]
+    [DataContract(Name = "messageChoiceData")]
     public class MessageChoiceData
     {
-        [DataMember(Name="id")]
+        [DataMember(Name = "id")]
         public int Id { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "text")]
         public string Text { get; set; }
     }
 
-    [DataContract]
+    [DataContract(Name = "messageData")]
     public class MessageData
     {
-        [DataMember]
+        [DataMember(Name = "id")]
         public int Id { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "text")]
         public string Text { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "messageChoices")]
         public IEnumerable<MessageChoiceData> MessageChoices { get; set; }
     }
 
-    [DataContract]
+    [DataContract(Name = "wordData")]
     public class WordData
     {
-        [DataMember] 
+        [DataMember(Name = "nounId")]
         public int? NounId { get; set; }
-        [DataMember] 
+
+        [DataMember(Name = "text")]
         public string Text { get; set; }
     }
 
-    [DataContract]
+    [DataContract(Name = "paragraphStateData")]
     public class ParagraphStateData
     {
-        [DataMember] 
+        [DataMember(Name = "id")]
         public int Id { get; set; }
-        [DataMember] 
+
+        [DataMember(Name = "messageChoiceData")]
         public int Order { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "roomState")]
         public int? RoomState { get; set; }
-        [DataMember] 
+
+        [DataMember(Name = "words")]
         public IEnumerable<WordData> Words { get; set; }
     }
 
-    [DataContract]
+    [DataContract(Name = "roomStateData")]
     public class RoomStateData
     {
-        [DataMember]
+        [DataMember(Name = "id")]
         public int Id { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "state")]
         public int State { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "time")]
         public DateTime Time { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "location")]
         public string Location { get; set; }
     }
 
-    [DataContract]
+    [DataContract(Name = "roomData")]
     public class RoomData
     {
-        [DataMember]
+        [DataMember(Name = "id")]
         public int Id { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "name")]
         public string Name { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "x")]
         public int X { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "y")]
         public int Y { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "z")]
         public int Z { get; set; }
     }
 
-    [DataContract]
+    [DataContract(Name = "areaData")]
     public class AreaData
     {
-        [DataMember]
+        [DataMember(Name = "id")]
         public int Id { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "name")]
         public string Name { get; set; }
     }
 
-    [DataContract]
+    [DataContract(Name = "playData")]
     public class PlayData
     {
-        [DataMember]
+        [DataMember(Name = "area")]
         public AreaData Area { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "room")]
         public RoomData Room { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "roomStates")]
         public IEnumerable<RoomStateData> RoomStates { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "paragraphStates")]
         public IEnumerable<ParagraphStateData> ParagraphStates { get; set; }
-        [DataMember]
+
+        [DataMember(Name = "message")]
         public MessageData Message { get; set; }
     }
 }
