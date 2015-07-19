@@ -504,15 +504,15 @@ BEGIN
 	EXEC [dbo].[ReadRoom]
 	@room = @room
 	
-	EXEC [dbo].[ReadRoomStatesForRoom]
+	EXEC [dbo].[ReadRoomStatesForPlayerRoom]
 	@player = @player,
 	@room = @room
 	
-	EXEC [dbo].[ReadParagraphStatesForRoom]
+	EXEC [dbo].[ReadParagraphStatesForPlayerRoom]
 	@player = @player,
 	@room = @room
 	
-	EXEC [dbo].[ReadNounsForRoom]
+	EXEC [dbo].[ReadNounsForPlayerRoom]
 	@player = @player,
 	@room = @room
 

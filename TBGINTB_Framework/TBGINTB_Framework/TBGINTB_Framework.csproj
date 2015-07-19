@@ -63,6 +63,8 @@
     <Content Include="lib\login.js" />
     <Content Include="lib\message-manager.js" />
     <Content Include="lib\game-state-engine.js" />
+    <Content Include="lib\Moment\moment.isoduration.js" />
+    <Content Include="lib\Moment\moment.min.js" />
     <Content Include="lib\time-engine.js" />
     <Content Include="login.html" />
     <Content Include="lib\action-queue.js" />
@@ -121,6 +123,7 @@
   <PropertyGroup>
     <PostBuildEvent>echo D|xcopy "$(ProjectDir)*.html" C:\inetpub\ironandrose\gintub\lion /R /Y
 echo D|xcopy "$(ProjectDir)lib" C:\inetpub\ironandrose\gintub\lion\lib /R /Y
+echo D|xcopy "$(ProjectDir)lib\Moment" C:\inetpub\ironandrose\gintub\lion\lib\Moment /R /Y
 echo D|xcopy "$(ProjectDir)css" C:\inetpub\ironandrose\gintub\lion\css /R /Y
 echo D|xcopy "$(ProjectDir)images" C:\inetpub\ironandrose\gintub\lion\images /R /Y</PostBuildEvent>
   </PropertyGroup>

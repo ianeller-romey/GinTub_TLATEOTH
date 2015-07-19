@@ -167,22 +167,22 @@ namespace GinTub.Repository.Entities.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadArea_Result>("ReadArea", areaParameter);
         }
     
-        public virtual ObjectResult<ReadAreaForPlayer_Result> ReadAreaForPlayer(Nullable<int> area)
+        public virtual ObjectResult<ReadArea_Result> ReadAreaForPlayer(Nullable<int> area)
         {
             var areaParameter = area.HasValue ?
                 new ObjectParameter("area", area) :
                 new ObjectParameter("area", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadAreaForPlayer_Result>("ReadAreaForPlayer", areaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadArea_Result>("ReadAreaForPlayer", areaParameter);
         }
     
-        public virtual ObjectResult<ReadGame_Result> ReadGame(Nullable<System.Guid> player)
+        public virtual ObjectResult<ReadArea_Result> ReadGame(Nullable<System.Guid> player)
         {
             var playerParameter = player.HasValue ?
                 new ObjectParameter("player", player) :
                 new ObjectParameter("player", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadGame_Result>("ReadGame", playerParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadArea_Result>("ReadGame", playerParameter);
         }
     
         public virtual ObjectResult<ReadMessage_Result> ReadMessage(Nullable<int> message)
@@ -203,13 +203,13 @@ namespace GinTub.Repository.Entities.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadMessageChoicesForMessage_Result>("ReadMessageChoicesForMessage", messageParameter);
         }
     
-        public virtual ObjectResult<ReadMessageForPlayer_Result> ReadMessageForPlayer(Nullable<int> message)
+        public virtual ObjectResult<ReadMessage_Result> ReadMessageForPlayer(Nullable<int> message)
         {
             var messageParameter = message.HasValue ?
                 new ObjectParameter("message", message) :
                 new ObjectParameter("message", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadMessageForPlayer_Result>("ReadMessageForPlayer", messageParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadMessage_Result>("ReadMessageForPlayer", messageParameter);
         }
     
         public virtual ObjectResult<ReadNounsForParagraphState_Result> ReadNounsForParagraphState(Nullable<int> paragraphState)
@@ -256,7 +256,7 @@ namespace GinTub.Repository.Entities.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoom_Result>("ReadRoom", roomParameter);
         }
     
-        public virtual ObjectResult<ReadRoomForPlayer_Result> ReadRoomForPlayer(Nullable<System.Guid> player, Nullable<int> room)
+        public virtual ObjectResult<ReadRoom_Result> ReadRoomForPlayer(Nullable<System.Guid> player, Nullable<int> room)
         {
             var playerParameter = player.HasValue ?
                 new ObjectParameter("player", player) :
@@ -266,10 +266,10 @@ namespace GinTub.Repository.Entities.Database
                 new ObjectParameter("room", room) :
                 new ObjectParameter("room", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoomForPlayer_Result>("ReadRoomForPlayer", playerParameter, roomParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoom_Result>("ReadRoomForPlayer", playerParameter, roomParameter);
         }
     
-        public virtual int ReadRoomForPlayerXYZ(Nullable<System.Guid> player, Nullable<int> area, Nullable<int> x, Nullable<int> y, Nullable<int> z)
+        public virtual ObjectResult<ReadRoom_Result> ReadRoomForPlayerXYZ(Nullable<System.Guid> player, Nullable<int> area, Nullable<int> x, Nullable<int> y, Nullable<int> z)
         {
             var playerParameter = player.HasValue ?
                 new ObjectParameter("player", player) :
@@ -291,7 +291,7 @@ namespace GinTub.Repository.Entities.Database
                 new ObjectParameter("z", z) :
                 new ObjectParameter("z", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReadRoomForPlayerXYZ", playerParameter, areaParameter, xParameter, yParameter, zParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoom_Result>("ReadRoomForPlayerXYZ", playerParameter, areaParameter, xParameter, yParameter, zParameter);
         }
     
         public virtual ObjectResult<ReadRoomStatesForPlayerRoom_Result> ReadRoomStatesForPlayerRoom(Nullable<System.Guid> player, Nullable<int> room)

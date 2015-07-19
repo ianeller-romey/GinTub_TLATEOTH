@@ -8,7 +8,7 @@ $(document).ready(function init() { // on initialization ...
     var userInputManager = new UserInputManager("#verbList");
     var interfaceManager = new InterfaceManager("#location", "#paragraphs", "#time");
     var messageManager = new MessageManager("#messageTop", "#messageBottom", "#messageText", "#messageChoices");
-    servicesEngine.loadAllVerbTypes();
+    servicesEngine.getAllVerbTypes();
     servicesEngine.loadGame(sessionStorage.playerId);
 
     /*

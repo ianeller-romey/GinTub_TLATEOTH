@@ -2,23 +2,28 @@
 var TimeEngine = function () {
     var messengerEngine = globalMessengerEngine;
 
-    var time = new Date(1988, 7, 13, 0, 0, 0, 0);
+    var time = moment.duration.fromIsoduration("PT0S");
+    var minuteIncr = moment.duration(1, 'm');
+    var hourIncr = moment.duration(1, 'h');
+    var minuteSub = moment.duration(60, 'm');
+    var hourSub = moment.duration(24, 'h');
 
     var updateTime = function () {
-        var hours = time.getHours();
-        var minutes = time.getMinutes() + 1;
-        if (minutes == 60) {
-            minutes = 0;
-            hours = hours + 1;
-            if (hours == 24) {
-                hours = 0;
+        time.add(minuteIncr);
+        if (time.minutes() == minuteSub.minutes()) {
+            // set minutes back to zero
+            time.subtract(minuteSub);
+
+            time.add(hourIncr);
+            if (time.hours() == hourSub.hours()) {
+                // set hours back to zero
+                time.subtract(hourSub);
             }
         }
-        time.setHours(hours);
-        time.setMinutes(minutes);
+
         messengerEngine.post("TimeEngine.updateTime", time);
 
-        if (minutes % 10 == 0) {
+        if (time.minutes() % 10 == 0) {
             messengerEngine.post("TimeEngine.updateTimeAtTen", time);
         }
     };

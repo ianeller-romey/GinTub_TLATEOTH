@@ -3,7 +3,7 @@ var GameStateEngine = function () {
     var messengerEngine = globalMessengerEngine;
 
     var playerId = sessionStorage.playerId;
-    var gameTime = new Date(1988, 7, 13, 0, 0, 0, 0);
+    var gameTime = new moment.duration.fromIsoduration("PT0S");
     var area = {
         id: null,
         name: null
@@ -30,12 +30,12 @@ var GameStateEngine = function () {
     var loadAllVerbTypes = function (verbUseData) {
         verbTypes = [];
         var i = 0,
-            len = verbUseData.VerbTypes.length;
+            len = verbUseData.verbTypes.length;
         for (; i < len; ++i) {
-            var v = verbUseData.VerbTypes[i];
+            var v = verbUseData.verbTypes[i];
             verbTypes.push({
-                id: v.Id,
-                name: v.Name
+                id: v.id,
+                name: v.name
             });
         }
         messengerEngine.post("GameStateEngine.loadAllVerbTypes", verbTypes);
@@ -43,19 +43,19 @@ var GameStateEngine = function () {
 
     var setArea = function (areaData) {
         area = {
-            id: areaData.Id,
-            name: areaData.Name
+            id: areaData.id,
+            name: areaData.name
         };
         messengerEngine.post("GameStateEngine.setArea", area);
     };
 
     var setRoom = function (roomData) {
         room = {
-            id: roomData.Id,
-            name: roomData.Name,
-            x: roomData.X,
-            y: roomData.Y,
-            z: roomData.Z
+            id: roomData.id,
+            name: roomData.name,
+            x: roomData.x,
+            y: roomData.y,
+            z: roomData.z
         };
         messengerEngine.post("GameStateEngine.setRoom", room);
     };
@@ -67,10 +67,10 @@ var GameStateEngine = function () {
         for (; i < len; ++i) {
             rsd = roomStateData[i];
             roomStates[i] = {
-                id: rsd.Id,
-                state: rsd.State,
-                time: new Date().fromMSJSON(rsd.Time),
-                location: rsd.Location
+                id: rsd.id,
+                state: rsd.state,
+                time: moment.duration.fromIsoduration(rsd.time),
+                location: rsd.location
             }
         }
         messengerEngine.post("GameStateEngine.setRoomStates", roomStates);
@@ -83,10 +83,10 @@ var GameStateEngine = function () {
         for (; i < len; ++i) {
             psd = paragraphStateData[i];
             paragraphStates[i] = {
-                id: psd.Id,
-                order: psd.Order,
-                roomState: psd.RoomState,
-                words: psd.Words
+                id: psd.id,
+                order: psd.order,
+                roomState: psd.roomState,
+                words: psd.words
             };
         }
         messengerEngine.post("GameStateEngine.setParagraphStates", paragraphStates);
@@ -95,9 +95,9 @@ var GameStateEngine = function () {
     var setMessage = function (messageData) {
         if (messageData != null) {
             message = {
-                id: messageData.Id,
-                text: messageData.Text,
-                messageChoices: messageData.MessageChoices
+                id: messageData.id,
+                text: messageData.text,
+                messageChoices: messageData.messageChoices
             };
             messengerEngine.post("GameStateData.setMessage", message);
         }
@@ -140,16 +140,16 @@ var GameStateEngine = function () {
     };
 
     var loadGame = function (playData) {
-        setArea(playData.Area);
-        setRoom(playData.Room);
-        setRoomStates(playData.RoomStates);
-        setParagraphStates(playData.ParagraphStates);
+        setArea(playData.area);
+        setRoom(playData.room);
+        setRoomStates(playData.roomStates);
+        setParagraphStates(playData.paragraphStates);
 
         setActiveRoomState();
     };
 
     var loadMessage = function (playData) {
-        setMessage(playData.Message);
+        setMessage(playData.message);
     };
 
     var updateTime = function (time) {
@@ -162,7 +162,7 @@ var GameStateEngine = function () {
         messengerEngine.post("GameStateEngine.doAction", playerId, nounId, verbTypeId);
     };
     
-    messengerEngine.register("ServicesEngine.loadAllVerbTypes", this, loadAllVerbTypes);
+    messengerEngine.register("ServicesEngine.getAllVerbTypes", this, loadAllVerbTypes);
     messengerEngine.register("ServicesEngine.loadGame", this, loadGame);
     messengerEngine.register("ServicesEngine.getNounsForParagraphState", this, loadMessage);
     messengerEngine.register("ServicesEngine.doAction", this, loadMessage);

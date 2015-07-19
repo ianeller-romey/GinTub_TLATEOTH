@@ -49,5 +49,13 @@ namespace GinTub.Services.OperationContracts
         ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "DoAction")]
         DataContracts.PlayData DoAction(Guid playerId, int? nounId, int verbTypeId);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Wrapped,
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json,
+        UriTemplate = "DoMessageChoice")]
+        DataContracts.PlayData DoMessageChoice(Guid playerId, int messageChoiceId);
     }
 }

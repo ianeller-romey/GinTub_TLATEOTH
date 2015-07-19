@@ -47,8 +47,8 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
                 var w = words[j];
                 paragraphSpan.append($("<span/>", {
                     class: "iWord",
-                    text: w.Text
-                }).click(createWordSpanClick(w.NounId)).mouseenter(function (e) {
+                    text: w.text
+                }).click(createWordSpanClick(w.nounId)).mouseenter(function (e) {
                     $(this).addClass("iHover").parent().removeClass("iHover");
                 }).mouseleave(function (e) {
                     $(this).removeClass("iHover").parent().addClass("iHover");
@@ -56,7 +56,7 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
 
                 if (j != len2 - 1) {
                     w = words[j + 1];
-                    wt = w.Text;
+                    wt = w.text;
                     if (wt != "." &&
                         wt != "," &&
                         wt != ";" &&
@@ -74,7 +74,7 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
     };
 
     var updateTime = function (time) {
-        var timeString = ("0" + time.getHours()).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2);
+        var timeString = ("0" + time.hours()).slice(-2) + ":" + ("0" + time.minutes()).slice(-2);
         timeElem.text(timeString);
     };
     

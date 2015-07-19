@@ -90,7 +90,7 @@ namespace GinTub.Repository
             Message message = null;
             using(var entities = new GinTubEntities())
             {
-                var messageResult = entities.ReadMessage(messageId);
+                var messageResult = entities.ReadMessageForPlayer(messageId);
                 message = messageResult.Select(m => TypeAdapter.Adapt<Message>(m)).First();
 
                 var messageChoiceResults = messageResult.GetNextResult<ReadMessageChoicesForMessage_Result>();

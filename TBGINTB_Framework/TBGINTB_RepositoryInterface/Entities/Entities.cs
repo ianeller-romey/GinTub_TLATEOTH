@@ -54,7 +54,7 @@ namespace GinTub.Repository.Entities
     {
         public int Id { get; set; }
         public int State { get; set; }
-        public DateTime Time { get; set; }
+        public TimeSpan Time { get; set; }
         public string Location { get; set; }
         public int Room { get; set; }
     }

@@ -16,7 +16,7 @@ ServicesEngine.prototype.getAllVerbTypes = function () {
         contentType: 'application/json',
         success: function (data, status) {
             var verbUseData = JSON.parse(data);
-            that.messengerEngine.post("ServicesEngine.getAllVerbTypes", verbUseData.GetAllVerbTypesResult);
+            that.messengerEngine.post("ServicesEngine.getAllVerbTypes", verbUseData);
         },
         error: function (request, status, error) {
             var iii = 0;
@@ -28,16 +28,13 @@ ServicesEngine.prototype.getNounsForParagraphState = function (paragraphStateId)
     var that = this;
 
     $.ajax({
-        url: "http://ironandrose/gintub/lion/gintubservices/GinTubService.svc/GetNounsForParagraphState",
+        url: "http://ironandrose/gintub/lion/gintubservices/GinTubService.svc/GetNounsForParagraphState/" + paragraphStateId,
         type: 'get',
         dataType: 'text',
         contentType: 'application/json',
-        data: {
-            paragraphStateId: paragraphStateId
-        },
         success: function (data, status) {
             var nounData = JSON.parse(data);
-            that.messengerEngine.post("ServicesEngine.getNounsForParagraphState", nounData.GetNounsForParagraphStateResult);
+            that.messengerEngine.post("ServicesEngine.getNounsForParagraphState", nounData);
         },
         error: function (request, status, error) {
             var iii = 0;

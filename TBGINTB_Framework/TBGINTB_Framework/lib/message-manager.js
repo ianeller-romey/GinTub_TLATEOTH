@@ -8,8 +8,8 @@ var MessageManager = function (messageTopId, messageBottomId, messageTextId, mes
     var messengerEngine = globalMessengerEngine;
 
     var noMessageChoices = {
-        Id: -1,
-        Text: "OK"
+        id: -1,
+        text: "\"...\""
     };
 
     var unloadMessage = function () {
@@ -28,14 +28,14 @@ var MessageManager = function (messageTopId, messageBottomId, messageTextId, mes
 
         var messageChoices = messageData.messageChoices;
         if (messageChoices == null) {
-            messageChoicesElem.append(createActionText(noMessageChoices.Id, noMessageChoices.Text, unloadMessage));
+            messageChoicesElem.append(createActionText(noMessageChoices.id, noMessageChoices.text, unloadMessage));
         }
         else {
             var i = 0,
                 len = messageChoices.length;
             for (; i < len; ++i) {
                 var mc = messageChoices[i];
-                messageChoicesElem.append(createActionText(mc.Id, mc.Text, null));
+                messageChoicesElem.append(createActionText(mc.id, mc.text, null));
             }
         }
     };

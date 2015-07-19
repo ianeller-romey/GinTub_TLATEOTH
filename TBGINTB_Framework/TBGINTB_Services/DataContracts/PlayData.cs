@@ -68,7 +68,7 @@ namespace GinTub.Services.DataContracts
         public int State { get; set; }
 
         [DataMember(Name = "time")]
-        public DateTime Time { get; set; }
+        public TimeSpan Time { get; set; }
 
         [DataMember(Name = "location")]
         public string Location { get; set; }
