@@ -11,7 +11,7 @@ using System.Web.SessionState;
 using FastMapper;
 
 using GinTub;
-using GinTub.Services.DataContracts;
+using DC = GinTub.Services.DataContracts;
 
 
 namespace GinTub
@@ -21,19 +21,19 @@ namespace GinTub
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            TypeAdapterConfig<Repository.Entities.Noun, WordData>
+            TypeAdapterConfig<Repository.Entities.Noun, DC.Responses.WordData>
                 .NewConfig()
                 .MapFrom(dest => dest.NounId, src => src.Id); ;
-            TypeAdapterConfig<Repository.Entities.ParagraphState, ParagraphStateData>
+            TypeAdapterConfig<Repository.Entities.ParagraphState, DC.Responses.ParagraphStateData>
                 .NewConfig()
-                .MapFrom<IEnumerable<WordData>>
+                .MapFrom<IEnumerable<DC.Responses.WordData>>
                 (
                     dest => dest.Words,
                     src => (from x in Regex.Split(src.Text, "(\\s|\\.|,|;|\\?|!|\")")
                             join n in src.Nouns on x equals n.Text into nx
                             where !string.IsNullOrWhiteSpace(x)
                             from nn in nx.DefaultIfEmpty()
-                            select new WordData() { Text = x, NounId = (nn != null) ? (int?)nn.Id : null })
+                            select new DC.Responses.WordData() { Text = x, NounId = (nn != null) ? (int?)nn.Id : null })
                             .ToList()
                 );
 

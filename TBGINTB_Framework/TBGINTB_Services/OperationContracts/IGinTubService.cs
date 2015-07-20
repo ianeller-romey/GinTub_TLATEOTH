@@ -16,46 +16,46 @@ namespace GinTub.Services.OperationContracts
     {
         [OperationContract]
         [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
+        BodyStyle = WebMessageBodyStyle.Bare,
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "PlayerLogin")]
-        DataContracts.PlayerLogin PlayerLogin(string emailAddress, string password);
+        DataContracts.Responses.PlayerIdentifier PlayerLogin(DataContracts.Requests.PlayerLoginRequest request);
 
         [OperationContract]
         [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
+        BodyStyle = WebMessageBodyStyle.Bare,
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "LoadGame")]
-        DataContracts.PlayData LoadGame(Guid playerId);
+        DataContracts.Responses.PlayData LoadGame(DataContracts.Requests.LoadGameRequest request);
 
         [OperationContract]
         [WebInvoke(Method = "GET",
         ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "GetAllVerbTypes")]
-        DataContracts.VerbUseData GetAllVerbTypes();
+        DataContracts.Responses.VerbUseData GetAllVerbTypes();
 
         [OperationContract]
         [WebInvoke(Method = "GET",
         ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "GetNounsForParagraphState/{paragraphStateId}")]
-        DataContracts.PlayData GetNounsForParagraphState(string paragraphStateId);
+        DataContracts.Responses.PlayData GetNounsForParagraphState(string paragraphStateId);
 
         [OperationContract]
         [WebInvoke(Method = "POST",
-        BodyStyle = WebMessageBodyStyle.Wrapped,
+        BodyStyle = WebMessageBodyStyle.Bare,
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "DoAction")]
-        DataContracts.PlayData DoAction(Guid playerId, int? nounId, int verbTypeId);
+        DataContracts.Responses.PlayData DoAction(DataContracts.Requests.DoActionRequest request);
 
-        [OperationContract]
+        /*[OperationContract]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "DoMessageChoice")]
-        DataContracts.PlayData DoMessageChoice(Guid playerId, int messageChoiceId);
+        DataContracts.Responses.PlayData DoMessageChoice(Guid playerId, int messageChoiceId);*/
     }
 }

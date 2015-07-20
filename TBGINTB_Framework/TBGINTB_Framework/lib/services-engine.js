@@ -55,7 +55,7 @@ ServicesEngine.prototype.loadGame = function (playerId) {
         }),
         success: function (data, status) {
             var playData = JSON.parse(data);
-            that.messengerEngine.post("ServicesEngine.loadGame", playData.LoadGameResult);
+            that.messengerEngine.post("ServicesEngine.loadGame", playData);
         },
         error: function (request, status, error) {
             var iii = 0;
@@ -78,7 +78,7 @@ ServicesEngine.prototype.doAction = function (playerId, nounId, verbTypeId) {
         }),
         success: function (data, status) {
             var playData = JSON.parse(data);
-            that.messengerEngine.post("ServicesEngine.doAction", playData.DoActionResult);
+            that.messengerEngine.post("ServicesEngine.doAction", playData);
         },
         error: function (request, status, error) {
             var iii = 0;

@@ -15,7 +15,7 @@
             success: function (data, status) {
                 var playerLogin = JSON.parse(data);
                 if (typeof (Storage) !== "undefined") {
-                    sessionStorage.playerId = playerLogin.PlayerLoginResult.playerId;
+                    sessionStorage.playerId = playerLogin.playerId;
                 } else {
                     alert('Web Storage not available');
                 }

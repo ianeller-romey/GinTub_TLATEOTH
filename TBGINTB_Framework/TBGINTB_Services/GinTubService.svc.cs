@@ -13,7 +13,7 @@ using FastMapper;
 using Newtonsoft.Json;
 
 using GinTub;
-using GinTub.Services.DataContracts;
+using DC = GinTub.Services.DataContracts;
 
 
 namespace GinTub.Services
@@ -24,7 +24,7 @@ namespace GinTub.Services
 
         Repository.Interface.IGinTubRepository _repository;
 
-        delegate void ResultHandler(dynamic obj, ref PlayData playData);
+        delegate void ResultHandler(dynamic obj, ref DC.Responses.PlayData playData);
 
         #endregion
 
@@ -38,8 +38,11 @@ namespace GinTub.Services
             _repository = new Repository.GinTubRepository();
         }
 
-        public PlayerLogin PlayerLogin(string emailAddress, string password)
+        public DC.Responses.PlayerIdentifier PlayerLogin(DC.Requests.PlayerLoginRequest request)
         {
+            string
+                emailAddress = request.EmailAddress,
+                password = request.Password;
             // I know, catching Exceptions is not "best practice" for data validation,
             // but this is an easy way to avoid Regex (for now)
             try
@@ -69,40 +72,40 @@ namespace GinTub.Services
             domain = emailAddress;
 
             Guid? playerId = _repository.PlayerLogin(userName, domainName, domain, password);
-            return new PlayerLogin() { PlayerId = playerId };
+            return new DC.Responses.PlayerIdentifier() { PlayerId = playerId };
         }
 
-        public VerbUseData GetAllVerbTypes()
+        public DC.Responses.VerbUseData GetAllVerbTypes()
         {
             var result = _repository.ReadAllVerbTypes();
-            return new VerbUseData()
+            return new DC.Responses.VerbUseData()
                 {
-                    VerbTypes = result.Select(v => TypeAdapter.Adapt<VerbTypeData>(v)).ToList()
+                    VerbTypes = result.Select(v => TypeAdapter.Adapt<DC.Responses.VerbTypeData>(v)).ToList()
                 };
         }
 
-        public PlayData LoadGame(Guid playerId)
+        public DC.Responses.PlayData LoadGame(DC.Requests.LoadGameRequest request)
         {
-            var result = _repository.ReadGame(playerId);
-            return new PlayData()
+            var result = _repository.ReadGame(request.PlayerId);
+            return new DC.Responses.PlayData()
                 {
-                    Area = TypeAdapter.Adapt<AreaData>(result.Item1),
-                    Room = TypeAdapter.Adapt<RoomData>(result.Item2),
-                    RoomStates = result.Item3.Select(x => TypeAdapter.Adapt<RoomStateData>(x)).ToList(),
-                    ParagraphStates = result.Item4.Select(x => TypeAdapter.Adapt<ParagraphStateData>(x)).ToList()
+                    Area = TypeAdapter.Adapt<DC.Responses.AreaData>(result.Item1),
+                    Room = TypeAdapter.Adapt<DC.Responses.RoomData>(result.Item2),
+                    RoomStates = result.Item3.Select(x => TypeAdapter.Adapt<DC.Responses.RoomStateData>(x)).ToList(),
+                    ParagraphStates = result.Item4.Select(x => TypeAdapter.Adapt<DC.Responses.ParagraphStateData>(x)).ToList()
                 };
         }
 
-        public PlayData GetNounsForParagraphState(string paragraphStateId)
+        public DC.Responses.PlayData GetNounsForParagraphState(string paragraphStateId)
         {
-            PlayData data = new PlayData();
+            DC.Responses.PlayData data = new DC.Responses.PlayData();
 
             int paragraphStateIntId;
             if (int.TryParse(paragraphStateId, out paragraphStateIntId))
             {
                 var result = _repository.GetNounsForParagraphState(paragraphStateIntId);
-                data.Message = 
-                    new MessageData()
+                data.Message =
+                    new DC.Responses.MessageData()
                     {
                         Id = -1,
                         Text =
@@ -120,31 +123,32 @@ namespace GinTub.Services
             return data;
         }
 
-        public PlayData DoAction(Guid playerId, int? nounId, int verbTypeId)
+        public DC.Responses.PlayData DoAction(DC.Requests.DoActionRequest request)
         {
-            if (nounId.HasValue)
-            {
-                var results = _repository.GetActionResults(playerId, nounId.Value, verbTypeId);
-                if(results.Any())
+           DC.Responses.PlayData playData = 
+                new DC.Responses.PlayData()
                 {
-                    PlayData playData = new PlayData();
-                    foreach (var result in results)
+                    Message = new DC.Responses. MessageData()
                     {
-                        dynamic data = JsonConvert.DeserializeObject(result.JSONData);
-                        ResultSwitch(result.ResultType, data, ref playData);
+                        Id = -1,
+                        Text = "Nothing happens."
                     }
-                    return playData;
-                }
-            }
+                };
 
-            return new PlayData()
-            {
-                Message = new MessageData()
-                {
-                    Id = -1,
-                    Text = "Nothing happens."
-                }
-            }; 
+           if (request.NounId.HasValue)
+           {
+               var results = _repository.GetActionResults(request.PlayerId, request.NounId.Value, request.VerbTypeId);
+               if (results.Any())
+               {
+                   playData = new DC.Responses.PlayData();
+                   foreach (var result in results)
+                   {
+                       dynamic data = JsonConvert.DeserializeObject(result.JSONData);
+                       ResultSwitch(result.ResultType, data, ref playData);
+                   }
+               }
+           }
+           return playData;
         }
 
         #endregion
@@ -152,7 +156,7 @@ namespace GinTub.Services
 
         #region Private Functionality
 
-        public void ResultSwitch(int resultTypeId, dynamic data, ref PlayData playData)
+        public void ResultSwitch(int resultTypeId, dynamic data, ref DC.Responses.PlayData playData)
         {
             switch(resultTypeId)
             {
@@ -162,11 +166,11 @@ namespace GinTub.Services
             }
         }
 
-        public void Result_MessageActivation(dynamic data, ref PlayData playData)
+        public void Result_MessageActivation(dynamic data, ref DC.Responses.PlayData playData)
         {
             int messageId = data.messageId;
             var result = _repository.ReadMessage(messageId);
-            playData.Message = TypeAdapter.Adapt<MessageData>(result);
+            playData.Message = TypeAdapter.Adapt<DC.Responses.MessageData>(result);
         }
 
         #endregion

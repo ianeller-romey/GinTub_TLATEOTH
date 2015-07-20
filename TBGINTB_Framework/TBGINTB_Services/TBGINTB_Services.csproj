@@ -90,9 +90,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataContracts\PlayData.cs" />
-    <Compile Include="DataContracts\VerbUseData.cs" />
-    <Compile Include="DataContracts\PlayerLogin.cs" />
+    <Compile Include="DataContracts\Requests\DoActionRequest.cs" />
+    <Compile Include="DataContracts\Requests\LoadGameRequest.cs" />
+    <Compile Include="DataContracts\Requests\PlayerLoginRequest.cs" />
+    <Compile Include="DataContracts\Responses\PlayData.cs" />
+    <Compile Include="DataContracts\Responses\VerbUseData.cs" />
+    <Compile Include="DataContracts\Responses\PlayerIdentifier.cs" />
     <Compile Include="GinTubService.svc.cs">
       <DependentUpon>GinTubService.svc</DependentUpon>
     </Compile>

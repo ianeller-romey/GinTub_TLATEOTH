@@ -27,7 +27,7 @@ var MessageManager = function (messageTopId, messageBottomId, messageTextId, mes
         messageTextElem.text(messageData.text);
 
         var messageChoices = messageData.messageChoices;
-        if (messageChoices == null) {
+        if (messageChoices == null || messageChoices.length == 0) {
             messageChoicesElem.append(createActionText(noMessageChoices.id, noMessageChoices.text, unloadMessage));
         }
         else {
