@@ -63,6 +63,21 @@ namespace GinTub.Repository
             return new AreaData(area, roomData.Item1, roomData.Item2, roomData.Item3);
         }
 
+        public Message ReadMessage(int messageId)
+        {
+            Message message = null;
+            using(var entities = new GinTubEntities())
+            {
+                var messageResult = entities.ReadMessageForPlayer(messageId);
+                message = messageResult.Select(m => TypeAdapter.Adapt<Message>(m)).First();
+
+                var messageChoiceResults = messageResult.GetNextResult<ReadMessageChoicesForMessage_Result>();
+                if(messageChoiceResults != null)
+                    message.MessageChoices = messageChoiceResults.Select(mc => TypeAdapter.Adapt<MessageChoice>(mc)).ToArray();
+            }
+            return message;
+        }
+
         public IEnumerable<Noun> GetNounsForParagraphState(int paragraphStateId)
         {
             IEnumerable<Noun> nouns = null;
@@ -85,19 +100,15 @@ namespace GinTub.Repository
             return results;
         }
 
-        public Message ReadMessage(int messageId)
+        public IEnumerable<Result> GetMessageChoiceResults(int messageChoiceId)
         {
-            Message message = null;
-            using(var entities = new GinTubEntities())
+            IEnumerable<Result> results = null;
+            using (var entities = new GinTubEntities())
             {
-                var messageResult = entities.ReadMessageForPlayer(messageId);
-                message = messageResult.Select(m => TypeAdapter.Adapt<Message>(m)).First();
-
-                var messageChoiceResults = messageResult.GetNextResult<ReadMessageChoicesForMessage_Result>();
-                if(messageChoiceResults != null)
-                    message.MessageChoices = messageChoiceResults.Select(mc => TypeAdapter.Adapt<MessageChoice>(mc)).ToArray();
+                var resultResults = entities.GetMessageChoiceResults(messageChoiceId);
+                results = resultResults.Select(r => TypeAdapter.Adapt<Result>(r)).ToList();
             }
-            return message;
+            return results;
         }
 
         #endregion

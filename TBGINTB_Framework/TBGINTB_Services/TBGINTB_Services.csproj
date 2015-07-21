@@ -90,6 +90,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContracts\Requests\DoMessageChoiceRequest.cs" />
     <Compile Include="DataContracts\Requests\DoActionRequest.cs" />
     <Compile Include="DataContracts\Requests\LoadGameRequest.cs" />
     <Compile Include="DataContracts\Requests\PlayerLoginRequest.cs" />

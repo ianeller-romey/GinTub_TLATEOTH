@@ -50,12 +50,12 @@ namespace GinTub.Services.OperationContracts
         UriTemplate = "DoAction")]
         DataContracts.Responses.PlayData DoAction(DataContracts.Requests.DoActionRequest request);
 
-        /*[OperationContract]
+        [OperationContract]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Wrapped,
         RequestFormat = WebMessageFormat.Json,
         ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "DoMessageChoice")]
-        DataContracts.Responses.PlayData DoMessageChoice(Guid playerId, int messageChoiceId);*/
+        DataContracts.Responses.PlayData DoMessageChoice(DataContracts.Requests.DoMessageChoiceRequest request);
     }
 }

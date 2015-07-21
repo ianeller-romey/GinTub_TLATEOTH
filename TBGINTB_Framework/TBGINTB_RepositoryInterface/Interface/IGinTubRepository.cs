@@ -22,5 +22,7 @@ namespace GinTub.Repository.Interface
         IEnumerable<Noun> GetNounsForParagraphState(int paragraphStateId);
 
         IEnumerable<Result> GetActionResults(Guid playerId, int nounId, int verbTypeId);
+
+        IEnumerable<Result> GetMessageChoiceResults(int messageChoiceId);
     }
 }

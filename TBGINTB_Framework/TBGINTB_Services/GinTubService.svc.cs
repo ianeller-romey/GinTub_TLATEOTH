@@ -140,7 +140,7 @@ namespace GinTub.Services
                var results = _repository.GetActionResults(request.PlayerId, request.NounId.Value, request.VerbTypeId);
                if (results.Any())
                {
-                   playData = new DC.Responses.PlayData();
+                   playData.Message = null;
                    foreach (var result in results)
                    {
                        dynamic data = JsonConvert.DeserializeObject(result.JSONData);
@@ -148,7 +148,25 @@ namespace GinTub.Services
                    }
                }
            }
+
            return playData;
+        }
+
+        public DC.Responses.PlayData DoMessageChoice(DC.Requests.DoMessageChoiceRequest request)
+        {
+            DC.Responses.PlayData playData = new DC.Responses.PlayData();
+
+            var results = _repository.GetMessageChoiceResults(request.MessageChoiceId);
+            if (results.Any())
+            {
+                foreach (var result in results)
+                {
+                    dynamic data = JsonConvert.DeserializeObject(result.JSONData);
+                    ResultSwitch(result.ResultType, data, ref playData);
+                }
+            }
+
+            return playData;
         }
 
         #endregion
