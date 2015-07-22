@@ -37,6 +37,8 @@ namespace GinTub
                             .ToList()
                 );
 
+            ResultTypeDictionary.Initialize();
+
             RouteTable.Routes.Add(new ServiceRoute("", new WebServiceHostFactory(), typeof(GinTub.Services.GinTubService)));
         }
 

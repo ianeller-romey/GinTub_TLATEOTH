@@ -290,7 +290,7 @@
   <Locations>
     <Location Id="0">
       <Name>placeholder</Name>
-      <LocationFile>C:\Users\elleri\Documents\GitHub\Engian\TBGINTB\TBGINTB_Framework\TBGINTB_Framework\images\placeholder.jpg</LocationFile>
+      <LocationFile>http://ironandrose/gintub/lion/images/placeholder.jpg</LocationFile>
     </Location>
   </Locations>
   <Messages>

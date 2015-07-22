@@ -128,15 +128,11 @@ namespace GinTub.Repository.Entities.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.Guid>>("PlayerLogin", emailUserNameParameter, emailDomainNameParameter, emailDomainParameter, passwordParameter);
         }
     
-        public virtual ObjectResult<PlayerMoveXYZ_Result> PlayerMoveXYZ(Nullable<System.Guid> player, Nullable<int> area, Nullable<int> xDir, Nullable<int> yDir, Nullable<int> zDir)
+        public virtual ObjectResult<ReadRoom_Result> PlayerMoveXYZ(Nullable<System.Guid> player, Nullable<int> xDir, Nullable<int> yDir, Nullable<int> zDir)
         {
             var playerParameter = player.HasValue ?
                 new ObjectParameter("player", player) :
                 new ObjectParameter("player", typeof(System.Guid));
-    
-            var areaParameter = area.HasValue ?
-                new ObjectParameter("area", area) :
-                new ObjectParameter("area", typeof(int));
     
             var xDirParameter = xDir.HasValue ?
                 new ObjectParameter("xDir", xDir) :
@@ -150,7 +146,7 @@ namespace GinTub.Repository.Entities.Database
                 new ObjectParameter("zDir", zDir) :
                 new ObjectParameter("zDir", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PlayerMoveXYZ_Result>("PlayerMoveXYZ", playerParameter, areaParameter, xDirParameter, yDirParameter, zDirParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoom_Result>("PlayerMoveXYZ", playerParameter, xDirParameter, yDirParameter, zDirParameter);
         }
     
         public virtual ObjectResult<ReadAllVerbTypes_Result> ReadAllVerbTypes()
@@ -305,6 +301,160 @@ namespace GinTub.Repository.Entities.Database
                 new ObjectParameter("room", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoomStatesForPlayerRoom_Result>("ReadRoomStatesForPlayerRoom", playerParameter, roomParameter);
+        }
+    
+        public virtual int PlayerCharacterAdd(Nullable<System.Guid> player, Nullable<int> character)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            var characterParameter = character.HasValue ?
+                new ObjectParameter("character", character) :
+                new ObjectParameter("character", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlayerCharacterAdd", playerParameter, characterParameter);
+        }
+    
+        public virtual int PlayerEventAdd(Nullable<System.Guid> player, Nullable<int> @event)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            var eventParameter = @event.HasValue ?
+                new ObjectParameter("event", @event) :
+                new ObjectParameter("event", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlayerEventAdd", playerParameter, eventParameter);
+        }
+    
+        public virtual int PlayerItemAdd(Nullable<System.Guid> player, Nullable<int> item)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            var itemParameter = item.HasValue ?
+                new ObjectParameter("item", item) :
+                new ObjectParameter("item", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlayerItemAdd", playerParameter, itemParameter);
+        }
+    
+        public virtual int PlayerParagraphStateChange(Nullable<System.Guid> player, Nullable<int> paragraph, Nullable<int> state)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            var paragraphParameter = paragraph.HasValue ?
+                new ObjectParameter("paragraph", paragraph) :
+                new ObjectParameter("paragraph", typeof(int));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlayerParagraphStateChange", playerParameter, paragraphParameter, stateParameter);
+        }
+    
+        public virtual int PlayerRoomStateChange(Nullable<System.Guid> player, Nullable<int> room, Nullable<int> state)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            var roomParameter = room.HasValue ?
+                new ObjectParameter("room", room) :
+                new ObjectParameter("room", typeof(int));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlayerRoomStateChange", playerParameter, roomParameter, stateParameter);
+        }
+    
+        public virtual ObjectResult<ReadArea_Result> PlayerTeleportAreaIdRoomId(Nullable<System.Guid> player, Nullable<int> area, Nullable<int> room)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            var areaParameter = area.HasValue ?
+                new ObjectParameter("area", area) :
+                new ObjectParameter("area", typeof(int));
+    
+            var roomParameter = room.HasValue ?
+                new ObjectParameter("room", room) :
+                new ObjectParameter("room", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadArea_Result>("PlayerTeleportAreaIdRoomId", playerParameter, areaParameter, roomParameter);
+        }
+    
+        public virtual ObjectResult<ReadArea_Result> PlayerTeleportAreaIdRoomXYZ(Nullable<System.Guid> player, Nullable<int> area, Nullable<int> x, Nullable<int> y, Nullable<int> z)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            var areaParameter = area.HasValue ?
+                new ObjectParameter("area", area) :
+                new ObjectParameter("area", typeof(int));
+    
+            var xParameter = x.HasValue ?
+                new ObjectParameter("x", x) :
+                new ObjectParameter("x", typeof(int));
+    
+            var yParameter = y.HasValue ?
+                new ObjectParameter("y", y) :
+                new ObjectParameter("y", typeof(int));
+    
+            var zParameter = z.HasValue ?
+                new ObjectParameter("z", z) :
+                new ObjectParameter("z", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadArea_Result>("PlayerTeleportAreaIdRoomXYZ", playerParameter, areaParameter, xParameter, yParameter, zParameter);
+        }
+    
+        public virtual ObjectResult<ReadRoom_Result> PlayerTeleportRoomId(Nullable<System.Guid> player, Nullable<int> room)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            var roomParameter = room.HasValue ?
+                new ObjectParameter("room", room) :
+                new ObjectParameter("room", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoom_Result>("PlayerTeleportRoomId", playerParameter, roomParameter);
+        }
+    
+        public virtual ObjectResult<ReadRoom_Result> PlayerTeleportRoomXYZ(Nullable<System.Guid> player, Nullable<int> x, Nullable<int> y, Nullable<int> z)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            var xParameter = x.HasValue ?
+                new ObjectParameter("x", x) :
+                new ObjectParameter("x", typeof(int));
+    
+            var yParameter = y.HasValue ?
+                new ObjectParameter("y", y) :
+                new ObjectParameter("y", typeof(int));
+    
+            var zParameter = z.HasValue ?
+                new ObjectParameter("z", z) :
+                new ObjectParameter("z", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoom_Result>("PlayerTeleportRoomXYZ", playerParameter, xParameter, yParameter, zParameter);
+        }
+    
+        public virtual ObjectResult<ReadAllResultTypes_Result> ReadAllResultTypes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadAllResultTypes_Result>("ReadAllResultTypes");
         }
     }
 }

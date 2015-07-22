@@ -48,6 +48,17 @@ namespace GinTub.Repository
             return verbTypes;
         }
 
+        public IEnumerable<ResultType> ReadAllResultTypes()
+        {
+            IEnumerable<ResultType> verbTypes = null;
+            using (var entities = new GinTubEntities())
+            {
+                var verbTypeResults = entities.ReadAllResultTypes();
+                verbTypes = verbTypeResults.Select(v => TypeAdapter.Adapt<ResultType>(v)).ToList();
+            }
+            return verbTypes;
+        }
+
         public AreaData ReadGame(Guid playerId)
         {
             Area area = null;
@@ -78,7 +89,7 @@ namespace GinTub.Repository
             return message;
         }
 
-        public IEnumerable<Noun> GetNounsForParagraphState(int paragraphStateId)
+        public IEnumerable<Noun> ReadNounsForParagraphState(int paragraphStateId)
         {
             IEnumerable<Noun> nouns = null;
             using(var entities = new GinTubEntities())

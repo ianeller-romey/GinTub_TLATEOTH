@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GinTubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GinTubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <Function Name="CreateDefaultPlayerInventories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -36,6 +36,18 @@
         <Function Name="GetMessageChoiceResults" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="messageChoice" Type="int" Mode="In" />
         </Function>
+        <Function Name="PlayerCharacterAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="character" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlayerEventAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="event" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlayerItemAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="item" Type="int" Mode="In" />
+        </Function>
         <Function Name="PlayerLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="emailUserName" Type="varchar" Mode="In" />
           <Parameter Name="emailDomainName" Type="varchar" Mode="In" />
@@ -44,11 +56,43 @@
         </Function>
         <Function Name="PlayerMoveXYZ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="area" Type="int" Mode="In" />
           <Parameter Name="xDir" Type="int" Mode="In" />
           <Parameter Name="yDir" Type="int" Mode="In" />
           <Parameter Name="zDir" Type="int" Mode="In" />
         </Function>
+        <Function Name="PlayerParagraphStateChange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="paragraph" Type="int" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlayerRoomStateChange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlayerTeleportAreaIdRoomId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="area" Type="int" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlayerTeleportAreaIdRoomXYZ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="area" Type="int" Mode="In" />
+          <Parameter Name="x" Type="int" Mode="In" />
+          <Parameter Name="y" Type="int" Mode="In" />
+          <Parameter Name="z" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlayerTeleportRoomId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PlayerTeleportRoomXYZ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="x" Type="int" Mode="In" />
+          <Parameter Name="y" Type="int" Mode="In" />
+          <Parameter Name="z" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ReadAllResultTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ReadAllVerbTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ReadArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="area" Type="int" Mode="In" />
@@ -98,8 +142,7 @@
           <Parameter Name="room" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="GinTubModelStoreContainer" />
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GinTubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -112,10 +155,10 @@
             <Parameter Name="action" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CreateDefaultPlayerInventories">
-            <Parameter Name="player" Mode="In" Type="Guid" />
+          <Parameter Name="player" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="CreateDefaultPlayerStates">
-            <Parameter Name="player" Mode="In" Type="Guid" />
+          <Parameter Name="player" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="CreatePlayer" ReturnType="Collection(Guid)">
             <Parameter Name="username" Mode="In" Type="String" />
@@ -129,7 +172,7 @@
             <Parameter Name="verbType" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetMessageChoiceResults" ReturnType="Collection(GinTubModel.GetMessageChoiceResults_Result)">
-            <Parameter Name="messageChoice" Mode="In" Type="Int32" />
+          <Parameter Name="messageChoice" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PlayerLogin" ReturnType="Collection(Guid)">
             <Parameter Name="emailUserName" Mode="In" Type="String" />
@@ -137,16 +180,19 @@
             <Parameter Name="emailDomain" Mode="In" Type="String" />
             <Parameter Name="password" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="PlayerMoveXYZ" ReturnType="Collection(GinTubModel.PlayerMoveXYZ_Result)">
+          <FunctionImport Name="PlayerMoveXYZ">
+            <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadParagraphStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadNounsForPlayerRoom_Result)"></ReturnType>
             <Parameter Name="player" Mode="In" Type="Guid" />
-            <Parameter Name="area" Mode="In" Type="Int32" />
             <Parameter Name="xDir" Mode="In" Type="Int32" />
             <Parameter Name="yDir" Mode="In" Type="Int32" />
             <Parameter Name="zDir" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ReadAllVerbTypes" ReturnType="Collection(GinTubModel.ReadAllVerbTypes_Result)" />
           <FunctionImport Name="ReadArea" ReturnType="Collection(GinTubModel.ReadArea_Result)">
-            <Parameter Name="area" Mode="In" Type="Int32" />
+          <Parameter Name="area" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ReadAreaForPlayer">
             <ReturnType Type="Collection(GinTubModel.ReadArea_Result)"></ReturnType>
@@ -161,10 +207,10 @@
             <Parameter Name="player" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="ReadMessage" ReturnType="Collection(GinTubModel.ReadMessage_Result)">
-            <Parameter Name="message" Mode="In" Type="Int32" />
+          <Parameter Name="message" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ReadMessageChoicesForMessage" ReturnType="Collection(GinTubModel.ReadMessageChoicesForMessage_Result)">
-            <Parameter Name="message" Mode="In" Type="Int32" />
+          <Parameter Name="message" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ReadMessageForPlayer">
             <ReturnType Type="Collection(GinTubModel.ReadMessage_Result)"></ReturnType>
@@ -172,7 +218,7 @@
             <Parameter Name="message" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ReadNounsForParagraphState" ReturnType="Collection(GinTubModel.ReadNounsForParagraphState_Result)">
-            <Parameter Name="paragraphState" Mode="In" Type="Int32" />
+          <Parameter Name="paragraphState" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ReadNounsForPlayerRoom" ReturnType="Collection(GinTubModel.ReadNounsForPlayerRoom_Result)">
             <Parameter Name="player" Mode="In" Type="Guid" />
@@ -183,7 +229,7 @@
             <Parameter Name="room" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ReadRoom" ReturnType="Collection(GinTubModel.ReadRoom_Result)">
-            <Parameter Name="room" Mode="In" Type="Int32" />
+          <Parameter Name="room" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ReadRoomForPlayer">
             <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
@@ -192,7 +238,7 @@
             <ReturnType Type="Collection(GinTubModel.ReadNounsForPlayerRoom_Result)"></ReturnType>
             <Parameter Name="player" Mode="In" Type="Guid" />
             <Parameter Name="room" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="ReadRoomForPlayerXYZ">
             <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
             <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
@@ -203,11 +249,74 @@
             <Parameter Name="x" Mode="In" Type="Int32" />
             <Parameter Name="y" Mode="In" Type="Int32" />
             <Parameter Name="z" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="ReadRoomStatesForPlayerRoom" ReturnType="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)">
             <Parameter Name="player" Mode="In" Type="Guid" />
             <Parameter Name="room" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="PlayerCharacterAdd">
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="character" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlayerEventAdd">
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="event" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlayerItemAdd">
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="item" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlayerParagraphStateChange">
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="paragraph" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlayerRoomStateChange">
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlayerTeleportAreaIdRoomId">
+            <ReturnType Type="Collection(GinTubModel.ReadArea_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadParagraphStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadNounsForPlayerRoom_Result)"></ReturnType>
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="area" Mode="In" Type="Int32" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlayerTeleportAreaIdRoomXYZ">
+            <ReturnType Type="Collection(GinTubModel.ReadArea_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadParagraphStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadNounsForPlayerRoom_Result)"></ReturnType>
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="area" Mode="In" Type="Int32" />
+            <Parameter Name="x" Mode="In" Type="Int32" />
+            <Parameter Name="y" Mode="In" Type="Int32" />
+            <Parameter Name="z" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlayerTeleportRoomId">
+            <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadParagraphStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadNounsForPlayerRoom_Result)"></ReturnType>
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PlayerTeleportRoomXYZ">
+            <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadParagraphStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadNounsForPlayerRoom_Result)"></ReturnType>
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="x" Mode="In" Type="Int32" />
+            <Parameter Name="y" Mode="In" Type="Int32" />
+            <Parameter Name="z" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ReadAllResultTypes" ReturnType="Collection(GinTubModel.ReadAllResultTypes_Result)" />
         </EntityContainer>
         <ComplexType Name="GetActionResults_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -218,14 +327,6 @@
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="JSONData" Nullable="true" MaxLength="500" />
           <Property Type="Int32" Name="ResultType" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="PlayerMoveXYZ_Result">
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
-          <Property Type="Int32" Name="X" Nullable="false" />
-          <Property Type="Int32" Name="Y" Nullable="false" />
-          <Property Type="Int32" Name="Z" Nullable="false" />
-          <Property Type="Int32" Name="Area" Nullable="false" />
         </ComplexType>
         <ComplexType Name="ReadAllVerbTypes_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -275,6 +376,10 @@
           <Property Type="String" Name="Location" Nullable="false" MaxLength="256" />
           <Property Type="Int32" Name="Room" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="ReadAllResultTypes_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -312,13 +417,37 @@
           <FunctionImportMapping FunctionImportName="PlayerLogin" FunctionName="GinTubModel.Store.PlayerLogin" />
           <FunctionImportMapping FunctionImportName="PlayerMoveXYZ" FunctionName="GinTubModel.Store.PlayerMoveXYZ">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="GinTubModel.PlayerMoveXYZ_Result">
+              <ComplexTypeMapping TypeName="GinTubModel.ReadRoom_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="X" ColumnName="X" />
                 <ScalarProperty Name="Y" ColumnName="Y" />
                 <ScalarProperty Name="Z" ColumnName="Z" />
                 <ScalarProperty Name="Area" ColumnName="Area" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadRoomStatesForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadParagraphStatesForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="RoomState" ColumnName="RoomState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadNounsForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ParagraphState" ColumnName="ParagraphState" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -540,6 +669,175 @@
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PlayerCharacterAdd" FunctionName="GinTubModel.Store.PlayerCharacterAdd" />
+          <FunctionImportMapping FunctionImportName="PlayerEventAdd" FunctionName="GinTubModel.Store.PlayerEventAdd" />
+          <FunctionImportMapping FunctionImportName="PlayerItemAdd" FunctionName="GinTubModel.Store.PlayerItemAdd" />
+          <FunctionImportMapping FunctionImportName="PlayerParagraphStateChange" FunctionName="GinTubModel.Store.PlayerParagraphStateChange" />
+          <FunctionImportMapping FunctionImportName="PlayerRoomStateChange" FunctionName="GinTubModel.Store.PlayerRoomStateChange" />
+          <FunctionImportMapping FunctionImportName="PlayerTeleportAreaIdRoomId" FunctionName="GinTubModel.Store.PlayerTeleportAreaIdRoomId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadArea_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadRoomStatesForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadParagraphStatesForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="RoomState" ColumnName="RoomState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadNounsForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ParagraphState" ColumnName="ParagraphState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PlayerTeleportAreaIdRoomXYZ" FunctionName="GinTubModel.Store.PlayerTeleportAreaIdRoomXYZ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadArea_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadRoomStatesForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadParagraphStatesForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="RoomState" ColumnName="RoomState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadNounsForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ParagraphState" ColumnName="ParagraphState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PlayerTeleportRoomId" FunctionName="GinTubModel.Store.PlayerTeleportRoomId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadRoomStatesForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadParagraphStatesForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="RoomState" ColumnName="RoomState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadNounsForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ParagraphState" ColumnName="ParagraphState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PlayerTeleportRoomXYZ" FunctionName="GinTubModel.Store.PlayerTeleportRoomXYZ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadRoomStatesForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadParagraphStatesForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="RoomState" ColumnName="RoomState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadNounsForPlayerRoom_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="ParagraphState" ColumnName="ParagraphState" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReadAllResultTypes" FunctionName="GinTubModel.Store.ReadAllResultTypes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadAllResultTypes_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -63,4 +63,8 @@
     <None Include="createGinTubDevSprocs.sql" />
     <None Include="createGinTubUsers.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="createGinTubDboSprocs.sql" />
+    <None Include="createGinTubDevPlayer.sql" />
+  </ItemGroup>
 </Project>

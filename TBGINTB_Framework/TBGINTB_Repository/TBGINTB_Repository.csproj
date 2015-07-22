@@ -83,7 +83,7 @@
     <Compile Include="Entities\Database\GetMessageChoiceResults_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Database\PlayerMoveXYZ_Result.cs">
+    <Compile Include="Entities\Database\ReadAllResultTypes_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Database\ReadAllVerbTypes_Result.cs">

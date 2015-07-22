@@ -103,7 +103,7 @@ namespace GinTub.Services
             int paragraphStateIntId;
             if (int.TryParse(paragraphStateId, out paragraphStateIntId))
             {
-                var result = _repository.GetNounsForParagraphState(paragraphStateIntId);
+                var result = _repository.ReadNounsForParagraphState(paragraphStateIntId);
                 data.Message =
                     new DC.Responses.MessageData()
                     {
@@ -140,6 +140,7 @@ namespace GinTub.Services
                var results = _repository.GetActionResults(request.PlayerId, request.NounId.Value, request.VerbTypeId);
                if (results.Any())
                {
+                   results = ResultTypeDictionary.SortResults(results);
                    playData.Message = null;
                    foreach (var result in results)
                    {
@@ -159,6 +160,7 @@ namespace GinTub.Services
             var results = _repository.GetMessageChoiceResults(request.MessageChoiceId);
             if (results.Any())
             {
+                results = ResultTypeDictionary.SortResults(results);
                 foreach (var result in results)
                 {
                     dynamic data = JsonConvert.DeserializeObject(result.JSONData);
@@ -176,9 +178,9 @@ namespace GinTub.Services
 
         public void ResultSwitch(int resultTypeId, dynamic data, ref DC.Responses.PlayData playData)
         {
-            switch(resultTypeId)
+            switch (ResultTypeDictionary.GetResultTypeNameFromId(resultTypeId))
             {
-                case 10:
+                case "Message Activation":
                     Result_MessageActivation(data, ref playData);
                     break;
             }

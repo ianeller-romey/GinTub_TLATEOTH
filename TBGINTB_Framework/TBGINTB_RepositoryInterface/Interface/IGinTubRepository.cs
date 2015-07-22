@@ -15,11 +15,13 @@ namespace GinTub.Repository.Interface
 
         IEnumerable<VerbType> ReadAllVerbTypes();
 
+        IEnumerable<ResultType> ReadAllResultTypes();
+
         Tuple<Area, Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> ReadGame(Guid playerId);
 
         Message ReadMessage(int messageId);
 
-        IEnumerable<Noun> GetNounsForParagraphState(int paragraphStateId);
+        IEnumerable<Noun> ReadNounsForParagraphState(int paragraphStateId);
 
         IEnumerable<Result> GetActionResults(Guid playerId, int nounId, int verbTypeId);
 

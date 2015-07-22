@@ -21,6 +21,12 @@ namespace GinTub.Repository.Entities
         public MessageChoice[] MessageChoices { get; set; }
     }
 
+    public class ResultType
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
     public class Result
     {
         public int Id { get; set; }

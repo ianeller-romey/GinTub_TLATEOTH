@@ -327,6 +327,25 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadAllResultTypes]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[ReadAllResultTypes] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 7/21/2015
+-- Description:	Reads all ResultType data in the database
+-- =============================================
+ALTER PROCEDURE [dbo].[ReadAllResultTypes]
+AS
+BEGIN
+
+	SELECT [Id],
+		   [Name]
+	FROM [dbo].[ResultTypes] WITH (NOLOCK)
+
+END
+GO
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadNounsForParagraphState]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
   EXEC('CREATE PROCEDURE [dbo].[ReadNounsForParagraphState] AS SELECT 1')
 GO
@@ -748,15 +767,95 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[PlayerTeleportXYZ]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
-  EXEC('CREATE PROCEDURE [dbo].[PlayerTeleportXYZ] AS SELECT 1')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[PlayerTeleportRoomXYZ]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[PlayerTeleportRoomXYZ] AS SELECT 1')
 GO
 -- =============================================
 -- Author:		Ian Eller-Romey
--- Create date: 6/30/2015
+-- Create date: 7/21//2015
 -- Description:	Reads Area data for a player
 -- =============================================
-ALTER PROCEDURE [dbo].[PlayerTeleportXYZ]
+ALTER PROCEDURE [dbo].[PlayerTeleportRoomXYZ]
+	@player uniqueidentifier,
+	@x int,
+	@y int,
+	@z int
+AS
+BEGIN
+
+	DECLARE @room int
+	SELECT @room = r.[Id]
+	FROM [dbo].[PlayerGameStates] p WITH (NOLOCK)
+	INNER JOIN [dbo].[Rooms] r2 WITH (NOLOCK)
+	ON p.[LastRoom] = r2.[Id]
+	INNER JOIN [dbo].[Rooms] r WITH (NOLOCK)
+	ON r.[Area] = r2.[Area]
+	WHERE p.[Player]= @player
+	AND r.[X] = @x
+	AND r.[Y] = @y
+	AND r.[Z] = @z
+	
+	UPDATE [dbo].[PlayerStatesOfRooms]
+	SET [State] = CASE WHEN [State] < 0 THEN 0 ELSE [State] END
+	WHERE [Player] = @player
+	AND [Room] = @room
+	
+	UPDATE [dbo].[PlayerGameStates]
+	SET [LastRoom] = @room
+	WHERE [Player] = @player
+		
+	EXEC [dbo].[ReadRoomForPlayer] 
+	@player = @player, 
+	@room = @room
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[PlayerTeleportRoomId]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[PlayerTeleportRoomId] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 7/21//2015
+-- Description:	Reads Area data for a player
+-- =============================================
+ALTER PROCEDURE [dbo].[PlayerTeleportRoomId]
+	@player uniqueidentifier,
+	@room int
+AS
+BEGIN
+	
+	UPDATE [dbo].[PlayerStatesOfRooms]
+	SET [State] = CASE WHEN [State] < 0 THEN 0 ELSE [State] END
+	WHERE [Player] = @player
+	AND [Room] = @room
+	
+	UPDATE [dbo].[PlayerGameStates]
+	SET [LastRoom] = @room
+	WHERE [Player] = @player
+	
+	EXEC [dbo].[ReadAreaForPlayer]
+	SELECT r.[Area]
+	FROM [dbo].[PlayerGameStates] pgs WITH (NOLOCK)
+	INNER JOIN [dbo].[Rooms] r WITH (NOLOCK)
+	ON pgs.[LastRoom] = r.[Id]
+		
+	EXEC [dbo].[ReadRoomForPlayer] 
+	@player = @player, 
+	@room = @room
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[PlayerTeleportAreaIdRoomXYZ]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[PlayerTeleportAreaIdRoomXYZ] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 7/21//2015
+-- Description:	Reads Area data for a player
+-- =============================================
+ALTER PROCEDURE [dbo].[PlayerTeleportAreaIdRoomXYZ]
 	@player uniqueidentifier,
 	@area int,
 	@x int,
@@ -783,7 +882,6 @@ BEGIN
 	WHERE [Player] = @player
 	
 	EXEC [dbo].[ReadAreaForPlayer]
-	@player = @player,
 	@area = @area
 		
 	EXEC [dbo].[ReadRoomForPlayer] 
@@ -793,16 +891,17 @@ BEGIN
 END
 GO
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[PlayerTeleportRoomId]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
-  EXEC('CREATE PROCEDURE [dbo].[PlayerTeleportRoomId] AS SELECT 1')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[PlayerTeleportAreaIdRoomId]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[PlayerTeleportAreaIdRoomId] AS SELECT 1')
 GO
 -- =============================================
 -- Author:		Ian Eller-Romey
--- Create date: 6/30/2015
+-- Create date: 7/21//2015
 -- Description:	Reads Area data for a player
 -- =============================================
-ALTER PROCEDURE [dbo].[PlayerTeleportRoomId]
+ALTER PROCEDURE [dbo].[PlayerTeleportAreaIdRoomId]
 	@player uniqueidentifier,
+	@area int,
 	@room int
 AS
 BEGIN
@@ -817,70 +916,11 @@ BEGIN
 	WHERE [Player] = @player
 	
 	EXEC [dbo].[ReadAreaForPlayer]
-	SELECT r.[Area]
-	FROM [dbo].[PlayerGameStates] pgs
-	INNER JOIN [dbo].[Rooms] r
-	ON pgs.[LastRoom] = r.[Id]
+	@area = @area
 		
 	EXEC [dbo].[ReadRoomForPlayer] 
 	@player = @player, 
 	@room = @room
-
-END
-GO
-
-IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[PlayerParagraphStateChange]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
-  EXEC('CREATE PROCEDURE [dbo].[PlayerParagraphStateChange] AS SELECT 1')
-GO
--- =============================================
--- Author:		Ian Eller-Romey
--- Create date: 6/30/2015
--- Description:	Reads Area data for a player
--- =============================================
-ALTER PROCEDURE [dbo].[PlayerParagraphStateChange]
-	@player uniqueidentifier,
-	@paragraph int,
-	@state int
-AS
-BEGIN
-	
-	UPDATE [dbo].[PlayerStatesOfParagraphs]
-	SET [State] = @state
-	WHERE [Player] = @player
-	AND [Paragraph] = @paragraph
-		
-	EXEC [dbo].[ReadRoomForPlayer] 
-	SELECT [Player], [LastRoom]
-	FROM [dbo].[PlayerGameStates]
-	WHERE [Player] = @player
-
-END
-GO
-
-IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[PlayerRoomStateChange]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
-  EXEC('CREATE PROCEDURE [dbo].[PlayerRoomStateChange] AS SELECT 1')
-GO
--- =============================================
--- Author:		Ian Eller-Romey
--- Create date: 6/30/2015
--- Description:	Reads Area data for a player
--- =============================================
-ALTER PROCEDURE [dbo].[PlayerRoomStateChange]
-	@player uniqueidentifier,
-	@room int,
-	@state int
-AS
-BEGIN
-	
-	UPDATE [dbo].[PlayerStatesOfRooms]
-	SET [State] = @state
-	WHERE [Player] = @player
-	AND [Room] = @room
-		
-	EXEC [dbo].[ReadRoomForPlayer] 
-	SELECT [Player], [LastRoom]
-	FROM [dbo].[PlayerGameStates]
-	WHERE [Player] = @player
 
 END
 GO
@@ -947,6 +987,62 @@ BEGIN
 	SET [InParty] = 1
 	WHERE [Player] = @player
 	AND [Character] = @character
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[PlayerParagraphStateChange]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[PlayerParagraphStateChange] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 6/30/2015
+-- Description:	Reads Area data for a player
+-- =============================================
+ALTER PROCEDURE [dbo].[PlayerParagraphStateChange]
+	@player uniqueidentifier,
+	@paragraph int,
+	@state int
+AS
+BEGIN
+	
+	UPDATE [dbo].[PlayerStatesOfParagraphs]
+	SET [State] = @state
+	WHERE [Player] = @player
+	AND [Paragraph] = @paragraph
+		
+	EXEC [dbo].[ReadRoomForPlayer] 
+	SELECT [Player], [LastRoom]
+	FROM [dbo].[PlayerGameStates]
+	WHERE [Player] = @player
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[PlayerRoomStateChange]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[PlayerRoomStateChange] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 6/30/2015
+-- Description:	Reads Area data for a player
+-- =============================================
+ALTER PROCEDURE [dbo].[PlayerRoomStateChange]
+	@player uniqueidentifier,
+	@room int,
+	@state int
+AS
+BEGIN
+	
+	UPDATE [dbo].[PlayerStatesOfRooms]
+	SET [State] = @state
+	WHERE [Player] = @player
+	AND [Room] = @room
+		
+	EXEC [dbo].[ReadRoomForPlayer] 
+	SELECT [Player], [LastRoom]
+	FROM [dbo].[PlayerGameStates]
+	WHERE [Player] = @player
 
 END
 GO
