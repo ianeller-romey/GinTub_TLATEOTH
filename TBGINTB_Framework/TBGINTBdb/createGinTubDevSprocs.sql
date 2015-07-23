@@ -212,6 +212,9 @@ BEGIN
 
 	DELETE
 	FROM [dbo].[ParagraphStates]
+	
+	DELETE
+	FROM [dbo].[ParagraphRoomStates]
 
 	DELETE
 	FROM [dbo].[Paragraphs]
@@ -220,7 +223,7 @@ BEGIN
 	FROM [dbo].[RoomStates]
 	
 	DELETE
-	FROM [dbo].[ParagraphRoomStates]
+	FROM [dbo].[AreaRoomOnInitialLoad]
 
 	DELETE
 	FROM [dbo].[Rooms]
@@ -235,9 +238,9 @@ BEGIN
 	DBCC CHECKIDENT ('[dbo].[Actions]', RESEED, 0)
 	DBCC CHECKIDENT ('[dbo].[Nouns]', RESEED, 0)
 	DBCC CHECKIDENT ('[dbo].[ParagraphStates]', RESEED, 0)
+	DBCC CHECKIDENT ('[dbo].[ParagraphRoomStates]', RESEED, 0)
 	DBCC CHECKIDENT ('[dbo].[Paragraphs]', RESEED, 0)
 	DBCC CHECKIDENT ('[dbo].[RoomStates]', RESEED, 0)
-	DBCC CHECKIDENT ('[dbo].[ParagraphRoomStates]', RESEED, 0)
 	DBCC CHECKIDENT ('[dbo].[Rooms]', RESEED, 0)
 	DBCC CHECKIDENT ('[dbo].[Areas]', RESEED, 0)
 
@@ -412,15 +415,15 @@ BEGIN
 
 	DELETE
 	FROM [dbo].[ParagraphStates]
+	
+	DELETE
+	FROM [dbo].[ParagraphRoomStates]
 
 	DELETE
 	FROM [dbo].[Paragraphs]
 
 	DELETE
 	FROM [dbo].[RoomStates]
-	
-	DELETE
-	FROM [dbo].[ParagraphRoomStates]
 	
 	DELETE
 	FROM [dev].[PlaceholderLocation]
@@ -435,8 +438,9 @@ BEGIN
 	DBCC CHECKIDENT ('[dbo].[Actions]', RESEED, 0)
 	DBCC CHECKIDENT ('[dbo].[Nouns]', RESEED, 0)
 	DBCC CHECKIDENT ('[dbo].[ParagraphStates]', RESEED, 0)
-	DBCC CHECKIDENT ('[dbo].[RoomStates]', RESEED, 0)
 	DBCC CHECKIDENT ('[dbo].[ParagraphRoomStates]', RESEED, 0)
+	DBCC CHECKIDENT ('[dbo].[Paragraphs]', RESEED, 0)
+	DBCC CHECKIDENT ('[dbo].[RoomStates]', RESEED, 0)
 	DBCC CHECKIDENT ('[dbo].[Locations]', RESEED, 0)
 
 END
@@ -766,6 +770,14 @@ BEGIN
 	INNER JOIN [dbo].[Rooms] r
 	ON p.[Room] = r.[Id]
 	WHERE r.[Area] = @area
+	
+	DELETE prs
+	FROM [dbo].[ParagraphRoomStates] prs
+	INNER JOIN [dbo].[RoomStates] rs
+	ON prs.[RoomState] = rs.[Id]
+	INNER JOIN [dbo].[Rooms] r
+	ON rs.[Room] = r.[Id]
+	WHERE r.[Area] = @area
 
 	DELETE p
 	FROM [dbo].[Paragraphs] p
@@ -775,14 +787,6 @@ BEGIN
 
 	DELETE rs
 	FROM [dbo].[RoomStates] rs
-	INNER JOIN [dbo].[Rooms] r
-	ON rs.[Room] = r.[Id]
-	WHERE r.[Area] = @area
-	
-	DELETE prs
-	FROM [dbo].[ParagraphRoomStates] prs
-	INNER JOIN [dbo].[RoomStates] rs
-	ON prs.[RoomState] = rs.[Id]
 	INNER JOIN [dbo].[Rooms] r
 	ON rs.[Room] = r.[Id]
 	WHERE r.[Area] = @area
@@ -903,6 +907,15 @@ BEGIN
 	ON p.[Room] = r.[Id]
 	WHERE r.[Area] = @area
 	AND r.[Z] = @z
+	
+	DELETE prs
+	FROM [dbo].[ParagraphRoomStates] prs
+	INNER JOIN [dbo].[RoomStates] rs
+	ON prs.[RoomState] = rs.[Id]
+	INNER JOIN [dbo].[Rooms] r
+	ON rs.[Room] = r.[Id]
+	WHERE r.[Area] = @area
+	AND r.[Z] = @z
 
 	DELETE p
 	FROM [dbo].[Paragraphs] p
@@ -913,15 +926,6 @@ BEGIN
 
 	DELETE rs
 	FROM [dbo].[RoomStates] rs
-	INNER JOIN [dbo].[Rooms] r
-	ON rs.[Room] = r.[Id]
-	WHERE r.[Area] = @area
-	AND r.[Z] = @z
-	
-	DELETE prs
-	FROM [dbo].[ParagraphRoomStates] prs
-	INNER JOIN [dbo].[RoomStates] rs
-	ON prs.[RoomState] = rs.[Id]
 	INNER JOIN [dbo].[Rooms] r
 	ON rs.[Room] = r.[Id]
 	WHERE r.[Area] = @area
@@ -1207,6 +1211,12 @@ BEGIN
 	INNER JOIN [dbo].[RoomStates] rs
 	ON prs.[RoomState] = rs.[Id]
 	WHERE rs.[Room] = @room
+	
+	DELETE prs
+	FROM [dbo].[ParagraphRoomStates] prs
+	INNER JOIN [dbo].[RoomStates] rs
+	ON prs.[RoomState] = rs.[Id]
+	WHERE rs.[Room] = @room
 
 	DELETE p
 	FROM [dbo].[Paragraphs] p
@@ -1219,12 +1229,6 @@ BEGIN
 	DELETE
 	FROM [dbo].[RoomStates]
 	WHERE [Room] = @room
-	
-	DELETE prs
-	FROM [dbo].[ParagraphRoomStates] prs
-	INNER JOIN [dbo].[RoomStates] rs
-	ON prs.[RoomState] = rs.[Id]
-	WHERE rs.[Room] = @room
 
 END
 GO

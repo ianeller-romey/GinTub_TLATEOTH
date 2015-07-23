@@ -26,8 +26,8 @@ namespace GinTub
                 new ResultTypeRule("Item Acquisition", ResultTypeRule.ResultTypePriority.First),
                 new ResultTypeRule("Event Acquisition", ResultTypeRule.ResultTypePriority.First),
                 new ResultTypeRule("Character Acquisition", ResultTypeRule.ResultTypePriority.First),
-                new ResultTypeRule("Paragraph State Change", ResultTypeRule.ResultTypePriority.First),
-                new ResultTypeRule("Room State Change", ResultTypeRule.ResultTypePriority.First),
+                new ResultTypeRule("Paragraph State Change", ResultTypeRule.ResultTypePriority.Last),
+                new ResultTypeRule("Room State Change", ResultTypeRule.ResultTypePriority.Last),
                 new ResultTypeRule("Message Activation", ResultTypeRule.ResultTypePriority.Second),
             };
 

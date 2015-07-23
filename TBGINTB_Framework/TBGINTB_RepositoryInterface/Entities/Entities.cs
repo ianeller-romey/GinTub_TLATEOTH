@@ -52,7 +52,7 @@ namespace GinTub.Repository.Entities
         public int Id { get; set; }
         public string Text { get; set; }
         public int Order { get; set; }
-        public int? RoomState { get; set; }
+        public int RoomState { get; set; }
         public Noun[] Nouns { get; set; }
     }
 

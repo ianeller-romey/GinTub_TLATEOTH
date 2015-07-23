@@ -48,11 +48,11 @@ namespace GinTub.Services.DataContracts.Responses
         [DataMember(Name = "id")]
         public int Id { get; set; }
 
-        [DataMember(Name = "messageChoiceData")]
+        [DataMember(Name = "order")]
         public int Order { get; set; }
 
         [DataMember(Name = "roomState")]
-        public int? RoomState { get; set; }
+        public int RoomState { get; set; }
 
         [DataMember(Name = "words")]
         public IEnumerable<WordData> Words { get; set; }

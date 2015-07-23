@@ -213,7 +213,7 @@ namespace GinTub.Repository
             RoomData roomData = null;
             using (var entities = new GinTubEntities())
             {
-                var roomResults = entities.PlayerParagraphStateChange(playerId, roomId, state);
+                var roomResults = entities.PlayerRoomStateChange(playerId, roomId, state);
                 roomData = RoomResultsFromDB(roomResults);
             }
             return roomData;

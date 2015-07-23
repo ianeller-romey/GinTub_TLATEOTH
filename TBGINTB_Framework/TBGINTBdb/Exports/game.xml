@@ -152,10 +152,6 @@
     <ResultType Id="8">
       <Name>Paragraph State Change</Name>
       <Results>
-        <Result Id="25">
-          <Name>Para. State - Laptop - Empty</Name>
-          <JSONData>{"paragraphId":5, "state":1}</JSONData>
-        </Result>
         <Result Id="17">
           <Name>Para. State - Pass. Seat - Bag</Name>
           <JSONData>{"paragraphId":4, "state":4}</JSONData>
@@ -196,7 +192,12 @@
     </ResultType>
     <ResultType Id="9">
       <Name>Room State Change</Name>
-      <Results />
+      <Results>
+        <Result Id="25">
+          <Name>Room State - Interior - No Laptop</Name>
+          <JSONData>{"roomId":0, "state":1}</JSONData>
+        </Result>
+      </Results>
       <ResultTypeJSONProperty>
         <ResultTypeJSONProperty Id="18" DataType="0">
           <JSONProperty>roomId</JSONProperty>
@@ -390,6 +391,9 @@
                 <ParagraphRoomState Id="0">
                   <RoomState>0</RoomState>
                 </ParagraphRoomState>
+                <ParagraphRoomState Id="7">
+                  <RoomState>1</RoomState>
+                </ParagraphRoomState>
               </ParagraphRoomStates>
               <ParagraphStates>
                 <ParagraphState Id="0">
@@ -404,6 +408,9 @@
               <ParagraphRoomStates>
                 <ParagraphRoomState Id="1">
                   <RoomState>0</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="8">
+                  <RoomState>1</RoomState>
                 </ParagraphRoomState>
               </ParagraphRoomStates>
               <ParagraphStates>
@@ -420,6 +427,9 @@
                 <ParagraphRoomState Id="2">
                   <RoomState>0</RoomState>
                 </ParagraphRoomState>
+                <ParagraphRoomState Id="9">
+                  <RoomState>1</RoomState>
+                </ParagraphRoomState>
               </ParagraphRoomStates>
               <ParagraphStates>
                 <ParagraphState Id="2">
@@ -434,6 +444,9 @@
               <ParagraphRoomStates>
                 <ParagraphRoomState Id="3">
                   <RoomState>0</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="10">
+                  <RoomState>1</RoomState>
                 </ParagraphRoomState>
               </ParagraphRoomStates>
               <ParagraphStates>
@@ -466,6 +479,9 @@
               <ParagraphRoomStates>
                 <ParagraphRoomState Id="4">
                   <RoomState>0</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="11">
+                  <RoomState>1</RoomState>
                 </ParagraphRoomState>
               </ParagraphRoomStates>
               <ParagraphStates>
@@ -979,6 +995,9 @@
               <ParagraphRoomStates>
                 <ParagraphRoomState Id="6">
                   <RoomState>0</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="12">
+                  <RoomState>1</RoomState>
                 </ParagraphRoomState>
               </ParagraphRoomStates>
               <ParagraphStates>

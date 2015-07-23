@@ -341,7 +341,7 @@ namespace GinTub.Repository.Entities.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlayerItemAdd", playerParameter, itemParameter);
         }
-    
+
         public virtual ObjectResult<ReadRoom_Result> PlayerParagraphStateChange(Nullable<System.Guid> player, Nullable<int> paragraph, Nullable<int> state)
         {
             var playerParameter = player.HasValue ?

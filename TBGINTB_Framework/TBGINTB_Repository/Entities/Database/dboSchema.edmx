@@ -189,7 +189,7 @@
             <Parameter Name="xDir" Mode="In" Type="Int32" />
             <Parameter Name="yDir" Mode="In" Type="Int32" />
             <Parameter Name="zDir" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="ReadAllVerbTypes" ReturnType="Collection(GinTubModel.ReadAllVerbTypes_Result)" />
           <FunctionImport Name="ReadArea" ReturnType="Collection(GinTubModel.ReadArea_Result)">
           <Parameter Name="area" Mode="In" Type="Int32" />
@@ -267,11 +267,19 @@
             <Parameter Name="item" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PlayerParagraphStateChange">
+            <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadParagraphStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadNounsForPlayerRoom_Result)"></ReturnType>
             <Parameter Name="player" Mode="In" Type="Guid" />
             <Parameter Name="paragraph" Mode="In" Type="Int32" />
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PlayerRoomStateChange">
+            <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadParagraphStatesForPlayerRoom_Result)"></ReturnType>
+            <ReturnType Type="Collection(GinTubModel.ReadNounsForPlayerRoom_Result)"></ReturnType>
             <Parameter Name="player" Mode="In" Type="Guid" />
             <Parameter Name="room" Mode="In" Type="Int32" />
             <Parameter Name="state" Mode="In" Type="Int32" />
@@ -285,7 +293,7 @@
             <Parameter Name="player" Mode="In" Type="Guid" />
             <Parameter Name="area" Mode="In" Type="Int32" />
             <Parameter Name="room" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="PlayerTeleportAreaIdRoomXYZ">
             <ReturnType Type="Collection(GinTubModel.ReadArea_Result)"></ReturnType>
             <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
@@ -297,7 +305,7 @@
             <Parameter Name="x" Mode="In" Type="Int32" />
             <Parameter Name="y" Mode="In" Type="Int32" />
             <Parameter Name="z" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="PlayerTeleportRoomId">
             <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
             <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
@@ -305,7 +313,7 @@
             <ReturnType Type="Collection(GinTubModel.ReadNounsForPlayerRoom_Result)"></ReturnType>
             <Parameter Name="player" Mode="In" Type="Guid" />
             <Parameter Name="room" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="PlayerTeleportRoomXYZ">
             <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
             <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
@@ -315,7 +323,7 @@
             <Parameter Name="x" Mode="In" Type="Int32" />
             <Parameter Name="y" Mode="In" Type="Int32" />
             <Parameter Name="z" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="ReadAllResultTypes" ReturnType="Collection(GinTubModel.ReadAllResultTypes_Result)" />
         </EntityContainer>
         <ComplexType Name="GetActionResults_Result">

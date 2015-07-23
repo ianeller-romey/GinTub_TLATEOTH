@@ -295,7 +295,7 @@ namespace GinTub.Services
         {
             int roomId = data.roomId;
             int state = data.state;
-            var result = repository.PlayerParagraphStateChange(playerId, roomId, state);
+            var result = repository.PlayerRoomStateChange(playerId, roomId, state);
             playData.Room = TypeAdapter.Adapt<DC.Responses.RoomData>(result.Item1);
             playData.RoomStates = result.Item2.Select(x => TypeAdapter.Adapt<DC.Responses.RoomStateData>(x)).ToList();
             playData.ParagraphStates = result.Item3.Select(x => TypeAdapter.Adapt<DC.Responses.ParagraphStateData>(x)).ToList();

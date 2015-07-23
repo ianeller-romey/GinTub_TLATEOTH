@@ -28,114 +28,48 @@ var GameStateEngine = function () {
     var that = this;
 
     var loadAllVerbTypes = function (verbUseData) {
-        verbTypes = [];
-        var i = 0,
-            len = verbUseData.verbTypes.length;
-        for (; i < len; ++i) {
-            var v = verbUseData.verbTypes[i];
-            verbTypes.push({
-                id: v.id,
-                name: v.name
-            });
-        }
+        verbTypes = verbUseData.verbTypes;
+
         messengerEngine.post("GameStateEngine.loadAllVerbTypes", verbTypes);
     };
 
     var setArea = function (areaData) {
-        area = {
-            id: areaData.id,
-            name: areaData.name
-        };
-        messengerEngine.post("GameStateEngine.setArea", area);
+        if (areaData != null) {
+            area = areaData;
+
+            messengerEngine.post("GameStateEngine.setArea", area);
+        }
     };
 
     var setRoom = function (roomData) {
-        room = {
-            id: roomData.id,
-            name: roomData.name,
-            x: roomData.x,
-            y: roomData.y,
-            z: roomData.z
-        };
-        messengerEngine.post("GameStateEngine.setRoom", room);
+        if (roomData != null) {
+            room = roomData;
+
+            messengerEngine.post("GameStateEngine.setRoom", room);
+        }
     };
 
     var setRoomStates = function (roomStateData) {
-        roomStates = [];
-        var i = 0, 
-            len = roomStateData.length;
-        for (; i < len; ++i) {
-            rsd = roomStateData[i];
-            roomStates[i] = {
-                id: rsd.id,
-                state: rsd.state,
-                time: moment.duration.fromIsoduration(rsd.time),
-                location: rsd.location
-            }
-        }
-        messengerEngine.post("GameStateEngine.setRoomStates", roomStates);
-    };
+        if (roomStateData != null) {
+            roomStates = roomStateData.select(function (roomState) {
+                return {
+                    id: roomState.id,
+                    state: roomState.state,
+                    time: moment.duration.fromIsoduration(roomState.time),
+                    location: roomState.location
+                };
+            });
 
-    var getRemovedParagraphStates = function (paragraphStateData) {
-        var removedParagraphStates = [];
-        var i = 0,
-            len = paragraphStates.length;
-        for (; i < len; ++i) {
-            var j = 0,
-                len2 = paragraphStateData.length,
-                contains = false;
-            for (; j < len2; ++j) {
-                if (paragraphStateData[j].id == paragraphStates[i].id) {
-                    contains = true;
-                    break;
-                }
-            }
-            if (!contains) {
-                removedParagraphStates.push(paragraphStates[i]);
-            }
+            messengerEngine.post("GameStateEngine.setRoomStates", roomStates);
         }
-        return removedParagraphStates;
-    };
-
-    var getAddedParagraphStates = function (paragraphStateData) {
-        var addedParagraphStates = [];
-        var i = 0,
-            len = paragraphStateData.length;
-        for (; i < len; ++i) {
-            var j = 0,
-                len2 = paragraphStates.length,
-                contains = false;
-            for (; j < len2; ++j) {
-                if (paragraphStates[j].id == paragraphStateData[i]) {
-                    contains = true;
-                    break;
-                }
-            }
-            if (!contains) {
-                addedParagraphStates.push(paragraphStateData[i]);
-            }
-        }
-        return addedParagraphStates;
     };
 
     var setParagraphStates = function (paragraphStateData) {
-        var removedParagraphStates = getRemovedParagraphStates(paragraphStateData);
-        var addedParagraphStates = getAddedParagraphStates(paragraphStateData);
-        paragraphStates = [];
-        var i = 0,
-            len = paragraphStateData.length;
-        for (; i < len; ++i) {
-            psd = paragraphStateData[i];
-            paragraphStates.push({
-                id: psd.id,
-                order: psd.order,
-                roomState: psd.roomState,
-                words: psd.words
-            });
+        if (paragraphStateData != null) {
+            paragraphStates = paragraphStateData;
+
+            messengerEngine.post("GameStateEngine.setParagraphStates", paragraphStates);
         }
-        messengerEngine.post("GameStateEngine.removedParagraphStates", removedParagraphStates);
-        messengerEngine.post("GameStateEngine.addedParagraphStates", addedParagraphStates);
-        messengerEngine.post("GameStateEngine.setParagraphStates", paragraphStates);
     };
 
     var setMessage = function (messageData) {
@@ -145,6 +79,7 @@ var GameStateEngine = function () {
                 text: messageData.text,
                 messageChoices: messageData.messageChoices
             };
+
             messengerEngine.post("GameStateData.setMessage", message);
         }
     };
@@ -174,7 +109,7 @@ var GameStateEngine = function () {
             var rs = roomStates[i];
             if (gameTime >= rs.time) {
                 // no need to update if it's the same roomstate
-                if (activeRoomState == rs) {
+                if (activeRoomState.id == rs.id) {
                     break;
                 }
                 activeRoomState = rs;
@@ -190,6 +125,16 @@ var GameStateEngine = function () {
         setRoom(playData.room);
         setRoomStates(playData.roomStates);
         setParagraphStates(playData.paragraphStates);
+
+        setActiveRoomState();
+    };
+
+    var loadActionResults = function (playData) {
+        setArea(playData.area);
+        setRoom(playData.room);
+        setRoomStates(playData.roomStates);
+        setParagraphStates(playData.paragraphStates);
+        setMessage(playData.message);
 
         setActiveRoomState();
     };
@@ -211,7 +156,7 @@ var GameStateEngine = function () {
     messengerEngine.register("ServicesEngine.getAllVerbTypes", this, loadAllVerbTypes);
     messengerEngine.register("ServicesEngine.loadGame", this, loadGame);
     messengerEngine.register("ServicesEngine.getNounsForParagraphState", this, loadMessage);
-    messengerEngine.register("ServicesEngine.doAction", this, loadMessage);
+    messengerEngine.register("ServicesEngine.doAction", this, loadActionResults);
     messengerEngine.register("TimeEngine.updateTimeAtTen", this, updateTime);
     messengerEngine.register("UserInputManager.doAction", this, doAction);
 };
