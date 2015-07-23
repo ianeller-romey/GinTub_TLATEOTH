@@ -26,5 +26,25 @@ namespace GinTub.Repository.Interface
         IEnumerable<Result> GetActionResults(Guid playerId, int nounId, int verbTypeId);
 
         IEnumerable<Result> GetMessageChoiceResults(int messageChoiceId);
+        
+        Tuple<Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> PlayerMoveXYZ(Guid playerId, int xDir, int yDir, int zDir);
+
+        Tuple<Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> PlayerTeleportRoomXYZ(Guid playerId, int xPos, int yPos, int zPos);
+
+        Tuple<Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> PlayerTeleportRoomID(Guid playerId, int roomId);
+
+        Tuple<Area, Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> PlayerTeleportAreaIdRoomXYZ(Guid playerId, int areaId, int xPos, int yPos, int zPos);
+
+        Tuple<Area, Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> PlayerTeleportAreaIdRoomId(Guid playerId, int areaId, int roomId);
+
+        void PlayerItemAdd(Guid playerId, int itemId);
+
+        void PlayerEventAdd(Guid playerId, int eventId);
+
+        void PlayerCharacterAdd(Guid playerId, int characterId);
+
+        Tuple<Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> PlayerParagraphStateChange(Guid playerId, int paragraphId, int state);
+
+        Tuple<Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> PlayerRoomStateChange(Guid playerId, int roomId, int state);
     }
 }

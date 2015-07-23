@@ -76,19 +76,65 @@ var GameStateEngine = function () {
         messengerEngine.post("GameStateEngine.setRoomStates", roomStates);
     };
 
+    var getRemovedParagraphStates = function (paragraphStateData) {
+        var removedParagraphStates = [];
+        var i = 0,
+            len = paragraphStates.length;
+        for (; i < len; ++i) {
+            var j = 0,
+                len2 = paragraphStateData.length,
+                contains = false;
+            for (; j < len2; ++j) {
+                if (paragraphStateData[j].id == paragraphStates[i].id) {
+                    contains = true;
+                    break;
+                }
+            }
+            if (!contains) {
+                removedParagraphStates.push(paragraphStates[i]);
+            }
+        }
+        return removedParagraphStates;
+    };
+
+    var getAddedParagraphStates = function (paragraphStateData) {
+        var addedParagraphStates = [];
+        var i = 0,
+            len = paragraphStateData.length;
+        for (; i < len; ++i) {
+            var j = 0,
+                len2 = paragraphStates.length,
+                contains = false;
+            for (; j < len2; ++j) {
+                if (paragraphStates[j].id == paragraphStateData[i]) {
+                    contains = true;
+                    break;
+                }
+            }
+            if (!contains) {
+                addedParagraphStates.push(paragraphStateData[i]);
+            }
+        }
+        return addedParagraphStates;
+    };
+
     var setParagraphStates = function (paragraphStateData) {
+        var removedParagraphStates = getRemovedParagraphStates(paragraphStateData);
+        var addedParagraphStates = getAddedParagraphStates(paragraphStateData);
         paragraphStates = [];
         var i = 0,
             len = paragraphStateData.length;
         for (; i < len; ++i) {
             psd = paragraphStateData[i];
-            paragraphStates[i] = {
+            paragraphStates.push({
                 id: psd.id,
                 order: psd.order,
                 roomState: psd.roomState,
                 words: psd.words
-            };
+            });
         }
+        messengerEngine.post("GameStateEngine.removedParagraphStates", removedParagraphStates);
+        messengerEngine.post("GameStateEngine.addedParagraphStates", addedParagraphStates);
         messengerEngine.post("GameStateEngine.setParagraphStates", paragraphStates);
     };
 

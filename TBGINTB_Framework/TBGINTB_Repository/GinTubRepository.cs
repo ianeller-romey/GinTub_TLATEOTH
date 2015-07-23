@@ -61,17 +61,13 @@ namespace GinTub.Repository
 
         public AreaData ReadGame(Guid playerId)
         {
-            Area area = null;
-            RoomData roomData = null;
+            AreaData areaData = null;
             using (var entities = new GinTubEntities())
             {
                 var areaResults = entities.ReadGame(playerId);
-                area = TypeAdapter.Adapt<Area>(areaResults.Single());
-
-                var roomResults = areaResults.GetNextResult<ReadRoom_Result>();
-                roomData = RoomResultsFromDB(roomResults);
+                areaData = AreaAndRoomResultsFromDb(areaResults);
             }
-            return new AreaData(area, roomData.Item1, roomData.Item2, roomData.Item3);
+            return areaData;
         }
 
         public Message ReadMessage(int messageId)
@@ -122,10 +118,124 @@ namespace GinTub.Repository
             return results;
         }
 
+        public RoomData PlayerMoveXYZ(Guid playerId, int xDir, int yDir, int zDir)
+        {
+            RoomData roomData = null;
+            using(var entities = new GinTubEntities())
+            {
+                var roomResults = entities.PlayerMoveXYZ(playerId, xDir, yDir, zDir);
+                roomData = RoomResultsFromDB(roomResults);
+            }
+            return roomData;
+        }
+
+        public RoomData PlayerTeleportRoomXYZ(Guid playerId, int xPos, int yPos, int zPos)
+        {
+            RoomData roomData = null;
+            using (var entities = new GinTubEntities())
+            {
+                var roomResults = entities.PlayerTeleportRoomXYZ(playerId, xPos, yPos, zPos);
+                roomData = RoomResultsFromDB(roomResults);
+            }
+            return roomData;
+        }
+
+        public RoomData PlayerTeleportRoomID(Guid playerId, int roomId)
+        {
+            RoomData roomData = null;
+            using (var entities = new GinTubEntities())
+            {
+                var roomResults = entities.PlayerTeleportRoomId(playerId, roomId);
+                roomData = RoomResultsFromDB(roomResults);
+            }
+            return roomData;
+        }
+
+        public AreaData PlayerTeleportAreaIdRoomXYZ(Guid playerId, int areaId, int xPos, int yPos, int zPos)
+        {
+            AreaData areaData = null;
+            using (var entities = new GinTubEntities())
+            {
+                var areaResults = entities.PlayerTeleportAreaIdRoomXYZ(playerId, areaId, xPos, yPos, zPos);
+                areaData = AreaAndRoomResultsFromDb(areaResults);
+            }
+            return areaData;
+        }
+
+        public AreaData PlayerTeleportAreaIdRoomId(Guid playerId, int areaId, int roomId)
+        {
+            AreaData areaData = null;
+            using (var entities = new GinTubEntities())
+            {
+                var areaResults = entities.PlayerTeleportAreaIdRoomId(playerId, areaId, roomId);
+                areaData = AreaAndRoomResultsFromDb(areaResults);
+            }
+            return areaData;
+        }
+
+        public void PlayerItemAdd(Guid playerId, int itemId)
+        {
+            using(var entities = new GinTubEntities())
+            {
+                entities.PlayerItemAdd(playerId, itemId);
+            }
+        }
+
+        public void PlayerEventAdd(Guid playerId, int eventId)
+        {
+            using (var entities = new GinTubEntities())
+            {
+                entities.PlayerEventAdd(playerId, eventId);
+            }
+        }
+
+        public void PlayerCharacterAdd(Guid playerId, int characterId)
+        {
+            using (var entities = new GinTubEntities())
+            {
+                entities.PlayerCharacterAdd(playerId, characterId);
+            }
+        }
+
+        public RoomData PlayerParagraphStateChange(Guid playerId, int paragraphId, int state)
+        {
+            RoomData roomData = null;
+            using(var entities = new GinTubEntities())
+            {
+                var roomResults = entities.PlayerParagraphStateChange(playerId, paragraphId, state);
+                roomData = RoomResultsFromDB(roomResults);
+            }
+            return roomData;
+        }
+
+        public RoomData PlayerRoomStateChange(Guid playerId, int roomId, int state)
+        {
+            RoomData roomData = null;
+            using (var entities = new GinTubEntities())
+            {
+                var roomResults = entities.PlayerParagraphStateChange(playerId, roomId, state);
+                roomData = RoomResultsFromDB(roomResults);
+            }
+            return roomData;
+        }
+
         #endregion
 
 
         #region Private Functionality
+
+        public AreaData AreaAndRoomResultsFromDb(ObjectResult<ReadArea_Result> areaResults)
+        {
+            Area area = null;
+            RoomData roomData = null;
+
+            area = TypeAdapter.Adapt<Area>(areaResults.Single());
+
+            var roomResults = areaResults.GetNextResult<ReadRoom_Result>();
+            roomData = RoomResultsFromDB(roomResults);
+
+            return new AreaData(area, roomData.Item1, roomData.Item2, roomData.Item3);
+        }
 
         public RoomData RoomResultsFromDB(ObjectResult<ReadRoom_Result> roomResults)
         {

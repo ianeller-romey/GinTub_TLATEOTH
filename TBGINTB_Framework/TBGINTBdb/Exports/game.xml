@@ -376,6 +376,12 @@
               <Time>00:00:00</Time>
               <Paragraphs />
             </RoomState>
+            <RoomState Id="1">
+              <State>1</State>
+              <Location>0</Location>
+              <Time>00:00:00</Time>
+              <Paragraphs />
+            </RoomState>
           </RoomStates>
           <Paragraphs>
             <Paragraph Id="0">
@@ -901,7 +907,7 @@
                     </Noun>
                   </Nouns>
                 </ParagraphState>
-                <ParagraphState Id="14">
+                <ParagraphState Id="13">
                   <Text>Faded stains are visible on the passenger's seat beside you.</Text>
                   <State>7</State>
                   <Nouns />
@@ -965,11 +971,6 @@
                       </Actions>
                     </Noun>
                   </Nouns>
-                </ParagraphState>
-                <ParagraphState Id="13">
-                  <Text />
-                  <State>1</State>
-                  <Nouns />
                 </ParagraphState>
               </ParagraphStates>
             </Paragraph>

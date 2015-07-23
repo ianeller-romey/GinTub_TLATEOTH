@@ -115,7 +115,7 @@ namespace GinTub
             }
         }
 
-        public static IEnumerable<Result> SortResults(IEnumerable<Result> results)
+        public static IEnumerable<Result> SortResultsByResultTypePriority(IEnumerable<Result> results)
         {
             return (from result in results
                    join rule in m_rules on result.ResultType equals rule.ResultTypeId

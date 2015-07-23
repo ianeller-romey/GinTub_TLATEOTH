@@ -342,7 +342,7 @@ namespace GinTub.Repository.Entities.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlayerItemAdd", playerParameter, itemParameter);
         }
     
-        public virtual int PlayerParagraphStateChange(Nullable<System.Guid> player, Nullable<int> paragraph, Nullable<int> state)
+        public virtual ObjectResult<ReadRoom_Result> PlayerParagraphStateChange(Nullable<System.Guid> player, Nullable<int> paragraph, Nullable<int> state)
         {
             var playerParameter = player.HasValue ?
                 new ObjectParameter("player", player) :
@@ -355,11 +355,11 @@ namespace GinTub.Repository.Entities.Database
             var stateParameter = state.HasValue ?
                 new ObjectParameter("state", state) :
                 new ObjectParameter("state", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlayerParagraphStateChange", playerParameter, paragraphParameter, stateParameter);
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoom_Result>("PlayerParagraphStateChange", playerParameter, paragraphParameter, stateParameter);
         }
-    
-        public virtual int PlayerRoomStateChange(Nullable<System.Guid> player, Nullable<int> room, Nullable<int> state)
+
+        public virtual ObjectResult<ReadRoom_Result> PlayerRoomStateChange(Nullable<System.Guid> player, Nullable<int> room, Nullable<int> state)
         {
             var playerParameter = player.HasValue ?
                 new ObjectParameter("player", player) :
@@ -372,8 +372,8 @@ namespace GinTub.Repository.Entities.Database
             var stateParameter = state.HasValue ?
                 new ObjectParameter("state", state) :
                 new ObjectParameter("state", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlayerRoomStateChange", playerParameter, roomParameter, stateParameter);
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoom_Result>("PlayerRoomStateChange", playerParameter, roomParameter, stateParameter);
         }
     
         public virtual ObjectResult<ReadArea_Result> PlayerTeleportAreaIdRoomId(Nullable<System.Guid> player, Nullable<int> area, Nullable<int> room)
