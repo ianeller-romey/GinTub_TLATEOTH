@@ -144,6 +144,7 @@ namespace TBGINTB_Builder.BuilderControls
             {
                 if (m_grid_messageModification != null)
                     m_grid_selectedMessage.Children.Remove(m_grid_messageModification);
+                UnloadMessage();
                 m_grid_messageModification = new UserControl_MessageModification(comboBoxItem.MessageId, comboBoxItem.MessageName, comboBoxItem.MessageText);
                 m_grid_messageModification.SetActiveAndRegisterForGinTubEvents();
                 m_grid_selectedMessage.SetGridRowColumn(m_grid_messageModification, 1, 0);

@@ -24,10 +24,10 @@ namespace GinTub.Services
     {
         #region MEMBER FIELDS
 
-        private delegate void ResultHandler(IGinTubRepository repository, dynamic obj, Guid playerId, ref DC.Responses.PlayData playData);
+        delegate void ResultHandler(IGinTubRepository repository, dynamic obj, Guid playerId, ref DC.Responses.PlayData playData);
 
-        private IGinTubRepository _repository;
-        private static readonly ConcurrentDictionary<string, ResultHandler> _resultHandlers =
+        IGinTubRepository _repository;
+        static readonly ConcurrentDictionary<string, ResultHandler> _resultHandlers =
             new ConcurrentDictionary<string, ResultHandler>
             (
                 new KeyValuePair<string, ResultHandler>[]

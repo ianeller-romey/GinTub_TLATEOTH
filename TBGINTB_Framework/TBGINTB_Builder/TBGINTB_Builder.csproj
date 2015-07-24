@@ -186,6 +186,7 @@
     <Compile Include="BuilderControls\Misc\Grid_RoomsOnFloor.cs" />
     <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_RoomState.cs" />
     <Compile Include="BuilderControls\IRegisterGinTubBuilderEvents.cs" />
+    <Compile Include="BuilderControls\Misc\Window_MessageTree.cs" />
     <Compile Include="BuilderControls\Misc\Window_RoomPreview.cs" />
     <Compile Include="BuilderControls\TabItems\TabItem_Area.cs" />
     <Page Include="MainWindow.xaml">

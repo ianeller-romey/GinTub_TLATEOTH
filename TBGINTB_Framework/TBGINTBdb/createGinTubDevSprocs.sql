@@ -5356,6 +5356,81 @@ END
 GO
 
 /******************************************************************************************************************************************/
+/*MessageTree******************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_ReadMessageTreeForMessage]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+	EXEC('CREATE PROCEDURE [dev].[dev_ReadMessageTreeForMessage] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 7/24/2015
+-- Description:	Reads data about a dev_ReadMessageTreeForMessage in the database
+-- =============================================
+ALTER PROCEDURE [dev].[dev_ReadMessageTreeForMessage]
+	@message int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	SELECT [Id],
+		   [Name],
+		   [Text]
+	FROM [dev].[Messages]
+	WHERE [Id] = @message
+	
+	SELECT [Id],
+		   [Name],
+		   [Text],
+		   [Message]
+	FROM [dev].[MessageChoices]
+	WHERE [Message] = @message
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_ReadMessageTreeForMessageChoice]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+	EXEC('CREATE PROCEDURE [dev].[dev_ReadMessageTreeForMessageChoice] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 6/23/2015
+-- Description:	Reads data about a MessageTreeNouns in the database
+-- =============================================
+ALTER PROCEDURE [dev].[dev_ReadMessageTreeForMessageChoice]
+	@messagechoice int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	DECLARE @messageIdStringBegin nvarchar(12)
+	SET @messageIdStringBegin = '{"messageId"'
+	DECLARE @messageIdStringEnd nvarchar(12)
+	SET @messageIdStringEnd = '}'
+	 
+	DECLARE @message int
+	SELECT @message = 
+		CASE WHEN CHARINDEX(@messageIdStringBegin, r.[JSONData]) <> 0 THEN 
+			REPLACE(REPLACE(REPLACE(r.[JSONData], ':', ''), @messageIdStringBegin, ''), @messageIdStringEnd, '')
+		ELSE
+			NULL
+		END
+	 FROM [dbo].[MessageChoiceResults] mcr
+	 INNER JOIN [dbo].[Results] r
+	 ON mcr.[Result] = r.[Id]
+	 WHERE mcr.[MessageChoice] = @messageChoice
+	 
+	 EXEC [dev].[dev_ReadMessageTreeForMessage]
+	 @message = @message
+
+END
+GO
+
+/******************************************************************************************************************************************/
 /*AreaRoomOnInitialLoad********************************************************************************************************************/
 /******************************************************************************************************************************************/
 
