@@ -13,21 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_Event : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_Event : UserControl_Event, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_Event m_userControl_evnt;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? EventId { get { return m_userControl_evnt.EventId; } }
-        public string EventName { get { return m_userControl_evnt.EventName; } }
-        public string EventDescription { get { return m_userControl_evnt.EventDescription; } }
-
         #endregion
 
 
@@ -35,19 +27,20 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_Event(int? evntId, string evntName, string evntDescription, bool enableEditing)
+        public UserControl_Bordered_Event(int? evntId, string evntName, string evntDescription, bool enableEditing) :
+            base(evntId, evntName, evntDescription, enableEditing)
         {
-            CreateControls(evntId, evntName, evntDescription, enableEditing);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_evnt.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_evnt.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -55,10 +48,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? evntId, string evntName, string evntDescription, bool enableEditing)
+        private void CreateControls()
         {
-            m_userControl_evnt = new UserControl_Event(evntId, evntName, evntDescription, enableEditing);
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_evnt };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

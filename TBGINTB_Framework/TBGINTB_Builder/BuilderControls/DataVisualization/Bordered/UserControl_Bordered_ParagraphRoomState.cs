@@ -13,23 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_ParagraphRoomState : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_ParagraphRoomState : UserControl_ParagraphRoomState, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_ParagraphRoomState m_userControl_paragraphRoomState;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? ParagraphRoomStateId { get { return m_userControl_paragraphRoomState.ParagraphRoomStateId; } }
-        public int ParagraphRoomStateRoomState { get { return m_userControl_paragraphRoomState.ParagraphRoomStateRoomState; } }
-        public string ParagraphRoomStateRoomStateName { get { return m_userControl_paragraphRoomState.ParagraphRoomStateRoomStateName; } }
-        public TimeSpan ParagraphRoomStateRoomStateTime { get { return m_userControl_paragraphRoomState.ParagraphRoomStateRoomStateTime; } }
-        public int? ParagraphRoomStateParagraph { get { return m_userControl_paragraphRoomState.ParagraphRoomStateParagraph; } }
-
         #endregion
 
 
@@ -46,28 +36,29 @@ namespace TBGINTB_Builder.BuilderControls
             string paragraphRoomStateRoomStateName,
             TimeSpan paragraphRoomStateRoomStateTime,
             bool enableEditing
-        )
-        {
-            CreateControls
+        ) :
+            base
             (
-                paragraphRoomStateId,
-                paragraphRoomStateParagraph,
-                paragraphRoomStateParagraphToCheck,
-                paragraphRoomStateRoomState,
+                paragraphRoomStateId, 
+                paragraphRoomStateParagraph, 
+                paragraphRoomStateParagraphToCheck, 
+                paragraphRoomStateRoomState, 
                 paragraphRoomStateRoomStateName,
                 paragraphRoomStateRoomStateTime,
                 enableEditing
-            );
+            )
+        {
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_paragraphRoomState.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_paragraphRoomState.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -75,29 +66,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls
-        (
-            int? paragraphRoomStateId,
-            int? paragraphRoomStateParagraph,
-            int paragraphRoomStateParagraphToCheck,
-            int paragraphRoomStateRoomState,
-            string paragraphRoomStateRoomStateName,
-            TimeSpan paragraphRoomStateRoomStateTime,
-            bool enableEditing
-        )
+        private void CreateControls()
         {
-            m_userControl_paragraphRoomState =
-                new UserControl_ParagraphRoomState
-                (
-                    paragraphRoomStateId,
-                    paragraphRoomStateParagraph,
-                    paragraphRoomStateParagraphToCheck,
-                    paragraphRoomStateRoomState,
-                    paragraphRoomStateRoomStateName,
-                    paragraphRoomStateRoomStateTime,
-                    enableEditing
-                );
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_paragraphRoomState };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

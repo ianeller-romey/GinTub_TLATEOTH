@@ -13,22 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_ResultTypeJSONProperty : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_ResultTypeJSONProperty : UserControl_ResultTypeJSONProperty, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_ResultTypeJSONProperty m_userControl_resultTypeJSONProperty;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? ResultTypeJSONPropertyId { get { return m_userControl_resultTypeJSONProperty.ResultTypeJSONPropertyId; } }
-        public string ResultTypeJSONPropertyJSONProperty { get { return m_userControl_resultTypeJSONProperty.ResultTypeJSONPropertyJSONProperty; } }
-        public int? ResultTypeJSONPropertyDataType { get { return m_userControl_resultTypeJSONProperty.ResultTypeJSONPropertyDataType; } }
-        public int ResultTypeId { get { return m_userControl_resultTypeJSONProperty.ResultTypeId; } }
-
         #endregion
 
 
@@ -43,19 +34,27 @@ namespace TBGINTB_Builder.BuilderControls
             int? resultTypeJSONPropertyDataType,
             int resultTypeId, 
             bool enableEditing
-        )
+        ) :
+            base
+            (
+                resultTypeJSONPropertyId,
+                resultTypeJSONPropertyJSONProperty,
+                resultTypeJSONPropertyDataType,
+                resultTypeId,
+                enableEditing
+            )
         {
-            CreateControls(resultTypeJSONPropertyId, resultTypeJSONPropertyJSONProperty, resultTypeJSONPropertyDataType, resultTypeId, enableEditing);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_resultTypeJSONProperty.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_resultTypeJSONProperty.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -63,25 +62,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls
-        (
-            int? resultTypeJSONPropertyId, 
-            string resultTypeJSONPropertyJSONProperty,
-            int? resultTypeJSONPropertyDataType,
-            int resultTypeId, 
-            bool enableEditing
-        )
+        private void CreateControls()
         {
-            m_userControl_resultTypeJSONProperty = 
-                new UserControl_ResultTypeJSONProperty
-                (
-                    resultTypeJSONPropertyId, 
-                    resultTypeJSONPropertyJSONProperty,
-                    resultTypeJSONPropertyDataType,
-                    resultTypeId, 
-                    enableEditing
-                );
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_resultTypeJSONProperty };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

@@ -13,21 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_Noun : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_Noun : UserControl_Noun, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_Noun m_userControl_noun;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? NounId { get { return m_userControl_noun.NounId; } }
-        public string NounText { get { return m_userControl_noun.NounText; } }
-        public int ParagraphStateId { get { return m_userControl_noun.ParagraphStateId; } }
-
         #endregion
 
 
@@ -35,19 +27,20 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_Noun(int? nounId, string nounText, int paragraphStateId, bool enableEditing)
+        public UserControl_Bordered_Noun(int? nounId, string nounText, int paragraphStateId, bool enableEditing) :
+            base(nounId, nounText, paragraphStateId, enableEditing)
         {
-            CreateControls(nounId, nounText, paragraphStateId, enableEditing);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_noun.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_noun.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -55,10 +48,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? nounId, string nounText, int paragraphStateId, bool enableEditing)
+        private void CreateControls()
         {
-            m_userControl_noun = new UserControl_Noun(nounId, nounText, paragraphStateId, enableEditing);
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_noun };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

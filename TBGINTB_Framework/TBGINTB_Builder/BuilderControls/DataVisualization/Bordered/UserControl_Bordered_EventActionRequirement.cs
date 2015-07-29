@@ -13,21 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_EventActionRequirement : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_EventActionRequirement : UserControl_EventActionRequirement, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_EventActionRequirement m_userControl_evntActionRequirement;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? EventActionRequirementId { get { return m_userControl_evntActionRequirement.EventActionRequirementId; } }
-        public int? EventActionRequirementEvent { get { return m_userControl_evntActionRequirement.EventActionRequirementEvent; } }
-        public int? EventActionRequirementAction { get { return m_userControl_evntActionRequirement.EventActionRequirementAction; } }
-
         #endregion
 
 
@@ -35,19 +27,20 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_EventActionRequirement(int? evntActionRequirementId, int? evntActionRequirementEvent, int? evntActionRequirementAction, int nounId, int paragraphStateId, bool enableEditing)
+        public UserControl_Bordered_EventActionRequirement(int? evntActionRequirementId, int? evntActionRequirementEvent, int? evntActionRequirementAction, int nounId, int paragraphStateId, bool enableEditing) :
+            base(evntActionRequirementId, evntActionRequirementEvent, evntActionRequirementAction, nounId, paragraphStateId, enableEditing)
         {
-            CreateControls(evntActionRequirementId, evntActionRequirementEvent, evntActionRequirementAction, nounId, paragraphStateId, enableEditing);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_evntActionRequirement.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_evntActionRequirement.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -55,10 +48,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? evntActionRequirementId, int? evntActionRequirementEvent, int? evntActionRequirementAction, int nounId, int paragraphStateId, bool enableEditing)
+        private void CreateControls()
         {
-            m_userControl_evntActionRequirement = new UserControl_EventActionRequirement(evntActionRequirementId, evntActionRequirementEvent, evntActionRequirementAction, nounId, paragraphStateId, enableEditing);
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_evntActionRequirement };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

@@ -13,21 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_ActionResult : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_ActionResult : UserControl_ActionResult, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_ActionResult m_userControl_actionResult;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? ActionResultId { get { return m_userControl_actionResult.ActionResultId; } }
-        public int? ActionResultResult { get { return m_userControl_actionResult.ActionResultResult; } }
-        public int? ActionResultAction { get { return m_userControl_actionResult.ActionResultAction; } }
-
         #endregion
 
 
@@ -35,19 +27,20 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_ActionResult(int? actionResultId, int? actionResultResult, int? actionResultAction, int nounId, int paragraphStateId, bool enableEditing)
+        public UserControl_Bordered_ActionResult(int? actionResultId, int? actionResultResult, int? actionResultAction, int nounId, int paragraphStateId, bool enableEditing) :
+            base(actionResultId, actionResultResult, actionResultAction, nounId, paragraphStateId, enableEditing)
         {
-            CreateControls(actionResultId, actionResultResult, actionResultAction, nounId, paragraphStateId, enableEditing);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_actionResult.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_actionResult.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -55,10 +48,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? actionResultId, int? actionResultResult, int? actionResultAction, int nounId, int paragraphStateId, bool enableEditing)
+        private void CreateControls()
         {
-            m_userControl_actionResult = new UserControl_ActionResult(actionResultId, actionResultResult, actionResultAction, nounId, paragraphStateId, enableEditing);
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_actionResult };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

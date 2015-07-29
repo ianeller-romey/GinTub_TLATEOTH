@@ -13,22 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_MessageChoice : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_MessageChoice : UserControl_MessageChoice, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_MessageChoice m_userControl_messageChoice;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? MessageChoiceId { get { return m_userControl_messageChoice.MessageChoiceId; } }
-        public string MessageChoiceName { get { return m_userControl_messageChoice.MessageChoiceName; } }
-        public string MessageChoiceText { get { return m_userControl_messageChoice.MessageChoiceText; } }
-        public int MessageId { get { return m_userControl_messageChoice.MessageId; } }
-
         #endregion
 
 
@@ -36,19 +27,20 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_MessageChoice(int? messageChoiceId, string messageChoiceName, string messageChoiceText, int messageId, bool enableEditing, bool enableSelectting)
+        public UserControl_Bordered_MessageChoice(int? messageChoiceId, string messageChoiceName, string messageChoiceText, int messageId, bool enableEditing, bool enableSelecting) :
+            base(messageChoiceId, messageChoiceName, messageChoiceText, messageId, enableEditing, enableSelecting)
         {
-            CreateControls(messageChoiceId, messageChoiceName, messageChoiceText, messageId, enableEditing, enableSelectting);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_messageChoice.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_messageChoice.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -56,10 +48,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? messageChoiceId, string messageChoiceName, string messageChoiceText, int messageId, bool enableEditing, bool enableSelectting)
+        private void CreateControls()
         {
-            m_userControl_messageChoice = new UserControl_MessageChoice(messageChoiceId, messageChoiceName, messageChoiceText, messageId, enableEditing, enableSelectting);
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_messageChoice };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

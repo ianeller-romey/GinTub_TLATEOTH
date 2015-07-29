@@ -14,22 +14,16 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_ParagraphWithPreview : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_ParagraphWithPreview : UserControl_Paragraph, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
 
-        UserControl_Paragraph m_userControl_paragraph;
         TextBlock m_textBlock_paragraphPreview;
 
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? ParagraphId { get { return m_userControl_paragraph.ParagraphId; } }
-        public int? ParagraphOrder { get { return m_userControl_paragraph.ParagraphOrder; } }
-        public int RoomId { get { return m_userControl_paragraph.RoomId; } }
-
         #endregion
 
 
@@ -37,25 +31,26 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_ParagraphWithPreview(int? paragraphId, int? paragraphOrder, int roomId, bool enableEditing)
+        public UserControl_Bordered_ParagraphWithPreview(int? paragraphId, int? paragraphOrder, int roomId, bool enableEditing) :
+            base(paragraphId, paragraphOrder, roomId, enableEditing)
         {
-            CreateControls(paragraphId,  paragraphOrder, roomId, enableEditing);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
             GinTubBuilderManager.ParagraphStateRead += GinTubBuilderManager_ParagraphStateEvent;
             GinTubBuilderManager.ParagraphStateUpdated += GinTubBuilderManager_ParagraphStateEvent;
 
-            m_userControl_paragraph.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
             GinTubBuilderManager.ParagraphStateRead += GinTubBuilderManager_ParagraphStateEvent;
             GinTubBuilderManager.ParagraphStateUpdated += GinTubBuilderManager_ParagraphStateEvent;
 
-            m_userControl_paragraph.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -63,24 +58,23 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? paragraphId, int? paragraphOrder, int roomId, bool enableEditing)
+        private void CreateControls()
         {
-            Grid grid_main = new Grid();
-            grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-            grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            Grid grid_main = Content as Grid;
 
-            m_userControl_paragraph = new UserControl_Paragraph(paragraphId, paragraphOrder, roomId, enableEditing);
-            grid_main.SetGridRowColumn(m_userControl_paragraph, 0, 0);
-
-            m_textBlock_paragraphPreview = 
-                new TextBlock() 
-                { 
-                    Background = Brushes.DarkGray, 
-                    Foreground = Brushes.FloralWhite,
-                    TextWrapping = System.Windows.TextWrapping.Wrap,
-                    Visibility = System.Windows.Visibility.Collapsed 
-                };
-            grid_main.SetGridRowColumn(m_textBlock_paragraphPreview, 1, 0);
+            if (grid_main != null)
+            {
+                grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+                m_textBlock_paragraphPreview =
+                    new TextBlock()
+                    {
+                        Background = Brushes.DarkGray,
+                        Foreground = Brushes.FloralWhite,
+                        TextWrapping = System.Windows.TextWrapping.Wrap,
+                        Visibility = System.Windows.Visibility.Collapsed
+                    };
+                grid_main.SetGridRowColumn(m_textBlock_paragraphPreview, grid_main.RowDefinitions.Count - 1, 0);
+            }
 
             Border border = new Border() { Style = new Style_DefaultBorder(), Child = grid_main };
             Content = border;

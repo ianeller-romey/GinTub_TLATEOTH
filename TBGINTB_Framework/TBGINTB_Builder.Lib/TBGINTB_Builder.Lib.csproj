@@ -66,6 +66,8 @@
     <Compile Include="GinTubBuilderManager_DbRetrieveAndUpdate.cs" />
     <Compile Include="JSONPropertyManager.cs" />
     <Compile Include="Model\DbModel\AreaRoomOnInitialLoad.cs" />
+    <Compile Include="Model\DbModel\MessageTreeMessageChoice.cs" />
+    <Compile Include="Model\DbModel\MessageTreeMessage.cs" />
     <Compile Include="Model\DbModel\ParagraphRoomState.cs" />
     <Compile Include="Model\DbModel\JSONPropertyDataType.cs" />
     <Compile Include="Model\DbModel\RoomPreviewNoun.cs" />
@@ -267,6 +269,12 @@
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\dev_ReadMessageChoice_Result.cs">
+      <DependentUpon>devSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\dev_ReadMessageTreeForMessageChoice_Result.cs">
+      <DependentUpon>devSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\dev_ReadMessageTreeForMessage_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\dev_ReadMessage_Result.cs">

@@ -13,21 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_Character : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_Character : UserControl_Character, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_Character m_userControl_character;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? CharacterId { get { return m_userControl_character.CharacterId; } }
-        public string CharacterName { get { return m_userControl_character.CharacterName; } }
-        public string CharacterDescription { get { return m_userControl_character.CharacterDescription; } }
-
         #endregion
 
 
@@ -35,19 +27,20 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_Character(int? characterId, string characterName, string characterDescription, bool enableEditing)
+        public UserControl_Bordered_Character(int? characterId, string characterName, string characterDescription, bool enableEditing) :
+            base(characterId, characterName, characterDescription, enableEditing)
         {
-            CreateControls(characterId, characterName, characterDescription, enableEditing);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_character.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_character.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -55,10 +48,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? characterId, string characterName, string characterDescription, bool enableEditing)
+        private void CreateControls()
         {
-            m_userControl_character = new UserControl_Character(characterId, characterName, characterDescription, enableEditing);
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_character };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

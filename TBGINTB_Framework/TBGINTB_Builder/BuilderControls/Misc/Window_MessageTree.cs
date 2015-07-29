@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -33,12 +34,6 @@ namespace TBGINTB_Builder.BuilderControls
 
 
         #region MEMBER CLASSES
-
-        private class Tree_Line : Line
-        {
-
-        }
-
         #endregion
 
 
@@ -46,25 +41,26 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public Window_MessageTree(int messageId)
+        public Window_MessageTree(int messageId, string messageName, string messageText)
         {
             MessageId = messageId;
 
             Title = "Message Tree";
 
             CreateControls();
+            AddMessageTreeMessage(messageId, messageName, messageText, null);
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
         {
-            GinTubBuilderManager.MessageTreeParagraphStateSelect += GinTubBuilderManager_MessageTreeParagraphStateSelect;
-            GinTubBuilderManager.MessageTreeNounSelect += GinTubBuilderManager_MessageTreeNounSelect;
+            GinTubBuilderManager.MessageTreeMessageRead += GinTubBuilderManager_MessageTreeMessageRead;
+            GinTubBuilderManager.MessageTreeMessageChoiceRead += GinTubBuilderManager_MessageTreeMessageChoiceRead;
         }
 
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            GinTubBuilderManager.MessageTreeParagraphStateSelect -= GinTubBuilderManager_MessageTreeParagraphStateSelect;
-            GinTubBuilderManager.MessageTreeNounSelect -= GinTubBuilderManager_MessageTreeNounSelect;
+            GinTubBuilderManager.MessageTreeMessageRead -= GinTubBuilderManager_MessageTreeMessageRead;
+            GinTubBuilderManager.MessageTreeMessageChoiceRead -= GinTubBuilderManager_MessageTreeMessageChoiceRead;
         }
 
         #endregion
@@ -74,101 +70,120 @@ namespace TBGINTB_Builder.BuilderControls
 
         private void CreateControls()
         {
-            Grid grid_main = new Grid();
-            grid_main.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100.0, GridUnitType.Star) });
-            grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            m_canvas_messageTree = new Canvas();
 
-            ////////
-            // TextBlock
-            m_textBlock_roomPreview = new TextBlock() { TextWrapping = TextWrapping.Wrap, Text = string.Empty };
-            m_textBlock_roomPreview.MouseLeftButtonDown += TextBlock_MessageTree_MouseLeftButtonDown;
-            m_textBlock_roomPreview.Visibility = System.Windows.Visibility.Collapsed;
-            grid_main.SetGridRowColumn(m_textBlock_roomPreview, 0, 0);
-
-            ////////
-            // TextBox
-            m_textBox_roomPreview = new TextBox() { TextWrapping = TextWrapping.Wrap };
-            grid_main.SetGridRowColumn(m_textBox_roomPreview, 0, 0);
-
-            ////////
-            // Button
-            Button button_loadPreview = new Button() { Content = "Load Preview" };
-            button_loadPreview.Click += Button_LoadPreview_Click;
-            grid_main.SetGridRowColumn(button_loadPreview, 1, 0);
-
-            ////////
-            // Fin
-            Content = grid_main;
+            Content = m_canvas_messageTree;
         }
 
-        private void GinTubBuilderManager_MessageTreeParagraphStateSelect(object sender, GinTubBuilderManager.MessageTreeParagraphStateSelectEventArgs args)
+        private void GinTubBuilderManager_MessageTreeMessageRead(object sender, GinTubBuilderManager.MessageTreeMessageReadEventArgs args)
         {
-            CreateParagraphState(args.Text, args.Nouns.Select(n => n.Text));
-        }
-
-        private void GinTubBuilderManager_MessageTreeNounSelect(object sender, GinTubBuilderManager.MessageTreeNounSelectEventArgs args)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void CreateParagraphState(string paragraphStateText, IEnumerable<string> nounsText)
-        {
-            List<string> nounsTextOrdered = nounsText.OrderBy(n => paragraphStateText.IndexOf(n)).ToList();
-            List<Run> runs = new List<Run>();
-            for (int i = 0, j = nounsTextOrdered.Count; i < j; ++i)
+            var userControl_messageTreeMessage = m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessage>().FirstOrDefault(x => x.MessageId == args.Id && x.MessageParentMessageChoiceId == args.ParentMessageChoice);
+            if (userControl_messageTreeMessage == null)
             {
-                string nounText = nounsTextOrdered[i];
-                string subText = paragraphStateText.Substring(0, paragraphStateText.IndexOf(nounText));
-                runs.Add(new Run(subText));
-                runs.Add(new Run_Noun(nounText));
-                paragraphStateText = paragraphStateText.Replace(subText, string.Empty);
-                paragraphStateText = paragraphStateText.Replace(nounText, string.Empty);
-            }
-            runs.Add(new Run(paragraphStateText));
-            runs.Add(new Run(" "));
-
-            foreach (var run in runs)
-                m_textBlock_roomPreview.Inlines.Add(run);
-
-            ViewTextBlock();
-        }
-
-        private void ViewTextBlock()
-        {
-            if (!m_textBlock_roomPreview.IsVisible)
-            {
-                m_textBlock_roomPreview.Visibility = System.Windows.Visibility.Visible;
-                m_textBox_roomPreview.Visibility = System.Windows.Visibility.Collapsed;
+                userControl_messageTreeMessage = AddMessageTreeMessage(args.Id, args.Name, args.Text, args.ParentMessageChoice);
+                GinTubBuilderManager.ReadMessageTreeForMessage(args.Id, args.ParentMessageChoice);
             }
         }
 
-        private void ViewTextBox()
+        private void GinTubBuilderManager_MessageTreeMessageChoiceRead(object sender, GinTubBuilderManager.MessageTreeMessageChoiceReadEventArgs args)
         {
-            if (!m_textBox_roomPreview.IsVisible)
+            var userControl_messageTreeMessageChoice = m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessageChoice>().FirstOrDefault(x => x.MessageChoiceId == args.Id);
+            if (userControl_messageTreeMessageChoice == null)
+                userControl_messageTreeMessageChoice = AddMessageTreeMessageChoice(args.Id, args.Name, args.Text, args.ParentMessage);
+            GinTubBuilderManager.ReadMessageTreeForMessageChoice(args.Id);
+        }
+
+        private UserControl_Bordered_MessageTreeMessage AddMessageTreeMessage(int messageId, string messageName, string messageText, int? messageParentMessageChoiceId)
+        {
+            var userControl = new UserControl_Bordered_MessageTreeMessage(messageId, messageName, messageText, messageParentMessageChoiceId, false, false);
+            userControl = SetInitialPosition(AssignMovementHandlers(userControl)) as UserControl_Bordered_MessageTreeMessage;
+            m_canvas_messageTree.Children.Add(userControl);
+            return userControl;
+        }
+
+        private UserControl_Bordered_MessageTreeMessageChoice AddMessageTreeMessageChoice(int messageChoiceId, string messageChoiceName, string messageChoiceText, int messageChoiceParentMessageId)
+        {
+            var userControl = new UserControl_Bordered_MessageTreeMessageChoice(messageChoiceId, messageChoiceName, messageChoiceText, messageChoiceParentMessageId, false, false);
+            userControl = SetInitialPosition(AssignMovementHandlers(userControl)) as UserControl_Bordered_MessageTreeMessageChoice;
+            m_canvas_messageTree.Children.Add(userControl);
+            return userControl;
+        }
+
+        private void AttachMessageToMessageChoice(UserControl_Bordered_MessageTreeMessage userControl_messageTreeMessage)
+        {
+            var userControl_messageTreeMessageChoice = m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessageChoice>().FirstOrDefault(x => x.MessageChoiceId == userControl_messageTreeMessage.MessageParentMessageChoiceId);
+            if(userControl_messageTreeMessageChoice != null)
             {
-                m_textBlock_roomPreview.Visibility = System.Windows.Visibility.Collapsed;
-                m_textBox_roomPreview.Visibility = System.Windows.Visibility.Visible;
+
             }
         }
 
-        private void TextBlock_MessageTree_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private FrameworkElement AssignMovementHandlers(FrameworkElement control)
         {
-            if(sender is TextBlock)
-            {
-                m_textBox_roomPreview.Text = m_textBlock_roomPreview.Inlines.OfType<Run>().Select(r => r.Text).Aggregate((x,y) => string.Format("{0}{1}", x, y));
-                ViewTextBox();
-            }
+            // cheating using closures so we don't have to inherit from our _Bordered_ classes to make them movable
+            Func<FrameworkElement, FrameworkElement> createAndAssignMovementHandlers = new Func<FrameworkElement, FrameworkElement>(
+                (x) =>
+                {
+                    bool isDragging = false;
+                    Point clickPosition = new Point(0.0, 0.0);
+
+                    MouseButtonEventHandler Control_MouseLeftButtonDown = (sender, e) =>
+                        {
+                            isDragging = true;
+                            var draggableControl = sender as UserControl;
+                            clickPosition = e.GetPosition(this);
+                            draggableControl.CaptureMouse();
+                        },
+                        Control_MouseLeftButtonUp = (sender, e) =>
+                        {
+                            isDragging = false;
+                            var draggable = sender as UserControl;
+                            draggable.ReleaseMouseCapture();
+                        };
+                    MouseEventHandler Control_MouseMove = (sender, e) =>
+                        {
+                            var draggableControl = sender as UserControl;
+
+                            if (isDragging && draggableControl != null)
+                            {
+                                Point currentPosition = e.GetPosition(this.Parent as UIElement);
+
+                                var transform = draggableControl.RenderTransform as TranslateTransform;
+                                if (transform == null)
+                                {
+                                    transform = new TranslateTransform();
+                                    draggableControl.RenderTransform = transform;
+                                }
+
+                                transform.X = currentPosition.X - clickPosition.X;
+                                transform.Y = currentPosition.Y - clickPosition.Y;
+                            }
+                        };
+
+                    x.MouseLeftButtonDown += Control_MouseLeftButtonDown;
+                    x.MouseLeftButtonUp += Control_MouseLeftButtonUp;
+                    x.MouseMove += Control_MouseMove;
+
+                    return x;
+                });
+
+            return createAndAssignMovementHandlers(control);
         }
 
-        private void Button_LoadPreview_Click(object sender, RoutedEventArgs e)
+        private FrameworkElement SetInitialPosition(FrameworkElement control)
         {
-            if (sender is Button)
+            FrameworkElement lastControl = m_canvas_messageTree.Children.OfType<FrameworkElement>().LastOrDefault();
+            double top = 0.0,
+                   left = 0.0;
+            if(lastControl != null)
             {
-                m_textBlock_roomPreview.Inlines.Clear();
-                m_textBlock_roomPreview.Text = string.Empty;
-
-                GinTubBuilderManager.SelectMessageTree(RoomId);
+                top = Canvas.GetTop(lastControl) + lastControl.ActualHeight;
+                left = Canvas.GetLeft(lastControl);
             }
+            Canvas.SetTop(control, top);
+            Canvas.SetLeft(control, left);
+
+            return control;
         }
 
         #endregion

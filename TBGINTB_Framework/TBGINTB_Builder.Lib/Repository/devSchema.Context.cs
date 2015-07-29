@@ -1441,6 +1441,28 @@ namespace TBGINTB_Builder.Lib.Repository
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<dev_ReadMessageChoiceResult_Result>("dev_ReadMessageChoiceResult", idParameter);
         }
     
+        public virtual ObjectResult<dev_ReadMessageTreeForMessage_Result> dev_ReadMessageTreeForMessage(Nullable<int> message, Nullable<int> messagechoice)
+        {
+            var messageParameter = message.HasValue ?
+                new ObjectParameter("message", message) :
+                new ObjectParameter("message", typeof(int));
+    
+            var messagechoiceParameter = messagechoice.HasValue ?
+                new ObjectParameter("messagechoice", messagechoice) :
+                new ObjectParameter("messagechoice", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<dev_ReadMessageTreeForMessage_Result>("dev_ReadMessageTreeForMessage", messageParameter, messagechoiceParameter);
+        }
+    
+        public virtual ObjectResult<dev_ReadMessageTreeForMessage_Result> dev_ReadMessageTreeForMessageChoice(Nullable<int> messagechoice)
+        {
+            var messagechoiceParameter = messagechoice.HasValue ?
+                new ObjectParameter("messagechoice", messagechoice) :
+                new ObjectParameter("messagechoice", typeof(int));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<dev_ReadMessageTreeForMessage_Result>("dev_ReadMessageTreeForMessageChoice", messagechoiceParameter);
+        }
+    
         public virtual ObjectResult<dev_ReadNoun_Result> dev_ReadNoun(Nullable<int> id)
         {
             var idParameter = id.HasValue ?

@@ -76,6 +76,8 @@
     <Compile Include="BuilderControls\ComboBoxes\ComboBox_Room.cs" />
     <Compile Include="BuilderControls\ComboBoxes\ComboBox_Area.cs" />
     <Compile Include="BuilderControls\ComboBoxes\ComboBox_JSONPropertyDataType.cs" />
+    <Compile Include="BuilderControls\DataVisualization\Bordered\UserControl_Bordered_MessageTreeMessageChoice.cs" />
+    <Compile Include="BuilderControls\DataVisualization\Bordered\UserControl_Bordered_MessageTreeMessage.cs" />
     <Compile Include="BuilderControls\DataVisualization\Bordered\UserControl_Bordered_ParagraphRoomState.cs" />
     <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_GroupedParagraphRoomStates.cs" />
     <Compile Include="BuilderControls\DataLists\UserControl_ParagraphRoomStates.cs" />
@@ -123,6 +125,8 @@
     <Compile Include="BuilderControls\DataVisualization\Bordered\UserControl_Bordered_Room.cs" />
     <Compile Include="BuilderControls\DataVisualization\Bordered\UserControl_Bordered_RoomState.cs" />
     <Compile Include="BuilderControls\DataVisualization\Bordered\UserControl_Bordered_Verb.cs" />
+    <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_MessageTreeMessageChoice.cs" />
+    <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_MessageTreeMessage.cs" />
     <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_RoomStateNameAndTime.cs" />
     <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_ParagraphRoomState.cs" />
     <Compile Include="BuilderControls\DataVisualization\UserControls\UserControl_AreaRoomOnInitialLoad.cs" />

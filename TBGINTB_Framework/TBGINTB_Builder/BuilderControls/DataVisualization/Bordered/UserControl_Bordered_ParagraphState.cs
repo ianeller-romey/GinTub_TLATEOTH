@@ -13,22 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_ParagraphState : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_ParagraphState : UserControl_ParagraphState, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_ParagraphState m_userControl_paragraphState;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? ParagraphStateId { get { return m_userControl_paragraphState.ParagraphStateId; } }
-        public string ParagraphStateText { get { return m_userControl_paragraphState.ParagraphStateText; } }
-        public int? ParagraphStateState { get { return m_userControl_paragraphState.ParagraphStateState; } }
-        public int ParagraphId { get { return m_userControl_paragraphState.ParagraphId; } }
-
         #endregion
 
 
@@ -36,19 +27,20 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_ParagraphState(int? paragraphStateId, string paragraphStateText, int? paragraphStateState, int paragraphId, bool enableEditing, bool enableSelectting)
+        public UserControl_Bordered_ParagraphState(int? paragraphStateId, string paragraphStateText, int? paragraphStateState, int paragraphId, bool enableEditing, bool enableSelecting) :
+            base(paragraphStateId, paragraphStateText, paragraphStateState, paragraphId, enableEditing, enableSelecting)
         {
-            CreateControls(paragraphStateId, paragraphStateText, paragraphStateState, paragraphId, enableEditing, enableSelectting);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_paragraphState.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_paragraphState.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -56,10 +48,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? paragraphStateId, string paragraphStateText, int? paragraphStateState, int paragraphId, bool enableEditing, bool enableSelectting)
+        private void CreateControls()
         {
-            m_userControl_paragraphState = new UserControl_ParagraphState(paragraphStateId, paragraphStateText, paragraphStateState, paragraphId, enableEditing, enableSelectting);
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_paragraphState };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

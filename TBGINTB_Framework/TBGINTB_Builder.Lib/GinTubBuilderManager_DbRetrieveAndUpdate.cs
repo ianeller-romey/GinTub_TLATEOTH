@@ -1709,6 +1709,76 @@ namespace TBGINTB_Builder.Lib
         #endregion
 
 
+        #region Message Tree Message
+
+        public class MessageTreeMessageEventArgs : EventArgs
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Text { get; set; }
+            public int? ParentMessageChoice { get; set; }
+            public MessageTreeMessageEventArgs(int id, string name, string text, int? parentMessageChoice)
+            {
+                Id = id;
+                Name = name;
+                Text = text;
+                ParentMessageChoice = parentMessageChoice;
+            }
+        }
+
+
+        public class MessageTreeMessageReadEventArgs : MessageTreeMessageEventArgs
+        {
+            public MessageTreeMessageReadEventArgs(int id, string name, string text, int? parentMessageChoice) :
+                base(id, name, text, parentMessageChoice) { }
+        }
+        public delegate void MessageTreeMessageReadMessageTreeMessageHandler(object sender, MessageTreeMessageReadEventArgs args);
+        public static event MessageTreeMessageReadMessageTreeMessageHandler MessageTreeMessageRead;
+        private static void OnMessageTreeMessageRead(MessageTreeMessage messageTreeMessage)
+        {
+            if (MessageTreeMessageRead != null)
+                MessageTreeMessageRead(typeof(GinTubBuilderManager),
+                    new MessageTreeMessageReadEventArgs(messageTreeMessage.Id, messageTreeMessage.Name, messageTreeMessage.Text, messageTreeMessage.ParentMessageChoice));
+        }
+
+        #endregion
+
+
+        #region Message Tree Message Choice
+
+        public class MessageTreeMessageChoiceEventArgs : EventArgs
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Text { get; set; }
+            public int ParentMessage { get; set; }
+            public MessageTreeMessageChoiceEventArgs(int id, string name, string text, int parentMessage)
+            {
+                Id = id;
+                Name = name;
+                Text = text;
+                ParentMessage = parentMessage;
+            }
+        }
+
+
+        public class MessageTreeMessageChoiceReadEventArgs : MessageTreeMessageChoiceEventArgs
+        {
+            public MessageTreeMessageChoiceReadEventArgs(int id, string name, string text, int parentMessage) :
+                base(id, name, text, parentMessage) { }
+        }
+        public delegate void MessageTreeMessageChoiceReadMessageTreeMessageChoiceHandler(object sender, MessageTreeMessageChoiceReadEventArgs args);
+        public static event MessageTreeMessageChoiceReadMessageTreeMessageChoiceHandler MessageTreeMessageChoiceRead;
+        private static void OnMessageTreeMessageChoiceRead(MessageTreeMessageChoice messageTreeMessage)
+        {
+            if (MessageTreeMessageChoiceRead != null)
+                MessageTreeMessageChoiceRead(typeof(GinTubBuilderManager),
+                    new MessageTreeMessageChoiceReadEventArgs(messageTreeMessage.Id, messageTreeMessage.Name, messageTreeMessage.Text, messageTreeMessage.ParentMessage));
+        }
+
+        #endregion
+
+
         #region AreaRoomOnInitialLoads
 
         public class AreaRoomOnInitialLoadEventArgs : EventArgs
@@ -2634,11 +2704,32 @@ namespace TBGINTB_Builder.Lib
 
         #region RoomPreviews
 
-        public static void SelectRoomPreview(int room)
+        public static void SelectRoomPreview(int roomId)
         {
-            var roomPreview = ReadRoomPreviewDb(room);
-            foreach (var paragraphState in roomPreview.Item1)
+            var roomPreview = ReadRoomPreviewDb(roomId);
+            foreach (var paragraphState in roomPreview)
                 OnRoomPreviewParagraphStateSelect(paragraphState);
+        }
+
+        #endregion
+
+
+        #region MessageTree
+
+        public static void ReadMessageTreeForMessage(int messageId, int? messageChoiceId)
+        {
+            var messageTree = ReadMessageTreeForMessageDb(messageId, messageChoiceId);
+            OnMessageTreeMessageRead(messageTree.Item1);
+            foreach (var messageChoice in messageTree.Item2)
+                OnMessageTreeMessageChoiceRead(messageChoice);
+        }
+
+        public static void ReadMessageTreeForMessageChoice(int messageChoiceId)
+        {
+            var messageTree = ReadMessageTreeForMessageChoiceDb(messageChoiceId);
+            OnMessageTreeMessageRead(messageTree.Item1);
+            foreach (var messageChoice in messageTree.Item2)
+                OnMessageTreeMessageChoiceRead(messageChoice);
         }
 
         #endregion
@@ -2760,6 +2851,9 @@ namespace TBGINTB_Builder.Lib
             Mapper.CreateMap<dev_ReadRoomPreviewParagraphStates_Result, RoomPreviewParagraphState>();
             Mapper.CreateMap<RoomPreviewNoun[], RoomPreviewParagraphState>()
                 .ForMember(dest => dest.Nouns, opt => opt.MapFrom(src => src));
+
+            Mapper.CreateMap<dev_ReadMessageTreeForMessage_Result, MessageTreeMessage>();
+            Mapper.CreateMap<dev_ReadMessageTreeForMessageChoice_Result, MessageTreeMessageChoice>();
 
             Mapper.CreateMap<dev_ReadAreaRoomOnInitialLoad_Result, AreaRoomOnInitialLoad>();
         }
@@ -4663,7 +4757,7 @@ namespace TBGINTB_Builder.Lib
 
         #region RoomPreviews
 
-        private static Tuple<List<RoomPreviewParagraphState>> ReadRoomPreviewDb(int room)
+        private static List<RoomPreviewParagraphState> ReadRoomPreviewDb(int room)
         {
             List<RoomPreviewParagraphState> roomPreviewParagraphStates = new List<RoomPreviewParagraphState>();
             List<RoomPreviewNoun> roomPreviewNouns = new List<RoomPreviewNoun>();
@@ -4682,7 +4776,52 @@ namespace TBGINTB_Builder.Lib
                 throw new GinTubDatabaseException("dev_ReadRoomPreview", e);
             }
 
-            return new Tuple<List<RoomPreviewParagraphState>>(roomPreviewParagraphStates);
+            return roomPreviewParagraphStates;
+        }
+
+        #endregion
+
+
+        #region MessageTree
+
+        private static Tuple<MessageTreeMessage, List<MessageTreeMessageChoice>> ReadMessageTreeForMessageDb(int message, int? messageChoiceId)
+        {
+            MessageTreeMessage m = null;
+            List<MessageTreeMessageChoice> mC = new List<MessageTreeMessageChoice>();
+            try
+            {
+                var messageResult = m_entities.dev_ReadMessageTreeForMessage(message, messageChoiceId);
+                m = Mapper.Map<MessageTreeMessage>(messageResult.FirstOrDefault());
+
+                var messageChoicesResult = messageResult.GetNextResult<dev_ReadMessageTreeForMessageChoice_Result>();
+                mC.AddRange(messageChoicesResult.Select(r => Mapper.Map<MessageTreeMessageChoice>(r)));
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_ReadMessageTreeForMessage", e);
+            }
+
+            return new Tuple<MessageTreeMessage, List<MessageTreeMessageChoice>>(m, mC);
+        }
+
+        private static Tuple<MessageTreeMessage, List<MessageTreeMessageChoice>> ReadMessageTreeForMessageChoiceDb(int messageChoice)
+        {
+            MessageTreeMessage m = null;
+            List<MessageTreeMessageChoice> mC = new List<MessageTreeMessageChoice>();
+            try
+            {
+                var messageResult = m_entities.dev_ReadMessageTreeForMessageChoice(messageChoice);
+                m = Mapper.Map<MessageTreeMessage>(messageResult.FirstOrDefault());
+
+                var messageChoicesResult = messageResult.GetNextResult<dev_ReadMessageTreeForMessageChoice_Result>();
+                mC.AddRange(messageChoicesResult.Select(r => Mapper.Map<MessageTreeMessageChoice>(r)));
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_ReadMessageTreeForMessageChoice", e);
+            }
+
+            return new Tuple<MessageTreeMessage, List<MessageTreeMessageChoice>>(m, mC);
         }
 
         #endregion

@@ -13,21 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_Action : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_Action : UserControl_Action, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_Action m_userControl_action;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? ActionId { get { return m_userControl_action.ActionId; } }
-        public int? ActionVerbType { get { return m_userControl_action.ActionVerbType; } }
-        public int? ActionNoun { get { return m_userControl_action.ActionNoun; } }
-
         #endregion
 
 
@@ -35,30 +27,32 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_Action(int? actionId, int? actionVerbType, int? actionNoun, int paragraphStateId, bool enableEditing, bool enableSelectting)
+        public UserControl_Bordered_Action(int? actionId, int? actionVerbType, int? actionNoun, int paragraphStateId, bool enableEditing, bool enableSelecting) :
+            base(actionId, actionVerbType, actionNoun, paragraphStateId, enableEditing, enableSelecting)
         {
-            CreateControls(actionId, actionVerbType, actionNoun, paragraphStateId, enableEditing, enableSelectting);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_action.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_action.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
 
 
         #region Private Functionality
-
-        private void CreateControls(int? actionId, int? actionVerbType, int? actionNoun, int paragraphStateId, bool enableEditing, bool enableSelectting)
+        
+        private void CreateControls()
         {
-            m_userControl_action = new UserControl_Action(actionId, actionVerbType, actionNoun, paragraphStateId, enableEditing, enableSelectting);
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_action };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

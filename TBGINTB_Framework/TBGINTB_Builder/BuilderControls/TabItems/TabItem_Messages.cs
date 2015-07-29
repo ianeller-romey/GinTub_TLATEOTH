@@ -22,9 +22,19 @@ namespace TBGINTB_Builder.BuilderControls
         Grid m_grid_main,
              m_grid_selectedMessage;
         ComboBox_Message m_comboBox_message;
+        Button m_button_messageTree;
         UserControl_MessageModification m_grid_messageModification;
         UserControl_MessageChoices m_grid_messageChoices;
         UserControl_MessageChoiceResults m_grid_messageChoiceResults;
+
+        #endregion
+
+
+        #region MEMBER PROPERTIES
+
+        private int? SelectedMessageId { get; set; }
+        private string SelectedMessageName { get; set; }
+        private string SelectedMessageText { get; set; }
 
         #endregion
 
@@ -82,12 +92,26 @@ namespace TBGINTB_Builder.BuilderControls
             m_grid_selectedMessage = new Grid();
             m_grid_selectedMessage.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             m_grid_selectedMessage.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            m_grid_selectedMessage.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             m_grid_main.SetGridRowColumn(m_grid_selectedMessage, 0, 0);
 
             m_comboBox_message = new ComboBox_Message();
             m_comboBox_message.SetActiveAndRegisterForGinTubEvents();
             m_comboBox_message.SelectionChanged += ComboBox_Event_SelectionChanged;
             m_grid_selectedMessage.SetGridRowColumn(m_comboBox_message, 0, 0);
+
+            m_button_messageTree = new Button() { Content = "View Message Tree", Visibility = System.Windows.Visibility.Collapsed };
+            m_button_messageTree.Click += (x, y) =>
+            { 
+                if(SelectedMessageId.HasValue)
+                {
+                    var window = new Window_MessageTree(SelectedMessageId.Value, SelectedMessageName, SelectedMessageText);
+                    window.SetActiveAndRegisterForGinTubEvents();
+                    window.Show();
+                    GinTubBuilderManager.ReadMessageTreeForMessage(SelectedMessageId.Value, null);
+                }
+            };
+            m_grid_selectedMessage.SetGridRowColumn(m_button_messageTree, 2, 0);
 
             return m_grid_main;
         }
@@ -148,6 +172,11 @@ namespace TBGINTB_Builder.BuilderControls
                 m_grid_messageModification = new UserControl_MessageModification(comboBoxItem.MessageId, comboBoxItem.MessageName, comboBoxItem.MessageText);
                 m_grid_messageModification.SetActiveAndRegisterForGinTubEvents();
                 m_grid_selectedMessage.SetGridRowColumn(m_grid_messageModification, 1, 0);
+
+                SelectedMessageId = comboBoxItem.MessageId;
+                SelectedMessageName = comboBoxItem.MessageName;
+                SelectedMessageText = comboBoxItem.MessageText;
+                m_button_messageTree.Visibility = System.Windows.Visibility.Visible;
             }
         }
 

@@ -2687,7 +2687,7 @@ GO
 -- Description:	Reads the Id and Name fields of all JSONPropertyDataType records currently in the database
 -- =============================================
 ALTER PROCEDURE [dev].[dev_ReadAllJSONPropertyDataTypes]
-AS
+AS 
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
@@ -5359,6 +5359,88 @@ GO
 /*MessageTree******************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+IF NOT EXISTS (SELECT * FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[f_GetMessageResultsOfMessageChoice]') AND [xtype] = 'TF')
+  EXEC('CREATE FUNCTION [dev].[f_GetMessageResultsOfMessageChoice] () RETURNS @output TABLE([Data] bit) AS BEGIN INSERT INTO @output ([Data]) VALUES (1) RETURN END')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 7/28/2015
+-- Description:	
+-- =============================================
+ALTER FUNCTION [dev].[f_GetMessageResultsOfMessageChoice]
+(
+	@messagechoice int
+)
+RETURNS @output TABLE (
+		[Message] int NOT NULL,
+		[MessageChoice] int NOT NULL
+	)
+AS
+BEGIN
+
+	DECLARE @messageIdStringBegin nvarchar(12)
+	SET @messageIdStringBegin = '{"messageId"'
+	DECLARE @messageIdStringEnd nvarchar(12)
+	SET @messageIdStringEnd = '}'
+	 
+	INSERT INTO @output ([Message], [MessageChoice])
+	SELECT 
+		REPLACE(REPLACE(REPLACE(r.[JSONData], ':', ''), @messageIdStringBegin, ''), @messageIdStringEnd, '') AS [Message],
+		@messagechoice AS [MessageChoice]
+	 FROM [dbo].[MessageChoiceResults] mcr
+	 INNER JOIN [dbo].[Results] r
+	 ON mcr.[Result] = r.[Id]
+	 INNER JOIN [dbo].[ResultTypes] rt
+	 ON r.[ResultType] = rt.[Id]
+	 WHERE mcr.[MessageChoice] = @messagechoice
+	 AND rt.[Name] = 'Message Activation'
+
+	RETURN 
+
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[f_GetMessageChoiceParentsOfMessage]') AND [xtype] = 'TF')
+  EXEC('CREATE FUNCTION [dev].[f_GetMessageChoiceParentsOfMessage] () RETURNS @output TABLE([Data] bit) AS BEGIN INSERT INTO @output ([Data]) VALUES (1) RETURN END')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 7/28/2015
+-- Description:	
+-- =============================================
+ALTER FUNCTION [dev].[f_GetMessageChoiceParentsOfMessage]
+(
+	@message int
+)
+RETURNS @output TABLE (
+		[Message] int NOT NULL,
+		[MessageChoice] int NOT NULL
+	)
+AS
+BEGIN
+
+	DECLARE @messageIdStringBegin nvarchar(12)
+	SET @messageIdStringBegin = '{"messageId"'
+	DECLARE @messageIdStringEnd nvarchar(12)
+	SET @messageIdStringEnd = '}'
+	 
+	INSERT INTO @output ([Message], [MessageChoice])
+	SELECT 
+		@message,
+		mcr.[Id] AS [MessageChoice]
+	 FROM [dbo].[MessageChoiceResults] mcr
+	 INNER JOIN [dbo].[Results] r
+	 ON mcr.[Result] = r.[Id]
+	 INNER JOIN [dbo].[ResultTypes] rt
+	 ON r.[ResultType] = rt.[Id]
+	 WHERE REPLACE(REPLACE(REPLACE(r.[JSONData], ':', ''), @messageIdStringBegin, ''), @messageIdStringEnd, '') = @message
+	 AND rt.[Name] = 'Message Activation'
+
+	RETURN 
+
+END
+GO
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_ReadMessageTreeForMessage]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
 	EXEC('CREATE PROCEDURE [dev].[dev_ReadMessageTreeForMessage] AS SELECT 1')
 GO
@@ -5368,7 +5450,8 @@ GO
 -- Description:	Reads data about a dev_ReadMessageTreeForMessage in the database
 -- =============================================
 ALTER PROCEDURE [dev].[dev_ReadMessageTreeForMessage]
-	@message int
+	@message int,
+	@messagechoice int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -5377,14 +5460,15 @@ BEGIN
 	
 	SELECT [Id],
 		   [Name],
-		   [Text]
+		   [Text],
+		   @messagechoice as [ParentMessageChoice]
 	FROM [dev].[Messages]
 	WHERE [Id] = @message
 	
 	SELECT [Id],
 		   [Name],
 		   [Text],
-		   [Message]
+		   [Message] AS [ParentMessage]
 	FROM [dev].[MessageChoices]
 	WHERE [Message] = @message
 
@@ -5413,19 +5497,18 @@ BEGIN
 	SET @messageIdStringEnd = '}'
 	 
 	DECLARE @message int
-	SELECT @message = 
-		CASE WHEN CHARINDEX(@messageIdStringBegin, r.[JSONData]) <> 0 THEN 
-			REPLACE(REPLACE(REPLACE(r.[JSONData], ':', ''), @messageIdStringBegin, ''), @messageIdStringEnd, '')
-		ELSE
-			NULL
-		END
-	 FROM [dbo].[MessageChoiceResults] mcr
-	 INNER JOIN [dbo].[Results] r
-	 ON mcr.[Result] = r.[Id]
-	 WHERE mcr.[MessageChoice] = @messageChoice
+	SELECT @message = REPLACE(REPLACE(REPLACE(r.[JSONData], ':', ''), @messageIdStringBegin, ''), @messageIdStringEnd, '')
+	FROM [dbo].[MessageChoiceResults] mcr
+	INNER JOIN [dbo].[Results] r
+	ON mcr.[Result] = r.[Id]
+	INNER JOIN [dbo].[ResultTypes] rt
+	ON r.[ResultType] = rt.[Id]
+	WHERE mcr.[MessageChoice] = @messageChoice
+	AND rt.[Name] = 'Message Activation'
 	 
-	 EXEC [dev].[dev_ReadMessageTreeForMessage]
-	 @message = @message
+	EXEC [dev].[dev_ReadMessageTreeForMessage]
+	@message = @message,
+	@messagechoice = @messagechoice
 
 END
 GO

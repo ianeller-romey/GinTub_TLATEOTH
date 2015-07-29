@@ -13,12 +13,9 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_Location : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_Location : UserControl_Location, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_Location m_userControl_location;
-
         #endregion
 
 
@@ -30,19 +27,20 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_Location(bool enableEditing)
+        public UserControl_Bordered_Location(bool enableEditing) :
+            base(enableEditing)
         {
-            CreateControls(enableEditing);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_location.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_location.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -50,10 +48,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(bool enableEditing)
+        private void CreateControls()
         {
-            m_userControl_location = new UserControl_Location(enableEditing);
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_location };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

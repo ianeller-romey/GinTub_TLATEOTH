@@ -13,24 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_Room : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_Room : UserControl_Room, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_Room m_userControl_room;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? RoomId { get { return m_userControl_room.RoomId; } }
-        public string RoomName { get { return m_userControl_room.RoomName; } }
-        public int RoomX { get { return m_userControl_room.RoomX; } }
-        public int RoomY { get { return m_userControl_room.RoomY; } }
-        public int RoomZ { get { return m_userControl_room.RoomZ; } }
-        public int AreaId { get { return m_userControl_room.AreaId; } }
-
         #endregion
 
 
@@ -38,19 +27,20 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_Room(int? roomId, string roomName, int roomX, int roomY, int roomZ, int areaId, bool enableEditing)
+        public UserControl_Bordered_Room(int? roomId, string roomName, int roomX, int roomY, int roomZ, int areaId, bool enableEditing) :
+            base(roomId, roomName, roomX, roomY, roomZ, areaId, enableEditing)
         {
-            CreateControls(roomId, roomName, roomX, roomY, roomZ, areaId, enableEditing);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_room.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_room.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -58,10 +48,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? roomId, string roomName, int roomX, int roomY, int roomZ, int areaId, bool enableEditing)
+        private void CreateControls()
         {
-            m_userControl_room = new UserControl_Room(roomId, roomName, roomX, roomY, roomZ, areaId, enableEditing);
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_room };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 

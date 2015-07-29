@@ -13,21 +13,13 @@ using TBGINTB_Builder.Lib;
 
 namespace TBGINTB_Builder.BuilderControls
 {
-    public class UserControl_Bordered_Message : UserControl, IRegisterGinTubEventsOnlyWhenActive
+    public class UserControl_Bordered_Message : UserControl_Message, IRegisterGinTubEventsOnlyWhenActive
     {
         #region MEMBER FIELDS
-
-        UserControl_Message m_userControl_message;
-
         #endregion
 
 
         #region MEMBER PROPERTIES
-
-        public int? MessageId { get { return m_userControl_message.MessageId; } }
-        public string MessageName { get { return m_userControl_message.MessageName; } }
-        public string MessageText { get { return m_userControl_message.MessageText; } }
-
         #endregion
 
 
@@ -35,19 +27,20 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_Message(int? messageId, string messageName, string messageText, bool enableEditing, bool enableSelectting)
+        public UserControl_Bordered_Message(int? messageId, string messageName, string messageText, bool enableEditing, bool enableSelecting) :
+            base(messageId, messageName, messageText, enableEditing, enableSelecting)
         {
-            CreateControls(messageId, messageName, messageText, enableEditing, enableSelectting);
+            CreateControls();
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
-            m_userControl_message.SetActiveAndRegisterForGinTubEvents();
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
-            m_userControl_message.SetInactiveAndUnregisterFromGinTubEvents();
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion
@@ -55,10 +48,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? messageId, string messageName, string messageText, bool enableEditing, bool enableSelectting)
+        private void CreateControls()
         {
-            m_userControl_message = new UserControl_Message(messageId, messageName, messageText, enableEditing, enableSelectting);
-            Border border = new Border() { Style = new Style_DefaultBorder(), Child = m_userControl_message };
+            var content = Content;
+            Content = null;
+            Border border = new Border() { Style = new Style_DefaultBorder(), Child = content as UIElement };
             Content = border;
         }
 
