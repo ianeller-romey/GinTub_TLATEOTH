@@ -1454,8 +1454,8 @@ namespace TBGINTB_Builder.Lib
             public MessageReadEventArgs(int id, string name, string text) :
                 base(id, name, text) { }
         }
-        public delegate void MessageReadMessageHandler(object sender, MessageReadEventArgs args);
-        public static event MessageReadMessageHandler MessageRead;
+        public delegate void MessageReadEventHandler(object sender, MessageReadEventArgs args);
+        public static event MessageReadEventHandler MessageRead;
         private static void OnMessageRead(Message message)
         {
             if (MessageRead != null)
@@ -1519,8 +1519,8 @@ namespace TBGINTB_Builder.Lib
             public MessageChoiceReadEventArgs(int id, string name, string text, int message) :
                 base(id, name, text, message) { }
         }
-        public delegate void MessageChoiceReadMessageChoiceHandler(object sender, MessageChoiceReadEventArgs args);
-        public static event MessageChoiceReadMessageChoiceHandler MessageChoiceRead;
+        public delegate void MessageChoiceReadEventHandler(object sender, MessageChoiceReadEventArgs args);
+        public static event MessageChoiceReadEventHandler MessageChoiceRead;
         private static void OnMessageChoiceRead(MessageChoice messageChoice)
         {
             if (MessageChoiceRead != null)

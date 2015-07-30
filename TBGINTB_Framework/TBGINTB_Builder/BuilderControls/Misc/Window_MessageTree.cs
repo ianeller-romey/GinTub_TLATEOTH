@@ -72,7 +72,15 @@ namespace TBGINTB_Builder.BuilderControls
         {
             m_canvas_messageTree = new Canvas();
 
-            Content = m_canvas_messageTree;
+            ScrollViewer scrollViewer_messageTree =
+                new ScrollViewer()
+                {
+                    HorizontalScrollBarVisibility = ScrollBarVisibility.Visible,
+                    VerticalScrollBarVisibility = ScrollBarVisibility.Visible,
+                    Content = m_canvas_messageTree
+                };
+
+            Content = scrollViewer_messageTree;
         }
 
         private void GinTubBuilderManager_MessageTreeMessageRead(object sender, GinTubBuilderManager.MessageTreeMessageReadEventArgs args)
@@ -81,6 +89,9 @@ namespace TBGINTB_Builder.BuilderControls
             if (userControl_messageTreeMessage == null)
             {
                 userControl_messageTreeMessage = AddMessageTreeMessage(args.Id, args.Name, args.Text, args.ParentMessageChoice);
+
+                AttachTreeControlToParent(userControl_messageTreeMessage, m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessageChoice>().FirstOrDefault(x => x.MessageChoiceId == args.ParentMessageChoice));
+
                 GinTubBuilderManager.ReadMessageTreeForMessage(args.Id, args.ParentMessageChoice);
             }
         }
@@ -89,14 +100,20 @@ namespace TBGINTB_Builder.BuilderControls
         {
             var userControl_messageTreeMessageChoice = m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessageChoice>().FirstOrDefault(x => x.MessageChoiceId == args.Id);
             if (userControl_messageTreeMessageChoice == null)
+            {
                 userControl_messageTreeMessageChoice = AddMessageTreeMessageChoice(args.Id, args.Name, args.Text, args.ParentMessage);
-            GinTubBuilderManager.ReadMessageTreeForMessageChoice(args.Id);
+
+                AttachTreeControlToParent(userControl_messageTreeMessageChoice, m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessage>().FirstOrDefault(x => x.MessageId == args.ParentMessage));
+
+                GinTubBuilderManager.ReadMessageTreeForMessageChoice(args.Id);
+            }
         }
 
         private UserControl_Bordered_MessageTreeMessage AddMessageTreeMessage(int messageId, string messageName, string messageText, int? messageParentMessageChoiceId)
         {
             var userControl = new UserControl_Bordered_MessageTreeMessage(messageId, messageName, messageText, messageParentMessageChoiceId, false, false);
             userControl = SetInitialPosition(AssignMovementHandlers(userControl)) as UserControl_Bordered_MessageTreeMessage;
+            EnableMessageAppending(userControl);
             m_canvas_messageTree.Children.Add(userControl);
             return userControl;
         }
@@ -109,12 +126,27 @@ namespace TBGINTB_Builder.BuilderControls
             return userControl;
         }
 
-        private void AttachMessageToMessageChoice(UserControl_Bordered_MessageTreeMessage userControl_messageTreeMessage)
+        private void AttachTreeControlToParent(FrameworkElement control, FrameworkElement parent)
         {
-            var userControl_messageTreeMessageChoice = m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessageChoice>().FirstOrDefault(x => x.MessageChoiceId == userControl_messageTreeMessage.MessageParentMessageChoiceId);
-            if(userControl_messageTreeMessageChoice != null)
+            if(parent != null)
             {
+                Line line = new Line() { StrokeThickness = 2.5, Stroke = Brushes.Black, SnapsToDevicePixels = true };
+                line.SetValue(RenderOptions.EdgeModeProperty, EdgeMode.Aliased);
+                m_canvas_messageTree.Children.Add(line);
 
+                parent.LayoutUpdated += (x, y) =>
+                    {
+                        line.Y1 = Canvas.GetTop(parent) + parent.ActualHeight;
+                        line.X1 = Canvas.GetLeft(parent) + (parent.ActualWidth / 2);
+                    };
+                parent.UpdateLayout();
+
+                control.LayoutUpdated += (x, y) =>
+                {
+                    line.Y2 = Canvas.GetTop(control);
+                    line.X2 = Canvas.GetLeft(control) + (control.ActualWidth / 2);
+                };
+                control.UpdateLayout();
             }
         }
 
@@ -125,13 +157,11 @@ namespace TBGINTB_Builder.BuilderControls
                 (x) =>
                 {
                     bool isDragging = false;
-                    Point clickPosition = new Point(0.0, 0.0);
 
                     MouseButtonEventHandler Control_MouseLeftButtonDown = (sender, e) =>
                         {
                             isDragging = true;
                             var draggableControl = sender as UserControl;
-                            clickPosition = e.GetPosition(this);
                             draggableControl.CaptureMouse();
                         },
                         Control_MouseLeftButtonUp = (sender, e) =>
@@ -146,17 +176,10 @@ namespace TBGINTB_Builder.BuilderControls
 
                             if (isDragging && draggableControl != null)
                             {
-                                Point currentPosition = e.GetPosition(this.Parent as UIElement);
+                                Point currentPosition = e.GetPosition(m_canvas_messageTree);
 
-                                var transform = draggableControl.RenderTransform as TranslateTransform;
-                                if (transform == null)
-                                {
-                                    transform = new TranslateTransform();
-                                    draggableControl.RenderTransform = transform;
-                                }
-
-                                transform.X = currentPosition.X - clickPosition.X;
-                                transform.Y = currentPosition.Y - clickPosition.Y;
+                                Canvas.SetTop(x, currentPosition.Y);
+                                Canvas.SetLeft(x, currentPosition.X);
                             }
                         };
 
@@ -172,18 +195,102 @@ namespace TBGINTB_Builder.BuilderControls
 
         private FrameworkElement SetInitialPosition(FrameworkElement control)
         {
-            FrameworkElement lastControl = m_canvas_messageTree.Children.OfType<FrameworkElement>().LastOrDefault();
+            FrameworkElement lastControl = m_canvas_messageTree.Children.OfType<UserControl>().LastOrDefault();
             double top = 0.0,
                    left = 0.0;
             if(lastControl != null)
             {
-                top = Canvas.GetTop(lastControl) + lastControl.ActualHeight;
+                lastControl.UpdateLayout();
+                top = Canvas.GetTop(lastControl) + lastControl.ActualHeight + 50.0;
                 left = Canvas.GetLeft(lastControl);
             }
             Canvas.SetTop(control, top);
             Canvas.SetLeft(control, left);
+            control.UpdateLayout();
 
             return control;
+        }
+
+        private void EnableMessageAppending(UserControl_Bordered_MessageTreeMessage control)
+        {
+            MenuItem menuItem_messageAppending = new MenuItem() { Header = "Append Message" };
+            menuItem_messageAppending.Click += (x, y) =>
+                {
+                    var window_messageChoice =
+                        new Window_MessageChoice
+                        (
+                            null,
+                            string.Format("{0} - XYZ Choice", control.MessageName),
+                            "\"...\"",
+                            MessageId,
+                            (win) =>
+                            {
+                                Window_MessageChoice wWin = win as Window_MessageChoice;
+                                if (wWin != null)
+                                {
+                                    var window_message =
+                                        new Window_Message
+                                        (
+                                            null,
+                                            string.Format("{0} NEXT", control.MessageName),
+                                            "...",
+                                            (wwWin) =>
+                                            {
+                                                Window_Message wwwWin = wwWin as Window_Message;
+                                                if (wwwWin != null)
+                                                {
+                                                    // This is a preeeetty hack-y way to handle this, but you reap what you sow
+                                                    int
+                                                        newMessageId = -1,
+                                                        newMessageChoiceId = -1,
+                                                        newResultId = -1;
+                                                    GinTubBuilderManager.MessageReadEventHandler messageReadHandler = new GinTubBuilderManager.MessageReadEventHandler((sender, args) =>
+                                                        {
+                                                            newMessageId = args.Id;
+                                                        });
+                                                    GinTubBuilderManager.MessageChoiceReadEventHandler messageChoiceReadHandler = new GinTubBuilderManager.MessageChoiceReadEventHandler((sender, args) =>
+                                                        {
+                                                            newMessageChoiceId = args.Id;
+                                                        });
+                                                    GinTubBuilderManager.ResultReadEventHandler resultReadHandler = new GinTubBuilderManager.ResultReadEventHandler((sender, args) =>
+                                                        {
+                                                            newResultId = args.Id;
+                                                        });
+
+                                                    GinTubBuilderManager.MessageRead += messageReadHandler;
+                                                    GinTubBuilderManager.CreateMessage(wwwWin.MessageName, wwwWin.MessageText);
+                                                    GinTubBuilderManager.MessageRead -= messageReadHandler;
+
+                                                    GinTubBuilderManager.MessageChoiceRead += messageChoiceReadHandler;
+                                                    GinTubBuilderManager.CreateMessageChoice(wWin.MessageChoiceName, wWin.MessageChoiceText, control.MessageId.Value);
+                                                    GinTubBuilderManager.MessageChoiceRead -= messageChoiceReadHandler;
+
+                                                    GinTubBuilderManager.ResultRead += resultReadHandler;
+                                                    // TODO: less hardcoding here
+                                                    GinTubBuilderManager.CreateResult
+                                                    (
+                                                        string.Format("Message - {0} NEXT", control.MessageName),
+                                                        "{\"messageId\":" + newMessageId.ToString() + "}",
+                                                        10 // MAGIC NUMBER
+                                                    );
+                                                    GinTubBuilderManager.ResultRead -= resultReadHandler;
+
+                                                    GinTubBuilderManager.CreateMessageChoiceResult(newResultId, newMessageChoiceId);
+
+                                                    GinTubBuilderManager.ReadMessageTreeForMessage(control.MessageId.Value, control.MessageParentMessageChoiceId);
+                                                }
+                                            }
+                                        );
+                                }
+                            }
+                        );
+                    
+                };
+
+            ContextMenu contextMenu_messageAppending = new ContextMenu();
+            contextMenu_messageAppending.Items.Add(menuItem_messageAppending);
+
+            control.ContextMenu = contextMenu_messageAppending;
         }
 
         #endregion
