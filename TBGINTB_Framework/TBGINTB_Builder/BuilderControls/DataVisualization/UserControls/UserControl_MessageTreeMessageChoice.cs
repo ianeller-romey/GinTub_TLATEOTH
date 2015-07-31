@@ -32,12 +32,14 @@ namespace TBGINTB_Builder.BuilderControls
         {
         }
 
-        public void SetActiveAndRegisterForGinTubEvents()
+        public new void SetActiveAndRegisterForGinTubEvents()
         {
+            base.SetActiveAndRegisterForGinTubEvents();
         }
 
-        public void SetInactiveAndUnregisterFromGinTubEvents()
+        public new void SetInactiveAndUnregisterFromGinTubEvents()
         {
+            base.SetInactiveAndUnregisterFromGinTubEvents();
         }
 
         #endregion

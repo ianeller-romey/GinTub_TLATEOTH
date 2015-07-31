@@ -85,15 +85,16 @@ namespace TBGINTB_Builder.BuilderControls
 
         private void GinTubBuilderManager_MessageTreeMessageRead(object sender, GinTubBuilderManager.MessageTreeMessageReadEventArgs args)
         {
-            var userControl_messageTreeMessage = m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessage>().FirstOrDefault(x => x.MessageId == args.Id && x.MessageParentMessageChoiceId == args.ParentMessageChoice);
+            var userControl_messageTreeMessage = m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessage>().FirstOrDefault(x => x.MessageId == args.Id);
             if (userControl_messageTreeMessage == null)
             {
                 userControl_messageTreeMessage = AddMessageTreeMessage(args.Id, args.Name, args.Text, args.ParentMessageChoice);
 
-                AttachTreeControlToParent(userControl_messageTreeMessage, m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessageChoice>().FirstOrDefault(x => x.MessageChoiceId == args.ParentMessageChoice));
-
                 GinTubBuilderManager.ReadMessageTreeForMessage(args.Id, args.ParentMessageChoice);
             }
+
+            AttachTreeControlToParent(userControl_messageTreeMessage, m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessageChoice>().FirstOrDefault(x => x.MessageChoiceId == args.ParentMessageChoice));
+
         }
 
         private void GinTubBuilderManager_MessageTreeMessageChoiceRead(object sender, GinTubBuilderManager.MessageTreeMessageChoiceReadEventArgs args)
@@ -103,15 +104,16 @@ namespace TBGINTB_Builder.BuilderControls
             {
                 userControl_messageTreeMessageChoice = AddMessageTreeMessageChoice(args.Id, args.Name, args.Text, args.ParentMessage);
 
-                AttachTreeControlToParent(userControl_messageTreeMessageChoice, m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessage>().FirstOrDefault(x => x.MessageId == args.ParentMessage));
-
                 GinTubBuilderManager.ReadMessageTreeForMessageChoice(args.Id);
+
+                AttachTreeControlToParent(userControl_messageTreeMessageChoice, m_canvas_messageTree.Children.OfType<UserControl_Bordered_MessageTreeMessage>().FirstOrDefault(x => x.MessageId == args.ParentMessage));
             }
         }
 
         private UserControl_Bordered_MessageTreeMessage AddMessageTreeMessage(int messageId, string messageName, string messageText, int? messageParentMessageChoiceId)
         {
-            var userControl = new UserControl_Bordered_MessageTreeMessage(messageId, messageName, messageText, messageParentMessageChoiceId, false, false);
+            var userControl = new UserControl_Bordered_MessageTreeMessage(messageId, messageName, messageText, messageParentMessageChoiceId, false, true);
+            userControl.SetActiveAndRegisterForGinTubEvents();
             userControl = SetInitialPosition(AssignMovementHandlers(userControl)) as UserControl_Bordered_MessageTreeMessage;
             EnableMessageAppending(userControl);
             m_canvas_messageTree.Children.Add(userControl);
@@ -120,7 +122,8 @@ namespace TBGINTB_Builder.BuilderControls
 
         private UserControl_Bordered_MessageTreeMessageChoice AddMessageTreeMessageChoice(int messageChoiceId, string messageChoiceName, string messageChoiceText, int messageChoiceParentMessageId)
         {
-            var userControl = new UserControl_Bordered_MessageTreeMessageChoice(messageChoiceId, messageChoiceName, messageChoiceText, messageChoiceParentMessageId, false, false);
+            var userControl = new UserControl_Bordered_MessageTreeMessageChoice(messageChoiceId, messageChoiceName, messageChoiceText, messageChoiceParentMessageId, false, true);
+            userControl.SetActiveAndRegisterForGinTubEvents();
             userControl = SetInitialPosition(AssignMovementHandlers(userControl)) as UserControl_Bordered_MessageTreeMessageChoice;
             m_canvas_messageTree.Children.Add(userControl);
             return userControl;
