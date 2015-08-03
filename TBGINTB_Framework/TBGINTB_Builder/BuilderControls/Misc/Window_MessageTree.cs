@@ -231,26 +231,29 @@ namespace TBGINTB_Builder.BuilderControls
                                 Window_MessageChoice wWin = win as Window_MessageChoice;
                                 if (wWin != null)
                                 {
+                                    int selectedMessageId = -1;
+                                    ComboBox_Message comboBox_message = new ComboBox_Message();
+                                    comboBox_message.SelectionChanged += (w, v) =>
+                                    {
+                                        var cb = w as ComboBox_Message;
+                                        ComboBox_Message.ComboBoxItem_Message cbi;
+                                        if (cb != null && cb == comboBox_message && (cbi = cb.SelectedItem as ComboBox_Message.ComboBoxItem_Message) != null)
+                                            selectedMessageId = cbi.MessageId;
+                                    };
+
                                     var window_message =
-                                        new Window_Message
+                                        new Window_TaskOnAccept
                                         (
-                                            null,
-                                            string.Format("{0} NEXT", control.MessageName),
-                                            "...",
+                                            "Select Message",
                                             (wwWin) =>
                                             {
-                                                Window_Message wwwWin = wwWin as Window_Message;
+                                                Window_TaskOnAccept wwwWin = wwWin as Window_TaskOnAccept;
                                                 if (wwwWin != null)
                                                 {
                                                     // This is a preeeetty hack-y way to handle this, but you reap what you sow
                                                     int
-                                                        newMessageId = -1,
                                                         newMessageChoiceId = -1,
                                                         newResultId = -1;
-                                                    GinTubBuilderManager.MessageReadEventHandler messageReadHandler = new GinTubBuilderManager.MessageReadEventHandler((sender, args) =>
-                                                        {
-                                                            newMessageId = args.Id;
-                                                        });
                                                     GinTubBuilderManager.MessageChoiceReadEventHandler messageChoiceReadHandler = new GinTubBuilderManager.MessageChoiceReadEventHandler((sender, args) =>
                                                         {
                                                             newMessageChoiceId = args.Id;
@@ -259,10 +262,6 @@ namespace TBGINTB_Builder.BuilderControls
                                                         {
                                                             newResultId = args.Id;
                                                         });
-
-                                                    GinTubBuilderManager.MessageRead += messageReadHandler;
-                                                    GinTubBuilderManager.CreateMessage(wwwWin.MessageName, wwwWin.MessageText);
-                                                    GinTubBuilderManager.MessageRead -= messageReadHandler;
 
                                                     GinTubBuilderManager.MessageChoiceRead += messageChoiceReadHandler;
                                                     GinTubBuilderManager.CreateMessageChoice(wWin.MessageChoiceName, wWin.MessageChoiceText, control.MessageId.Value);
@@ -273,7 +272,7 @@ namespace TBGINTB_Builder.BuilderControls
                                                     GinTubBuilderManager.CreateResult
                                                     (
                                                         string.Format("Message - {0} NEXT", control.MessageName),
-                                                        "{\"messageId\":" + newMessageId.ToString() + "}",
+                                                        "{\"messageId\":" + selectedMessageId.ToString() + "}",
                                                         10 // MAGIC NUMBER
                                                     );
                                                     GinTubBuilderManager.ResultRead -= resultReadHandler;
@@ -284,9 +283,11 @@ namespace TBGINTB_Builder.BuilderControls
                                                 }
                                             }
                                         );
+                                    window_message.ShowDialog();
                                 }
                             }
                         );
+                    window_messageChoice.ShowDialog();
                     
                 };
 
