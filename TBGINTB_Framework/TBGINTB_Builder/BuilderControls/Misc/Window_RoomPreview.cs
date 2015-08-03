@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -127,7 +128,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         private void GinTubBuilderManager_RoomPreviewParagraphStateSelect(object sender, GinTubBuilderManager.RoomPreviewParagraphStateSelectEventArgs args)
         {
-            CreateParagraphState(args.Text, args.Nouns.Select(n => n.Text));
+            DisplayParagraphState(args.Text, args.Nouns.Select(n => n.Text));
         }
 
         private void GinTubBuilderManager_RoomPreviewNounSelect(object sender, GinTubBuilderManager.RoomPreviewNounSelectEventArgs args)
@@ -135,7 +136,7 @@ namespace TBGINTB_Builder.BuilderControls
             throw new NotImplementedException();
         }
 
-        private void CreateParagraphState(string paragraphStateText, IEnumerable<string> nounsText)
+        private void DisplayParagraphState(string paragraphStateText, IEnumerable<string> nounsText)
         {
             List<string> nounsTextOrdered = nounsText.OrderBy(n => paragraphStateText.IndexOf(n)).ToList();
             List<Run> runs = new List<Run>();
@@ -190,7 +191,7 @@ namespace TBGINTB_Builder.BuilderControls
             {
                 m_textBlock_roomPreview.Inlines.Clear();
                 m_textBlock_roomPreview.Text = string.Empty;
-
+                
                 GinTubBuilderManager.SelectRoomPreview(RoomId);
             }
         }

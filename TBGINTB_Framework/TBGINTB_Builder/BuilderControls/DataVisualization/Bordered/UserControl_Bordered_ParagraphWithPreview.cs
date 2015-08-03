@@ -61,6 +61,7 @@ namespace TBGINTB_Builder.BuilderControls
         private void CreateControls()
         {
             Grid grid_main = Content as Grid;
+            Content = null;
 
             if (grid_main != null)
             {

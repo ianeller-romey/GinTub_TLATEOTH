@@ -20,6 +20,8 @@ namespace TBGINTB_Builder.BuilderControls
         UserControl_Bordered_Room m_grid_rooms;
         StackPanel m_stackPanel_roomStates;
 
+        Button m_button_roomAuthoring;
+
         #endregion
 
 
@@ -45,6 +47,7 @@ namespace TBGINTB_Builder.BuilderControls
         public void SetActiveAndRegisterForGinTubEvents()
         {
             GinTubBuilderManager.RoomStateRead += GinTubBuilderManager_RoomStateRead;
+            GinTubBuilderManager.ParagraphRead += GinTubBuilderManager_ParagraphRead;
 
             m_grid_rooms.SetActiveAndRegisterForGinTubEvents();
             foreach (var grid in m_stackPanel_roomStates.Children.OfType<UserControl_RoomStateModification>())
@@ -54,6 +57,7 @@ namespace TBGINTB_Builder.BuilderControls
         public void SetInactiveAndUnregisterFromGinTubEvents()
         {
             GinTubBuilderManager.RoomStateRead -= GinTubBuilderManager_RoomStateRead;
+            GinTubBuilderManager.ParagraphRead -= GinTubBuilderManager_ParagraphRead;
 
             m_grid_rooms.SetInactiveAndUnregisterFromGinTubEvents();
             foreach (var grid in m_stackPanel_roomStates.Children.OfType<UserControl_RoomStateModification>())
@@ -72,27 +76,32 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100.0, GridUnitType.Star) });
 
             ////////
             // Room
+            m_button_roomAuthoring = new Button() { Content = "Room Authoring" };
+            m_button_roomAuthoring.Click += Button_RoomAuthoring_Click;
+            grid_main.SetGridRowColumn(m_button_roomAuthoring, 0, 0);
+
             Button button_roomPreview = new Button() { Content = "View Room Preview" };
             button_roomPreview.Click += Button_RoomPreview_Click;
-            grid_main.SetGridRowColumn(button_roomPreview, 0, 0);
+            grid_main.SetGridRowColumn(button_roomPreview, 1, 0);
 
             Button button_modifyRoom = new Button() { Content = "Modify Room" };
             button_modifyRoom.Click += Button_UpdateRoom_Click;
-            grid_main.SetGridRowColumn(button_modifyRoom, 1, 0);
+            grid_main.SetGridRowColumn(button_modifyRoom, 2, 0);
 
             m_grid_rooms = new UserControl_Bordered_Room(roomId, roomName, roomX, roomY, roomZ, areaId, false);
-            grid_main.SetGridRowColumn(m_grid_rooms, 2, 0);
+            grid_main.SetGridRowColumn(m_grid_rooms, 3, 0);
             m_grid_rooms.SetActiveAndRegisterForGinTubEvents();
 
             ////////
             // RoomStates
             Button button_addRoomState = new Button() { Content = "New Room State ..." };
             button_addRoomState.Click += Button_CreateRoomState_Click;
-            grid_main.SetGridRowColumn(button_addRoomState, 3, 0);
+            grid_main.SetGridRowColumn(button_addRoomState, 4, 0);
 
             m_stackPanel_roomStates = new StackPanel() { Orientation = Orientation.Vertical };
 
@@ -103,7 +112,7 @@ namespace TBGINTB_Builder.BuilderControls
                     VerticalScrollBarVisibility = ScrollBarVisibility.Visible
                 };
             scrollViewer_roomStates.Content = m_stackPanel_roomStates;
-            grid_main.SetGridRowColumn(scrollViewer_roomStates, 4, 0);
+            grid_main.SetGridRowColumn(scrollViewer_roomStates, 5, 0);
 
             Content = grid_main;
         }
@@ -114,11 +123,28 @@ namespace TBGINTB_Builder.BuilderControls
                 CreateRoomState(args.Id, args.State, args.Time, args.Location, args.Room);
         }
 
+        private void GinTubBuilderManager_ParagraphRead(object sender, GinTubBuilderManager.ParagraphReadEventArgs args)
+        {
+            if(args.Room == SelectedRoomId)
+            {
+                m_button_roomAuthoring.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
+
         private void CreateRoomState(int roomStateId, int roomStateState, TimeSpan? roomStateTime, int locationId, int roomId)
         {
             UserControl_RoomStateModification grid = new UserControl_RoomStateModification(roomStateId, roomStateState, roomStateTime, locationId, roomId);
             m_stackPanel_roomStates.Children.Add(grid);
             GinTubBuilderManager.ReadAllLocations();
+        }
+
+        void Button_RoomAuthoring_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button) == m_button_roomAuthoring)
+            {
+                Window_RoomAuthoring window = new Window_RoomAuthoring(SelectedRoomId, SelectedRoomName);
+                window.Show();
+            }
         }
 
         void Button_RoomPreview_Click(object sender, RoutedEventArgs e)
