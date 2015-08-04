@@ -1010,11 +1010,15 @@ BEGIN
 	SET [State] = @state
 	WHERE [Player] = @player
 	AND [Paragraph] = @paragraph
+	
+	DECLARE @lastRoom INT
+	SELECT @lastRoom = [LastRoom]
+	FROM [dbo].[PlayerGameStates] WITH (NOLOCK)
+	WHERE [Player] = @player
 		
 	EXEC [dbo].[ReadRoomForPlayer] 
-	SELECT [Player], [LastRoom]
-	FROM [dbo].[PlayerGameStates]
-	WHERE [Player] = @player
+	@player = @player,
+	@room = @lastRoom
 
 END
 GO
@@ -1038,11 +1042,15 @@ BEGIN
 	SET [State] = @state
 	WHERE [Player] = @player
 	AND [Room] = @room
+	
+	DECLARE @lastRoom INT
+	SELECT @lastRoom = [LastRoom]
+	FROM [dbo].[PlayerGameStates] WITH (NOLOCK)
+	WHERE [Player] = @player
 		
 	EXEC [dbo].[ReadRoomForPlayer] 
-	SELECT [Player], [LastRoom]
-	FROM [dbo].[PlayerGameStates]
-	WHERE [Player] = @player
+	@player = @player,
+	@room = @lastRoom
 
 END
 GO

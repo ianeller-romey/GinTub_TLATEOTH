@@ -274,7 +274,7 @@
             <Parameter Name="player" Mode="In" Type="Guid" />
             <Parameter Name="paragraph" Mode="In" Type="Int32" />
             <Parameter Name="state" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="PlayerRoomStateChange">
             <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
             <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
@@ -283,7 +283,7 @@
             <Parameter Name="player" Mode="In" Type="Guid" />
             <Parameter Name="room" Mode="In" Type="Int32" />
             <Parameter Name="state" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="PlayerTeleportAreaIdRoomId">
             <ReturnType Type="Collection(GinTubModel.ReadArea_Result)"></ReturnType>
             <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>

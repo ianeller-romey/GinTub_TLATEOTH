@@ -77,18 +77,13 @@ var VerbList = function(idOfVerbList){
             return;
         }
 
-        // create all the divs that represent Verbs
-        var createVerbClick = function (verb) {
-            return function (e) {
-                verb.call(verb.id);
-            };
-        };
-
         var i = 0;
         var len = activeVerbTypes.length;
         for (; i < len; ++i) {
             var avt = activeVerbTypes[i];
-            verbListElem.append(createActionText(avt.id, avt.name, avt.call));
+            verbListElem.append(createActionText(avt.id, avt.name, avt.call)).click(function () {
+                that.close();
+            });
         }
 
         // set position immediately

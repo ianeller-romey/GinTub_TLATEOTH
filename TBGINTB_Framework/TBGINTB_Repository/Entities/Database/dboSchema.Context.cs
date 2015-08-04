@@ -341,7 +341,7 @@ namespace GinTub.Repository.Entities.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PlayerItemAdd", playerParameter, itemParameter);
         }
-
+    
         public virtual ObjectResult<ReadRoom_Result> PlayerParagraphStateChange(Nullable<System.Guid> player, Nullable<int> paragraph, Nullable<int> state)
         {
             var playerParameter = player.HasValue ?
@@ -355,10 +355,10 @@ namespace GinTub.Repository.Entities.Database
             var stateParameter = state.HasValue ?
                 new ObjectParameter("state", state) :
                 new ObjectParameter("state", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoom_Result>("PlayerParagraphStateChange", playerParameter, paragraphParameter, stateParameter);
         }
-
+    
         public virtual ObjectResult<ReadRoom_Result> PlayerRoomStateChange(Nullable<System.Guid> player, Nullable<int> room, Nullable<int> state)
         {
             var playerParameter = player.HasValue ?
@@ -372,7 +372,7 @@ namespace GinTub.Repository.Entities.Database
             var stateParameter = state.HasValue ?
                 new ObjectParameter("state", state) :
                 new ObjectParameter("state", typeof(int));
-
+    
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadRoom_Result>("PlayerRoomStateChange", playerParameter, roomParameter, stateParameter);
         }
     

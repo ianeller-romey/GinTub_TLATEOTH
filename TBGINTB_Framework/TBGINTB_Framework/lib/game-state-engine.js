@@ -109,15 +109,15 @@ var GameStateEngine = function () {
             var rs = roomStates[i];
             if (gameTime >= rs.time) {
                 // no need to update if it's the same roomstate
-                if (activeRoomState.id == rs.id) {
+                if (activeRoomState != null && activeRoomState.id == rs.id) {
                     break;
                 }
                 activeRoomState = rs;
-                var pss = getParagraphStatesForRoomState(rs.id);
-                messengerEngine.post("GameStateEngine.setActiveRoomState", rs, pss);
                 break;
             }
         }
+        var pss = getParagraphStatesForRoomState(rs.id);
+        messengerEngine.post("GameStateEngine.setActiveRoomState", rs, pss);
     };
 
     var loadGame = function (playData) {

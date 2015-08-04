@@ -90,6 +90,7 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
             paragraphSpans.push({
                 id: addedParagraphState.id,
                 order: addedParagraphState.order,
+                paragraph: addedParagraphState.paragraph,
                 span: paragraphSpan
             });
         }
