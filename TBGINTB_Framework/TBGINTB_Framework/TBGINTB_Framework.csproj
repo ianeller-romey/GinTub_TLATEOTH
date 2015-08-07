@@ -65,6 +65,7 @@
     <Content Include="lib\game-state-engine.js" />
     <Content Include="lib\Moment\moment.isoduration.js" />
     <Content Include="lib\Moment\moment.min.js" />
+    <Content Include="lib\promise.js" />
     <Content Include="lib\time-engine.js" />
     <Content Include="login.html" />
     <Content Include="lib\action-queue.js" />

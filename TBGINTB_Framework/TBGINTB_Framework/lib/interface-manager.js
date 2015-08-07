@@ -5,6 +5,9 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
     var timeElem = $(timeId);
 
     var paragraphSpans = [];
+    var removedParagraphSpans = [];
+    var addedParagraphSpans = [];
+    var updateInterval = 50;
 
     var messengerEngine = globalMessengerEngine;
 
@@ -14,110 +17,148 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
         locationElem.attr("src", location);
     };
 
-    var createParagraphSpan = function (paragraphState) {
-        var createParagraphSpanClick = function (psId) {
-            return function (e) {
-                messengerEngine.post("InterfaceManager.iParagraphClick", e.pageX, e.pageY, psId);
-            };
-        };
-        var createWordSpanClick = function (wId) {
-            return function (e) {
-                e.stopPropagation();
-                messengerEngine.post("InterfaceManager.iWordClick", e.pageX, e.pageY, wId);
-            };
-        };
-
-        var paragraphSpan = $("<span/>", {
-            class: "iParagraph"
-        }).click(createParagraphSpanClick(paragraphState.id)).mouseenter(function (e) {
-            $(this).addClass("iHover");
-        }).mouseleave(function (e) {
-            $(this).removeClass("iHover");
+    var removeWord = function (paragraphSpan, wordSpan) {
+        wordSpan.animateTextRemove(that.getUpdateInterval).then(function () {
+            removeParagraphSpan(paragraphSpan);
         });
+    };
 
-        var words = paragraphState.words;
-        for (var j = 0, len2 = words.length; j < len2; ++j) {
-            var w = words[j];
-            paragraphSpan.append($("<span/>", {
-                class: "iWord",
-                text: w.text
-            }).click(createWordSpanClick(w.nounId)).mouseenter(function (e) {
-                $(this).addClass("iHover").parent().removeClass("iHover");
-            }).mouseleave(function (e) {
-                $(this).removeClass("iHover").parent().addClass("iHover");
-            }));
-
-            if (j != len2 - 1) {
-                w = words[j + 1];
-                wt = w.text;
-                if (wt != "." &&
-                    wt != "," &&
-                    wt != ";" &&
-                    wt != ":" &&
-                    wt != "?" &&
-                    wt != "!" &&
-                    wt != "\"") {
-                    paragraphSpan.append(" ");
-                }
-            }
+    var removeParagraphSpan = function (paragraphSpan) {
+        if (paragraphSpan.text().length == 0) {
+            paragraphSpan.remove();
+            removedParagraphSpans();
         }
+        else {
+            var word = paragraphSpan.children().last();
+            removeWord(paragraphSpan, word);
+        }
+    };
 
-        return paragraphSpan;
+    var removeParagraphSpans = function () {
+        if (removedParagraphSpans.length != 0) {
+            var paragraphSpan = removedParagraphSpans[0].span;
+
+            removedParagraphSpans.shift();
+            paragraphSpans = paragraphSpans.splice(paragraphSpans.indexOf(removedParagraphSpans[0]), 1);
+
+            removeParagraphSpan(paragraphSpan);
+        }
     };
 
     var updateRemovedParagraphSpans = function (removedParagraphSpans) {
-        for (var i = 0, len = removedParagraphSpans.length; i < len; ++i) {
-            removedParagraphSpans[i].span.remove();
-        }
+        removedParagraphSpans.sort(function (a, b) {
+            return a.order - b.order;
+        });
+        removeParagraphSpans();
+    };
+
+    var createWordSpan = function () {
+        var wordSpan = $("<span>", {
+            class: "iWord"
+        });
+        return wordSpan;
+    };
+
+    var createParagraphSpan = function () {
+        var paragraphSpan = $("<span/>", {
+            class: "iParagraph"
+        });
+        return paragraphSpan;
     };
 
     var updateAddedParagraphStates = function (addedParagraphStates) {
-        for (var i = 0, len = addedParagraphStates.length; i < len; ++i) {
-            var addedParagraphState = addedParagraphStates[i];
-            var insertBefore = paragraphSpans.firstOrNull(function (paragraphSpan) {
-                return paragraphSpan.order > addedParagraphState.order;
-            });
-            var paragraphSpan = createParagraphSpan(addedParagraphState);
+        var updateParagraphSpan = function (pIdx) {
+            if (pIdx < addedParagraphStates.length) {
+                var addedParagraphState = addedParagraphStates[pIdx];
+                var insertBefore = paragraphSpans.firstOrNull(function (paragraphSpan) {
+                    return paragraphSpan.order > addedParagraphState.order;
+                });
+                var paragraphSpan = createParagraphSpan();
 
-            if (insertBefore != null) {
-                insertBefore.span.before(paragraphSpan);
-            }
-            else {
-                paragraphsElem.append(paragraphSpan);
-            }
-            paragraphSpan.after(" ");
+                if (insertBefore != null) {
+                    insertBefore.span.before(paragraphSpan);
+                }
+                else {
+                    paragraphsElem.append(paragraphSpan);
+                }
+                paragraphSpan.after(" ");
 
-            paragraphSpans.push({
-                id: addedParagraphState.id,
-                order: addedParagraphState.order,
-                paragraph: addedParagraphState.paragraph,
-                span: paragraphSpan
-            });
-        }
+                paragraphSpans.push({
+                    id: addedParagraphState.id,
+                    order: addedParagraphState.order,
+                    paragraph: addedParagraphState.paragraph,
+                    span: paragraphSpan
+                });
+
+                var promise = new Promise(function (resolve, reject) {
+                    var updateWordSpan = function (wIdx) {
+                        if (wIdx < words.length) {
+                            var wordSpan = createWordSpan();
+                            paragraphSpan.append(wordSpan);
+
+                            wordSpan.animateTextAdd(words[wIdx].text, that.getUpdateInterval).then(function () {
+                                if (wIdx != words.length - 1) {
+                                    var nextWord = words[wIdx + 1];
+                                    var nextWordText = nextWord.text;
+                                    if (nextWordText != "." &&
+                                        nextWordText != "," &&
+                                        nextWordText != ";" &&
+                                        nextWordText != ":" &&
+                                        nextWordText != "?" &&
+                                        nextWordText != "!" &&
+                                        nextWordText != "\"") {
+                                        paragraphSpan.append(" ");
+                                    }
+                                }
+
+                                updateWordSpan(wIdx + 1);
+                            });
+                        }
+                        else {
+                            resolve();
+                        }
+                    };
+
+                    updateWordSpan(0);
+                }).then(function () {
+                    updateParagraphSpan(pIdx + 1);
+                });
+
+            }
+        };
+
+        updateParagraphSpan(0);
     };
 
     var loadRoomState = function (roomStateData, paragraphStateData) {
 
         swapLocationImage(roomStateData.location);
 
-        var removedParagraphSpans = paragraphSpans.where(function (activeParagraph) {
-            return !paragraphStateData.any(function (newParagraph) {
-                return newParagraph.id == activeParagraph.id;
+        var promise = new Promise(function (resolve, reject) {
+            var removedParagraphSpans = paragraphSpans.where(function (activeParagraph) {
+                return !paragraphStateData.any(function (newParagraph) {
+                    return newParagraph.id == activeParagraph.id;
+                });
             });
-        });
-        updateRemovedParagraphSpans(removedParagraphSpans);
-
-        var addedParagraphStates = paragraphStateData.where(function (newParagraph) {
-            return !paragraphSpans.any(function (activeParagraph) {
-                return activeParagraph.id == newParagraph.id;
+            updateRemovedParagraphSpans(removedParagraphSpans);
+            resolve();
+        }).then(function () {
+            var addedParagraphStates = paragraphStateData.where(function (newParagraph) {
+                return !paragraphSpans.any(function (activeParagraph) {
+                    return activeParagraph.id == newParagraph.id;
+                });
             });
+            updateAddedParagraphStates(addedParagraphStates);
         });
-        updateAddedParagraphStates(addedParagraphStates);
     };
 
     var updateTime = function (time) {
         var timeString = ("0" + time.hours()).slice(-2) + ":" + ("0" + time.minutes()).slice(-2);
         timeElem.text(timeString);
+    };
+
+    InterfaceManager.prototype.getUpdateInterval = function () {
+        return updateInterval;
     };
     
     messengerEngine.register("GameStateEngine.setActiveRoomState", this, loadRoomState);
