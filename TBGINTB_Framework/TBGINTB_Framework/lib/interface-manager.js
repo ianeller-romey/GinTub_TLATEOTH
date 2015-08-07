@@ -8,6 +8,7 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
     var removedParagraphSpans = [];
     var addedParagraphSpans = [];
     var updateInterval = 50;
+    var allowClicks = true;
 
     var messengerEngine = globalMessengerEngine;
 
@@ -15,6 +16,26 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
 
     var swapLocationImage = function (location) {
         locationElem.attr("src", location);
+    };
+
+    var disableInterface = function () {
+        allowClicks = false;
+        $(".iParagraph").off("mouseenter").off("mouseleave");
+        $(".iWord").off("mouseenter").off("mouseleave");
+    };
+
+    var enableInterface = function () {
+        allowClicks = false;
+        $(".iParagraph").mouseenter(function (e) {
+            $(this).addClass("iHover");
+        }).mouseleave(function (e) {
+            $(this).removeClass("iHover");
+        });
+        $(".iWord").mouseenter(function (e) {
+            $(this).addClass("iHover").parent().removeClass("iHover");
+        }).mouseleave(function (e) {
+            $(this).removeClass("iHover").parent().addClass("iHover");
+        });
     };
 
     var removeWord = function (paragraphSpan, wordSpan) {
@@ -46,62 +67,13 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
     };
 
     var updateRemovedParagraphSpans = function (removedParagraphSpans) {
+        disableInterface();
+
         removedParagraphSpans.sort(function (a, b) {
             return a.order - b.order;
         });
         removeParagraphSpans();
     };
-
-    /*var createParagraphSpan = function (paragraphState) {
-        var createParagraphSpanClick = function (psId) {
-            return function (e) {
-                messengerEngine.post("InterfaceManager.iParagraphClick", e.pageX, e.pageY, psId);
-            };
-        };
-        var createWordSpanClick = function (wId) {
-            return function (e) {
-                e.stopPropagation();
-                messengerEngine.post("InterfaceManager.iWordClick", e.pageX, e.pageY, wId);
-            };
-        };
-
-        var paragraphSpan = $("<span/>", {
-            class: "iParagraph"
-        }).click(createParagraphSpanClick(paragraphState.id)).mouseenter(function (e) {
-            $(this).addClass("iHover");
-        }).mouseleave(function (e) {
-            $(this).removeClass("iHover");
-        });
-
-        var words = paragraphState.words;
-        for (var j = 0, len2 = words.length; j < len2; ++j) {
-            var w = words[j];
-            paragraphSpan.append($("<span/>", {
-                class: "iWord",
-                text: w.text
-            }).click(createWordSpanClick(w.nounId)).mouseenter(function (e) {
-                $(this).addClass("iHover").parent().removeClass("iHover");
-            }).mouseleave(function (e) {
-                $(this).removeClass("iHover").parent().addClass("iHover");
-            }));
-
-            if (j != len2 - 1) {
-                w = words[j + 1];
-                wt = w.text;
-                if (wt != "." &&
-                    wt != "," &&
-                    wt != ";" &&
-                    wt != ":" &&
-                    wt != "?" &&
-                    wt != "!" &&
-                    wt != "\"") {
-                    paragraphSpan.append(" ");
-                }
-            }
-        }
-
-        return paragraphSpan;
-    };*/
 
     var createWordSpan = function () {
         var wordSpan = $("<span>", {
@@ -118,6 +90,22 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
     };
 
     var updateAddedParagraphStates = function (addedParagraphStates) {
+        var createParagraphSpanClick = function (psId) {
+            return function (e) {
+                if (allowClicks) {
+                    messengerEngine.post("InterfaceManager.iParagraphClick", e.pageX, e.pageY, psId);
+                }
+            };
+        };
+        var createWordSpanClick = function (wId) {
+            return function (e) {
+                e.stopPropagation();
+                if (allowClicks) {
+                    messengerEngine.post("InterfaceManager.iWordClick", e.pageX, e.pageY, wId);
+                }
+            };
+        };
+
         var updateParagraphSpan = function (pIdx) {
             if (pIdx < addedParagraphStates.length) {
                 var addedParagraphState = addedParagraphStates[pIdx];
@@ -125,6 +113,7 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
                     return paragraphSpan.order > addedParagraphState.order;
                 });
                 var paragraphSpan = createParagraphSpan();
+                paragraphSpan.click(createParagraphSpanClick(addedParagraphState.id));
 
                 if (insertBefore != null) {
                     insertBefore.span.before(paragraphSpan);
@@ -145,6 +134,8 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
                     var updateWordSpan = function (wIdx) {
                         if (wIdx < words.length) {
                             var wordSpan = createWordSpan();
+                            wordSpan.click(createWordSpanClick(words[wIdx].nounId));
+
                             paragraphSpan.append(wordSpan);
 
                             wordSpan.animateTextAdd(words[wIdx].text, that.getUpdateInterval).then(function () {
@@ -174,7 +165,9 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
                 }).then(function () {
                     updateParagraphSpan(pIdx + 1);
                 });
-
+            }
+            else {
+                enableInterface();
             }
         };
 
