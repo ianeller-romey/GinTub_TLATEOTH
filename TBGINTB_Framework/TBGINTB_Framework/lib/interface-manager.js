@@ -52,6 +52,57 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
         removeParagraphSpans();
     };
 
+    /*var createParagraphSpan = function (paragraphState) {
+        var createParagraphSpanClick = function (psId) {
+            return function (e) {
+                messengerEngine.post("InterfaceManager.iParagraphClick", e.pageX, e.pageY, psId);
+            };
+        };
+        var createWordSpanClick = function (wId) {
+            return function (e) {
+                e.stopPropagation();
+                messengerEngine.post("InterfaceManager.iWordClick", e.pageX, e.pageY, wId);
+            };
+        };
+
+        var paragraphSpan = $("<span/>", {
+            class: "iParagraph"
+        }).click(createParagraphSpanClick(paragraphState.id)).mouseenter(function (e) {
+            $(this).addClass("iHover");
+        }).mouseleave(function (e) {
+            $(this).removeClass("iHover");
+        });
+
+        var words = paragraphState.words;
+        for (var j = 0, len2 = words.length; j < len2; ++j) {
+            var w = words[j];
+            paragraphSpan.append($("<span/>", {
+                class: "iWord",
+                text: w.text
+            }).click(createWordSpanClick(w.nounId)).mouseenter(function (e) {
+                $(this).addClass("iHover").parent().removeClass("iHover");
+            }).mouseleave(function (e) {
+                $(this).removeClass("iHover").parent().addClass("iHover");
+            }));
+
+            if (j != len2 - 1) {
+                w = words[j + 1];
+                wt = w.text;
+                if (wt != "." &&
+                    wt != "," &&
+                    wt != ";" &&
+                    wt != ":" &&
+                    wt != "?" &&
+                    wt != "!" &&
+                    wt != "\"") {
+                    paragraphSpan.append(" ");
+                }
+            }
+        }
+
+        return paragraphSpan;
+    };*/
+
     var createWordSpan = function () {
         var wordSpan = $("<span>", {
             class: "iWord"

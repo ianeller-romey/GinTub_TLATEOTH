@@ -81,6 +81,7 @@ var VerbList = function(idOfVerbList){
                     }, 25, function () {
                         if (actionQueue.isEmpty()) {
                             that.state = that.states.open;
+                            messengerEngine.post("VerbList.openExec");
                         }
                         else {
                             update();
@@ -119,6 +120,7 @@ var VerbList = function(idOfVerbList){
                     }, 50, function () {
                         if (actionQueue.isEmpty()) {
                             that.state = that.states.closed;
+                            messengerEngine.post("VerbList.closeExec");
                         }
                         else {
                             update();

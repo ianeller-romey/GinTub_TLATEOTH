@@ -7,24 +7,27 @@ var TimeEngine = function () {
     var hourIncr = moment.duration(1, 'h');
     var minuteSub = moment.duration(60, 'm');
     var hourSub = moment.duration(24, 'h');
+    var paused = false;
 
     var updateTime = function () {
-        time.add(minuteIncr);
-        if (time.minutes() == minuteSub.minutes()) {
-            // set minutes back to zero
-            time.subtract(minuteSub);
+        if (!paused) {
+            time.add(minuteIncr);
+            if (time.minutes() == minuteSub.minutes()) {
+                // set minutes back to zero
+                time.subtract(minuteSub);
 
-            time.add(hourIncr);
-            if (time.hours() == hourSub.hours()) {
-                // set hours back to zero
-                time.subtract(hourSub);
+                time.add(hourIncr);
+                if (time.hours() == hourSub.hours()) {
+                    // set hours back to zero
+                    time.subtract(hourSub);
+                }
             }
-        }
 
-        messengerEngine.post("TimeEngine.updateTime", time);
+            messengerEngine.post("TimeEngine.updateTime", time);
 
-        if (time.minutes() % 10 == 0) {
-            messengerEngine.post("TimeEngine.updateTimeAtTen", time);
+            if (time.minutes() % 10 == 0) {
+                messengerEngine.post("TimeEngine.updateTimeAtTen", time);
+            }
         }
     };
 
@@ -37,6 +40,17 @@ var TimeEngine = function () {
         time = setTo;
         start();
     };
+
+    this.pause = function () {
+        paused = true;
+    };
+
+    this.unpause = function () {
+        paused = false;
+    };
+
+    messengerEngine.register("VerbList.openExec", this, pause);
+    messengerEngine.register("VerbList.closeExec", this, unpause);
 
     start();
 };
