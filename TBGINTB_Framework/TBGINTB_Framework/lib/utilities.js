@@ -1,4 +1,8 @@
 ﻿
+String.prototype.isNullOrWhitespace = function () {
+    return this === null || this.match(/^\s*$/) !== null;
+};
+
 Array.prototype.any = function (predicate) {
     var contains = false;
     for (var i = 0, len = this.length; i < len; ++i) {
@@ -71,7 +75,7 @@ Array.prototype.where = function (predicate) {
                 if (index < text.length) {
                     that.append(text[index++]);
 
-                    var updateInterval = (typeof interval == "fuction") ? interval() : interval;
+                    var updateInterval = (typeof interval == "function") ? interval() : interval;
                     setTimeout(function () { animateTextAddAtInterval(); }, updateInterval);
                 }
                 else {
@@ -87,7 +91,7 @@ Array.prototype.where = function (predicate) {
 
         var promise = new Promise(function (resolve, reject) {
             var animateTextRemoveAtInterval = function () {
-                var text = that().text();
+                var text = that.text();
                 if (text.length == 0) {
                     that.remove();
                     resolve();
@@ -95,7 +99,7 @@ Array.prototype.where = function (predicate) {
                 else {
                     that.text(text.slice(0, -1));
 
-                    var updateInterval = (typeof interval == "fuction") ? interval() : interval;
+                    var updateInterval = (typeof interval == "function") ? interval() : interval;
                     setTimeout(function () { animateTextRemoveAtInterval(); }, updateInterval);
                 }
             };

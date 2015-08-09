@@ -49,8 +49,8 @@ var TimeEngine = function () {
         paused = false;
     };
 
-    messengerEngine.register("VerbList.openExec", this, pause);
-    messengerEngine.register("VerbList.closeExec", this, unpause);
+    messengerEngine.register("VerbList.openExec", this, this.pause);
+    messengerEngine.register("VerbList.closeExec", this, this.unpause);
 
     start();
 };

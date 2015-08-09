@@ -1,19 +1,27 @@
 ﻿(function () {
     if (Promise === undefined) {
         Promise = function (asyncSuccessFunction) {
+            var resolved = false;
+            var resolvedArg = undefined;
             var functionsOnSuccess = [];
             var that = this;
 
-            var resolve = function (arg) {
-                if (arg !== undefined) {
-                    for (var i = 0, j = functionsOnSuccess.length; i < j; ++i) {
-                        functionsOnSuccess[i](arg);
-                    }
+            var callOnSuccess = function (functionOnSuccess) {
+                if (resolvedArg !== undefined) {
+                    functionOnSuccess(resolvedArg);
                 }
                 else {
-                    for (var i = 0, j = functionsOnSuccess.length; i < j; ++i) {
-                        functionsOnSuccess[i]();
-                    }
+                    functionOnSuccess();
+                }
+            };
+
+            var resolve = function (arg) {
+                resolved = true;
+                resolvedArg = arg;
+
+                while(functionsOnSuccess.length > 0) {
+                    callOnSuccess(functionsOnSuccess[i]);
+                    functionsOnSuccess.shift();
                 }
             };
 
@@ -22,7 +30,13 @@
             };
 
             this.then = function (afterFunction) {
-                functionsOnSuccess.push(afterFunction);
+                if (!resolved) {
+                    functionsOnSuccess.push(afterFunction);
+                }
+                else {
+                    callOnSuccess(afterFunction);
+                }
+
                 return that;
             };
 

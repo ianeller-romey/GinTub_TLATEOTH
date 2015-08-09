@@ -18,6 +18,7 @@ var MessageManager = function (messageTopId, messageBottomId, messageTextId, mes
 
         messageTextElem.text("");
         $(messageChoicesId + " .actionText").remove();
+        messengerEngine.post("MessageManager.unloadMessage");
     }
 
     var loadMessage = function (messageData) {

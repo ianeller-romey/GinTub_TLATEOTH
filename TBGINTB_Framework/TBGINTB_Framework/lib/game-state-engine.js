@@ -100,7 +100,7 @@ var GameStateEngine = function () {
         return paragraphStatesForRoomState;
     };
 
-    var setActiveRoomState = function () {
+    var setActiveRoomState = function (paragraphStateUpdatePromise) {
         var i = roomStates.length - 1;
         // our roomStates are ordered by .Time, so
         // we can start at the beginning and move forward until we
@@ -117,7 +117,28 @@ var GameStateEngine = function () {
             }
         }
         var pss = getParagraphStatesForRoomState(rs.id);
-        messengerEngine.post("GameStateEngine.setActiveRoomState", rs, pss);
+        messengerEngine.post("GameStateEngine.setActiveRoomState", rs, pss, paragraphStateUpdatePromise);
+    };
+
+    var createImmediateParagraphStateUpdatePromise = function () {
+        return new Promise(function (resolve, reject) {
+            resolve();
+        });
+    };
+
+    var createOnUnloadMessageParagraphStateUpdatePromise = function () {
+        return new Promise(function (resolve, reject) {
+            var resolveOnMessage;
+            var onUnloadMessageParagraphStateUpdate = function () {
+                return function () {
+                    resolve();
+                    messengerEngine.unregister("MessageManager.unloadMessage", resolveOnMessage);
+                };
+            };
+            resolveOnMessage = onUnloadMessageParagraphStateUpdate();
+
+            messengerEngine.register("MessageManager.unloadMessage", this, resolveOnMessage);
+        });
     };
 
     var loadGame = function (playData) {
@@ -126,7 +147,7 @@ var GameStateEngine = function () {
         setRoomStates(playData.roomStates);
         setParagraphStates(playData.paragraphStates);
 
-        setActiveRoomState();
+        setActiveRoomState(createImmediateParagraphStateUpdatePromise());
     };
 
     var loadActionResults = function (playData) {
@@ -136,7 +157,12 @@ var GameStateEngine = function () {
         setParagraphStates(playData.paragraphStates);
         setMessage(playData.message);
 
-        setActiveRoomState();
+        if (playData.message == null) {
+            setActiveRoomState(createImmediateParagraphStateUpdatePromise());
+        }
+        else {
+            setActiveRoomState(createOnUnloadMessageParagraphStateUpdatePromise());
+        };
     };
 
     var loadMessage = function (playData) {
@@ -146,7 +172,7 @@ var GameStateEngine = function () {
     var updateTime = function (time) {
         gameTime = time;
 
-        setActiveRoomState();
+        setActiveRoomState(createImmediateParagraphStateUpdatePromise());
     };
 
     var doAction = function (nounId, verbTypeId) {
