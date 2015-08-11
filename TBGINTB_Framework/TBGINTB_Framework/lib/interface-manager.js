@@ -3,10 +3,12 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
     var locationElem = $(locationId);
     var paragraphsElem = $(paragraphsId);
     var timeElem = $(timeId);
+    var selectedElem;
 
     var paragraphSpans = [];
     var removedParagraphSpans = [];
     var addedParagraphStates = [];
+    var updateIntervalFast = 2;
     var updateIntervalRemoval = 10;
     var updateIntervalAdding = 50;
     var updateInterval = 0;
@@ -18,6 +20,14 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
 
     var swapLocationImage = function (location) {
         locationElem.attr("src", location);
+    };
+
+    var removeISelected = function () {
+        $(".iSelected").removeClass("iSelected");
+    };
+
+    var addISelected = function () {
+        selectedElem.removeClass("iHover").addClass("iSelected");
     };
 
     var disableInterface = function () {
@@ -33,7 +43,7 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
         }).mouseleave(function (e) {
             $(this).removeClass("iHover");
         });
-        $(".iWord").mouseenter(function (e) {
+        $(".iWord").mousemove(function (e) {
             $(this).addClass("iHover").parent().removeClass("iHover");
         }).mouseleave(function (e) {
             $(this).removeClass("iHover").parent().addClass("iHover");
@@ -88,6 +98,7 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
         var createParagraphSpanClick = function (psId) {
             return function (e) {
                 if (allowClicks) {
+                    selectedElem = $(this);
                     messengerEngine.post("InterfaceManager.iParagraphClick", e.pageX, e.pageY, psId);
                 }
             };
@@ -96,7 +107,9 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
             return function (e) {
                 e.stopPropagation();
                 if (allowClicks) {
-                    messengerEngine.post("InterfaceManager.iWordClick", e.pageX, e.pageY, wId);
+                    selectedElem = $(this);
+                    var position = this.getBoundingClientRect();
+                    messengerEngine.post("InterfaceManager.iWordClick", position.right + 5, position.top + 10, wId);
                 }
             };
         };
@@ -210,10 +223,18 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
         timeElem.text(timeString);
     };
 
-    InterfaceManager.prototype.getUpdateInterval = function () {
+    this.getUpdateInterval = function () {
         return updateInterval;
+    };
+
+    this.changeUpdateInterval = function () {
+        if (updateInterval != updateIntervalFast) {
+            updateInterval = updateIntervalFast;
+        }
     };
     
     messengerEngine.register("GameStateEngine.setActiveRoomState", this, loadRoomState);
+    messengerEngine.register("VerbList.openExec", this, addISelected);
+    messengerEngine.register("VerbList.closeExec", this, removeISelected);
     messengerEngine.register("TimeEngine.updateTime", this, updateTime);
 };

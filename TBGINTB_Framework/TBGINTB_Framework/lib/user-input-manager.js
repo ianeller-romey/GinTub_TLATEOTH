@@ -79,9 +79,9 @@ var VerbList = function(idOfVerbList){
                     verbListElemX.animate({
                         opacity: 1
                     }, 25, function () {
+                        messengerEngine.post("VerbList.openExec");
                         if (actionQueue.isEmpty()) {
                             that.state = that.states.open;
-                            messengerEngine.post("VerbList.openExec");
                         }
                         else {
                             update();
@@ -118,9 +118,9 @@ var VerbList = function(idOfVerbList){
                     verbListElem.animate({
                         padding: 0
                     }, 50, function () {
+                        messengerEngine.post("VerbList.closeExec");
                         if (actionQueue.isEmpty()) {
                             that.state = that.states.closed;
-                            messengerEngine.post("VerbList.closeExec");
                         }
                         else {
                             update();

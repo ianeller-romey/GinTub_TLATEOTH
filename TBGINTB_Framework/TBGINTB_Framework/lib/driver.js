@@ -1,4 +1,5 @@
 ﻿
+
 $(document).ready(function init() { // on initialization ...
     var now = new Date();
     
@@ -10,6 +11,10 @@ $(document).ready(function init() { // on initialization ...
     var messageManager = new MessageManager("#messageTop", "#messageBottom", "#messageText", "#messageChoices");
     servicesEngine.getAllVerbTypes();
     servicesEngine.loadGame(sessionStorage.playerId);
+
+    $("#master-container").mousedown(function (e) {
+        interfaceManager.changeUpdateInterval();
+    });
 
     /*
     function suppressBackspace(event) { // we don't want the delete key to act like the browser back button
