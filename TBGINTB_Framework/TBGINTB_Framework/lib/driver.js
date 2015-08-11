@@ -1,5 +1,4 @@
 ﻿
-
 $(document).ready(function init() { // on initialization ...
     var now = new Date();
     
@@ -7,7 +6,7 @@ $(document).ready(function init() { // on initialization ...
     var timeEngine = new TimeEngine();
     var gameStateEngine = new GameStateEngine();
     var userInputManager = new UserInputManager("#verbList");
-    var interfaceManager = new InterfaceManager("#location", "#paragraphs", "#time");
+    var interfaceManager = new InterfaceManager("#locations", "#paragraphs", "#time");
     var messageManager = new MessageManager("#messageTop", "#messageBottom", "#messageText", "#messageChoices");
     servicesEngine.getAllVerbTypes();
     servicesEngine.loadGame(sessionStorage.playerId);
@@ -27,7 +26,5 @@ $(document).ready(function init() { // on initialization ...
     };
     document.onkeydown = suppressBackspace;
     document.onkeypress = suppressBackspace;
-    */
-
-        
+    */ 
 });

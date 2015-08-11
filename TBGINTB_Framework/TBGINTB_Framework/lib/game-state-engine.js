@@ -110,7 +110,7 @@ var GameStateEngine = function () {
             if (gameTime >= rs.time) {
                 // no need to update if it's the same roomstate
                 if (activeRoomState != null && activeRoomState.id == rs.id) {
-                    break;
+                    return;
                 }
                 activeRoomState = rs;
                 break;

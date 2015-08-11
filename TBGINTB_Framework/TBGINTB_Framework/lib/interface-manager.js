@@ -1,6 +1,8 @@
 ﻿
-var InterfaceManager = function (locationId, paragraphsId, timeId) {
-    var locationElem = $(locationId);
+var InterfaceManager = function (locationsId, paragraphsId, timeId) {
+    var locationsElem = $(locationsId);
+    var location1Elem = locationsElem.children().first();
+    var location2Elem = locationsElem.children().last();
     var paragraphsElem = $(paragraphsId);
     var timeElem = $(timeId);
     var selectedElem;
@@ -18,8 +20,21 @@ var InterfaceManager = function (locationId, paragraphsId, timeId) {
 
     var that = this;
 
+    var swapAndFadeLocationImages = function (src, locationImageFadeIn, locationImageFadeOut) {
+        locationImageFadeIn.attr("src", src);
+        locationImageFadeIn.fadeTo("slow", 1.0);
+        locationImageFadeOut.fadeTo("slow", 0.0, function () {
+            locationImageFadeOut.attr("src", "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=");
+        });
+    };
+
     var swapLocationImage = function (location) {
-        locationElem.attr("src", location);
+        if (location1Elem.css("opacity") == 1.0) {
+            swapAndFadeLocationImages(location, location2Elem, location1Elem);
+        }
+        else {
+            swapAndFadeLocationImages(location, location1Elem, location2Elem);
+        }
     };
 
     var removeISelected = function () {

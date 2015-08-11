@@ -80,6 +80,28 @@ body {
     height: 270px;
 }
 
+#locations {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+#location1 {
+    position: relative;
+    width: 640px;
+    height: 270px;
+    top: 0; 
+    left: 0;
+}
+
+#location2 {
+    position: absolute; 
+    width: 640px;
+    height: 270px;
+    top: 0; 
+    left: 0;
+}
+
 #interfaceBottom {
     position: relative;
     top: 0;

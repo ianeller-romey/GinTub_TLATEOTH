@@ -60,6 +60,7 @@
     <Content Include="css\login.css" />
     <Content Include="images\placeholder.jpg" />
     <Content Include="lib\action-text.js" />
+    <Content Include="lib\cheats.js" />
     <Content Include="lib\login.js" />
     <Content Include="lib\message-manager.js" />
     <Content Include="lib\game-state-engine.js" />
