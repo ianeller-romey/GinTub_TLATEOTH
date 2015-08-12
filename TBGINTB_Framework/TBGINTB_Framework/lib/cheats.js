@@ -3,7 +3,7 @@
         event = event || window.event;
         var target = event.target || event.srcElement;
         if (event.keyCode == 8 && !/input|textarea/i.test(target.nodeName)) {
-            updateUserInput(event);
+            updateConsoleInput(event);
             return false;
         }
     };
@@ -13,52 +13,54 @@
     var acceptInput = false;
     var cheatsElemHeight = "150px";
     var cheatsElem = $("<div/>", {
-        class: "transition150",
+        class: "transition150 center",
         css: {
-            position: "absolute", 
-            top: 0, 
-            left: 0, 
+            position: "relative", 
+            top: 0,
             height: "0px", 
-            width: "100%",
+            width: "640px",
             background: "black",
             color: "white",
+            "font-family": "Courier New",
+            "overflow-y": "auto"
         }
     });
     $("#master-container").after(cheatsElem);
 
-    var UserInputManager = function () {
-    };
+    var ConsoleInputManager = function () {
+        var that = this;
 
-    UserInputManager.prototype.resetUserInput = function () {
-        return this.addCharToUserInput("", "");
-    };
+        this.resetConsoleInput = function () {
+            return this.addCharToConsoleInput("", "");
+        };
 
-    UserInputManager.prototype.addCharToUserInput = function (add, str) {
-        return str.substring(0, str.length - 1) + add + '_';
-    };
+        this.addCharToConsoleInput = function (add, str) {
+            return str.substring(0, str.length - 1) + add + '_';
+        };
 
-    UserInputManager.prototype.deleteCharFromUserInput = function (str) {
-        return str.substring(0, str.length - 2) + '_';
+        this.deleteCharFromConsoleInput = function (str) {
+            return str.substring(0, str.length - 2) + '_';
+        };
     };
 
     var deleteKey = 8;
     var enterKey = 13;
-    var userInputManager = new UserInputManager();
-    cheatsElem.text(userInputManager.resetUserInput());
-    function updateUserInput(event) {
+    var consoleInputManager = new ConsoleInputManager();
+    cheatsElem.text(consoleInputManager.resetConsoleInput());
+    function updateConsoleInput(event) {
         if (event.keyCode == deleteKey) { // delete characters if the delete key is pressed
-            cheatsElem.text(userInputManager.deleteCharFromUserInput(cheatsElem.text()));
+            cheatsElem.text(consoleInputManager.deleteCharFromConsoleInput(cheatsElem.text()));
         }
         else if (event.keyCode == enterKey) { // parse characters if the enter key is pressed
             var str = cheatsElem.text().substring(0, cheatsElem.text().length - 1);
             /*if (engine.parse(str) === true) {
-                cheatsElem.text(userInputManager.resetUserInput());
+                cheatsElem.text(consoleInputManager.resetConsoleInput());
             }*/
             // TODO
-            cheatsElem.text(userInputManager.resetUserInput());
+            cheatsElem.text(consoleInputManager.resetConsoleInput());
         }
         else { // otherwise, add characters
-            cheatsElem.text(userInputManager.addCharToUserInput(String.fromCharCode(event.keyCode), cheatsElem.text()));
+            cheatsElem.text(consoleInputManager.addCharToConsoleInput(String.fromCharCode(event.keyCode), cheatsElem.text()));
         }
     };
     window.addEventListener("keypress", function (event) {
@@ -74,7 +76,7 @@
         }
         else {
             if (acceptInput) {
-                updateUserInput(event);
+                updateConsoleInput(event);
             }
         }
     }, true);
