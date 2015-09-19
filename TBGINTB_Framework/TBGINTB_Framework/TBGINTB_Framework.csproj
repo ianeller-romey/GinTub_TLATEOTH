@@ -59,23 +59,25 @@
   <ItemGroup>
     <Content Include="css\login.css" />
     <Content Include="images\placeholder.jpg" />
-    <Content Include="lib\action-text.js" />
     <Content Include="lib\cheats.js" />
+    <Content Include="lib\driver.js" />
+    <Content Include="lib\engines\game-state-engine.js" />
+    <Content Include="lib\engines\messenger-engine.js" />
+    <Content Include="lib\engines\services-engine.js" />
+    <Content Include="lib\engines\time-engine.js" />
+    <Content Include="lib\entities\action-text.js" />
+    <Content Include="lib\entities\hover-click-text.js" />
+    <Content Include="lib\entities\image-fader.js" />
     <Content Include="lib\login.js" />
-    <Content Include="lib\message-manager.js" />
-    <Content Include="lib\game-state-engine.js" />
+    <Content Include="lib\managers\interface-manager.js" />
+    <Content Include="lib\managers\message-manager.js" />
+    <Content Include="lib\managers\user-input-manager.js" />
     <Content Include="lib\Moment\moment.isoduration.js" />
     <Content Include="lib\Moment\moment.min.js" />
-    <Content Include="lib\promise.js" />
-    <Content Include="lib\time-engine.js" />
+    <Content Include="lib\utilities\action-queue.js" />
+    <Content Include="lib\utilities\promise.js" />
+    <Content Include="lib\utilities\utilities.js" />
     <Content Include="login.html" />
-    <Content Include="lib\action-queue.js" />
-    <Content Include="lib\action-array.js" />
-    <Content Include="lib\interface-manager.js" />
-    <Content Include="lib\messenger-engine.js" />
-    <Content Include="lib\services-engine.js" />
-    <Content Include="lib\user-input-manager.js" />
-    <Content Include="lib\utilities.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -85,7 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="css\play.css" />
-    <None Include="lib\driver.js" />
     <None Include="play.html" />
   </ItemGroup>
   <ItemGroup>
@@ -124,8 +125,7 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>echo D|xcopy "$(ProjectDir)*.html" C:\inetpub\ironandrose\gintub\lion /R /Y
-echo D|xcopy "$(ProjectDir)lib" C:\inetpub\ironandrose\gintub\lion\lib /R /Y
-echo D|xcopy "$(ProjectDir)lib\Moment" C:\inetpub\ironandrose\gintub\lion\lib\Moment /R /Y
+echo D|xcopy "$(ProjectDir)lib\*" C:\inetpub\ironandrose\gintub\lion\lib /R /S /I /Y
 echo D|xcopy "$(ProjectDir)css" C:\inetpub\ironandrose\gintub\lion\css /R /Y
 echo D|xcopy "$(ProjectDir)images" C:\inetpub\ironandrose\gintub\lion\images /R /Y</PostBuildEvent>
   </PropertyGroup>

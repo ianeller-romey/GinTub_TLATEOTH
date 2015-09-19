@@ -23,7 +23,7 @@ namespace GinTub
         {
             TypeAdapterConfig<Repository.Entities.Noun, DC.Responses.WordData>
                 .NewConfig()
-                .MapFrom(dest => dest.NounId, src => src.Id); ;
+                .MapFrom(dest => dest.NounId, src => src.Id);
             TypeAdapterConfig<Repository.Entities.ParagraphState, DC.Responses.ParagraphStateData>
                 .NewConfig()
                 .MapFrom<IEnumerable<DC.Responses.WordData>>

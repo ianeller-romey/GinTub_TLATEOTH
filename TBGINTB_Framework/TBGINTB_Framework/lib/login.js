@@ -4,7 +4,7 @@
         var password = $('#login-password').val();
 
         $.ajax({
-            url: "http://ironandrose/gintub/lion/gintubservices/GinTubService.svc/PlayerLogin",
+            url: "gintubservices/GinTubService.svc/PlayerLogin",
             type: 'post',
             dataType: 'text',
             contentType: 'application/json',
