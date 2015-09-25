@@ -1,6 +1,8 @@
 ﻿(function (namespace, undefined) {
     "use strict";
 
+    // TODO: Condense onVerbListClose/Open declarations so we're not duplicating code
+
     namespace.Entities = namespace.Entities || {};
     namespace.Entities.Factories = namespace.Entities.Factories || {};
     namespace.Entities.Factories.createHoverClickText = function (classType, idNum, messengerEngine) {
@@ -14,8 +16,18 @@
                 span.idNum = idNum;
 
                 var spanClick = function (e) {
-                    $(".iSelected").removeClass("iSelected");
                     span.removeClass("iHover").addClass("iSelected");
+                    var onVerbListClose = function () {
+                        span.removeClass("iSelected");
+                        messengerEngine.unregister("VerbList.closeExec", onVerbListClose);
+                    };
+
+                    var onVerbListOpen = function () {
+                        messengerEngine.unregister("VerbList.openExec", onVerbListOpen);
+                        messengerEngine.register("VerbList.closeExec", this, onVerbListClose);
+                    };
+
+                    messengerEngine.register("VerbList.openExec", this, onVerbListOpen);
                     messengerEngine.post("InterfaceManager.iParagraphClick", e.pageX, e.pageY, span.idNum);
                 }
 
@@ -39,8 +51,20 @@
 
                 var spanClick = function (e) {
                     e.stopPropagation();
-                    $(".iSelected").removeClass("iSelected");
+
                     span.removeClass("iHover").addClass("iSelected");
+                    var onVerbListClose = function () {
+                        span.removeClass("iSelected");
+                        messengerEngine.unregister("VerbList.closeExec", onVerbListClose);
+                    };
+
+                    var onVerbListOpen = function () {
+                        messengerEngine.unregister("VerbList.openExec", onVerbListOpen);
+                        messengerEngine.register("VerbList.closeExec", this, onVerbListClose);
+                    };
+
+                    messengerEngine.register("VerbList.openExec", this, onVerbListOpen);
+
                     var position = span[0].getBoundingClientRect();
                     messengerEngine.post("InterfaceManager.iWordClick", position.right + 5, position.top + 10, span.idNum);
                 };
@@ -53,7 +77,7 @@
                     }).click(spanClick);
                 };
                 span.disableInterfaceInput = function () {
-                    span.off("mouseenter").off("mouseleave").off("click");
+                    span.off("mousemove").off("mouseleave").off("click");
                 };
                 break;
         }

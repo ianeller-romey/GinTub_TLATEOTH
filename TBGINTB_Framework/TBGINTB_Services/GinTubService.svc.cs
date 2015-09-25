@@ -192,6 +192,20 @@ namespace GinTub.Services
             return playData;
         }
 
+        public DC.Responses.PlayData DoCheat(DC.Requests.CheatRequest request)
+        {
+            CheatDictionary.DoCheat(request.Cheat, request.PlayerId, request.JSONString);
+
+            var result = _repository.ReadGame(request.PlayerId);
+            return new DC.Responses.PlayData()
+            {
+                Area = TypeAdapter.Adapt<DC.Responses.AreaData>(result.Item1),
+                Room = TypeAdapter.Adapt<DC.Responses.RoomData>(result.Item2),
+                RoomStates = result.Item3.Select(x => TypeAdapter.Adapt<DC.Responses.RoomStateData>(x)).ToList(),
+                ParagraphStates = result.Item4.Select(x => TypeAdapter.Adapt<DC.Responses.ParagraphStateData>(x)).ToList()
+            };
+        }
+
         #endregion
 
 

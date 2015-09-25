@@ -24,6 +24,8 @@
         };
 
         this.initLegacy = function () {
+            var emptyImage = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
+
             var FadeMe = function (imageId) {
                 var imageElem = $(imageId);
                 this.active = false;
@@ -38,22 +40,27 @@
                     this.active = false;
                     var promise = imageElem.promiseToFade("slow", 0.0);
                     promise.then(function () {
-                        imageElem.attr("src", "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=");
+                        imageElem.attr("src", emptyImage);
                     });
                     return promise;
+                };
+
+                this.src = function() {
+                    return imageElem.attr("src");
                 };
             };
 
             var locationsChildren = locationsElem.find("img");
             var image1Elem = new FadeMe("#" + locationsChildren.first()[0].id);
             var image2Elem = new FadeMe("#" + locationsChildren.last()[0].id);
+            image1Elem.fadeIn(emptyImage);
 
             this.swap = function (src) {
-                if (image1Elem.active) {
+                if (image1Elem.active && image1Elem.src() !== src) {
                     image1Elem.fadeOut();
                     image2Elem.fadeIn(src);
                 }
-                else {
+                else if (image2Elem.active && image2Elem.src() !== src) {
                     image1Elem.fadeIn(src);
                     image2Elem.fadeOut();
                 }

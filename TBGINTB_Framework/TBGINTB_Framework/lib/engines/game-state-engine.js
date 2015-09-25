@@ -92,7 +92,7 @@
                     len = paragraphStates.length;
                 for (; i < len; ++i) {
                     var ps = paragraphStates[i];
-                    if (ps.roomState == null || ps.roomState == roomStateId) {
+                    if (ps.roomState === null || ps.roomState === roomStateId) {
                         paragraphStatesForRoomState.push(ps);
                     }
                 }
@@ -107,12 +107,13 @@
                 // our roomStates are ordered by .Time, so
                 // we can start at the beginning and move forward until we
                 // find the first roomState where .Time <= var time
+                var rs;
                 for (; i >= 0; --i) {
-                    var rs = roomStates[i];
+                    rs = roomStates[i];
                     if (gameTime >= rs.time) {
-                        // no need to update if it's the same roomstate
-                        if (activeRoomState != null && activeRoomState.id == rs.id) {
-                            return;
+                        // break, because we still need to update the paragraph states if we're in the same room
+                        if (activeRoomState != null && activeRoomState.id === rs.id) {
+                            break;
                         }
                         activeRoomState = rs;
                         break;

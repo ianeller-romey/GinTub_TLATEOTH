@@ -29,7 +29,6 @@
                 var that = this;
 
                 verbListElemX.click(function () {
-                    $(".iSelected").removeClass("iSelected");
                     that.close();
                 });
 

@@ -12,18 +12,20 @@
         timeEngine.init(messengerEngine);
         var gameStateEngine = namespace.Engines.GameStateEngine;
         gameStateEngine.init(messengerEngine);
+
+        if (namespace.EX && namespace.EX.Cheats) { // intentional truthiness
+            var cheats = namespace.EX.Cheats;
+            cheats.init("#master-container", messengerEngine);
+        }
+
         var userInputManager = namespace.Managers.UserInputManager;
         userInputManager.init("#verbList", messengerEngine);
         var interfaceManager = namespace.Managers.InterfaceManager;
-        interfaceManager.init("#locations", "#paragraphs", "#time", messengerEngine);
+        interfaceManager.init("#locations", "#paragraphs", "#time", "#master-container", messengerEngine);
         var messageManager = namespace.Managers.MessageManager;
-        messageManager.init("#messageTop", "#messageBottom", "#messageText", "#messageChoices", messengerEngine);
+        messageManager.init("#messageTop", "#messageBottom", "#messageText", "#messageChoices", "#master-container", messengerEngine);
         servicesEngine.getAllVerbTypes();
         servicesEngine.loadGame(sessionStorage.playerId);
-
-        $("#master-container").mousedown(function (e) {
-            interfaceManager.changeUpdateInterval();
-        });
 
         /*
         function suppressBackspace(event) { // we don't want the delete key to act like the browser back button

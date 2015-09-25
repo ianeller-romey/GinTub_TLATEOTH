@@ -57,5 +57,13 @@ namespace GinTub.Services.OperationContracts
         ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "DoMessageChoice")]
         DataContracts.Responses.PlayData DoMessageChoice(DataContracts.Requests.DoMessageChoiceRequest request);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST",
+        BodyStyle = WebMessageBodyStyle.Bare,
+        RequestFormat = WebMessageFormat.Json,
+        ResponseFormat = WebMessageFormat.Json,
+        UriTemplate = "DoCheat")]
+        DataContracts.Responses.PlayData DoCheat(DataContracts.Requests.CheatRequest request);
     }
 }

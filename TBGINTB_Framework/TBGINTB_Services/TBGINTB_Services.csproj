@@ -90,6 +90,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheatDictionary.cs" />
+    <Compile Include="DataContracts\Requests\CheatRequest.cs" />
     <Compile Include="DataContracts\Requests\DoMessageChoiceRequest.cs" />
     <Compile Include="DataContracts\Requests\DoActionRequest.cs" />
     <Compile Include="DataContracts\Requests\LoadGameRequest.cs" />

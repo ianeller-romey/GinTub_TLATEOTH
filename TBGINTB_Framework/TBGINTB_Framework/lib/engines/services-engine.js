@@ -90,6 +90,36 @@
 
             messengerEngine.register("UserInputManager.getNounsForParagraphState", this, this.getNounsForParagraphState);
             messengerEngine.register("GameStateEngine.doAction", this, this.doAction);
+
+            if (namespace.EX && namespace.EX.Cheats) { // intentional truthiness
+                this.doCheat = function (playerId, cheat, jsonObject) {
+                    var that = this;
+
+                    if (!jsonObject) { // intentional truthiness
+                        jsonObject = {};
+                    }
+
+                    $.ajax({
+                        url: "gintubservices/GinTubService.svc/DoCheat",
+                        type: 'post',
+                        dataType: 'text',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            playerId: playerId,
+                            cheat: cheat,
+                            jsonString: JSON.stringify(jsonObject)
+                        }),
+                        success: function (data, status) {
+                            var playData = JSON.parse(data);
+                            messengerEngine.post("ServicesEngine.loadGame", playData);
+                        },
+                        error: function (request, status, error) {
+                            postAjaxError(status, error);
+                        }
+                    });
+                };
+                messengerEngine.register("CHEAT", this, this.doCheat);
+            }
         }
     };
 }(window.GinTub = window.GinTub || {}));

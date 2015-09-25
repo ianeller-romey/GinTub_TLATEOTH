@@ -3,7 +3,7 @@
 
     namespace.Managers = namespace.Managers || {};
     namespace.Managers.InterfaceManager = {
-        init: function (locationsId, paragraphsId, timeId, messengerEngine) {
+        init: function (locationsId, paragraphsId, timeId, masterContainerId, messengerEngine) {
             var imageFader = new namespace.Entities.Classes.ImageFader(locationsId);
             var paragraphsElem = $(paragraphsId);
             var timeElem = $(timeId);
@@ -168,7 +168,6 @@
             };
 
             var loadRoomState = function (roomStateData, paragraphStateData, paragraphStateUpdatePromise) {
-
                 swapLocationImage(roomStateData.location);
 
                 paragraphStateUpdatePromise.then(function () {
@@ -202,6 +201,10 @@
                     updateInterval = updateIntervalFast;
                 }
             };
+
+            $(masterContainerId).mousedown(function (e) {
+                that.changeUpdateInterval();
+            });
 
             messengerEngine.register("GameStateEngine.setActiveRoomState", this, loadRoomState);
             messengerEngine.register("TimeEngine.updateTime", this, updateTime);

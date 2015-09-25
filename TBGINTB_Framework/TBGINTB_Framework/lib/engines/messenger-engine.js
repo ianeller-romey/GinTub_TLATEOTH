@@ -24,7 +24,7 @@
 
             this.register = function (messageType, object, funct) {
                 if (!validMessageType(messageType)) {
-                    throw "Cannot register for a messageType that does not exist.";
+                    throw "Cannot register for " + messageType + ", a messageType that does not exist.";
                 }
 
                 messageRegistration[messageType].push({
@@ -35,7 +35,7 @@
 
             this.unregister = function (messageType, funct) {
                 if (!validMessageType(messageType)) {
-                    throw "Cannot unregister from a messageType that does not exist.";
+                    throw "Cannot unregister from " + messageType + ", a messageType that does not exist.";
                 }
 
                 var messageTypeRegistration = messageRegistration[messageType];
@@ -52,7 +52,7 @@
 
             this.post = function (messageType) {
                 if (!validMessageType(messageType)) {
-                    throw "Cannot post a messageType that does not exist.";
+                    throw "Cannot post " + messageType + ", a messageType that does not exist.";
                 }
 
                 var messageTypeRegistration = messageRegistration[messageType];
@@ -94,6 +94,8 @@
 
             createMessageType("UserInputManager.getNounsForParagraphState");
             createMessageType("UserInputManager.doAction");
+
+            createMessageType("CHEAT");
         }
     };
 }(window.GinTub = window.GinTub || {}));
