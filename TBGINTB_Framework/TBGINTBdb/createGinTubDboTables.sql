@@ -21,6 +21,17 @@ BEGIN
 	DBCC CHECKIDENT ('[dbo].[Locations]', RESEED, 0)
 END
 
+IF NOT EXISTS (SELECT 1 FROM [sys].[tables] t 
+			   INNER JOIN [sys].[schemas] s ON (t.[schema_id] = s.[schema_id]) WHERE s.[name] = 'dbo' and t.[name] = 'Shaders')
+BEGIN
+	CREATE TABLE [dbo].[Shaders] (
+		[Id] int PRIMARY KEY CLUSTERED IDENTITY,
+		[Name] varchar(256) NOT NULL,
+		[ShaderFile] varchar(256) NOT NULL
+	)
+	DBCC CHECKIDENT ('[dbo].[Shaders]', RESEED, 0)
+END
+
 DECLARE @placeholderLocationName varchar(256)
 DECLARE @placeholderLocationFile varchar(256)
 SET @placeholderLocationName = 'Placeholder'

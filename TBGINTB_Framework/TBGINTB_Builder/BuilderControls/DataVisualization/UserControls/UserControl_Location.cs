@@ -86,7 +86,7 @@ namespace TBGINTB_Builder.BuilderControls
         private void SetLocationFile(string locationFile)
         {
             Uri uri = null;
-            if (Uri.TryCreate(locationFile, UriKind.Absolute, out uri) && uri.Scheme == Uri.UriSchemeHttp)
+            if (Uri.TryCreate(locationFile, UriKind.RelativeOrAbsolute, out uri) && uri.Scheme == Uri.UriSchemeHttp)
             {
                 m_image_locationFile.Source = LoadImageFromHttp(locationFile);
             }
