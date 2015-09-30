@@ -26,7 +26,7 @@
                 messageBottomElem.width("0px");
 
                 messageTextElem.text("");
-                $(messageChoicesId + " .actionText").remove();
+                $(messageChoicesId).empty();
                 messengerEngine.post("MessageManager.unloadMessage");
             }
 
@@ -39,7 +39,9 @@
                 updateInterval = updateIntervalAdding;
                 messageTextElem.animateTextAdd(messageData.text, that.getUpdateInterval).then(function () {
                     if (!messageChoices || messageChoices.length === 0) { // intentional truthiness
-                        messageChoicesElem.append(namespace.Entities.Factories.createActionText(noMessageChoices.id, noMessageChoices.text, unloadMessage));
+                        var text = namespace.Entities.Factories.createActionText(noMessageChoices.id, noMessageChoices.text, unloadMessage);
+                        text.addClass("boldText");
+                        messageChoicesElem.append(text);
                     }
                     else {
                         var i = 0, len = messageChoices.length;

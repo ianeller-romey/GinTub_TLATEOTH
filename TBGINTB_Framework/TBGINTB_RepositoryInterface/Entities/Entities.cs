@@ -80,4 +80,23 @@ namespace GinTub.Repository.Entities
         public int Id { get; set; }
         public string Name { get; set; }
     }
+
+    public class InventoriesEntry
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public bool Acquired { get; set; }
+    }
+
+    public class MapEntry
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Z { get; set; }
+        public int Area { get; set; }
+        public bool Visited { get; set; }
+    }
 }

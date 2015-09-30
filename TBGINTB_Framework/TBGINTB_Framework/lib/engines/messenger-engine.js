@@ -67,6 +67,10 @@
             createMessageType("ServicesEngine.getNounsForParagraphState");
             createMessageType("ServicesEngine.loadGame");
             createMessageType("ServicesEngine.doAction");
+            createMessageType("ServicesEngine.mapRequest");
+            createMessageType("ServicesEngine.inventoryRequest");
+            createMessageType("ServicesEngine.historyRequest");
+            createMessageType("ServicesEngine.partyRequest");
 
             createMessageType("TimeEngine.updateTime");
             createMessageType("TimeEngine.updateTimeAtTen");
@@ -79,11 +83,21 @@
             createMessageType("GameStateData.setMessage");
             createMessageType("GameStateEngine.setActiveRoomState");
             createMessageType("GameStateEngine.doAction");
+            createMessageType("GameStateEngine.mapRequest");
+            createMessageType("GameStateEngine.inventoryRequest");
+            createMessageType("GameStateEngine.historyRequest");
+            createMessageType("GameStateEngine.partyRequest");
 
             createMessageType("InterfaceManager.iParagraphClick");
             createMessageType("InterfaceManager.iWordClick");
             createMessageType("InterfaceManager.iParagraphClick");
             createMessageType("InterfaceManager.iWordClick");
+
+            createMessageType("MenuEntry.mapRequest");
+            createMessageType("MenuEntry.inventoryRequest");
+            createMessageType("MenuEntry.historyRequest");
+            createMessageType("MenuEntry.partyRequest");
+            createMessageType("MenuEntry.click");
 
             createMessageType("MessageManager.unloadMessage");
 

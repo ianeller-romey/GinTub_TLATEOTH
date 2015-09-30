@@ -43,6 +43,31 @@ namespace GinTub.Services.OperationContracts
         DataContracts.Responses.PlayData GetNounsForParagraphState(string paragraphStateId);
 
         [OperationContract]
+        [WebInvoke(Method = "GET",
+        BodyStyle = WebMessageBodyStyle.WrappedRequest,
+        ResponseFormat = WebMessageFormat.Json,
+        UriTemplate = "GetMapForPlayer/{areaId}/{playerId}")]
+        DataContracts.Responses.MapData GetMapForPlayer(string areaId, string playerId);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+        ResponseFormat = WebMessageFormat.Json,
+        UriTemplate = "GetInventoryForPlayer/{playerId}")]
+        DataContracts.Responses.InventoriesData GetInventoryForPlayer(string playerId);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+        ResponseFormat = WebMessageFormat.Json,
+        UriTemplate = "GetHistoryForPlayer/{playerId}")]
+        DataContracts.Responses.InventoriesData GetHistoryForPlayer(string playerId);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+        ResponseFormat = WebMessageFormat.Json,
+        UriTemplate = "GetPartyForPlayer/{playerId}")]
+        DataContracts.Responses.InventoriesData GetPartyForPlayer(string playerId);
+
+        [OperationContract]
         [WebInvoke(Method = "POST",
         BodyStyle = WebMessageBodyStyle.Bare,
         RequestFormat = WebMessageFormat.Json,

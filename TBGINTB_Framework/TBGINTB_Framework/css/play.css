@@ -141,6 +141,57 @@ body {
 }
 
 /*****************/
+/* MENU */
+/*****************/
+
+#menu {
+    position: absolute;
+    bottom: 0;
+    width: 630px;
+    height: 34px;
+    padding: 3px 5px 3px 5px;
+    color: black;
+    background-color: dimgray;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    -ms-transition: all 300ms ease-in-out;
+    -o-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+    z-index: 2;
+}
+
+#menuButton {
+    margin-top: 12px;
+    margin-bottom: 16px;
+}
+
+    #menuButton:hover {
+        color: palevioletred;
+        text-shadow: 0px 0px 8px rgba(255, 235, 158, 1);
+    }
+
+#menuButton p {
+    margin-top: -8px;
+    margin-bottom: -8px;
+    margin-left: 15px;
+    font-size: small;
+}
+
+#menuEntries {
+    float: left;
+}
+
+#menuFrame {
+    font-size: large;
+}
+
+/*****************/
 /* VERBS */
 /*****************/
 
@@ -148,7 +199,7 @@ body {
     position: absolute;
     top: 0px;
     left: 0px;
-    display: inline;
+    color: aliceblue;
     background-color: dimgray;
     border-radius: 24px;
     -webkit-border-radius: 24px;
@@ -166,10 +217,6 @@ body {
     top: -8px;
     left: -5px;
     padding: 3px 5px 3px 5px;
-    font-family: 'Courier New';
-    font-size: x-large;
-    font-weight: bold;
-    cursor: default;
     display: none;
     opacity: 0;
     color: black;
@@ -227,16 +274,19 @@ body {
 
 .actionText {
     margin: 5px 15px 5px 15px;
-    color: aliceblue;
-    font-family: 'Courier New';
-    font-size: x-large;
-    font-weight: bold;
     cursor: default;
 }
     
     .actionText:hover {
         text-shadow: 0px 0px 8px rgba(255, 235, 158, 1);
     }
+
+.boldText {
+    font-family: 'Courier New';
+    font-size: x-large;
+    font-weight: bold;
+    cursor: default;
+}
 
 .center {
     margin-left: auto;

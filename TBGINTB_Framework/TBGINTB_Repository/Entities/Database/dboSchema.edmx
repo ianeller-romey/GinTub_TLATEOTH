@@ -92,6 +92,9 @@
           <Parameter Name="y" Type="int" Mode="In" />
           <Parameter Name="z" Type="int" Mode="In" />
         </Function>
+        <Function Name="ReadAllInventoriesForPlayer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="ReadAllResultTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ReadAllVerbTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ReadArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -102,6 +105,16 @@
         </Function>
         <Function Name="ReadGame" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="ReadHistoryForPlayer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="ReadInventoryForPlayer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="ReadMapForPlayer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="area" Type="int" Mode="In" />
         </Function>
         <Function Name="ReadMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="message" Type="int" Mode="In" />
@@ -122,6 +135,9 @@
         <Function Name="ReadParagraphStatesForPlayerRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ReadPartyForPlayer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
         </Function>
         <Function Name="ReadRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="room" Type="int" Mode="In" />
@@ -325,6 +341,22 @@
             <Parameter Name="z" Mode="In" Type="Int32" />
             </FunctionImport>
           <FunctionImport Name="ReadAllResultTypes" ReturnType="Collection(GinTubModel.ReadAllResultTypes_Result)" />
+          <FunctionImport Name="ReadAllInventoriesForPlayer" ReturnType="Collection(GinTubModel.ReadAllInventoriesForPlayer_Result)">
+          <Parameter Name="player" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="ReadHistoryForPlayer" ReturnType="Collection(GinTubModel.ReadHistoryForPlayer_Result)">
+          <Parameter Name="player" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="ReadInventoryForPlayer" ReturnType="Collection(GinTubModel.ReadInventoryForPlayer_Result)">
+          <Parameter Name="player" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="ReadMapForPlayer" ReturnType="Collection(GinTubModel.ReadMapForPlayer_Result)">
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="area" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ReadPartyForPlayer" ReturnType="Collection(GinTubModel.ReadPartyForPlayer_Result)">
+          <Parameter Name="player" Mode="In" Type="Guid" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetActionResults_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -387,6 +419,39 @@
         <ComplexType Name="ReadAllResultTypes_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="ReadAllInventoriesForPlayer_Result">
+          <Property Type="Guid" Name="Player" Nullable="false" />
+          <Property Type="Int32" Name="ItemId" Nullable="false" />
+          <Property Type="String" Name="ItemName" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="InInventory" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ReadHistoryForPlayer_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="Acquired" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ReadInventoryForPlayer_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="Acquired" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ReadMapForPlayer_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="X" Nullable="false" />
+          <Property Type="Int32" Name="Y" Nullable="false" />
+          <Property Type="Int32" Name="Z" Nullable="false" />
+          <Property Type="Int32" Name="Area" Nullable="false" />
+          <Property Type="Int32" Name="Visited" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ReadPartyForPlayer_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="Acquired" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -846,6 +911,59 @@
               <ComplexTypeMapping TypeName="GinTubModel.ReadAllResultTypes_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReadAllInventoriesForPlayer" FunctionName="GinTubModel.Store.ReadAllInventoriesForPlayer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadAllInventoriesForPlayer_Result">
+                <ScalarProperty Name="Player" ColumnName="Player" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="InInventory" ColumnName="InInventory" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReadHistoryForPlayer" FunctionName="GinTubModel.Store.ReadHistoryForPlayer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadHistoryForPlayer_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Acquired" ColumnName="Acquired" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReadInventoryForPlayer" FunctionName="GinTubModel.Store.ReadInventoryForPlayer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadInventoryForPlayer_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Acquired" ColumnName="Acquired" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReadMapForPlayer" FunctionName="GinTubModel.Store.ReadMapForPlayer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadMapForPlayer_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="Z" ColumnName="Z" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Visited" ColumnName="Visited" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReadPartyForPlayer" FunctionName="GinTubModel.Store.ReadPartyForPlayer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadPartyForPlayer_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Acquired" ColumnName="Acquired" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

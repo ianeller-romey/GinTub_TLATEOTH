@@ -23,6 +23,14 @@ namespace GinTub.Repository.Interface
 
         IEnumerable<Noun> ReadNounsForParagraphState(int paragraphStateId);
 
+        Tuple<Area, IEnumerable<MapEntry>> ReadMapForPlayer(Guid playerId, int areaId);
+
+        IEnumerable<InventoriesEntry> ReadInventoryForPlayer(Guid playerId);
+
+        IEnumerable<InventoriesEntry> ReadHistoryForPlayer(Guid playerId);
+
+        IEnumerable<InventoriesEntry> ReadPartyForPlayer(Guid playerId);
+
         IEnumerable<Result> GetActionResults(Guid playerId, int nounId, int verbTypeId);
 
         IEnumerable<Result> GetMessageChoiceResults(int messageChoiceId);

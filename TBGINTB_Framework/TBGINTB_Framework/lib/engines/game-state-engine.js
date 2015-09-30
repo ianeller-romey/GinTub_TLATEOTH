@@ -27,6 +27,13 @@
             };
             var activeRoomState = null;
 
+            var playerInventory = {
+            };
+            var playerHistory = {
+            };
+            var playerParty = {
+            };
+
             var that = this;
 
             var loadAllVerbTypes = function (verbUseData) {
@@ -182,12 +189,32 @@
                 messengerEngine.post("GameStateEngine.doAction", playerId, nounId, verbTypeId);
             };
 
+            var mapRequest = function () {
+                messengerEngine.post("GameStateEngine.mapRequest", area.id, playerId);
+            };
+
+            var inventoryRequest = function () {
+                messengerEngine.post("GameStateEngine.inventoryRequest", playerId);
+            };
+
+            var historyRequest = function () {
+                messengerEngine.post("GameStateEngine.historyRequest", playerId);
+            };
+
+            var partyRequest = function () {
+                messengerEngine.post("GameStateEngine.partyRequest", playerId);
+            };
+
             messengerEngine.register("ServicesEngine.getAllVerbTypes", this, loadAllVerbTypes);
             messengerEngine.register("ServicesEngine.loadGame", this, loadGame);
             messengerEngine.register("ServicesEngine.getNounsForParagraphState", this, loadMessage);
             messengerEngine.register("ServicesEngine.doAction", this, loadActionResults);
             messengerEngine.register("TimeEngine.updateTimeAtTen", this, updateTime);
             messengerEngine.register("UserInputManager.doAction", this, doAction);
+            messengerEngine.register("MenuEntry.mapRequest", this, mapRequest);
+            messengerEngine.register("MenuEntry.inventoryRequest", this, inventoryRequest);
+            messengerEngine.register("MenuEntry.historyRequest", this, historyRequest);
+            messengerEngine.register("MenuEntry.partyRequest", this, partyRequest);
         }
     };
 }(window.GinTub = window.GinTub || {}));

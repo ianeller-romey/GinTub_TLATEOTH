@@ -456,5 +456,54 @@ namespace GinTub.Repository.Entities.Database
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadAllResultTypes_Result>("ReadAllResultTypes");
         }
+    
+        public virtual ObjectResult<ReadAllInventoriesForPlayer_Result> ReadAllInventoriesForPlayer(Nullable<System.Guid> player)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadAllInventoriesForPlayer_Result>("ReadAllInventoriesForPlayer", playerParameter);
+        }
+    
+        public virtual ObjectResult<ReadHistoryForPlayer_Result> ReadHistoryForPlayer(Nullable<System.Guid> player)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadHistoryForPlayer_Result>("ReadHistoryForPlayer", playerParameter);
+        }
+    
+        public virtual ObjectResult<ReadInventoryForPlayer_Result> ReadInventoryForPlayer(Nullable<System.Guid> player)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadInventoryForPlayer_Result>("ReadInventoryForPlayer", playerParameter);
+        }
+    
+        public virtual ObjectResult<ReadMapForPlayer_Result> ReadMapForPlayer(Nullable<System.Guid> player, Nullable<int> area)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            var areaParameter = area.HasValue ?
+                new ObjectParameter("area", area) :
+                new ObjectParameter("area", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadMapForPlayer_Result>("ReadMapForPlayer", playerParameter, areaParameter);
+        }
+    
+        public virtual ObjectResult<ReadPartyForPlayer_Result> ReadPartyForPlayer(Nullable<System.Guid> player)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadPartyForPlayer_Result>("ReadPartyForPlayer", playerParameter);
+        }
     }
 }

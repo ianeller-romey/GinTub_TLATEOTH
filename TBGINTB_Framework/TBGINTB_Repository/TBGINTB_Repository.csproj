@@ -83,6 +83,9 @@
     <Compile Include="Entities\Database\GetMessageChoiceResults_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Database\ReadAllInventoriesForPlayer_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Database\ReadAllResultTypes_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
@@ -90,6 +93,15 @@
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Database\ReadArea_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Database\ReadHistoryForPlayer_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Database\ReadInventoryForPlayer_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Database\ReadMapForPlayer_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Database\ReadMessageChoicesForMessage_Result.cs">
@@ -105,6 +117,9 @@
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Database\ReadParagraphStatesForPlayerRoom_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\Database\ReadPartyForPlayer_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Database\ReadRoomStatesForPlayerRoom_Result.cs">

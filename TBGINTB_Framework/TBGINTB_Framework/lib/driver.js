@@ -22,6 +22,8 @@
         userInputManager.init("#verbList", messengerEngine);
         var interfaceManager = namespace.Managers.InterfaceManager;
         interfaceManager.init("#locations", "#paragraphs", "#time", "#master-container", messengerEngine);
+        var menuManager = namespace.Managers.MenuManager;
+        menuManager.init("#menu", "#menuButton", "#menuEntries", "#menuFrame", "#displayFrame", "#descriptionFrame", messengerEngine);
         var messageManager = namespace.Managers.MessageManager;
         messageManager.init("#messageTop", "#messageBottom", "#messageText", "#messageChoices", "#master-container", messengerEngine);
         servicesEngine.getAllVerbTypes();

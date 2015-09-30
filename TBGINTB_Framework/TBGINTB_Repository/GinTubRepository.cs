@@ -96,6 +96,53 @@ namespace GinTub.Repository
             return nouns;
         }
 
+        public Tuple<Area, IEnumerable<MapEntry>> ReadMapForPlayer(Guid playerId, int areaId)
+        {
+            Area area = null;
+            IEnumerable<MapEntry> results = null;
+            using (var entities = new GinTubEntities())
+            {
+                var areaResults = entities.ReadAreaForPlayer(areaId);
+                area = areaResults.Select(a => TypeAdapter.Adapt<Area>(a)).FirstOrDefault();
+                var resultResults = entities.ReadMapForPlayer(playerId, areaId);
+                results = resultResults.Select(r => TypeAdapter.Adapt<MapEntry>(r)).ToList();
+            }
+            return new Tuple<Area,IEnumerable<MapEntry>>(area, results);
+        }
+
+        public IEnumerable<InventoriesEntry> ReadInventoryForPlayer(Guid playerId)
+        {
+            IEnumerable<InventoriesEntry> results = null;
+            using (var entities = new GinTubEntities())
+            {
+                var resultResults = entities.ReadInventoryForPlayer(playerId);
+                results = resultResults.Select(r => TypeAdapter.Adapt<InventoriesEntry>(r)).ToList();
+            }
+            return results;
+        }
+
+        public IEnumerable<InventoriesEntry> ReadHistoryForPlayer(Guid playerId)
+        {
+            IEnumerable<InventoriesEntry> results = null;
+            using (var entities = new GinTubEntities())
+            {
+                var resultResults = entities.ReadHistoryForPlayer(playerId);
+                results = resultResults.Select(r => TypeAdapter.Adapt<InventoriesEntry>(r)).ToList();
+            }
+            return results;
+        }
+
+        public IEnumerable<InventoriesEntry> ReadPartyForPlayer(Guid playerId)
+        {
+            IEnumerable<InventoriesEntry> results = null;
+            using (var entities = new GinTubEntities())
+            {
+                var resultResults = entities.ReadPartyForPlayer(playerId);
+                results = resultResults.Select(r => TypeAdapter.Adapt<InventoriesEntry>(r)).ToList();
+            }
+            return results;
+        }
+
         public IEnumerable<Result> GetActionResults(Guid playerId, int nounId, int verbTypeId)
         {
             IEnumerable<Result> results = null;

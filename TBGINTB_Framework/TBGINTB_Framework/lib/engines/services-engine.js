@@ -88,8 +88,84 @@
                 });
             }
 
+            this.mapRequest = function (areaId, playerId) {
+                var that = this;
+
+                $.ajax({
+                    url: "gintubservices/GinTubService.svc/GetMapForPlayer/" + areaId + "/" + playerId,
+                    type: 'get',
+                    dataType: 'text',
+                    contentType: 'application/json',
+                    success: function (data, status) {
+                        var mapData = JSON.parse(data);
+                        messengerEngine.post("ServicesEngine.mapRequest", mapData);
+                    },
+                    error: function (request, status, error) {
+                        postAjaxError(status, error);
+                    }
+                });
+            }
+
+            this.inventoryRequest = function (playerId) {
+                var that = this;
+
+                $.ajax({
+                    url: "gintubservices/GinTubService.svc/GetInventoryForPlayer/" + playerId,
+                    type: 'get',
+                    dataType: 'text',
+                    contentType: 'application/json',
+                    success: function (data, status) {
+                        var inventoryData = JSON.parse(data);
+                        messengerEngine.post("ServicesEngine.inventoryRequest", inventoryData);
+                    },
+                    error: function (request, status, error) {
+                        postAjaxError(status, error);
+                    }
+                });
+            }
+
+            this.historyRequest = function (playerId) {
+                var that = this;
+
+                $.ajax({
+                    url: "gintubservices/GinTubService.svc/GetHistoryForPlayer/" + playerId,
+                    type: 'get',
+                    dataType: 'text',
+                    contentType: 'application/json',
+                    success: function (data, status) {
+                        var historyData = JSON.parse(data);
+                        messengerEngine.post("ServicesEngine.historyRequest", historyData);
+                    },
+                    error: function (request, status, error) {
+                        postAjaxError(status, error);
+                    }
+                });
+            }
+
+            this.partyRequest = function (playerId) {
+                var that = this;
+
+                $.ajax({
+                    url: "gintubservices/GinTubService.svc/GetPartyForPlayer/" + playerId,
+                    type: 'get',
+                    dataType: 'text',
+                    contentType: 'application/json',
+                    success: function (data, status) {
+                        var partyData = JSON.parse(data);
+                        messengerEngine.post("ServicesEngine.partyRequest", partyData);
+                    },
+                    error: function (request, status, error) {
+                        postAjaxError(status, error);
+                    }
+                });
+            }
+
             messengerEngine.register("UserInputManager.getNounsForParagraphState", this, this.getNounsForParagraphState);
             messengerEngine.register("GameStateEngine.doAction", this, this.doAction);
+            messengerEngine.register("GameStateEngine.mapRequest", this, this.mapRequest);
+            messengerEngine.register("GameStateEngine.inventoryRequest", this, this.inventoryRequest);
+            messengerEngine.register("GameStateEngine.historyRequest", this, this.historyRequest);
+            messengerEngine.register("GameStateEngine.partyRequest", this, this.partyRequest);
 
             if (namespace.EX && namespace.EX.Cheats) { // intentional truthiness
                 this.doCheat = function (playerId, cheat, jsonObject) {

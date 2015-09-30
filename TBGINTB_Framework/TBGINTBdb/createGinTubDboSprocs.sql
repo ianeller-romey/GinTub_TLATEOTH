@@ -500,7 +500,7 @@ BEGIN
 		   [Y],
 		   [Z],
 		   [Area]
-	FROM [dbo].[Rooms]
+	FROM [dbo].[Rooms] WITH (NOLOCK)
 	WHERE [Id] = @room
 
 END
@@ -607,6 +607,138 @@ BEGIN
 		   [Name]
 	FROM [dbo].[Areas] WITH (NOLOCK)
 	WHERE [Id] = @area
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadInventoryForPlayer]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[ReadInventoryForPlayer] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 9/28/2015
+-- Description:	Reads Inventory data for a player
+-- =============================================
+ALTER PROCEDURE [dbo].[ReadInventoryForPlayer]
+	@player uniqueidentifier
+AS
+BEGIN
+
+	SELECT inv.[Item] as [Id],
+		   i.[Name] ,
+		   i.[Description],
+		   inv.[InInventory] as [Acquired]
+	FROM [dbo].[PlayerInventory] inv WITH (NOLOCK)
+	INNER JOIN [dbo].[Items] i WITH (NOLOCK)
+	ON inv.[Item] = i.[Id]
+	WHERE inv.[Player] = @player
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadHistoryForPlayer]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[ReadHistoryForPlayer] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 9/28/2015
+-- Description:	Reads History data for a player
+-- =============================================
+ALTER PROCEDURE [dbo].[ReadHistoryForPlayer]
+	@player uniqueidentifier
+AS
+BEGIN
+
+	SELECT his.[Event] as [Id],
+		   e.[Name] ,
+		   e.[Description],
+		   his.[InHistory] as [Acquired]
+	FROM [dbo].[PlayerHistory] his WITH (NOLOCK)
+	INNER JOIN [dbo].[Events] e WITH (NOLOCK)
+	ON his.[Event] = e.[Id]
+	WHERE his.[Player] = @player
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadPartyForPlayer]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[ReadPartyForPlayer] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 9/28/2015
+-- Description:	Reads Party data for a player
+-- =============================================
+ALTER PROCEDURE [dbo].[ReadPartyForPlayer]
+	@player uniqueidentifier
+AS
+BEGIN
+
+	SELECT pty.[Character] as [Id],
+		   c.[Name] ,
+		   c.[Description],
+		   pty.[InParty] as [Acquired]
+	FROM [dbo].[PlayerParty] pty WITH (NOLOCK)
+	INNER JOIN [dbo].[Characters] c WITH (NOLOCK)
+	ON pty.[Character] = c.[Id]
+	WHERE pty.[Player] = @player
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadAllInventoriesForPlayer]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[ReadAllInventoriesForPlayer] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 9/28/2015
+-- Description:	Reads Inventory, History, and Party data for a player
+-- =============================================
+ALTER PROCEDURE [dbo].[ReadAllInventoriesForPlayer]
+	@player uniqueidentifier
+AS
+BEGIN
+
+	EXEC [dbo].[ReadInventoryForPlayer]
+		@player = @player
+
+	EXEC [dbo].[ReadHistoryForPlayer]
+		@player = @player
+
+	EXEC [dbo].[ReadPartyForPlayer]
+		@player = @player
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadMapForPlayer]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[ReadMapForPlayer] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 9/28/2015
+-- Description:	Reads Map data for a player in the specified area
+-- =============================================
+ALTER PROCEDURE [dbo].[ReadMapForPlayer]
+	@player uniqueidentifier,
+	@area int
+AS
+BEGIN
+
+	SELECT r.[Id],
+		   r.[Name],
+		   r.[X],
+		   r.[Y],
+		   r.[Z],
+		   r.[Area],
+		   CASE WHEN psr.[State] = -1 THEN 0
+		   ELSE 1
+		   END as [Visited]
+	FROM [dbo].[Rooms] r WITH (NOLOCK)
+	INNER JOIN [dbo].[PlayerStatesOfRooms] psr WITH (NOLOCK)
+	ON r.[Id] = psr.[Room]
+	WHERE psr.[Player] = @player
+	AND r.[Area] = @area
 
 END
 GO

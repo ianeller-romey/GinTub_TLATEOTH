@@ -27,6 +27,7 @@ limitations under the License.
 <script src="lib/engines/time-engine.js"></script>
 <script src="lib/engines/game-state-engine.js"></script>
 <script src="lib/managers/interface-manager.js"></script>
+<script src="lib/managers/menu-manager.js"></script>
 <script src="lib/managers/user-input-manager.js"></script>
 <script src="lib/managers/message-manager.js"></script>
 <script src="lib/driver.js"></script>
@@ -53,11 +54,25 @@ limitations under the License.
             <div id="interfaceBottom" class="transition150">
                 <div id="paragraphs">
                 </div>
-                <div id="verbList">
+                <div id="verbList" class="boldText">
                     <div id="verbListX">X</div>
                 </div>
                 <div id="messageBottom" class="transition150">
                     <div id="messageChoices" class="center"></div>
+                </div>
+            </div>
+            <div id="menu" class="center boldText">
+                <div id="menuButton">
+                    <p>---</p>
+                    <p>---</p>
+                    <p>---</p>
+                </div>
+                <div>
+                    <div id="menuEntries"></div>
+                    <div id="menuFrame">
+                        <div id="displayFrame"></div>
+                        <div id="descriptionFrame"></div>
+                    </div>
                 </div>
             </div>
         </div>

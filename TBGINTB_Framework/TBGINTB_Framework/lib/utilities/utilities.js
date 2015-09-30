@@ -14,6 +14,32 @@ if (!Array.prototype.indexOf) { // intentional truthiness
     };
 }
 
+Array.prototype.max = function (predicate) {
+    var val = null;
+    if (this.length) { // intentional truthiness
+        val = predicate(this[0]);
+        for (var i = 1; i < this.length; ++i) {
+            if (predicate(this[i]) > val) {
+                val = predicate(this[i]);
+            }
+        }
+    }
+    return val;
+};
+
+Array.prototype.min = function (predicate) {
+    var val = null;
+    if (this.length) { // intentional truthiness
+        val = predicate(this[0]);
+        for (var i = 1; i < this.length; ++i) {
+            if (predicate(this[i]) < val) {
+                val = predicate(this[i]);
+            }
+        }
+    }
+    return val;
+};
+
 Array.prototype.any = function (predicate) {
     var contains = false;
     for (var i = 0, len = this.length; i < len; ++i) {

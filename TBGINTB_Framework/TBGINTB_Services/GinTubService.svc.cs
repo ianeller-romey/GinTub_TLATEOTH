@@ -144,6 +144,64 @@ namespace GinTub.Services
             return data;
         }
 
+        public DC.Responses.MapData GetMapForPlayer(string areaId, string playerId)
+        {
+            DC.Responses.MapData data = new DC.Responses.MapData();
+
+            int areaIntId;
+            Guid playerGuidId;
+            if (int.TryParse(areaId, out areaIntId) && Guid.TryParse(playerId, out playerGuidId))
+            {
+                var result = _repository.ReadMapForPlayer(playerGuidId, areaIntId);
+                data.Area = TypeAdapter.Adapt<DC.Responses.AreaData>(result.Item1);
+                data.MapEntries = result.Item2.Select(x => TypeAdapter.Adapt<DC.Responses.MapEntryData>(x)).ToList();
+            }
+
+            return data;
+        }
+
+        public DC.Responses.InventoriesData GetInventoryForPlayer(string playerId)
+        {
+            DC.Responses.InventoriesData data = new DC.Responses.InventoriesData();
+
+            Guid playerGuidId;
+            if (Guid.TryParse(playerId, out playerGuidId))
+            {
+                var results = _repository.ReadInventoryForPlayer(playerGuidId);
+                data.InventoriesEntries = results.Select(x => TypeAdapter.Adapt<DC.Responses.InventoriesEntryData>(x)).ToList();
+            }
+
+            return data;
+        }
+
+        public DC.Responses.InventoriesData GetHistoryForPlayer(string playerId)
+        {
+            DC.Responses.InventoriesData data = new DC.Responses.InventoriesData();
+
+            Guid playerGuidId;
+            if (Guid.TryParse(playerId, out playerGuidId))
+            {
+                var results = _repository.ReadHistoryForPlayer(playerGuidId);
+                data.InventoriesEntries = results.Select(x => TypeAdapter.Adapt<DC.Responses.InventoriesEntryData>(x)).ToList();
+            }
+
+            return data;
+        }
+
+        public DC.Responses.InventoriesData GetPartyForPlayer(string playerId)
+        {
+            DC.Responses.InventoriesData data = new DC.Responses.InventoriesData();
+
+            Guid playerGuidId;
+            if (Guid.TryParse(playerId, out playerGuidId))
+            {
+                var results = _repository.ReadPartyForPlayer(playerGuidId);
+                data.InventoriesEntries = results.Select(x => TypeAdapter.Adapt<DC.Responses.InventoriesEntryData>(x)).ToList();
+            }
+
+            return data;
+        }
+
         public DC.Responses.PlayData DoAction(DC.Requests.DoActionRequest request)
         {
            DC.Responses.PlayData playData = 

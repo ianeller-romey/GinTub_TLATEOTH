@@ -121,4 +121,59 @@ namespace GinTub.Services.DataContracts.Responses
         [DataMember(Name = "message")]
         public MessageData Message { get; set; }
     }
+
+    [DataContract]
+    public class MapEntryData
+    {
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "x")]
+        public int X { get; set; }
+
+        [DataMember(Name = "y")]
+        public int Y { get; set; }
+
+        [DataMember(Name = "z")]
+        public int Z { get; set; }
+
+        [DataMember(Name = "visited")]
+        public bool Visited { get; set; }
+    }
+
+    [DataContract]
+    public class MapData
+    {
+        [DataMember(Name = "area")]
+        public AreaData Area { get; set; }
+
+        [DataMember(Name = "mapEntries")]
+        public IEnumerable<MapEntryData> MapEntries { get; set; }
+    }
+
+    [DataContract]
+    public class InventoriesEntryData
+    {
+        [DataMember(Name = "id")]
+        public int Id { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+
+        [DataMember(Name = "acquired")]
+        public bool Acquired { get; set; }
+    }
+
+    [DataContract]
+    public class InventoriesData
+    {
+        [DataMember(Name = "inventoriesEntries")]
+        public IEnumerable<InventoriesEntryData> InventoriesEntries { get; set; }
+    }
 }
