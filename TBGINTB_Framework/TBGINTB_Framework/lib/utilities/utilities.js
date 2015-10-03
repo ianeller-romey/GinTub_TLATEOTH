@@ -87,6 +87,35 @@ Array.prototype.where = function (predicate) {
 };
 
 (jQuery.fn.extend({
+    appendJsonTable: function (numColumns, data, elementCreator) {
+        var createTableRow = function(table) {
+            var row = $("<tr/>");
+            table.append(row);
+            return row;
+        };
+        var createTableColumn = function (tableRow) {
+            var col = $("<td/>", {
+                css: {
+                    width: (100 / numColumns) + "%"
+                }
+            });
+            tableRow.append(col);
+            return col;
+        };
+
+        var table = $("<table/>");
+        var tableRow;
+        var x = 0;
+        for (; x < data.length; ++x) {
+            if (x % numColumns === 0) {
+                tableRow = createTableRow(table);
+            }
+            var element = elementCreator(data[x]);
+            var tableCol = createTableColumn(tableRow);
+            tableCol.append(element);
+        }
+        this.append(table);
+    },
     promiseToFade: function (duration, opacity, easing) {
         var that = this;
         if (easing) { // intentional truthiness

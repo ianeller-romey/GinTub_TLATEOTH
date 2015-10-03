@@ -19,7 +19,7 @@
         }
 
         var userInputManager = namespace.Managers.UserInputManager;
-        userInputManager.init("#verbList", messengerEngine);
+        userInputManager.init("#verbList", "#withList", "#interfaceBottom", messengerEngine);
         var interfaceManager = namespace.Managers.InterfaceManager;
         interfaceManager.init("#locations", "#paragraphs", "#time", "#master-container", messengerEngine);
         var menuManager = namespace.Managers.MenuManager;

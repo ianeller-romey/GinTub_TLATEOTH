@@ -24,6 +24,9 @@ namespace GinTub.Services.DataContracts.Responses
     {
         [DataMember(Name = "verbTypes")]
         public IEnumerable<VerbTypeData> VerbTypes { get; set; }
+
+        [DataMember(Name = "withVerbTypes")]
+        public IEnumerable<VerbTypeData> WithVerbTypes { get; set; }
     }
 
 }

@@ -75,7 +75,8 @@
             createMessageType("TimeEngine.updateTime");
             createMessageType("TimeEngine.updateTimeAtTen");
 
-            createMessageType("GameStateEngine.loadAllVerbTypes");
+            createMessageType("GameStateEngine.loadVerbTypes");
+            createMessageType("GameStateEngine.loadWithVerbTypes");
             createMessageType("GameStateEngine.setArea");
             createMessageType("GameStateEngine.setRoom");
             createMessageType("GameStateEngine.setRoomStates");
@@ -102,9 +103,14 @@
             createMessageType("MessageManager.unloadMessage");
 
             createMessageType("VerbList.paragraphClick");
+            createMessageType("VerbList.wordClick");
             createMessageType("VerbList.openExec");
             createMessageType("VerbList.closeExec");
-            createMessageType("VerbList.wordClick");
+
+            createMessageType("WithList.inventoryRequest");
+            createMessageType("WithList.wordClick");
+            createMessageType("WithList.openExec");
+            createMessageType("WithList.closeExec");
 
             createMessageType("UserInputManager.getNounsForParagraphState");
             createMessageType("UserInputManager.doAction");

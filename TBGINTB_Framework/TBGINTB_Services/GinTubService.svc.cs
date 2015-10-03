@@ -99,9 +99,11 @@ namespace GinTub.Services
         public DC.Responses.VerbUseData GetAllVerbTypes()
         {
             var result = _repository.ReadAllVerbTypes();
+            var verbResults = result.Select(v => TypeAdapter.Adapt<DC.Responses.VerbTypeData>(v)).ToList();
             return new DC.Responses.VerbUseData()
                 {
-                    VerbTypes = result.Select(v => TypeAdapter.Adapt<DC.Responses.VerbTypeData>(v)).ToList()
+                    VerbTypes = verbResults.Where(x => x.Name.ToLowerInvariant() == "with" || !x.Name.ToLowerInvariant().StartsWith("with")),
+                    WithVerbTypes = verbResults.Where(x => x.Name.ToLowerInvariant() != "with" && x.Name.ToLowerInvariant().StartsWith("with"))
                 };
         }
 

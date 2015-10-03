@@ -37,9 +37,8 @@
             var that = this;
 
             var loadAllVerbTypes = function (verbUseData) {
-                verbTypes = verbUseData.verbTypes;
-
-                messengerEngine.post("GameStateEngine.loadAllVerbTypes", verbTypes);
+                messengerEngine.post("GameStateEngine.loadVerbTypes", verbUseData.verbTypes);
+                messengerEngine.post("GameStateEngine.loadWithVerbTypes", verbUseData.withVerbTypes);
             };
 
             var setArea = function (areaData) {
@@ -215,6 +214,7 @@
             messengerEngine.register("MenuEntry.inventoryRequest", this, inventoryRequest);
             messengerEngine.register("MenuEntry.historyRequest", this, historyRequest);
             messengerEngine.register("MenuEntry.partyRequest", this, partyRequest);
+            messengerEngine.register("WithList.inventoryRequest", this, inventoryRequest);
         }
     };
 }(window.GinTub = window.GinTub || {}));

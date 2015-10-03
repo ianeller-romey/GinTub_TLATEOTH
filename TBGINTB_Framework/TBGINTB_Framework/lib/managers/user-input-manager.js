@@ -3,11 +3,11 @@
 
     namespace.Managers = namespace.Managers || {};
     namespace.Managers.UserInputManager = {
-        init: function (verbListId, messengerEngine) {
-            var VerbList = function (idOfVerbList) {
-                var verbListElem = $(idOfVerbList);
-                var verbListElemX = $(idOfVerbList + "X");
-                var interfaceElem = verbListElem.parent("div");
+        init: function (verbListId, withListId, interfaceId, messengerEngine) {
+            var PopUpList = function (idOfPopupList, idOfParent, className) {
+                var popupListElem = $(idOfPopupList);
+                var popupListElemX = $(idOfPopupList + "X");
+                var parentElem = $(idOfParent);
 
                 this.states = {
                     closed: 0,
@@ -15,29 +15,17 @@
                     open: 2
                 };
                 this.state = this.states.closed;
-                var actionQueue = new ActionQueue(3);
-                var verbTypesForParagraphs = [{
-                    id: -1,
-                    name: "Inspect",
-                    call: function () {
-                        messengerEngine.post("VerbList.paragraphClick");
-                    }
-                }];
-                var verbTypesForWords = null;
+                var actionQueue = new ActionQueue(3);   
                 var activeVerbTypes = null;
 
                 var that = this;
 
-                verbListElemX.click(function () {
+                popupListElemX.click(function () {
                     that.close();
                 });
 
-                var setActiveVerbTypesForParagraphs = function () {
-                    activeVerbTypes = verbTypesForParagraphs;
-                };
-
-                var setActiveVerbTypesForWords = function () {
-                    activeVerbTypes = verbTypesForWords;
+                this.setActiveVerbTypes = function (verbTypes) {
+                    activeVerbTypes = verbTypes;
                 };
 
                 var update = function () {
@@ -59,30 +47,28 @@
                     var len = activeVerbTypes.length;
                     for (; i < len; ++i) {
                         var avt = activeVerbTypes[i];
-                        verbListElem.append(namespace.Entities.Factories.createActionText(avt.id, avt.name, avt.call)).click(function () {
-                            that.close();
-                        });
+                        popupListElem.append(namespace.Entities.Factories.createActionText(avt.id, avt.name, avt.call));
                     }
 
                     // set position immediately
-                    verbListElem.css({
-                        left: clientX - interfaceElem.offset().left,
-                        top: clientY - interfaceElem.offset().top - 20
+                    popupListElem.css({
+                        left: clientX - parentElem.offset().left,
+                        top: clientY - parentElem.offset().top - 20
                     });
-                    verbListElem.addClass("verbListShadowed");
+                    popupListElem.addClass("popupListShadowed");
                     // animate opening
-                    verbListElem.animateAuto("width", 50).then(function () {
-                        verbListElem.animateAuto("height", 50).then(function () {
-                            verbListElem.promiseToAnimate({
+                    popupListElem.animateAuto("width", 50).then(function () {
+                        popupListElem.animateAuto("height", 50).then(function () {
+                            popupListElem.promiseToAnimate({
                                 padding: 10
                             }, 50).then(function () {
-                                verbListElemX.css({
+                                popupListElemX.css({
                                     display: "inline"
                                 });
-                                verbListElemX.promiseToAnimate({
+                                popupListElemX.promiseToAnimate({
                                     opacity: 1
                                 }, 25).then(function () {
-                                    messengerEngine.post("VerbList.openExec");
+                                    messengerEngine.post(className + ".openExec");
                                     if (actionQueue.isEmpty()) {
                                         that.state = that.states.open;
                                     }
@@ -101,27 +87,27 @@
                     }
 
                     // animate closing in reverse order
-                    verbListElemX.promiseToAnimate({
+                    popupListElemX.promiseToAnimate({
                         opacity: 0
                     }, 25).then(function () {
-                        verbListElemX.css({
+                        popupListElemX.css({
                             display: "none"
                         });
-                        verbListElem.promiseToAnimate({
+                        popupListElem.promiseToAnimate({
                             height: 0
                         }, 50).then(function () {
                             // remove the verbs after animating down the height, and
                             // before anything else, since we see weird artifacts if we
                             // remove them last
-                            $(idOfVerbList + " .actionText").remove();
-                            verbListElem.removeClass("verbListShadowed");
-                            verbListElem.promiseToAnimate({
+                            $(idOfPopupList + " .actionText").remove();
+                            popupListElem.removeClass("popupListShadowed");
+                            popupListElem.promiseToAnimate({
                                 width: 0
                             }, 50).then(function () {
-                                verbListElem.promiseToAnimate({
+                                popupListElem.promiseToAnimate({
                                     padding: 0
                                 }, 50).then(function () {
-                                    messengerEngine.post("VerbList.closeExec");
+                                    messengerEngine.post(className + ".closeExec");
                                     if (actionQueue.isEmpty()) {
                                         that.state = that.states.closed;
                                     }
@@ -134,23 +120,13 @@
                     });
                 };
 
-                var open = function (clientX, clientY) {
+                this.open = function (clientX, clientY) {
                     if (that.state === that.states.updating) {
                         return;
                     }
                     that.state = that.states.updating;
                     actionQueue.push(that, openExec, clientX, clientY);
                     update();
-                };
-
-                this.openForParagraphs = function (clientX, clientY) {
-                    setActiveVerbTypesForParagraphs();
-                    open(clientX, clientY);
-                };
-
-                this.openForWords = function (clientX, clientY) {
-                    setActiveVerbTypesForWords();
-                    open(clientX, clientY);
                 };
 
                 this.close = function () {
@@ -163,30 +139,64 @@
                 };
 
 
-                var closeAndReopen = function (clientX, clientY) {
+                this.closeAndReopen = function (clientX, clientY) {
                     that.state = that.states.updating;
                     actionQueue.push(that, closeExec);
                     actionQueue.push(that, openExec, clientX, clientY);
                     update();
                 };
 
+                messengerEngine.register("VerbList.paragraphClick", this, this.close);
+                messengerEngine.register("VerbList.wordClick", this, this.close);
+            };
+            
+            var VerbList = function (verbListId, withList) {
+                var verbTypesForParagraphs = [{
+                    id: -1,
+                    name: "Inspect",
+                    call: function () {
+                        messengerEngine.post("VerbList.paragraphClick");
+                    }
+                }];
+                var verbTypesForWords = null;
+
+                var that = this;
+
+                this.setActiveVerbTypesForParagraphs = function () {
+                    that.setActiveVerbTypes(verbTypesForParagraphs);
+                };
+
+                this.setActiveVerbTypesForWords = function () {
+                    that.setActiveVerbTypes(verbTypesForWords);
+                };
+
+                this.openForParagraphs = function (clientX, clientY) {
+                    that.setActiveVerbTypesForParagraphs();
+                    that.open(clientX, clientY);
+                };
+
+                this.openForWords = function (clientX, clientY) {
+                    that.setActiveVerbTypesForWords();
+                    that.open(clientX, clientY);
+                };
+
                 this.closeAndReopenForParagraphs = function (clientX, clientY) {
                     if (that.state === that.states.updating) {
                         return;
                     }
-                    setActiveVerbTypesForParagraphs();
-                    closeAndReopen(clientX, clientY);
+                    that.setActiveVerbTypesForParagraphs();
+                    that.closeAndReopen(clientX, clientY);
                 };
 
                 this.closeAndReopenForWords = function (clientX, clientY) {
                     if (that.state === that.states.updating) {
                         return;
                     }
-                    setActiveVerbTypesForWords();
-                    closeAndReopen(clientX, clientY);
+                    that.setActiveVerbTypesForWords();
+                    that.closeAndReopen(clientX, clientY);
                 };
 
-                var loadAllVerbTypes = function (verbTypesData) {
+                var loadVerbTypes = function (verbTypesData) {
                     verbTypesForWords = [];
 
                     var i = 0;
@@ -196,20 +206,121 @@
                         verbTypesForWords[i] = {
                             id: vt.id,
                             name: vt.name,
-                            call: function (vId) {
+                            call: (vt.name.toLowerCase() !== "with") ? function (vId) {
                                 messengerEngine.post("VerbList.wordClick", vId);
+                            } : function (vId) {
+                                var el = $(verbListId);
+                                var pos = el.offset();
+                                withList.openForWith(pos.left + (el.outerWidth() / 2), pos.top + (el.outerHeight() / 2));
                             }
                         };
                     }
 
-                    messengerEngine.unregister("GameStateEngine.loadAllVerbTypes");
+                    messengerEngine.unregister("GameStateEngine.loadVerbTypes");
                 };
 
-                messengerEngine.register("GameStateEngine.loadAllVerbTypes", that, loadAllVerbTypes);
+                messengerEngine.register("GameStateEngine.loadVerbTypes", that, loadVerbTypes);
             };
 
+            VerbList.prototype = new PopUpList(verbListId, interfaceId, "VerbList");
+
+            var WithList = function () {
+                var verbTypesForWith = [];
+                var inventoryEntriesAsVerbs = [];
+                var needsToReload = true;
+
+                var that = this;
+
+                this.setActiveVerbTypesForInventory = function () {
+                    return new Promise(function (resolve, reject) {
+                        var set = function (inventory) {
+                            // if we need to reload but haven't ...
+                            if (needsToReload && !inventory) { // intentional truthiness
+                                inventoryEntriesAsVerbs = [];
+                                messengerEngine.register("ServicesEngine.inventoryRequest", that, set);
+                                messengerEngine.post("WithList.inventoryRequest", true);
+                            // if we've requested to reload and received a response ...
+                            } else if (needsToReload && inventory) { // intentional truthiness
+                                messengerEngine.unregister("ServicesEngine.inventoryRequest", set);
+
+                                inventory.inventoriesEntries.where(function (x) {
+                                    return x.acquired === true;
+                                }).forEach(function (x) {
+                                    var inventoryVerbString = "with " + x.name.toLowerCase();
+                                    var inventoryVerb = verbTypesForWith.firstOrNull(function (inv) {
+                                        return inv.name === inventoryVerbString;
+                                    });
+                                    // if the inventory entry has a matching verb pair ...
+                                    if(inventoryVerb !== null) {
+                                        inventoryEntriesAsVerbs.push({
+                                            id: inventoryVerb.id,
+                                            name: x.name,
+                                            call: inventoryVerb.call
+                                        });
+                                    // otherwise, what do we care?
+                                    } else {
+                                        inventoryEntriesAsVerbs.push({
+                                            id: -1,
+                                            name: x.name,
+                                            call: function () {
+                                                // TODO: Failure message
+                                            }
+                                        });
+                                    }
+                                });
+                                that.setActiveVerbTypes(inventoryEntriesAsVerbs);
+                                needsToReload = false;
+                                resolve();
+                            // no need to reload
+                            } else {
+                                that.setActiveVerbTypes(inventoryEntriesAsVerbs);
+                                resolve();
+                            }
+                        }
+                        set();
+                    });
+                };
+
+                this.openForWith = function (clientX, clientY) {
+                    that.setActiveVerbTypesForInventory().then(function () {
+                        that.open(clientX, clientY);
+                    });
+                };
+
+                this.closeAndReopenForWith = function (clientX, clientY) {
+                    if (that.state === that.states.updating) {
+                        return;
+                    }
+                    that.setActiveVerbTypesForInventory().then(function () {
+                        that.closeAndReopen(clientX, clientY);
+                    });
+                };
+
+                var loadWithVerbTypes = function (verbTypesData) {
+                    var i = 0;
+                    var len = verbTypesData.length;
+                    for (; i < len; ++i) {
+                        var vt = verbTypesData[i];
+                        verbTypesForWith[i] = {
+                            id: vt.id,
+                            name: vt.name.toLowerCase(), // store as lower case because it's easier to compare against when creating a list of verbs from inventory items
+                            call: function (vId) {
+                                messengerEngine.post("WithList.wordClick", vId);
+                            }
+                        };
+                    }
+
+                    messengerEngine.unregister("GameStateEngine.loadWithVerbTypes");
+                };
+
+                messengerEngine.register("GameStateEngine.loadWithVerbTypes", that, loadWithVerbTypes);
+            };
+
+            WithList.prototype = new PopUpList(withListId, interfaceId, "WithList");
+
             var activeId = null;
-            var verbList = new VerbList(verbListId);
+            var withList = new WithList();
+            var verbList = new VerbList(verbListId, withList);
 
             var openVerbListForParagraphs = function (clientX, clientY) {
                 this.verbList.openForParagraphs(clientX, clientY);

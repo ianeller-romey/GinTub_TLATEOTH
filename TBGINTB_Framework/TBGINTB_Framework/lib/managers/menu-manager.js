@@ -122,6 +122,12 @@
                 this.dataName = dataName;
 
                 this.arrangeData = function (inventoryData) {
+                    var that = this;
+                    var createDisplayEntryElem = function (x) {
+                        return that.createDisplayEntry(x.name, x.description);
+                    };
+
+                    $(displayFrameId).appendJsonTable(2, inventoryData.inventoriesEntries, createDisplayEntryElem);
                 };
 
                 messengerEngine.register("MenuEntry.click", this, this.createClickSelector());

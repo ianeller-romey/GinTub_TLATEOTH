@@ -66,7 +66,6 @@
     <Content Include="lib\engines\services-engine.js" />
     <Content Include="lib\engines\time-engine.js" />
     <Content Include="lib\entities\action-text.js" />
-    <Content Include="lib\entities\hover-click-text.js" />
     <Content Include="lib\entities\image-fader.js" />
     <Content Include="lib\login.js" />
     <Content Include="lib\managers\menu-manager.js" />
