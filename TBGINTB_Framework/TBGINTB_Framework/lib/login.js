@@ -14,7 +14,7 @@
             }),
             success: function (data, status) {
                 var playerLogin = JSON.parse(data);
-                if (typeof (Storage) !== "undefined") {
+                if (typeof Storage !== "undefined") {
                     sessionStorage.playerId = playerLogin.playerId;
                 } else {
                     alert('Web Storage not available');

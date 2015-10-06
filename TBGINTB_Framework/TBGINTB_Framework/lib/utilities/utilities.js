@@ -86,6 +86,14 @@ Array.prototype.where = function (predicate) {
     return whereArray;
 };
 
+Array.prototype.first = function () {
+    return (this.length) /* intentional truthiness */ ? this[0] : null;
+};
+
+Array.prototype.last = function () {
+    return (this.length) /* intentional truthiness */ ? this[this.length - 1] : null;
+};
+
 (jQuery.fn.extend({
     appendJsonTable: function (numColumns, data, elementCreator) {
         var createTableRow = function(table) {
@@ -152,15 +160,33 @@ Array.prototype.where = function (predicate) {
             width = elem.css("width"),
             elem.remove();
 
+            var animPromise;
             if (prop === "height") {
-                promises.push(el.promiseToAnimate({ "height": height }, speed));
+                animPromise = new Promise(function (resolve) {
+                    el.promiseToAnimate({ "height": height }, speed).then(function () {
+                        el.css("height", "auto");
+                        resolve();
+                    });
+                });
             } else if (prop === "width") {
-                promises.push(el.promiseToAnimate({ "width": width }, speed));
+                animPromise = new Promise(function (resolve) {
+                    el.promiseToAnimate({ "width": width }, speed).then(function () {
+                        el.css("width", "auto");
+                        resolve();
+                    });
+                });
             } else if (prop === "both") {
-                promises.push(el.promiseToAnimate({ "width": width, "height": height }, speed));
+                animPromise = new Promise(function (resolve) {
+                    el.promiseToAnimate({ "width": width, "height": height }, speed).then(function () {
+                        el.css("height", "auto");
+                        el.css("width", "auto");
+                        resolve();
+                    });
+                });
             } else {
-                promises.push(Promise.resolve());
+                animPromise = Promise.resolve();
             }
+            promises.push(animPromise);
         });
          return Promise.all(promises);
     },
@@ -183,14 +209,16 @@ Array.prototype.where = function (predicate) {
             animateTextAddAtInterval();
         });
     },
-    animateTextRemove: function (interval) {
+    animateTextRemove: function (interval, removeWhenComplete) {
         var that = this;
 
         return new Promise(function (resolve, reject) {
             var animateTextRemoveAtInterval = function () {
                 var text = that.text();
                 if (text.length == 0) {
-                    that.remove();
+                    if (removeWhenComplete) { // intentional truthiness
+                        that.remove();
+                    }
                     resolve();
                 }
                 else {

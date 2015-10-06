@@ -23,10 +23,10 @@
 
                             var onVerbListOpen = function () {
                                 messengerEngine.unregister("VerbList.openExec", onVerbListOpen);
-                                messengerEngine.register("VerbList.closeExec", this, onVerbListClose);
+                                messengerEngine.register("VerbList.closeExec", span, onVerbListClose);
                             };
 
-                            messengerEngine.register("VerbList.openExec", this, onVerbListOpen);
+                            messengerEngine.register("VerbList.openExec", span, onVerbListOpen);
                             messengerEngine.post("InterfaceManager.iParagraphClick", e.pageX, e.pageY, span.idNum);
                         }
 
@@ -59,10 +59,10 @@
 
                             var onVerbListOpen = function () {
                                 messengerEngine.unregister("VerbList.openExec", onVerbListOpen);
-                                messengerEngine.register("VerbList.closeExec", this, onVerbListClose);
+                                messengerEngine.register("VerbList.closeExec", span, onVerbListClose);
                             };
 
-                            messengerEngine.register("VerbList.openExec", this, onVerbListOpen);
+                            messengerEngine.register("VerbList.openExec", span, onVerbListOpen);
 
                             var position = span[0].getBoundingClientRect();
                             messengerEngine.post("InterfaceManager.iWordClick", position.right + 5, position.top + 10, span.idNum);
@@ -80,6 +80,15 @@
                         };
                         break;
                 }
+
+                span.unregisterAll = function () {
+                    messengerEngine.unregisterAll(span);
+                };
+
+                messengerEngine.register("InterfaceManager.iParagraphClick", span, span.disableInterfaceInput);
+                messengerEngine.register("InterfaceManager.iWordClick", span, span.disableInterfaceInput);
+                messengerEngine.register("VerbList.openExec", span, span.enableInterfaceInput);
+
                 return span;
             };
 
@@ -135,7 +144,9 @@
                         var updateWordSpans = function () {
                             var text = paragraphSpan.text();
                             if (text.length != 0 && !text.isNullOrWhitespace()) {
-                                paragraphSpan.children().last().animateTextRemove(that.getUpdateInterval).then(function () {
+                                var w = paragraphSpan.wordSpans.pop();
+                                w.unregisterAll();
+                                w.animateTextRemove(that.getUpdateInterval, true).then(function () {
                                     updateWordSpans();
                                 });
                             }
@@ -156,6 +167,7 @@
                         if (pIdx < removedParagraphSpans.length) {
                             var paragraphSpan = removedParagraphSpans[pIdx].span;
                             removeWordPromise(paragraphSpan).then(function () {
+                                paragraphSpan.unregisterAll();
                                 paragraphSpan.remove();
                                 paragraphSpans.splice(paragraphSpans.indexOf(removedParagraphSpans[pIdx]), 1);
 

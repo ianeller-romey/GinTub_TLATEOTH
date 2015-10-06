@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 using TBGINTB_Builder.Extensions;
+using TBGINTB_Builder.HelperControls;
 using TBGINTB_Builder.Lib;
 
 
@@ -23,6 +24,8 @@ namespace TBGINTB_Builder.BuilderControls
 
         ComboBox_Location m_comboBox_location;
         Image m_image_locationFile;
+
+        string m_absolutePath = string.Empty;
 
         #endregion
 
@@ -86,9 +89,9 @@ namespace TBGINTB_Builder.BuilderControls
         private void SetLocationFile(string locationFile)
         {
             Uri uri = null;
-            if (Uri.TryCreate(locationFile, UriKind.RelativeOrAbsolute, out uri) && uri.Scheme == Uri.UriSchemeHttp)
+            if (TryCreateRelativeHttpUri(locationFile))
             {
-                m_image_locationFile.Source = LoadImageFromHttp(locationFile);
+                m_image_locationFile.Source = LoadImageFromHttp(Path.Combine(m_absolutePath, locationFile));
             }
             else
             {
@@ -98,6 +101,41 @@ namespace TBGINTB_Builder.BuilderControls
                     uri = s_uri_imageNotFound;
                 m_image_locationFile.Source = new BitmapImage(uri);
             }
+        }
+
+        private bool TryCreateRelativeHttpUri(string locationFile)
+        {
+            Uri uri = null;
+            // can we create a relative uri from the filename?
+            if(Uri.TryCreate(locationFile, UriKind.Relative, out uri))
+            {
+                var cancelled = false;
+                // if so
+                while(string.IsNullOrWhiteSpace(m_absolutePath) && !cancelled)
+                {
+                    var window_absolutePath = new Window_TextEntry("Absolute Path", "");
+                    window_absolutePath.ShowDialog();
+                    cancelled = !window_absolutePath.Accepted;
+                    // if the user entered an absolute path
+                    if(!cancelled)
+                    {
+                        var absolutePath = window_absolutePath.Text;
+                        var absoluteLocationFile = Path.Combine(absolutePath, locationFile);
+                        // and the combination of the absolute path and the relative filename is valid
+                        if(Uri.TryCreate(absoluteLocationFile, UriKind.Absolute, out uri) && uri.Scheme == Uri.UriSchemeHttp)
+                        {
+                            m_absolutePath = absolutePath;
+                        }
+                    }
+                }
+            }
+            // if we can't create a relative uri from the filename, this is not an image we need to load via http
+            else
+            {
+                return false;
+            }
+            
+            return !string.IsNullOrWhiteSpace(m_absolutePath);
         }
 
         private BitmapImage LoadImageFromHttp(string httpFile)

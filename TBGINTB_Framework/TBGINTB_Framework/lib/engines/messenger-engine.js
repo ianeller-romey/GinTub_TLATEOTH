@@ -50,6 +50,21 @@
                 }
             };
 
+            this.unregisterAll = function (caller) {
+                messageTypes.forEach(function (messageType) {
+                    var messageRegisterer = null;
+                    var i = 0;
+                    while (i < messageRegistration[messageType].length) {
+                        messageRegisterer = messageRegistration[messageType][i];
+                        if (messageRegisterer.caller === caller) {
+                            messageRegistration[messageType].splice(i, 1);
+                        } else {
+                            ++i;
+                        }
+                    }
+                });
+            };
+
             this.post = function (messageType) {
                 if (!validMessageType(messageType)) {
                     throw "Cannot post " + messageType + ", a messageType that does not exist.";
@@ -67,6 +82,7 @@
             createMessageType("ServicesEngine.getNounsForParagraphState");
             createMessageType("ServicesEngine.loadGame");
             createMessageType("ServicesEngine.doAction");
+            createMessageType("ServicesEngine.doMessageChoice");
             createMessageType("ServicesEngine.mapRequest");
             createMessageType("ServicesEngine.inventoryRequest");
             createMessageType("ServicesEngine.historyRequest");
@@ -84,6 +100,7 @@
             createMessageType("GameStateData.setMessage");
             createMessageType("GameStateEngine.setActiveRoomState");
             createMessageType("GameStateEngine.doAction");
+            createMessageType("GameStateEngine.doMessageChoice");
             createMessageType("GameStateEngine.mapRequest");
             createMessageType("GameStateEngine.inventoryRequest");
             createMessageType("GameStateEngine.historyRequest");
@@ -101,6 +118,9 @@
             createMessageType("MenuEntry.click");
 
             createMessageType("MessageManager.unloadMessage");
+            createMessageType("MessageManager.messageChoiceClick");
+
+            createMessageType("MessageChoice.click");
 
             createMessageType("VerbList.paragraphClick");
             createMessageType("VerbList.wordClick");

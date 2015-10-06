@@ -188,6 +188,10 @@
                 messengerEngine.post("GameStateEngine.doAction", playerId, nounId, verbTypeId);
             };
 
+            var doMessageChoice = function (messageChoiceId) {
+                messengerEngine.post("GameStateEngine.doMessageChoice", playerId, messageChoiceId);
+            };
+
             var mapRequest = function () {
                 messengerEngine.post("GameStateEngine.mapRequest", area.id, playerId);
             };
@@ -208,12 +212,19 @@
             messengerEngine.register("ServicesEngine.loadGame", this, loadGame);
             messengerEngine.register("ServicesEngine.getNounsForParagraphState", this, loadMessage);
             messengerEngine.register("ServicesEngine.doAction", this, loadActionResults);
+            messengerEngine.register("ServicesEngine.doMessageChoice", this, loadActionResults);
+
             messengerEngine.register("TimeEngine.updateTimeAtTen", this, updateTime);
+
             messengerEngine.register("UserInputManager.doAction", this, doAction);
+
+            messengerEngine.register("MessageManager.messageChoiceClick", this, doMessageChoice);
+
             messengerEngine.register("MenuEntry.mapRequest", this, mapRequest);
             messengerEngine.register("MenuEntry.inventoryRequest", this, inventoryRequest);
             messengerEngine.register("MenuEntry.historyRequest", this, historyRequest);
             messengerEngine.register("MenuEntry.partyRequest", this, partyRequest);
+
             messengerEngine.register("WithList.inventoryRequest", this, inventoryRequest);
         }
     };

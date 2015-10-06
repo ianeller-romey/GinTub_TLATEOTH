@@ -64,19 +64,19 @@
             }, 0);
         };
 
-        Promise.prototype.resolve = function (arg) {
+        Promise.resolve = function (arg) {
             return new Promise(function (res) {
                 res(arg);
             });
         };
 
-        Promise.prototype.reject = function (arg) {
+        Promise.reject = function (arg) {
             return new Promise(function (res, rej) {
                 rej(arg);
             });
         };
 
-        Promise.prototype.all = function () {
+        Promise.all = function () {
             if (arguments.length > 0) {
                 var start = 0;
                 var end = arguments.length;

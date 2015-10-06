@@ -88,6 +88,28 @@
                 });
             }
 
+            this.doMessageChoice = function (playerId, messageChoiceId) {
+                var that = this;
+
+                $.ajax({
+                    url: "gintubservices/GinTubService.svc/DoMessageChoice",
+                    type: 'post',
+                    dataType: 'text',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        playerId: playerId,
+                        messageChoiceId: messageChoiceId
+                    }),
+                    success: function (data, status) {
+                        var playData = JSON.parse(data);
+                        messengerEngine.post("ServicesEngine.doMessageChoice", playData);
+                    },
+                    error: function (request, status, error) {
+                        postAjaxError(status, error);
+                    }
+                });
+            }
+
             this.mapRequest = function (areaId, playerId) {
                 var that = this;
 
@@ -162,6 +184,7 @@
 
             messengerEngine.register("UserInputManager.getNounsForParagraphState", this, this.getNounsForParagraphState);
             messengerEngine.register("GameStateEngine.doAction", this, this.doAction);
+            messengerEngine.register("GameStateEngine.doMessageChoice", this, this.doMessageChoice);
             messengerEngine.register("GameStateEngine.mapRequest", this, this.mapRequest);
             messengerEngine.register("GameStateEngine.inventoryRequest", this, this.inventoryRequest);
             messengerEngine.register("GameStateEngine.historyRequest", this, this.historyRequest);
