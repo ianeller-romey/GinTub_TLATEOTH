@@ -505,5 +505,10 @@ namespace GinTub.Repository.Entities.Database
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadPartyForPlayer_Result>("ReadPartyForPlayer", playerParameter);
         }
+    
+        public virtual ObjectResult<ReadAllAudio_Result> ReadAllAudio()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadAllAudio_Result>("ReadAllAudio");
+        }
     }
 }

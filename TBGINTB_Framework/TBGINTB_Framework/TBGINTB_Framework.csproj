@@ -61,6 +61,7 @@
     <Content Include="images\placeholder.jpg" />
     <Content Include="lib\cheats.js" />
     <Content Include="lib\driver.js" />
+    <Content Include="lib\engines\audio-engine.js" />
     <Content Include="lib\engines\game-state-engine.js" />
     <Content Include="lib\engines\messenger-engine.js" />
     <Content Include="lib\engines\services-engine.js" />
@@ -127,7 +128,8 @@
     <PostBuildEvent>echo D|xcopy "$(ProjectDir)*.html" C:\inetpub\ironandrose\gintub\lion /R /Y
 echo D|xcopy "$(ProjectDir)lib\*" C:\inetpub\ironandrose\gintub\lion\lib /R /S /I /Y
 echo D|xcopy "$(ProjectDir)css" C:\inetpub\ironandrose\gintub\lion\css /R /Y
-echo D|xcopy "$(ProjectDir)images" C:\inetpub\ironandrose\gintub\lion\images /R /Y</PostBuildEvent>
+echo D|xcopy "$(ProjectDir)images" C:\inetpub\ironandrose\gintub\lion\images /R /Y
+echo D|xcopy "$(ProjectDir)audio" C:\inetpub\ironandrose\gintub\lion\audio /R /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -26,6 +26,38 @@
                 });
             };
 
+            this.getAllAudio = function (extension) {
+                var that = this;
+
+                $.ajax({
+                    url: "gintubservices/GinTubService.svc/GetAllAudio/" + extension,
+                    type: 'get',
+                    dataType: 'text',
+                    contentType: 'application/json',
+                    success: function (data, status) {
+                        var audioUseData = JSON.parse(data);
+                        messengerEngine.post("ServicesEngine.getAllAudio", audioUseData);
+                    },
+                    error: function (request, status, error) {
+                        postAjaxError(status, error);
+                    }
+                });
+            };
+
+            this.loadAudio = function (audioFile) {
+                var that = this;
+
+                $.binaryAjax({
+                    url: audioFile,
+                    success: function (data, status) {
+                        messengerEngine.post("ServicesEngine.loadAudio", audioFile, data);
+                    },
+                    error: function (request, status, error) {
+                        postAjaxError(status, error);
+                    }
+                });
+            };
+
             this.getNounsForParagraphState = function (paragraphStateId) {
                 var that = this;
 
@@ -182,6 +214,8 @@
                 });
             }
 
+            messengerEngine.register("AudioEngine.getAllAudio", this, this.getAllAudio);
+            messengerEngine.register("AudioEngine.loadAudio", this, this.loadAudio);
             messengerEngine.register("UserInputManager.getNounsForParagraphState", this, this.getNounsForParagraphState);
             messengerEngine.register("GameStateEngine.doAction", this, this.doAction);
             messengerEngine.register("GameStateEngine.doMessageChoice", this, this.doMessageChoice);

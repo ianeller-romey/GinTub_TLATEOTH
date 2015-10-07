@@ -83,6 +83,9 @@
     <Compile Include="Entities\Database\GetMessageChoiceResults_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Database\ReadAllAudio_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Database\ReadAllInventoriesForPlayer_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>

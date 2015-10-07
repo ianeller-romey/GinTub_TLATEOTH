@@ -77,8 +77,13 @@
                 });
             };
 
+            createMessageType("AudioEngine.getAllAudio");
+            createMessageType("AudioEngine.loadAudio");
+
             createMessageType("ServicesEngine.ajaxError");
             createMessageType("ServicesEngine.getAllVerbTypes");
+            createMessageType("ServicesEngine.getAllAudio");
+            createMessageType("ServicesEngine.loadAudio");
             createMessageType("ServicesEngine.getNounsForParagraphState");
             createMessageType("ServicesEngine.loadGame");
             createMessageType("ServicesEngine.doAction");
@@ -134,6 +139,9 @@
 
             createMessageType("UserInputManager.getNounsForParagraphState");
             createMessageType("UserInputManager.doAction");
+
+            createMessageType("playAudio");
+            createMessageType("stopAudio");
 
             createMessageType("CHEAT");
         }

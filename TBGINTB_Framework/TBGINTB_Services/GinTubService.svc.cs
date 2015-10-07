@@ -107,6 +107,20 @@ namespace GinTub.Services
                 };
         }
 
+        public DC.Responses.AudioUseData GetAllAudio(string extension)
+        {
+            var result = _repository.ReadAllAudio();
+            var audioResults = result.Select(a => TypeAdapter.Adapt<DC.Responses.AudioData>(a)).ToList();
+            return new DC.Responses.AudioUseData()
+            {
+                Audio = audioResults.Select(a => 
+                    {
+                        a.AudioFile = System.IO.Path.ChangeExtension(a.AudioFile, extension);
+                        return a;
+                    }).ToList()
+            };
+        }
+
         public DC.Responses.PlayData LoadGame(DC.Requests.LoadGameRequest request)
         {
             var result = _repository.ReadGame(request.PlayerId);

@@ -232,3 +232,25 @@ Array.prototype.last = function () {
         });
     }
 }));
+
+(jQuery.binaryAjax = function (ajaxParams) {
+    if (!ajaxParams.url || !ajaxParams.success || !ajaxParams.error) { // intentional truthiness
+        return;
+    }
+        
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.url = ajaxParams.url;
+    xmlHttp.open("GET", ajaxParams.url, true);
+    xmlHttp.responseType = "arraybuffer";
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState === XMLHttpRequest.DONE) {
+            if (xmlHttp.status === 200) {
+                var data = xmlHttp.response;
+                ajaxParams.success(data, xmlHttp.status);
+            } else {
+                ajaxParams.error(ajaxParams.url, xmlHttp.status, xmlHttp.readyState);
+            }
+        }
+    };
+    xmlHttp.send();
+});

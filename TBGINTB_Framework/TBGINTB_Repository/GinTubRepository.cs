@@ -50,13 +50,24 @@ namespace GinTub.Repository
 
         public IEnumerable<ResultType> ReadAllResultTypes()
         {
-            IEnumerable<ResultType> verbTypes = null;
+            IEnumerable<ResultType> resultTypes = null;
             using (var entities = new GinTubEntities())
             {
-                var verbTypeResults = entities.ReadAllResultTypes();
-                verbTypes = verbTypeResults.Select(v => TypeAdapter.Adapt<ResultType>(v)).ToList();
+                var resultTypeResults = entities.ReadAllResultTypes();
+                resultTypes = resultTypeResults.Select(v => TypeAdapter.Adapt<ResultType>(v)).ToList();
             }
-            return verbTypes;
+            return resultTypes;
+        }
+
+        public IEnumerable<Audio> ReadAllAudio()
+        {
+            IEnumerable<Audio> audio = null;
+            using (var entities = new GinTubEntities())
+            {
+                var audioResults = entities.ReadAllAudio();
+                audio = audioResults.Select(v => TypeAdapter.Adapt<Audio>(v)).ToList();
+            }
+            return audio;
         }
 
         public AreaData ReadGame(Guid playerId)

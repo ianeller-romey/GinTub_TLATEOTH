@@ -79,6 +79,7 @@ namespace GinTub.Repository.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int? Audio { get; set; }
     }
 
     public class InventoriesEntry
@@ -98,5 +99,13 @@ namespace GinTub.Repository.Entities
         public int Z { get; set; }
         public int Area { get; set; }
         public bool Visited { get; set; }
+    }
+
+    public class Audio
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string AudioFile { get; set; }
+        public bool IsLooped { get; set; }
     }
 }

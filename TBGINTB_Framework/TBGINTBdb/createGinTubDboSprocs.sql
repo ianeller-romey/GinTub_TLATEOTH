@@ -346,6 +346,27 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadAllAudio]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[ReadAllAudio] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 10/6/2015
+-- Description:	Reads all Audio data in the database
+-- =============================================
+ALTER PROCEDURE [dbo].[ReadAllAudio]
+AS
+BEGIN
+
+	SELECT [Id],
+		   [Name],
+		   [AudioFile],
+		   [IsLooped]
+	FROM [dbo].[Audio] WITH (NOLOCK)
+
+END
+GO
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadNounsForParagraphState]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
   EXEC('CREATE PROCEDURE [dbo].[ReadNounsForParagraphState] AS SELECT 1')
 GO
@@ -583,7 +604,8 @@ AS
 BEGIN
 
 	SELECT [Id],
-		   [Name]
+		   [Name],
+		   [Audio]
 	FROM [dbo].[Areas] WITH (NOLOCK)
 	WHERE [Id] = @area
 
@@ -604,7 +626,8 @@ AS
 BEGIN
 
 	SELECT [Id],
-		   [Name]
+		   [Name],
+		   [Audio]
 	FROM [dbo].[Areas] WITH (NOLOCK)
 	WHERE [Id] = @area
 

@@ -36,6 +36,175 @@ BEGIN
 	EXEC [dev].[dev_DeleteAllLocations]
 	EXEC [dev].[dev_DeleteAllMessages]
 	EXEC [dev].[dev_DeleteAllAreas]
+	EXEC [dev].[dev_DeleteAllAudio]
+
+END
+GO
+
+/******************************************************************************************************************************************/
+/*Audio*************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_CreateAudio]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dev].[dev_CreateAudio] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 10/6/2015
+-- Description:	Creates an Audio record and returns the newly generated ID
+-- =============================================
+ALTER PROCEDURE [dev].[dev_CreateAudio]
+	@name varchar(256),
+	@audioFile varchar(256),
+	@isLooped bit
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO [dbo].[Audio] ([Name], [AudioFile], [IsLooped])
+	VALUES (@name, @audioFile, @isLooped)
+	
+	SELECT SCOPE_IDENTITY()
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_ImportAudio]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dev].[dev_ImportAudio] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 10/6/2015
+-- Description:	Imports an Audio record
+-- =============================================
+ALTER PROCEDURE [dev].[dev_ImportAudio]
+	@id int,
+	@name varchar(256),
+	@audioFile varchar(256),
+	@isLooped bit
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	DECLARE @insertstring nvarchar(MAX)
+	SET @insertstring = N'SET IDENTITY_INSERT [dbo].[Audio] ON ' + 
+						N'INSERT INTO [dbo].[Audio] ([Id], [Name], [AudioFile]) VALUES (@id_, @name_, @audioFile_, @isLooped_) ' +
+						N'SET IDENTITY_INSERT [dbo].[Audio] OFF'
+						
+	EXEC sp_executesql @insertstring,
+					   N'@id_ int, @name_ varchar(256), @audioFile_ varchar(256), @isLooped bit',
+					   @id, @name, @audioFile, @isLooped
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_UpdateAudio]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+	EXEC('CREATE PROCEDURE [dev].[dev_UpdateAudio] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 10/6/2015
+-- Description:	Updates an Audio record
+-- =============================================
+ALTER PROCEDURE [dev].[dev_UpdateAudio]
+	@id int,
+	@name varchar(256),
+	@audioFile varchar(256),
+	@isLooped bit
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE [dbo].[Audio]
+	SET [Name] = ISNULL(@name, [Name]),
+		[AudioFile] = ISNULL(@audioFile, [AudioFile]),
+		[IsLooped] = ISNULL(@isLooped, [IsLooped])
+	WHERE [Id] = @id
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_ReadAllAudio]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+	EXEC('CREATE PROCEDURE [dev].[dev_ReadAllAudio] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 10/6/2015
+-- Description:	Reads the Id and Name fields of all Audio records currently in the database
+-- =============================================
+ALTER PROCEDURE [dev].[dev_ReadAllAudio]
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT [Id],
+		   [Name],
+		   [AudioFile],
+		   [IsLooped]
+	FROM [dbo].[Audio]
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_ReadAudio]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+	EXEC('CREATE PROCEDURE [dev].[dev_ReadAudio] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 10/6/2015
+-- Description:	Reads data about an Audio record in the database
+-- =============================================
+ALTER PROCEDURE [dev].[dev_ReadAudio]
+	@id int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT [Id],
+		   [Name],
+		   [AudioFile],
+		   [IsLooped]
+	FROM [dbo].[Audio]
+	WHERE [Id] = @id
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_DeleteAllAudio]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+	EXEC('CREATE PROCEDURE [dev].[dev_DeleteAllAudio] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 10/6/2015
+-- Description:	Deletes all Audio records and resets the seed
+-- =============================================
+ALTER PROCEDURE [dev].[dev_DeleteAllAudio]
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	UPDATE ar
+	SET ar.[Audio] = NULL
+	FROM [dbo].[Areas] ar
+	INNER JOIN [dbo].[Audio] au
+	ON ar.[Audio] = au.[Id]
+	
+	DELETE
+	FROM [dbo].[Audio]
+
+	DBCC CHECKIDENT ('[dbo].[Audio]', RESEED, 0)
 
 END
 GO
@@ -115,7 +284,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 	UPDATE [dbo].[Areas]
-	SET [Name] = @name
+	SET [Name] = ISNULL(@name, [Name])
 	WHERE [Id] = @id
 
 END

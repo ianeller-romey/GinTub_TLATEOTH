@@ -92,6 +92,7 @@
           <Parameter Name="y" Type="int" Mode="In" />
           <Parameter Name="z" Type="int" Mode="In" />
         </Function>
+        <Function Name="ReadAllAudio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ReadAllInventoriesForPlayer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
         </Function>
@@ -357,6 +358,7 @@
           <FunctionImport Name="ReadPartyForPlayer" ReturnType="Collection(GinTubModel.ReadPartyForPlayer_Result)">
           <Parameter Name="player" Mode="In" Type="Guid" />
           </FunctionImport>
+          <FunctionImport Name="ReadAllAudio" ReturnType="Collection(GinTubModel.ReadAllAudio_Result)" />
         </EntityContainer>
         <ComplexType Name="GetActionResults_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -375,6 +377,7 @@
         <ComplexType Name="ReadArea_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="Audio" Nullable="true" />
         </ComplexType>
         <ComplexType Name="ReadMessage_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -452,6 +455,12 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
           <Property Type="String" Name="Description" Nullable="false" MaxLength="256" />
           <Property Type="Boolean" Name="Acquired" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ReadAllAudio_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="AudioFile" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsLooped" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -537,6 +546,7 @@
               <ComplexTypeMapping TypeName="GinTubModel.ReadArea_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Audio" ColumnName="Audio" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -964,6 +974,16 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Acquired" ColumnName="Acquired" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReadAllAudio" FunctionName="GinTubModel.Store.ReadAllAudio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadAllAudio_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AudioFile" ColumnName="AudioFile" />
+                <ScalarProperty Name="IsLooped" ColumnName="IsLooped" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

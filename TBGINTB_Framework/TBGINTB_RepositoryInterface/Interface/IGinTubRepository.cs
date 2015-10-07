@@ -17,6 +17,8 @@ namespace GinTub.Repository.Interface
 
         IEnumerable<ResultType> ReadAllResultTypes();
 
+        IEnumerable<Audio> ReadAllAudio();
+
         Tuple<Area, Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> ReadGame(Guid playerId);
 
         Message ReadMessage(int messageId);

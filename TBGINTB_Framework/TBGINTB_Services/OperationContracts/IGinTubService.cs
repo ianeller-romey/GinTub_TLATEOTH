@@ -39,6 +39,12 @@ namespace GinTub.Services.OperationContracts
         [OperationContract]
         [WebInvoke(Method = "GET",
         ResponseFormat = WebMessageFormat.Json,
+        UriTemplate = "GetAllAudio/{extension}")]
+        DataContracts.Responses.AudioUseData GetAllAudio(string extension);
+
+        [OperationContract]
+        [WebInvoke(Method = "GET",
+        ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "GetNounsForParagraphState/{paragraphStateId}")]
         DataContracts.Responses.PlayData GetNounsForParagraphState(string paragraphStateId);
 

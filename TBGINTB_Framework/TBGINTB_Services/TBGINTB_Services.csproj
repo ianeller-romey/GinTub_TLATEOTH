@@ -96,6 +96,7 @@
     <Compile Include="DataContracts\Requests\DoActionRequest.cs" />
     <Compile Include="DataContracts\Requests\LoadGameRequest.cs" />
     <Compile Include="DataContracts\Requests\PlayerLoginRequest.cs" />
+    <Compile Include="DataContracts\Responses\AudioData.cs" />
     <Compile Include="DataContracts\Responses\PlayData.cs" />
     <Compile Include="DataContracts\Responses\VerbUseData.cs" />
     <Compile Include="DataContracts\Responses\PlayerIdentifier.cs" />

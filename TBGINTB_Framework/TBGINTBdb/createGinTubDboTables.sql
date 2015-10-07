@@ -1,11 +1,24 @@
 USE [GinTub]
 
 IF NOT EXISTS (SELECT 1 FROM [sys].[tables] t 
+			   INNER JOIN [sys].[schemas] s ON (t.[schema_id] = s.[schema_id]) WHERE s.[name] = 'dbo' and t.[name] = 'Audio')
+BEGIN
+	CREATE TABLE [dbo].[Audio] (
+		[Id] int PRIMARY KEY CLUSTERED IDENTITY,
+		[Name] varchar(256) NOT NULL,
+		[AudioFile] varchar(256) NOT NULL,
+		[IsLooped] bit NOT NULL
+	)
+	DBCC CHECKIDENT ('[dbo].[Audio]', RESEED, 0)
+END
+
+IF NOT EXISTS (SELECT 1 FROM [sys].[tables] t 
 			   INNER JOIN [sys].[schemas] s ON (t.[schema_id] = s.[schema_id]) WHERE s.[name] = 'dbo' and t.[name] = 'Areas')
 BEGIN
 	CREATE TABLE [dbo].[Areas] (
 		[Id] int PRIMARY KEY CLUSTERED IDENTITY,
-		[Name] varchar(256) NOT NULL
+		[Name] varchar(256) NOT NULL,
+		[Audio] int NULL FOREIGN KEY REFERENCES [dbo].[Audio]([Id])
 	)
 	DBCC CHECKIDENT ('[dbo].[Areas]', RESEED, 0)
 END

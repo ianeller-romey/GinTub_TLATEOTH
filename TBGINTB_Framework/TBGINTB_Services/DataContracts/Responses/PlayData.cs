@@ -101,6 +101,9 @@ namespace GinTub.Services.DataContracts.Responses
 
         [DataMember(Name = "name")]
         public string Name { get; set; }
+
+        [DataMember(Name = "audio")]
+        public int? Audio { get; set; }
     }
 
     [DataContract]
