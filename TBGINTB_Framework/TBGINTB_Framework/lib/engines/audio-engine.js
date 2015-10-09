@@ -3,7 +3,9 @@
 
     namespace.Engines = namespace.Engines || {};
     namespace.Engines.AudioEngine = {
-        init: function (audioElemTag, messengerEngine) {
+        init: function (audioElemId, volumeRangeId, messengerEngine) {
+            var volumeRangeElem = $(volumeRangeId);
+
             var audioUseDefinitions = {};
             var audioData = {};
             var playingLoopedAudio = {};
@@ -19,6 +21,10 @@
 
             var audioContext;
             var gainNode;
+            var areaGainNodes = [];
+            var activeAreaGainNode = 0,
+                maxGainNodes = 2;
+            var volume;
 
             var that = this;
 
@@ -26,7 +32,14 @@
                 try {
                     window.AudioContext = window.AudioContext || window.webkitAudioContext;
                     audioContext = new AudioContext();
+
+                    if (!audioContext.createGain)
+                        audioContext.createGain = audioContext.createGainNode;
+
                     gainNode = audioContext.createGain();
+                    gainNode.connect(audioContext.destination);
+
+                    areaGainNodes[activeAreaGainNode].gain.linearRampToValueAtTime(volume, audioContext.currentTime);
                 }
                 catch (e) {
                 }
@@ -38,8 +51,9 @@
                 return (audioContext) ? true : false;
             };
 
-            var initSupportedFormat = function (tagName) {
-                var audio = document.getElementsByTagName(tagName)[0];
+            var initSupportedFormat = function () {
+                var elemId = (audioElemId.charAt(0) === "#") ? audioElemId.slice(1) : audioElemId;
+                var audio = document.getElementById(elemId);
 
                 if (!audio || !audio.canPlayType) { // intentional truthiness
                     supportedFormat = null;
@@ -76,6 +90,7 @@
                 }
 
                 if (audioData[name] === undefined) {
+                    // if the data isn't loaded, load it asynchronously
                     var audioPromise = new Promise(function (resolve, reject) {
                         var aN = name;
                         var aF = audioUseDefinitions[aN].audioFile;
@@ -100,12 +115,14 @@
 
                     return audioPromise;
                 } else {
+                    // data's already loaded, not much to do here
                     return Promise.resolve(audioData[name].buffer);
                 }
             };
     
-            var playAudio = function (audio) {
+            var playAudio = function (audio, gainN) {
                 var audioName = (typeof audio === "number") ? audioUseDefinitions[audio].name : audio;
+                gainN = (gainN) /* intentional truthiness */ ? gainN : gainNode;
 
                 if (audioUseDefinitions[audioName]) { // intentional truthiness
                     var isLooped = audioUseDefinitions[audioName].isLooped;
@@ -114,16 +131,14 @@
                         return;
                     }
                     getAudioData(audioName).then(function (buffer) {
-                        setTimeout(function () {
-                            var source = audioContext.createBufferSource();
-                            source.connect(audioContext.destination);
-                            source.buffer = buffer;
-                            if (isLooped) {
-                                source.loop = true;
-                                playingLoopedAudio[audioName] = source;
-                            }
-                            source.start(0);
-                        }, 0);
+                        var source = audioContext.createBufferSource();
+                        source.connect(gainN);
+                        source.buffer = buffer;
+                        if (isLooped) {
+                            source.loop = true;
+                            playingLoopedAudio[audioName] = source;
+                        }
+                        source.start(0);
                     });
                 }
             };
@@ -140,11 +155,31 @@
             };
 
             var playAreaAudio = function (area) {
-                playAudio(area.audio);
+                var oldN = areaGainNodes[activeAreaGainNode];
+                activeAreaGainNode = (activeAreaGainNode + 1) % areaGainNodes.length;
+                var newN = areaGainNodes[activeAreaGainNode];
+
+                playAudio(area.audio, newN);
+
+                oldN.gain.linearRampToValueAtTime(0, audioContext.currentTime);
+                newN.gain.linearRampToValueAtTime(volume, audioContext.currentTime);
+            };
+
+            var setVolume = function (vol) {
+                volume = vol * vol;
+                gainNode.gain.value = volume;
+                for (var i = 0; i < areaGainNodes.length; ++i) {
+                    areaGainNodes[i].gain.value = volume;
+                }
             };
 
             var loadEngine = function () {
-                if (initAudioContext() && initSupportedFormat(audioElemTag)) {
+                if (initAudioContext() && initSupportedFormat(audioElemId)) {
+                    volumeRangeElem.on("input change", function (e) {
+                        setVolume(volumeRangeElem.val());
+                    })
+                    setVolume(volumeRangeElem.val());
+
                     messengerEngine.register("playAudio", this, playAudio);
                     messengerEngine.register("stopAudio", this, stopAudio);
                     messengerEngine.register("ServicesEngine.getAllAudio", this, loadAllAudio);

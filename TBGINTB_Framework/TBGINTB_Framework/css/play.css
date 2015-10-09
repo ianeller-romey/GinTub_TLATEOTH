@@ -46,6 +46,35 @@ body {
 }
 
 /*****************/
+/* VOLUME */
+/*****************/
+
+#volume {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 32px;
+    height: 16px;
+    overflow: hidden;
+    cursor: default;
+    font-family: 'Arial';
+    font-size: 16px;
+    opacity: 0.3;
+}
+
+    #volume:hover {
+        opacity: 1.0;
+        height: 200px;
+    }
+
+#volumeRange {
+    position: absolute;
+    top: 80px;
+    left: -50px;
+    transform: rotate(270deg);
+}
+
+/*****************/
 /* TIME */
 /*****************/
 
