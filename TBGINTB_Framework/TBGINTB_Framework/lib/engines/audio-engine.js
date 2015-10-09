@@ -3,7 +3,8 @@
 
     namespace.Engines = namespace.Engines || {};
     namespace.Engines.AudioEngine = {
-        init: function (audioElemId, volumeRangeId, messengerEngine) {
+        init: function (audioElemId, volumeButtonId, volumeRangeId, messengerEngine) {
+            var volumeButtonElem = $(volumeButtonId);
             var volumeRangeElem = $(volumeRangeId);
 
             var audioUseDefinitions = {};
@@ -25,6 +26,7 @@
             var activeAreaGainNode = 0,
                 maxGainNodes = 2;
             var volume;
+            var isMuted = false;
 
             var that = this;
 
@@ -39,6 +41,11 @@
                     gainNode = audioContext.createGain();
                     gainNode.connect(audioContext.destination);
 
+                    for (var i = 0; i < maxGainNodes; ++i) {
+                        var gainN = audioContext.createGain();
+                        gainN.connect(audioContext.destination);
+                        activeAreaGainNode = areaGainNodes.push(gainN) - 1;
+                    }
                     areaGainNodes[activeAreaGainNode].gain.linearRampToValueAtTime(volume, audioContext.currentTime);
                 }
                 catch (e) {
@@ -165,20 +172,30 @@
                 newN.gain.linearRampToValueAtTime(volume, audioContext.currentTime);
             };
 
-            var setVolume = function (vol) {
-                volume = vol * vol;
-                gainNode.gain.value = volume;
-                for (var i = 0; i < areaGainNodes.length; ++i) {
-                    areaGainNodes[i].gain.value = volume;
+            var setVolume = function (v) {
+                gainNode.gain.value = v;
+                if (areaGainNodes[activeAreaGainNode]) { // intentional truthiness
+                    areaGainNodes[activeAreaGainNode].gain.linearRampToValueAtTime(v, audioContext.currentTime);
                 }
+            };
+
+            var toggleMute = function () {
+                isMuted = !isMuted;
+                setVolume((isMuted) ? 0.0 : volume);
             };
 
             var loadEngine = function () {
                 if (initAudioContext() && initSupportedFormat(audioElemId)) {
-                    volumeRangeElem.on("input change", function (e) {
-                        setVolume(volumeRangeElem.val());
+                    var volumeSwitch = function () {
+                        volume = volumeRangeElem.val();
+                        volume = volume * volume; // non-linear
+                        setVolume(volume);
+                    };
+
+                    volumeRangeElem.on("input change", function () {
+                        volumeSwitch();
                     })
-                    setVolume(volumeRangeElem.val());
+                    volumeSwitch();
 
                     messengerEngine.register("playAudio", this, playAudio);
                     messengerEngine.register("stopAudio", this, stopAudio);
@@ -188,6 +205,11 @@
                     messengerEngine.post("AudioEngine.getAllAudio", supportedFormat.ext);
                 }
             };
+
+            volumeButtonElem.click(function () {
+                toggleMute();
+                $(this).css("text-decoration", (isMuted) ? "line-through" : "none");
+            });
 
             loadEngine();
         }

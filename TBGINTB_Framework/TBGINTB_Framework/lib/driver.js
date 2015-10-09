@@ -13,7 +13,7 @@
         var gameStateEngine = namespace.Engines.GameStateEngine;
         gameStateEngine.init(messengerEngine);
         var audioEngine = namespace.Engines.AudioEngine;
-        audioEngine.init("#audio", "#volumeRange", messengerEngine);
+        audioEngine.init("#audio", "#volumeButton", "#volumeRange", messengerEngine);
 
         if (namespace.EX && namespace.EX.Cheats) { // intentional truthiness
             var cheats = namespace.EX.Cheats;
