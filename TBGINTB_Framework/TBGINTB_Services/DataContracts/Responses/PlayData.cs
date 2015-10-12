@@ -123,6 +123,9 @@ namespace GinTub.Services.DataContracts.Responses
 
         [DataMember(Name = "message")]
         public MessageData Message { get; set; }
+
+        [DataMember(Name = "lastTime")]
+        public TimeSpan LastTime { get; set; }
     }
 
     [DataContract]

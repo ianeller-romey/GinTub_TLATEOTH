@@ -11,6 +11,18 @@
             var hourSub = moment.duration(24, 'h');
             var paused = false;
 
+            var gameLoaded = false;
+
+            var that = this;
+
+            var postTimeMessages = function () {
+                messengerEngine.post("TimeEngine.updateTime", time);
+
+                if (time.minutes() % 10 == 0) {
+                    messengerEngine.post("TimeEngine.updateTimeAtTen", time);
+                }
+            };
+
             var updateTime = function () {
                 if (!paused) {
                     time.add(minuteIncr);
@@ -25,11 +37,7 @@
                         }
                     }
 
-                    messengerEngine.post("TimeEngine.updateTime", time);
-
-                    if (time.minutes() % 10 == 0) {
-                        messengerEngine.post("TimeEngine.updateTimeAtTen", time);
-                    }
+                    postTimeMessages();
                 }
             };
 
@@ -37,24 +45,36 @@
                 setInterval(updateTime, 5000);
             };
 
-            this.setTime = function (setTo) {
+            var registerAfterGameHasLoaded = function () {
+                messengerEngine.register("VerbList.openExec", that, pause);
+                messengerEngine.register("VerbList.closeExec", that, unpause);
+
+                gameLoaded = true;
+            };
+
+            var loadGame = function (playData) {
+                if (!gameLoaded) {
+                    registerAfterGameHasLoaded();
+                }
+                setTime(moment.duration.fromIsoduration(playData.lastTime));
+            };
+
+            var setTime = function (setTo) {
                 clearInterval(updateTime);
                 time = setTo;
+                postTimeMessages();
                 start();
             };
 
-            this.pause = function () {
+            var pause = function () {
                 paused = true;
             };
 
-            this.unpause = function () {
+            var unpause = function () {
                 paused = false;
             };
 
-            messengerEngine.register("VerbList.openExec", this, this.pause);
-            messengerEngine.register("VerbList.closeExec", this, this.unpause);
-
-            start();
+            messengerEngine.register("ServicesEngine.loadGame", this, loadGame);
         }
     };
 }(window.GinTub = window.GinTub || {}));

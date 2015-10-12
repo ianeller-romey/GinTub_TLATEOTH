@@ -19,7 +19,7 @@ namespace GinTub.Repository.Interface
 
         IEnumerable<Audio> ReadAllAudio();
 
-        Tuple<Area, Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> ReadGame(Guid playerId);
+        Tuple<TimeSpan, Area, Room, IEnumerable<RoomState>, IEnumerable<ParagraphState>> ReadGame(Guid playerId);
 
         Message ReadMessage(int messageId);
 
@@ -32,6 +32,8 @@ namespace GinTub.Repository.Interface
         IEnumerable<InventoriesEntry> ReadHistoryForPlayer(Guid playerId);
 
         IEnumerable<InventoriesEntry> ReadPartyForPlayer(Guid playerId);
+
+        Task UpdateLastTime(Guid playerId, int nounId, int verbTypeId, TimeSpan time);
 
         IEnumerable<Result> GetActionResults(Guid playerId, int nounId, int verbTypeId);
 

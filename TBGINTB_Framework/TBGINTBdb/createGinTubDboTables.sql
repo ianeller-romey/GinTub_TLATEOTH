@@ -723,7 +723,8 @@ IF NOT EXISTS (SELECT 1 FROM [sys].[tables] t
 BEGIN
 	CREATE TABLE [dbo].[PlayerGameStates] (
 		[Player] uniqueidentifier NOT NULL FOREIGN KEY REFERENCES [dbo].[Players]([Id]),
-		[LastRoom] int NOT NULL FOREIGN KEY REFERENCES [dbo].[Rooms]([Id])
+		[LastRoom] int NOT NULL FOREIGN KEY REFERENCES [dbo].[Rooms]([Id]),
+		[LastTime] time NOT NULL DEFAULT '12:00'
 	)
 	CREATE UNIQUE CLUSTERED INDEX IX__PlayerGameStates__Clustered ON [dbo].[PlayerGameStates] ([Player])
 END
@@ -786,10 +787,11 @@ BEGIN
 END
 
 IF NOT EXISTS (SELECT 1 FROM [sys].[tables] t 
-			   INNER JOIN [sys].[schemas] s ON (t.[schema_id] = s.[schema_id]) WHERE s.[name] = 'dbo' and t.[name] = 'AreaRoomOnInitialLoad')
-	CREATE TABLE [dbo].[AreaRoomOnInitialLoad] (
+			   INNER JOIN [sys].[schemas] s ON (t.[schema_id] = s.[schema_id]) WHERE s.[name] = 'dbo' and t.[name] = 'GameStateOnInitialLoad')
+	CREATE TABLE [dbo].[GameStateOnInitialLoad] (
 		[Area] int NULL FOREIGN KEY REFERENCES [dbo].[Areas]([Id]),
-		[Room] int NULL FOREIGN KEY REFERENCES [dbo].[Rooms]([Id])
+		[Room] int NULL FOREIGN KEY REFERENCES [dbo].[Rooms]([Id]),
+		[Time] time NULL
 	)
 
 IF NOT EXISTS (SELECT 1 FROM [sys].[tables] t 

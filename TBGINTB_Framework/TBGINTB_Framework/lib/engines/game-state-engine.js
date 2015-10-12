@@ -34,11 +34,23 @@
             var playerParty = {
             };
 
+            var gameLoaded = false;
+
             var that = this;
 
             var loadAllVerbTypes = function (verbUseData) {
                 messengerEngine.post("GameStateEngine.loadVerbTypes", verbUseData.verbTypes);
                 messengerEngine.post("GameStateEngine.loadWithVerbTypes", verbUseData.withVerbTypes);
+            };
+
+            var setTime = function (time) {
+                gameTime = time;
+            };
+
+            var setTimeAtTen = function (time) {
+                gameTime = time;
+
+                setActiveRoomState(createImmediateParagraphStateUpdatePromise());
             };
 
             var setArea = function (areaData) {
@@ -150,7 +162,33 @@
                 });
             };
 
+            var registerAfterGameHasLoaded = function () {
+                messengerEngine.register("ServicesEngine.getNounsForParagraphState", that, loadMessage);
+                messengerEngine.register("ServicesEngine.doAction", that, loadActionResults);
+                messengerEngine.register("ServicesEngine.doMessageChoice", that, loadActionResults);
+
+                messengerEngine.register("TimeEngine.updateTime", that, setTime);
+                messengerEngine.register("TimeEngine.updateTimeAtTen", that, setTimeAtTen);
+
+                messengerEngine.register("UserInputManager.doAction", that, doAction);
+
+                messengerEngine.register("MessageManager.messageChoiceClick", that, doMessageChoice);
+
+                messengerEngine.register("MenuEntry.mapRequest", that, mapRequest);
+                messengerEngine.register("MenuEntry.inventoryRequest", that, inventoryRequest);
+                messengerEngine.register("MenuEntry.historyRequest", that, historyRequest);
+                messengerEngine.register("MenuEntry.partyRequest", that, partyRequest);
+
+                messengerEngine.register("WithList.inventoryRequest", that, inventoryRequest);
+
+                gameLoaded = true;
+            };
+
             var loadGame = function (playData) {
+                if (!gameLoaded) {
+                    registerAfterGameHasLoaded();
+                }
+                setTime(playData.lastTime);
                 setArea(playData.area);
                 setRoom(playData.room);
                 setRoomStates(playData.roomStates);
@@ -178,14 +216,8 @@
                 setMessage(playData.message);
             };
 
-            var updateTime = function (time) {
-                gameTime = time;
-
-                setActiveRoomState(createImmediateParagraphStateUpdatePromise());
-            };
-
             var doAction = function (nounId, verbTypeId) {
-                messengerEngine.post("GameStateEngine.doAction", playerId, nounId, verbTypeId);
+                messengerEngine.post("GameStateEngine.doAction", playerId, nounId, verbTypeId, gameTime);
             };
 
             var doMessageChoice = function (messageChoiceId) {
@@ -210,22 +242,6 @@
 
             messengerEngine.register("ServicesEngine.getAllVerbTypes", this, loadAllVerbTypes);
             messengerEngine.register("ServicesEngine.loadGame", this, loadGame);
-            messengerEngine.register("ServicesEngine.getNounsForParagraphState", this, loadMessage);
-            messengerEngine.register("ServicesEngine.doAction", this, loadActionResults);
-            messengerEngine.register("ServicesEngine.doMessageChoice", this, loadActionResults);
-
-            messengerEngine.register("TimeEngine.updateTimeAtTen", this, updateTime);
-
-            messengerEngine.register("UserInputManager.doAction", this, doAction);
-
-            messengerEngine.register("MessageManager.messageChoiceClick", this, doMessageChoice);
-
-            messengerEngine.register("MenuEntry.mapRequest", this, mapRequest);
-            messengerEngine.register("MenuEntry.inventoryRequest", this, inventoryRequest);
-            messengerEngine.register("MenuEntry.historyRequest", this, historyRequest);
-            messengerEngine.register("MenuEntry.partyRequest", this, partyRequest);
-
-            messengerEngine.register("WithList.inventoryRequest", this, inventoryRequest);
         }
     };
 }(window.GinTub = window.GinTub || {}));

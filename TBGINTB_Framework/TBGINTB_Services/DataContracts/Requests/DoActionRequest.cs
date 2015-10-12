@@ -20,6 +20,9 @@ namespace GinTub.Services.DataContracts.Requests
         
         [DataMember(Name = "verbTypeId")]
         public int VerbTypeId { get; set; }
+
+        [DataMember(Name = "time")]
+        public TimeSpan Time { get; set; }
     }
 
 }

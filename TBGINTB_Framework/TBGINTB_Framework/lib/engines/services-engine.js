@@ -97,7 +97,7 @@
                 });
             };
 
-            this.doAction = function (playerId, nounId, verbTypeId) {
+            this.doAction = function (playerId, nounId, verbTypeId, time) {
                 var that = this;
 
                 $.ajax({
@@ -108,7 +108,8 @@
                     data: JSON.stringify({
                         playerId: playerId,
                         nounId: nounId,
-                        verbTypeId: verbTypeId
+                        verbTypeId: verbTypeId,
+                        time: time.isoduration()
                     }),
                     success: function (data, status) {
                         var playData = JSON.parse(data);

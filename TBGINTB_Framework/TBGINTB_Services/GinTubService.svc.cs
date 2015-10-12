@@ -8,6 +8,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 using FastMapper;
 
@@ -125,12 +126,13 @@ namespace GinTub.Services
         {
             var result = _repository.ReadGame(request.PlayerId);
             return new DC.Responses.PlayData()
-                {
-                    Area = TypeAdapter.Adapt<DC.Responses.AreaData>(result.Item1),
-                    Room = TypeAdapter.Adapt<DC.Responses.RoomData>(result.Item2),
-                    RoomStates = result.Item3.Select(x => TypeAdapter.Adapt<DC.Responses.RoomStateData>(x)).ToList(),
-                    ParagraphStates = result.Item4.Select(x => TypeAdapter.Adapt<DC.Responses.ParagraphStateData>(x)).ToList()
-                };
+            {
+                LastTime = TypeAdapter.Adapt<TimeSpan>(result.Item1),
+                Area = TypeAdapter.Adapt<DC.Responses.AreaData>(result.Item2),
+                Room = TypeAdapter.Adapt<DC.Responses.RoomData>(result.Item3),
+                RoomStates = result.Item4.Select(x => TypeAdapter.Adapt<DC.Responses.RoomStateData>(x)).ToList(),
+                ParagraphStates = result.Item5.Select(x => TypeAdapter.Adapt<DC.Responses.ParagraphStateData>(x)).ToList()
+            };
         }
 
         public DC.Responses.PlayData GetNounsForParagraphState(string paragraphStateId)
@@ -235,6 +237,8 @@ namespace GinTub.Services
                var results = _repository.GetActionResults(request.PlayerId, request.NounId.Value, request.VerbTypeId);
                if (results.Any())
                {
+                   UpdateLastTimeAfterAction(request.PlayerId, request.NounId.Value, request.VerbTypeId, request.Time);
+
                    results = ResultTypeDictionary.SortResultsByResultTypePriority(results);
                    playData.Message = null;
                    foreach (var result in results)
@@ -273,10 +277,11 @@ namespace GinTub.Services
             var result = _repository.ReadGame(request.PlayerId);
             return new DC.Responses.PlayData()
             {
-                Area = TypeAdapter.Adapt<DC.Responses.AreaData>(result.Item1),
-                Room = TypeAdapter.Adapt<DC.Responses.RoomData>(result.Item2),
-                RoomStates = result.Item3.Select(x => TypeAdapter.Adapt<DC.Responses.RoomStateData>(x)).ToList(),
-                ParagraphStates = result.Item4.Select(x => TypeAdapter.Adapt<DC.Responses.ParagraphStateData>(x)).ToList()
+                LastTime = TypeAdapter.Adapt<TimeSpan>(result.Item1),
+                Area = TypeAdapter.Adapt<DC.Responses.AreaData>(result.Item2),
+                Room = TypeAdapter.Adapt<DC.Responses.RoomData>(result.Item3),
+                RoomStates = result.Item4.Select(x => TypeAdapter.Adapt<DC.Responses.RoomStateData>(x)).ToList(),
+                ParagraphStates = result.Item5.Select(x => TypeAdapter.Adapt<DC.Responses.ParagraphStateData>(x)).ToList()
             };
         }
 
@@ -284,6 +289,11 @@ namespace GinTub.Services
 
 
         #region Private Functionality
+
+        private async void UpdateLastTimeAfterAction(Guid playerId, int nounId, int verbId, TimeSpan time)
+        {
+            await _repository.UpdateLastTime(playerId, nounId, verbId, time);
+        }
 
         private void ResultSwitch(int resultTypeId, dynamic data, Guid playerId, ref DC.Responses.PlayData playData)
         {

@@ -392,7 +392,7 @@ BEGIN
 	FROM [dbo].[RoomStates]
 	
 	DELETE
-	FROM [dbo].[AreaRoomOnInitialLoad]
+	FROM [dbo].[GameStateInitialLoad]
 
 	DELETE
 	FROM [dbo].[Rooms]
@@ -5428,7 +5428,7 @@ BEGIN
 	INSERT INTO [dbo].[PlayerGameStates] ([Player], [LastRoom])
 	SELECT TOP 1 @playerId,
 				 [Room]
-	FROM [dbo].[AreaRoomOnInitialLoad]
+	FROM [dbo].[GameStateInitialLoad]
 	
 	SELECT @playerid
 
@@ -5683,82 +5683,87 @@ END
 GO
 
 /******************************************************************************************************************************************/
-/*AreaRoomOnInitialLoad********************************************************************************************************************/
+/*GameStateOnInitialLoad********************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_UpsertAreaRoomOnInitialLoad]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
-  EXEC('CREATE PROCEDURE [dev].[dev_UpsertAreaRoomOnInitialLoad] AS SELECT 1')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_UpsertGameStateOnInitialLoad]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dev].[dev_UpsertGameStateOnInitialLoad] AS SELECT 1')
 GO
 -- =============================================
 -- Author:		Ian Eller-Romey
 -- Create date: 6/29/2015
--- Description:	Adds an AreaRoomOnInitialLoad record
+-- Description:	Adds an GameStateOnInitialLoad record
 -- =============================================
-ALTER PROCEDURE [dev].[dev_UpsertAreaRoomOnInitialLoad]
+ALTER PROCEDURE [dev].[dev_UpsertGameStateOnInitialLoad]
 	@area int,
-	@room int
+	@room int,
+	@time time
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	IF EXISTS (SELECT 1 FROM [dbo].[AreaRoomOnInitialLoad])
-		UPDATE [dbo].[AreaRoomOnInitialLoad]
+	IF EXISTS (SELECT 1 FROM [dbo].[GameStateOnInitialLoad])
+		UPDATE [dbo].[GameStateOnInitialLoad]
 		SET [Area] = @area, 
-			[Room] = @room
+			[Room] = @room,
+			[Time] = @time
 	ELSE
-		INSERT INTO [dbo].[AreaRoomOnInitialLoad] ([Area], [Room]) 
+		INSERT INTO [dbo].[GameStateOnInitialLoad] ([Area], [Room]) 
 		VALUES(@area, @room)
 
 END
 GO
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_ImportAreaRoomOnInitialLoad]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
-  EXEC('CREATE PROCEDURE [dev].[dev_ImportAreaRoomOnInitialLoad] AS SELECT 1')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_ImportGameStateOnInitialLoad]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dev].[dev_ImportGameStateOnInitialLoad] AS SELECT 1')
 GO
 -- =============================================
 -- Author:		Ian Eller-Romey
 -- Create date: 6/29/2015
--- Description:	Imports an AreaRoomOnInitialLoad record
+-- Description:	Imports an GameStateOnInitialLoad record
 -- =============================================
-ALTER PROCEDURE [dev].[dev_ImportAreaRoomOnInitialLoad]
+ALTER PROCEDURE [dev].[dev_ImportGameStateOnInitialLoad]
 	@area int,
-	@room int
+	@room int,
+	@time time
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	EXEC [dev].[dev_UpsertAreaRoomOnInitialLoad]
+	EXEC [dev].[dev_UpsertGameStateOnInitialLoad]
 	@area = @area,
-	@room = @room
+	@room = @room,
+	@time = @time
 
 END
 GO
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_ReadAreaRoomOnInitialLoad]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
-	EXEC('CREATE PROCEDURE [dev].[dev_ReadAreaRoomOnInitialLoad] AS SELECT 1')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_ReadGameStateOnInitialLoad]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+	EXEC('CREATE PROCEDURE [dev].[dev_ReadGameStateOnInitialLoad] AS SELECT 1')
 GO
 -- =============================================
 -- Author:		Ian Eller-Romey
 -- Create date: 6/29/2015
--- Description:	Reads data about an AreaRoomOnInitialLoad record in the database
+-- Description:	Reads data about an GameStateOnInitialLoad record in the database
 -- =============================================
-ALTER PROCEDURE [dev].[dev_ReadAreaRoomOnInitialLoad]
+ALTER PROCEDURE [dev].[dev_ReadGameStateOnInitialLoad]
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	IF EXISTS (SELECT 1 FROM [dbo].[AreaRoomOnInitialLoad])
+	IF EXISTS (SELECT 1 FROM [dbo].[GameStateOnInitialLoad])
 		SELECT TOP 1 [Area],
-					 [Room]
-		FROM [dbo].[AreaRoomOnInitialLoad]
+					 [Room],
+					 [Time]
+		FROM [dbo].[GameStateOnInitialLoad]
 	ELSE
-		SELECT NULL AS [Area], NULL AS [Room]
+		SELECT NULL AS [Area], NULL AS [Room], NULL as [Time]
 
 END
 GO

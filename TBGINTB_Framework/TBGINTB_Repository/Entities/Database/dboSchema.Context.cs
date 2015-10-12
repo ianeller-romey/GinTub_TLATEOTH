@@ -172,13 +172,13 @@ namespace GinTub.Repository.Entities.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadArea_Result>("ReadAreaForPlayer", areaParameter);
         }
     
-        public virtual ObjectResult<ReadArea_Result> ReadGame(Nullable<System.Guid> player)
+        public virtual ObjectResult<ReadLastTimeForPlayer_Result> ReadGame(Nullable<System.Guid> player)
         {
             var playerParameter = player.HasValue ?
                 new ObjectParameter("player", player) :
                 new ObjectParameter("player", typeof(System.Guid));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadArea_Result>("ReadGame", playerParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadLastTimeForPlayer_Result>("ReadGame", playerParameter);
         }
     
         public virtual ObjectResult<ReadMessage_Result> ReadMessage(Nullable<int> message)
@@ -509,6 +509,36 @@ namespace GinTub.Repository.Entities.Database
         public virtual ObjectResult<ReadAllAudio_Result> ReadAllAudio()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadAllAudio_Result>("ReadAllAudio");
+        }
+    
+        public virtual ObjectResult<ReadLastTimeForPlayer_Result> ReadLastTimeForPlayer(Nullable<System.Guid> player)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadLastTimeForPlayer_Result>("ReadLastTimeForPlayer", playerParameter);
+        }
+    
+        public virtual int UpdateLastTimeForPlayer(Nullable<System.Guid> player, Nullable<int> noun, Nullable<int> verbType, Nullable<System.TimeSpan> time)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            var nounParameter = noun.HasValue ?
+                new ObjectParameter("noun", noun) :
+                new ObjectParameter("noun", typeof(int));
+    
+            var verbTypeParameter = verbType.HasValue ?
+                new ObjectParameter("verbType", verbType) :
+                new ObjectParameter("verbType", typeof(int));
+    
+            var timeParameter = time.HasValue ?
+                new ObjectParameter("time", time) :
+                new ObjectParameter("time", typeof(System.TimeSpan));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateLastTimeForPlayer", playerParameter, nounParameter, verbTypeParameter, timeParameter);
         }
     }
 }

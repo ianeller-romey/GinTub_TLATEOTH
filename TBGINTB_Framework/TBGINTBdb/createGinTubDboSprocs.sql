@@ -111,10 +111,11 @@ BEGIN
 	INSERT INTO [dbo].[PlayerLoginActivities] ([Player], [LastLogin])
 	VALUES (@playerId, GETDATE())
 	
-	INSERT INTO [dbo].[PlayerGameStates] ([Player], [LastRoom])
+	INSERT INTO [dbo].[PlayerGameStates] ([Player], [LastRoom], [LastTime])
 	SELECT TOP 1 @playerId,
-				 [Room]
-	FROM [dbo].[AreaRoomOnInitialLoad] WITH(NOLOCK)
+				 [Room],
+				 [Time]
+	FROM [dbo].[GameStateOnInitialLoad] WITH(NOLOCK)
 	
 	SELECT @playerId
 
@@ -227,6 +228,9 @@ BEGIN
 	INNER JOIN [dbo].[Rooms] r WITH (NOLOCK)
 	ON p.[LastRoom] = r.[Id]
 	WHERE p.[Player] = @player
+
+	EXEC [dbo].[ReadLastTimeForPlayer]
+	@player = @player
 	
 	EXEC [dbo].[ReadArea]
 	@area = @area
@@ -241,6 +245,27 @@ GO
 /******************************************************************************************************************************************/
 /*Game Engine Content**********************************************************************************************************************/
 /******************************************************************************************************************************************/
+
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadLastTimeForPlayer]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[ReadLastTimeForPlayer] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 10/12/2015
+-- Description:	Reads the LastTime for the specified Player
+-- =============================================
+ALTER PROCEDURE [dbo].[ReadLastTimeForPlayer]
+	@player uniqueidentifier
+AS
+BEGIN
+
+	SELECT [LastTime]
+	FROM [dbo].[PlayerGameStates] WITH (NOLOCK)
+	WHERE [Player] = @player
+
+END
+GO
 
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadMessageChoicesForMessage]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
@@ -585,6 +610,7 @@ BEGIN
 	AND [Z] = @z
 	
 	EXEC [dbo].[ReadRoomForPlayer]
+	@player = @player,
 	@room = @room
 
 END
@@ -769,6 +795,38 @@ GO
 /******************************************************************************************************************************************/
 /*Game Engine Internal Logic***************************************************************************************************************/
 /******************************************************************************************************************************************/
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[UpdateLastTimeForPlayer]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[UpdateLastTimeForPlayer] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 10/12/2015
+-- Description:	Updates the LastTime for a player upon successful Action execution
+-- =============================================
+ALTER PROCEDURE [dbo].[UpdateLastTimeForPlayer]
+	@player uniqueidentifier,
+	@noun int,
+	@verbType int,
+	@time time
+AS
+BEGIN
+
+	UPDATE pgs
+	SET [LastTime] = @time
+	FROM [dbo].[Actions] a WITH (NOLOCK)
+	INNER JOIN [dbo].[ActionResults] ar WITH (NOLOCK)
+	ON a.[Id] = ar.[Action]
+	INNER JOIN [dbo].[Results] r WITH (NOLOCK)
+	ON ar.[Result] = r.[Id]
+	INNER JOIN [dbo].[PlayerGameStates] pgs
+	ON pgs.[Player] = @player
+	WHERE a.[Noun] = @noun
+	AND a.[VerbType] = @verbType
+	AND pgs.[Player] = @player
+	AND (SELECT TOP 1 [HasRequirements] FROM [dbo].[f_PlayerHasRequirementsForAction](@player, a.[Id])) = 1
+END
+GO
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[GetActionResults]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
   EXEC('CREATE PROCEDURE [dbo].[GetActionResults] AS SELECT 1')

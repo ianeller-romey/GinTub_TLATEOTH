@@ -113,6 +113,9 @@
         <Function Name="ReadInventoryForPlayer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
         </Function>
+        <Function Name="ReadLastTimeForPlayer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+        </Function>
         <Function Name="ReadMapForPlayer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="area" Type="int" Mode="In" />
@@ -157,6 +160,12 @@
         <Function Name="ReadRoomStatesForPlayerRoom" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateLastTimeForPlayer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="player" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="noun" Type="int" Mode="In" />
+          <Parameter Name="verbType" Type="int" Mode="In" />
+          <Parameter Name="time" Type="time" Mode="In" />
         </Function>
         <EntityContainer Name="GinTubModelStoreContainer" />
       </Schema></edmx:StorageModels>
@@ -216,6 +225,7 @@
             <Parameter Name="area" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ReadGame">
+            <ReturnType Type="Collection(GinTubModel.ReadLastTimeForPlayer_Result)"></ReturnType>
             <ReturnType Type="Collection(GinTubModel.ReadArea_Result)"></ReturnType>
             <ReturnType Type="Collection(GinTubModel.ReadRoom_Result)"></ReturnType>
             <ReturnType Type="Collection(GinTubModel.ReadRoomStatesForPlayerRoom_Result)"></ReturnType>
@@ -359,6 +369,15 @@
           <Parameter Name="player" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="ReadAllAudio" ReturnType="Collection(GinTubModel.ReadAllAudio_Result)" />
+          <FunctionImport Name="ReadLastTimeForPlayer" ReturnType="Collection(GinTubModel.ReadLastTimeForPlayer_Result)">
+            <Parameter Name="player" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateLastTimeForPlayer">
+            <Parameter Name="player" Mode="In" Type="Guid" />
+            <Parameter Name="noun" Mode="In" Type="Int32" />
+            <Parameter Name="verbType" Mode="In" Type="Int32" />
+            <Parameter Name="time" Mode="In" Type="Time" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetActionResults_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -462,6 +481,9 @@
           <Property Type="String" Name="AudioFile" Nullable="false" MaxLength="256" />
           <Property Type="Boolean" Name="IsLooped" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="ReadLastTimeForPlayer_Result">
+        <Property Type="Time" Name="LastTime" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -559,6 +581,11 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="ReadGame" FunctionName="GinTubModel.Store.ReadGame">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadLastTimeForPlayer_Result">
+                <ScalarProperty Name="LastTime" ColumnName="LastTime"/>
+              </ComplexTypeMapping>
+            </ResultMapping>
             <ResultMapping>
               <ComplexTypeMapping TypeName="GinTubModel.ReadArea_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -987,6 +1014,14 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ReadLastTimeForPlayer" FunctionName="GinTubModel.Store.ReadLastTimeForPlayer" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.ReadLastTimeForPlayer_Result">
+                <ScalarProperty Name="LastTime" ColumnName="LastTime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateLastTimeForPlayer" FunctionName="GinTubModel.Store.UpdateLastTimeForPlayer" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
