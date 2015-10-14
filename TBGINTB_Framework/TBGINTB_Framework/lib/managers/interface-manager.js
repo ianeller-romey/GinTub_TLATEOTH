@@ -3,7 +3,7 @@
 
     namespace.Managers = namespace.Managers || {};
     namespace.Managers.InterfaceManager = {
-        init: function (locationsId, paragraphsId, timeId, masterContainerId, messengerEngine) {
+        init: function (locationsId, paragraphsId, clockId, masterContainerId, messengerEngine) {
             var createHoverClickText = function (classType, idNum, messengerEngine) {
                 var span = null;
                 var classTypes = createHoverClickText.classTypes;
@@ -99,7 +99,7 @@
 
             var imageFader = new namespace.Entities.Classes.ImageFader(locationsId);
             var paragraphsElem = $(paragraphsId);
-            var timeElem = $(timeId);
+            var clockElem = $(clockId);
             var selectedElem;
 
             var paragraphSpans = [];
@@ -285,7 +285,11 @@
 
             var updateTime = function (time) {
                 var timeString = ("0" + time.hours()).slice(-2) + ":" + ("0" + time.minutes()).slice(-2);
-                timeElem.text(timeString);
+                clockElem.text(timeString);
+            };
+
+            var pause = function () {
+                disableInterface();
             };
 
             this.getUpdateInterval = function () {
@@ -298,12 +302,18 @@
                 }
             };
 
+            clockElem.click(function () {
+                var pos = clockElem.offset();
+                messengerEngine.post("InterfaceManager.clockClick", pos.left + 40, pos.top + 30);
+            });
+
             $(masterContainerId).mousedown(function (e) {
                 that.changeUpdateInterval();
             });
 
             messengerEngine.register("GameStateEngine.setActiveRoomState", this, loadRoomState);
             messengerEngine.register("TimeEngine.updateTime", this, updateTime);
+            messengerEngine.register("ClockList.pauseClick", this, pause);
         }
     };
 }(window.GinTub = window.GinTub || {}));

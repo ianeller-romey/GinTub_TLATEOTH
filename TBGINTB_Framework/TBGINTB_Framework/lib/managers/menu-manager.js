@@ -9,6 +9,7 @@
                 this.needToReload = true; // TODO: Update this based on ServicesEngine.doAction
                 this.isActive = false;
                 this.dData = null;
+                this.displayEntries = [];
             };
 
             MenuEntry.prototype.createClickSelector = function () {
@@ -32,11 +33,24 @@
                 var entry = $("<span />", {
                     text: displayText
                 });
-                entry.mouseenter(function () {
+
+                var mouseEnter = function () {
                     $(descriptionFrameId).text(descriptionText);
-                }).mouseleave(function () {
+                };
+                var mouseLeave = function () {
                     $(descriptionFrameId).empty();
-                });
+                };
+
+                entry.setActive = function (active) {
+                    if (active) {
+                        entry.mouseenter(mouseEnter).mouseleave(mouseLeave);
+                    } else {
+                        entry.off("mouseenter").off("mouseleave");
+                    }
+                }
+
+                entry.setActive(true);
+                this.displayEntries.push(entry);
                 return entry;
             };
 
@@ -76,11 +90,19 @@
                 }
             };
 
+            MenuEntry.setAllActive = function (active) {
+                this.displayEntries.forEach(function (x) {
+                    x.setActive(active);
+                });
+            };
+
             var MapEntry = function (entryText, dataName) {
                 this.entryText = entryText;
                 this.dataName = dataName;
 
                 this.arrangeData = function (mapData) {
+                    this.displayEntries = [];
+
                     // TODO: Z changing
                     var mes = mapData.mapEntries;
                     var maxX = mes.max(function (m) {
@@ -122,6 +144,8 @@
                 this.dataName = dataName;
 
                 this.arrangeData = function (inventoryData) {
+                    this.displayEntries = [];
+
                     var that = this;
                     var createDisplayEntryElem = function (x) {
                         return that.createDisplayEntry(x.name, x.description);
@@ -155,12 +179,24 @@
 
             var toggleMenu = function () {
                 isMenuOpen = !isMenuOpen;
+                mapEntry.setAllActive(isMenuOpen);
+                inventoryEntry.setAllActive(isMenuOpen);
+                historyEntry.setAllActive(isMenuOpen);
+                partyEntry.setAllActive(isMenuOpen);
                 menuElem.css("height", menuHeights[isMenuOpen]);
+            };
+
+            var pause = function () {
+                if (isMenuOpen) {
+                    toggleMenu();
+                }
             };
 
             menuButtonElem.click(function () {
                 toggleMenu();
             });
+
+            messengerEngine.register("ClockList.pauseClick", this, pause);
         }
     };
 }(window.GinTub = window.GinTub || {}));

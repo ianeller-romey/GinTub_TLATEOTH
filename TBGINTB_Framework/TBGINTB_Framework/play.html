@@ -21,6 +21,7 @@ limitations under the License.
 <script src="lib/utilities/action-queue.js"></script>
 <script src="lib/entities/action-text.js"></script>
 <script src="lib/entities/image-fader.js"></script>
+<script src="lib/entities/pop-up-list.js"></script>
 <script src="lib/engines/messenger-engine.js"></script>
 <script src="lib/engines/services-engine.js"></script>
 <script src="lib/engines/time-engine.js"></script>
@@ -50,7 +51,12 @@ limitations under the License.
                     <img id="image2" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="opacity: 0.0;"/>
                     <canvas id="canvas" style="opacity: 0.0;"></canvas>
                 </div>
-                <div id="time">00:00</div>
+                <div>
+                    <span id="clock" class="actionTextActive">00:00</span>
+                    <div id="clockList" class="popupList boldText">
+                        <div id="clockListX" class="popupListX">X</div>
+                    </div>
+                </div>
                 <div id="messageTop" class="transition150">
                     <div id="messageText" class="center"></div>
                 </div>

@@ -3,187 +3,7 @@
 
     namespace.Managers = namespace.Managers || {};
     namespace.Managers.UserInputManager = {
-        init: function (verbListId, withListId, interfaceId, messengerEngine) {
-            var PopUpList = function (idOfPopupList, idOfParent, className) {
-                var popupListElem = $(idOfPopupList);
-                var popupListElemX = $(idOfPopupList + "X");
-                var parentElem = $(idOfParent);
-
-                this.onOpenExec = function () {
-                };
-                this.onCloseExec = function () {
-                };
-
-                this.states = {
-                    closed: 0,
-                    updating: 1,
-                    open: 2
-                };
-                this.state = this.states.closed;
-                var actionQueue = new ActionQueue(3);   
-                var activeVerbTypes = null;
-                this.list = [];
-
-                var that = this;
-
-                popupListElemX.click(function () {
-                    that.close();
-                });
-
-                this.setActiveVerbTypes = function (verbTypes) {
-                    activeVerbTypes = verbTypes;
-                };
-
-                var update = function () {
-                    if (!actionQueue.isEmpty()) {
-                        actionQueue.pop();
-                    }
-                };
-
-                var continueUpdating = function () {
-                    actionQueue.pop();
-                };
-
-                this.setOnOpenExec = function (f) {
-                    if (f && typeof f === "function") { // intentional truthiness
-                        that.onOpenExec = f;
-                    }
-                };
-
-                this.setOnCloseExec = function (f) {
-                    if (f && typeof f === "function") { // intentional truthiness
-                        that.onCloseExec = f;
-                    }
-                };
-
-                var openExec = function (clientX, clientY) {
-                    if (that.state === that.states.open) {
-                        return;
-                    }
-
-                    var i = 0;
-                    var len = activeVerbTypes.length;
-                    for (; i < len; ++i) {
-                        var avt = activeVerbTypes[i];
-                        var actionText = namespace.Entities.Factories.createActionText(avt.id, avt.name, avt.call);
-                        that.list.push(actionText);
-                        popupListElem.append(actionText);
-                    }
-
-                    if (that.onOpenExec && typeof that.onOpenExec === "function") {
-                        that.onOpenExec();
-                    }
-
-                    // set position immediately
-                    popupListElem.css({
-                        left: clientX - parentElem.offset().left,
-                        top: clientY - parentElem.offset().top - 20
-                    });
-                    popupListElem.addClass("popupListShadowed");
-                    // animate opening
-                    popupListElem.animateAuto("width", 50).then(function () {
-                        popupListElem.animateAuto("height", 50).then(function () {
-                            popupListElem.promiseToAnimate({
-                                padding: 10
-                            }, 50).then(function () {
-                                popupListElemX.css({
-                                    display: "inline"
-                                });
-                                popupListElemX.promiseToAnimate({
-                                    opacity: 1
-                                }, 25).then(function () {
-                                    messengerEngine.post(className + ".openExec");
-                                    if (actionQueue.isEmpty()) {
-                                        that.state = that.states.open;
-                                    }
-                                    else {
-                                        update();
-                                    }
-                                });
-                            });
-                        });
-                    });
-                };
-
-                var closeExec = function () {
-                    if (that.state === that.states.closed) {
-                        return;
-                    }
-
-                    if (that.onCloseExec && typeof that.onCloseExec === "function") {
-                        that.onCloseExec();
-                    }
-
-                    // animate closing in reverse order
-                    popupListElemX.promiseToAnimate({
-                        opacity: 0
-                    }, 25).then(function () {
-                        popupListElemX.css({
-                            display: "none"
-                        });
-                        popupListElem.promiseToAnimate({
-                            height: 0
-                        }, 50).then(function () {
-                            // remove the verbs after animating down the height, and
-                            // before anything else, since we see weird artifacts if we
-                            // remove them last
-                            that.list = [];
-                            $(idOfPopupList + " .actionText").remove();
-                            popupListElem.removeClass("popupListShadowed");
-                            popupListElem.promiseToAnimate({
-                                width: 0
-                            }, 50).then(function () {
-                                popupListElem.promiseToAnimate({
-                                    padding: 0
-                                }, 50).then(function () {
-                                    messengerEngine.post(className + ".closeExec");
-                                    if (actionQueue.isEmpty()) {
-                                        that.state = that.states.closed;
-                                    }
-                                    else {
-                                        update();
-                                    }
-                                });
-                            });
-                        });
-                    });
-                };
-
-                this.open = function (clientX, clientY, appendAnyway) {
-                    var updating = (that.state === that.states.updating);
-                    if (!appendAnyway && updating) { // intentional truthiness
-                        return;
-                    }
-                    that.state = that.states.updating;
-                    actionQueue.push(that, openExec, clientX, clientY);
-                    if (!updating) {
-                        update();
-                    }
-                };
-
-                this.close = function (appendAnyway) {
-                    var updating = (that.state === that.states.updating);
-                    if (!appendAnyway && updating) { // intentional truthiness
-                        return;
-                    }
-                    that.state = that.states.updating;
-                    actionQueue.push(that, closeExec);
-                    if (!updating) {
-                        update();
-                    }
-                };
-
-                this.closeAndReopen = function (clientX, clientY) {
-                    that.state = that.states.updating;
-                    actionQueue.push(that, closeExec);
-                    actionQueue.push(that, openExec, clientX, clientY);
-                    update();
-                };
-
-                messengerEngine.register("VerbList.paragraphClick", this, this.close);
-                messengerEngine.register("VerbList.wordClick", this, this.close);
-            };
-            
+        init: function (verbListConstructorObject, withListConstructorObject, clockListConstructorObject, messengerEngine) {
             var VerbList = function (verbListId, withList) {
                 var verbTypesForParagraphs = [{
                     id: -1,
@@ -278,11 +98,14 @@
                 };
 
                 messengerEngine.register("GameStateEngine.loadVerbTypes", that, loadVerbTypes);
+                messengerEngine.register("InterfaceManager.clockClick", that, that.close);
                 messengerEngine.register("WithList.openExec", that, deactivateVerbList);
                 messengerEngine.register("WithList.closeExec", that, activateVerbList);
+                messengerEngine.register("VerbList.paragraphClick", that, that.close);
+                messengerEngine.register("VerbList.wordClick", that, that.close);
             };
 
-            VerbList.prototype = new PopUpList(verbListId, interfaceId, "VerbList");
+            VerbList.prototype = new namespace.Entities.Classes.PopUpList(verbListConstructorObject, messengerEngine);
 
             var WithList = function () {
                 var verbTypesForWith = [];
@@ -406,13 +229,46 @@
                 messengerEngine.register("ServicesEngine.loadGame", that, updateNeedsToReload);
                 messengerEngine.register("ServicesEngine.doAction", that, updateNeedsToReload);
                 messengerEngine.register("ServicesEngine.doMessageChoice", that, updateNeedsToReload);
+                messengerEngine.register("InterfaceManager.clockClick", that, that.close);
+                messengerEngine.register("VerbList.paragraphClick", that, that.close);
+                messengerEngine.register("VerbList.wordClick", that, that.close);
             };
 
-            WithList.prototype = new PopUpList(withListId, interfaceId, "WithList");
+            WithList.prototype = new namespace.Entities.Classes.PopUpList(withListConstructorObject, messengerEngine);
+
+            var ClockList = function () {
+                var paused = false;
+                var verbs = [{
+                    id: -1,
+                    name: "Pause",
+                    call: function () {
+                        paused = true;
+                        messengerEngine.post("ClockList.pauseClick", paused);
+                    }
+                }, {
+                    id: -2,
+                    name: "Wait",
+                    call: function () {
+                    }
+                }];
+
+                var that = this;
+
+                this.openForClock = function (clientX, clientY) {
+                    that.setActiveVerbTypes(verbs);
+                    that.open(clientX, clientY);
+                };
+
+                messengerEngine.register("InterfaceManager.iParagraphClick", that, that.close);
+                messengerEngine.register("InterfaceManager.iWordClick", that, that.close);
+            };
+
+            ClockList.prototype = new namespace.Entities.Classes.PopUpList(clockListConstructorObject, messengerEngine);
 
             var activeId = null;
             var withList = new WithList();
-            var verbList = new VerbList(verbListId, withList);
+            var verbList = new VerbList(verbListConstructorObject.idOfPopUpList, withList);
+            var clockList = new ClockList();
 
             var openVerbListForParagraphs = function (clientX, clientY) {
                 this.verbList.openForParagraphs(clientX, clientY);
@@ -429,8 +285,7 @@
             var closeAndReopenVerbListForParagraphs = function (clientX, clientY, psId) {
                 if (verbList.state === verbList.states.open) {
                     verbList.closeAndReopenForParagraphs(clientX, clientY);
-                }
-                else {
+                } else {
                     verbList.openForParagraphs(clientX, clientY);
                 }
                 activeId = psId;
@@ -439,11 +294,16 @@
             var closeAndReopenVerbListForWords = function (clientX, clientY, wId) {
                 if (verbList.state === verbList.states.open) {
                     verbList.closeAndReopenForWords(clientX, clientY);
-                }
-                else {
+                } else {
                     verbList.openForWords(clientX, clientY);
                 }
                 activeId = wId;
+            };
+
+            var openClockList = function (clientX, clientY) {
+                if (clockList.state === clockList.states.closed) {
+                    clockList.openForClock(clientX, clientY);
+                }
             };
 
             var getNounsForParagraphState = function () {
@@ -457,6 +317,7 @@
 
             messengerEngine.register("InterfaceManager.iParagraphClick", this, closeAndReopenVerbListForParagraphs);
             messengerEngine.register("InterfaceManager.iWordClick", this, closeAndReopenVerbListForWords);
+            messengerEngine.register("InterfaceManager.clockClick", this, openClockList);
             messengerEngine.register("VerbList.paragraphClick", this, getNounsForParagraphState);
             messengerEngine.register("VerbList.wordClick", this, doAction);
         }

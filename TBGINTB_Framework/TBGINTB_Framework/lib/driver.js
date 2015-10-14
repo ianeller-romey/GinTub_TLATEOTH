@@ -21,9 +21,12 @@
         }
 
         var userInputManager = namespace.Managers.UserInputManager;
-        userInputManager.init("#verbList", "#withList", "#interfaceBottom", messengerEngine);
+        userInputManager.init(new namespace.Entities.Classes.PopUpListConstructorObject("#verbList", "#interfaceBottom", "VerbList"),
+            new namespace.Entities.Classes.PopUpListConstructorObject("#withList", "#interfaceBottom", "WithList"),
+            new namespace.Entities.Classes.PopUpListConstructorObject("#clockList", "#interfaceTop", "ClockList"),
+            messengerEngine);
         var interfaceManager = namespace.Managers.InterfaceManager;
-        interfaceManager.init("#locations", "#paragraphs", "#time", "#master-container", messengerEngine);
+        interfaceManager.init("#locations", "#paragraphs", "#clock", "#master-container", messengerEngine);
         var menuManager = namespace.Managers.MenuManager;
         menuManager.init("#menu", "#menuButton", "#menuEntries", "#menuFrame", "#displayFrame", "#descriptionFrame", messengerEngine);
         var messageManager = namespace.Managers.MessageManager;

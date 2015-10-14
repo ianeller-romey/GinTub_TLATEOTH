@@ -115,6 +115,7 @@
             createMessageType("InterfaceManager.iWordClick");
             createMessageType("InterfaceManager.iParagraphClick");
             createMessageType("InterfaceManager.iWordClick");
+            createMessageType("InterfaceManager.clockClick");
 
             createMessageType("MenuEntry.mapRequest");
             createMessageType("MenuEntry.inventoryRequest");
@@ -136,6 +137,10 @@
             createMessageType("WithList.wordClick");
             createMessageType("WithList.openExec");
             createMessageType("WithList.closeExec");
+
+            createMessageType("ClockList.pauseClick");
+            createMessageType("ClockList.openExec");
+            createMessageType("ClockList.closeExec");
 
             createMessageType("UserInputManager.getNounsForParagraphState");
             createMessageType("UserInputManager.doAction");
