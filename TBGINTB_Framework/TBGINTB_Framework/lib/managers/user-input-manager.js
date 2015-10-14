@@ -261,6 +261,7 @@
 
                 messengerEngine.register("InterfaceManager.iParagraphClick", that, that.close);
                 messengerEngine.register("InterfaceManager.iWordClick", that, that.close);
+                messengerEngine.register("ClockList.pauseClick", that, that.close);
             };
 
             ClockList.prototype = new namespace.Entities.Classes.PopUpList(clockListConstructorObject, messengerEngine);

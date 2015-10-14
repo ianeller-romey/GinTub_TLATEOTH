@@ -145,6 +145,8 @@
             createMessageType("UserInputManager.getNounsForParagraphState");
             createMessageType("UserInputManager.doAction");
 
+            createMessageType("PauseFader.unpauseClick");
+
             createMessageType("playAudio");
             createMessageType("stopAudio");
 

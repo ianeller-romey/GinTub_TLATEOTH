@@ -90,7 +90,7 @@
                 }
             };
 
-            MenuEntry.setAllActive = function (active) {
+            MenuEntry.prototype.setAllActive = function (active) {
                 this.displayEntries.forEach(function (x) {
                     x.setActive(active);
                 });
@@ -190,13 +190,19 @@
                 if (isMenuOpen) {
                     toggleMenu();
                 }
+                menuButtonElem.off("click").removeClass("buttonActive");
             };
 
-            menuButtonElem.click(function () {
-                toggleMenu();
-            });
+            var unpause = function () {
+                menuButtonElem.click(function () {
+                    toggleMenu();
+                }).addClass("buttonActive");
+            };
 
             messengerEngine.register("ClockList.pauseClick", this, pause);
+            messengerEngine.register("PauseFader.unpauseClick", this, unpause);
+            
+            unpause();
         }
     };
 }(window.GinTub = window.GinTub || {}));

@@ -48,7 +48,8 @@
             var registerAfterGameHasLoaded = function () {
                 messengerEngine.register("VerbList.openExec", that, pause);
                 messengerEngine.register("VerbList.closeExec", that, unpause);
-                messengerEngine.register("ClockList.pausClick", that, pause);
+                messengerEngine.register("ClockList.pauseClick", that, pause);
+                messengerEngine.register("PauseFader.unpauseClick", that, unpause);
 
                 gameLoaded = true;
             };

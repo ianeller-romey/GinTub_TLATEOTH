@@ -21,6 +21,7 @@ limitations under the License.
 <script src="lib/utilities/action-queue.js"></script>
 <script src="lib/entities/action-text.js"></script>
 <script src="lib/entities/image-fader.js"></script>
+<script src="lib/entities/pause-fader.js"></script>
 <script src="lib/entities/pop-up-list.js"></script>
 <script src="lib/engines/messenger-engine.js"></script>
 <script src="lib/engines/services-engine.js"></script>
@@ -54,7 +55,7 @@ limitations under the License.
                 <div>
                     <span id="clock" class="actionTextActive">00:00</span>
                     <div id="clockList" class="popupList boldText">
-                        <div id="clockListX" class="popupListX">X</div>
+                        <div id="clockListX" class="popupListX buttonActive">X</div>
                     </div>
                 </div>
                 <div id="messageTop" class="transition150">
@@ -65,10 +66,10 @@ limitations under the License.
                 <div id="paragraphs">
                 </div>
                 <div id="verbList" class="popupList boldText">
-                    <div id="verbListX" class="popupListX">X</div>
+                    <div id="verbListX" class="popupListX buttonActive">X</div>
                 </div>
                 <div id="withList" class="popupList boldText">
-                    <div id="withListX" class="popupListX">X</div>
+                    <div id="withListX" class="popupListX buttonActive">X</div>
                 </div>
                 <div id="messageBottom" class="transition150">
                     <div id="messageChoices" class="center"></div>

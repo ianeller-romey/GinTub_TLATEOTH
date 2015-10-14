@@ -101,6 +101,7 @@
             var paragraphsElem = $(paragraphsId);
             var clockElem = $(clockId);
             var selectedElem;
+            var pauseFader = null;
 
             var paragraphSpans = [];
             var removedParagraphSpans = [];
@@ -290,6 +291,12 @@
 
             var pause = function () {
                 disableInterface();
+                pauseFader = new namespace.Entities.Classes.PauseFader(messengerEngine);
+            };
+
+            var unpause = function () {
+                pauseFader = null;
+                enableInterface();
             };
 
             this.getUpdateInterval = function () {
@@ -314,6 +321,7 @@
             messengerEngine.register("GameStateEngine.setActiveRoomState", this, loadRoomState);
             messengerEngine.register("TimeEngine.updateTime", this, updateTime);
             messengerEngine.register("ClockList.pauseClick", this, pause);
+            messengerEngine.register("PauseFader.unpauseClick", this, unpause);
         }
     };
 }(window.GinTub = window.GinTub || {}));

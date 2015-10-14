@@ -27,6 +27,7 @@
                 maxGainNodes = 2;
             var volume;
             var isMuted = false;
+            var mutedBeforePause = false;
 
             var that = this;
 
@@ -184,6 +185,19 @@
                 setVolume((isMuted) ? 0.0 : volume);
             };
 
+            var pause = function () {
+                mutedBeforePause = isMuted;
+                if (!mutedBeforePause) {
+                    toggleMute();
+                }
+            };
+
+            var unpause = function () {
+                if (!mutedBeforePause && isMuted) {
+                    toggleMute();
+                }
+            };
+
             var loadEngine = function () {
                 if (initAudioContext() && initSupportedFormat(audioElemId)) {
                     var volumeSwitch = function () {
@@ -201,6 +215,8 @@
                     messengerEngine.register("stopAudio", this, stopAudio);
                     messengerEngine.register("ServicesEngine.getAllAudio", this, loadAllAudio);
                     messengerEngine.register("GameStateEngine.setArea", this, playAreaAudio);
+                    messengerEngine.register("ClockList.pauseClick", this, pause);
+                    messengerEngine.register("PauseFader.unpauseClick", this, unpause);
 
                     messengerEngine.post("AudioEngine.getAllAudio", supportedFormat.ext);
                 }
