@@ -34,6 +34,8 @@
         servicesEngine.getAllVerbTypes();
         servicesEngine.loadGame(sessionStorage.playerId);
 
+        var ts = new namespace.Entities.Classes.TimeSelector(messengerEngine);
+
         /*
         function suppressBackspace(event) { // we don't want the delete key to act like the browser back button
             event = event || window.event;

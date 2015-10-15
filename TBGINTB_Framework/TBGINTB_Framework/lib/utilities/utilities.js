@@ -154,7 +154,7 @@ Array.prototype.last = function () {
         var width;
         var promises = [];
         this.each(function (i, el) {
-            el = jQuery(el);
+            el = $(el);
             elem = el.clone().css({ "height": "auto", "width": "auto" }).appendTo("body");
             height = elem.css("height"),
             width = elem.css("width"),
