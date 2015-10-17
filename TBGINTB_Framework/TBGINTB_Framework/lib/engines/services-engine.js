@@ -109,7 +109,7 @@
                         playerId: playerId,
                         nounId: nounId,
                         verbTypeId: verbTypeId,
-                        time: time.isoduration()
+                        time: time
                     }),
                     success: function (data, status) {
                         var playData = JSON.parse(data);

@@ -237,20 +237,20 @@
             WithList.prototype = new namespace.Entities.Classes.PopUpList(withListConstructorObject, messengerEngine);
 
             var ClockList = function () {
-                var paused = false;
                 var verbs = [{
                     id: -1,
                     name: "Pause",
                     call: function () {
-                        paused = true;
-                        messengerEngine.post("ClockList.pauseClick", paused);
+                        messengerEngine.post("ClockList.pauseClick", true);
                     }
                 }, {
                     id: -2,
                     name: "Wait",
                     call: function () {
+                        messengerEngine.post("ClockList.waitClick", true);
                     }
                 }];
+                var timeSelector = null;
 
                 var that = this;
 
@@ -259,9 +259,23 @@
                     that.open(clientX, clientY);
                 };
 
+                var closeTimeSelector = function (accepted, hours, minutes) {
+                    timeSelector = null;
+                    if (accepted) {
+                        messengerEngine.post("ClockList.waitTime", hours, minutes);
+                    }
+                };
+
+                var openTimeSelector = function () {
+                    timeSelector = new namespace.Entities.Classes.TimeSelector(messengerEngine);
+                    timeSelector.then(closeTimeSelector);
+                };
+
                 messengerEngine.register("InterfaceManager.iParagraphClick", that, that.close);
                 messengerEngine.register("InterfaceManager.iWordClick", that, that.close);
                 messengerEngine.register("ClockList.pauseClick", that, that.close);
+                messengerEngine.register("ClockList.waitClick", that, that.close);
+                messengerEngine.register("ClockList.waitClick", that, openTimeSelector);
             };
 
             ClockList.prototype = new namespace.Entities.Classes.PopUpList(clockListConstructorObject, messengerEngine);

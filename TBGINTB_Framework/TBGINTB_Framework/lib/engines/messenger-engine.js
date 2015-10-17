@@ -139,6 +139,8 @@
             createMessageType("WithList.closeExec");
 
             createMessageType("ClockList.pauseClick");
+            createMessageType("ClockList.waitClick");
+            createMessageType("ClockList.waitTime");
             createMessageType("ClockList.openExec");
             createMessageType("ClockList.closeExec");
 

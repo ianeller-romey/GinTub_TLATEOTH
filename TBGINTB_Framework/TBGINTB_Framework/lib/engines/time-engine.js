@@ -18,7 +18,7 @@
             var postTimeMessages = function () {
                 messengerEngine.post("TimeEngine.updateTime", time);
 
-                if (time.minutes() % 10 == 0) {
+                if (time.minutes() % 10 === 0) {
                     messengerEngine.post("TimeEngine.updateTimeAtTen", time);
                 }
             };
@@ -26,12 +26,12 @@
             var updateTime = function () {
                 if (!paused) {
                     time.add(minuteIncr);
-                    if (time.minutes() == minuteSub.minutes()) {
+                    if (time.minutes() === minuteSub.minutes()) {
                         // set minutes back to zero
                         time.subtract(minuteSub);
 
                         time.add(hourIncr);
-                        if (time.hours() == hourSub.hours()) {
+                        if (time.hours() === hourSub.hours()) {
                             // set hours back to zero
                             time.subtract(hourSub);
                         }
@@ -50,6 +50,7 @@
                 messengerEngine.register("VerbList.closeExec", that, unpause);
                 messengerEngine.register("ClockList.pauseClick", that, pause);
                 messengerEngine.register("PauseFader.unpauseClick", that, unpause);
+                messengerEngine.register("ClockList.waitTime", that, waitTime);
 
                 gameLoaded = true;
             };
@@ -67,6 +68,13 @@
                 postTimeMessages();
                 start();
             };
+
+            var waitTime = function (hours, minutes) {
+                setTime(moment.duration({
+                    minutes: minutes,
+                    hours: hours
+                }));
+            }
 
             var pause = function () {
                 paused = true;
