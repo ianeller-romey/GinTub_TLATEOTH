@@ -51,6 +51,7 @@
                 messengerEngine.register("ClockList.pauseClick", that, pause);
                 messengerEngine.register("PauseFader.unpauseClick", that, unpause);
                 messengerEngine.register("ClockList.waitTime", that, waitTime);
+                messengerEngine.register("InterfaceManager.loadingRoomState", that, pause);
 
                 gameLoaded = true;
             };
@@ -76,8 +77,12 @@
                 }));
             }
 
-            var pause = function () {
-                paused = true;
+            var pause = function (toPause) {
+                if (toPause !== undefined) {
+                    paused = !!toPause;
+                } else {
+                    paused = true;
+                }
             };
 
             var unpause = function () {

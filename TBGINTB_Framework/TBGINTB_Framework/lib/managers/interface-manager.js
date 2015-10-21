@@ -266,6 +266,7 @@
             };
 
             var loadRoomState = function (roomStateData, paragraphStateData, paragraphStateUpdatePromise) {
+                messengerEngine.post("InterfaceManager.loadingRoomState", true);
                 swapLocationImage(roomStateData.location);
 
                 paragraphStateUpdatePromise.then(function () {
@@ -280,7 +281,9 @@
                                 return activeParagraph.id === newParagraph.id;
                             });
                         });
-                        updateAddedParagraphStates();
+                        updateAddedParagraphStates().then(function () {
+                            messengerEngine.post("InterfaceManager.loadingRoomState", false);
+                        });
                     });
                 });
             };
