@@ -147,18 +147,18 @@
                 });
             };
 
-            var createOnUnloadMessageParagraphStateUpdatePromise = function () {
+            var createOnCloseMessageParagraphStateUpdatePromise = function () {
                 return new Promise(function (resolve, reject) {
                     var resolveOnMessage;
-                    var onUnloadMessageParagraphStateUpdate = function () {
+                    var onCloseMessageParagraphStateUpdate = function () {
                         return function () {
                             resolve();
-                            messengerEngine.unregister("MessageManager.unloadMessage", resolveOnMessage);
+                            messengerEngine.unregister("MessageManager.closeMessageManager", resolveOnMessage);
                         };
                     };
-                    resolveOnMessage = onUnloadMessageParagraphStateUpdate();
+                    resolveOnMessage = onCloseMessageParagraphStateUpdate();
 
-                    messengerEngine.register("MessageManager.unloadMessage", this, resolveOnMessage);
+                    messengerEngine.register("MessageManager.closeMessageManager", this, resolveOnMessage);
                 });
             };
 
@@ -208,7 +208,7 @@
                     setActiveRoomState(createImmediateParagraphStateUpdatePromise());
                 }
                 else {
-                    setActiveRoomState(createOnUnloadMessageParagraphStateUpdatePromise());
+                    setActiveRoomState(createOnCloseMessageParagraphStateUpdatePromise());
                 };
             };
 

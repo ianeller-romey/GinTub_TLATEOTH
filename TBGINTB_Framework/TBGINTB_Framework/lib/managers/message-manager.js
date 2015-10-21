@@ -9,6 +9,12 @@
             var messageTextElem = $(messageTextId);
             var messageChoicesElem = $(messageChoicesId);
 
+            var loadingFader = null;
+
+            var unloadMessageTypeBeforeChoice = "BeforeChoice";
+            var unloadMessageTypeBeforeClosing = "BeforeClosing";
+            var removeTextPromise = null;
+
             var list = [];
 
             var updateIntervalFast = 2;
@@ -23,13 +29,38 @@
 
             var that = this;
 
-            var unloadMessage = function () {
-                messageTopElem.width("0px");
-                messageBottomElem.width("0px");
+            var unloadMessage = function (unloadMessageType) {
+                // if there is leftover text from a previous message, animate it away
+                if (messageTextElem.text()) { // intentional truthiness
+                    updateInterval = updateIntervalRemoval;
+                    removeTextPromise = messageTextElem.animateTextRemove(that.getUpdateInterval);
+                    removeTextPromise.then(function () {
+                        // we want to be the first to set a "then", so that we can post this message for the loadingFader immediately,
+                        // so that we can deactivate it immediately if loadMessage is ready to happen (which it might be, since we asynchronously
+                        // request the next response of the message choice before we begin removing text); so, even though we can't "technically"
+                        // rely on unloadMessage to be done until after this promise AND the promiseToFade below are done, we want to post this message
+                        // from right here
+                        messengerEngine.post("MessageManager.unloadMessage" + unloadMessageType, true);
+                        removeTextPromise = null;
+                    });
+                };
+                // deactivate all message choices
+                for (var i = 0, j = list.length; i < j; ++i) {
+                    list[i].setActive(false);
+                }
 
-                messageTextElem.empty();
-                messageChoicesElem.empty();
-                messengerEngine.post("MessageManager.unloadMessage");
+                return Promise.all([messageChoicesElem.children(".actionText").promiseToFade("fast", 0.0), removeTextPromise]);
+            };
+
+            var closeMessageManager = function () {
+                unloadMessage(unloadMessageTypeBeforeClosing).then(function () {
+                    messageTopElem.width("0px");
+                    messageBottomElem.width("0px");
+
+                    messageTextElem.empty();
+                    messageChoicesElem.empty();
+                    messengerEngine.post("MessageManager.closeMessageManager");
+                });
             }
 
             var loadMessage = function (messageData) {
@@ -38,19 +69,17 @@
 
                 var messageChoices = messageData.messageChoices;
 
-                var removeTextPromise = Promise.resolve();
-                // if there is leftover text from a previous message, animate it away
-                if (messageTextElem.text()) { // intentional truthiness
-                    updateInterval = updateIntervalRemoval;
-                    removeTextPromise = messageTextElem.animateTextRemove(that.getUpdateInterval);
-                };
-
+                if (!removeTextPromise) { // intentional truthiness
+                    removeTextPromise = Promise.resolve();
+                }
+                
                 removeTextPromise.then(function () {
+                    messengerEngine.post("MessageManager.loadMessage", true);
                     list = [];
                     updateInterval = updateIntervalAdding;
                     messageTextElem.animateTextAdd(messageData.text, that.getUpdateInterval).then(function () {
                         if (!messageChoices || messageChoices.length === 0) { // intentional truthiness
-                            var text = namespace.Entities.Factories.createActionText(noMessageChoices.id, noMessageChoices.text, unloadMessage);
+                            var text = namespace.Entities.Factories.createActionText(noMessageChoices.id, noMessageChoices.text, closeMessageManager);
                             text.addClass("boldText");
 
                             list.push(text);
@@ -84,14 +113,22 @@
             };
 
             var messageChoiceClick = function (mId) {
-                // deactivate all message choices
-                for (var i = 0, j = list.length; i < j; ++i) {
-                    list[i].setActive(false);
-                }
-                messageChoicesElem.children(".actionText").promiseToFade("fast", 0.0).then(function () {
+                unloadMessage(unloadMessageTypeBeforeChoice).then(function () {
                     messageChoicesElem.empty();
-                    messengerEngine.post("MessageManager.messageChoiceClick", mId);
                 });
+                messengerEngine.post("MessageManager.messageChoiceClick", mId);
+            };
+
+            var loadingWhileDoMessageChoice = function () {
+                var promise = new Promise(function (resolve, reject) {
+                    var loadingWhileDoMessageChoiceFinished = function () {
+                        messengerEngine.unregister("MessageManager.loadMessage", loadingWhileDoMessageChoiceFinished);
+                        resolve();
+                        loadingFader = null;
+                    };
+                    messengerEngine.register("MessageManager.loadMessage", that, loadingWhileDoMessageChoiceFinished);
+                });
+                loadingFader = new namespace.Entities.Classes.LoadingFader(messageTopId, promise, messengerEngine);
             };
 
             $(masterContainerId).mousedown(function (e) {
@@ -100,6 +137,7 @@
 
             messengerEngine.register("GameStateData.setMessage", this, loadMessage);
             messengerEngine.register("MessageChoice.click", this, messageChoiceClick);
+            messengerEngine.register("MessageManager.unloadMessageBeforeChoice", this, loadingWhileDoMessageChoice);
         }
     };
 }(window.GinTub = window.GinTub || {}));

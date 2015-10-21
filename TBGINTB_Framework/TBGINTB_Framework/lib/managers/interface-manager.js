@@ -3,7 +3,7 @@
 
     namespace.Managers = namespace.Managers || {};
     namespace.Managers.InterfaceManager = {
-        init: function (locationsId, paragraphsId, clockId, masterContainerId, messengerEngine) {
+        init: function (locationsId, paragraphsId, clockId, interfaceBottomId, messengerEngine) {
             var createHoverClickText = function (classType, idNum, messengerEngine) {
                 var span = null;
                 var classTypes = createHoverClickText.classTypes;
@@ -102,6 +102,7 @@
             var clockElem = $(clockId);
             var selectedElem;
             var pauseFader = null;
+            var loadingFader = null;
 
             var paragraphSpans = [];
             var removedParagraphSpans = [];
@@ -284,6 +285,18 @@
                 });
             };
 
+            var loadingWhileDoAction = function () {
+                var promise = new Promise(function (resolve, reject) {
+                    var loadingWhileDoActionFinished = function () {
+                        messengerEngine.unregister("ServicesEngine.doAction", loadingWhileDoActionFinished);
+                        resolve();
+                        loadingFader = null;
+                    };
+                    messengerEngine.register("ServicesEngine.doAction", that, loadingWhileDoActionFinished);
+                });
+                loadingFader = new namespace.Entities.Classes.LoadingFader(interfaceBottomId, promise, messengerEngine);
+            };
+
             var updateTime = function (time) {
                 var timeString = ("0" + time.hours()).slice(-2) + ":" + ("0" + time.minutes()).slice(-2);
                 clockElem.text(timeString);
@@ -314,11 +327,12 @@
                 messengerEngine.post("InterfaceManager.clockClick", pos.left + 40, pos.top + 30);
             });
 
-            $(masterContainerId).mousedown(function (e) {
+            $(interfaceBottomId).mousedown(function (e) {
                 that.changeUpdateInterval();
             });
 
             messengerEngine.register("GameStateEngine.setActiveRoomState", this, loadRoomState);
+            messengerEngine.register("GameStateEngine.doAction", this, loadingWhileDoAction);
             messengerEngine.register("TimeEngine.updateTime", this, updateTime);
             messengerEngine.register("ClockList.pauseClick", this, pause);
             messengerEngine.register("PauseFader.unpauseClick", this, unpause);

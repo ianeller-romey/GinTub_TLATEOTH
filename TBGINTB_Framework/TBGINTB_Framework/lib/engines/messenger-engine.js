@@ -123,7 +123,10 @@
             createMessageType("MenuEntry.partyRequest");
             createMessageType("MenuEntry.click");
 
-            createMessageType("MessageManager.unloadMessage");
+            createMessageType("MessageManager.unloadMessageBeforeChoice");
+            createMessageType("MessageManager.unloadMessageBeforeClosing");
+            createMessageType("MessageManager.loadMessage");
+            createMessageType("MessageManager.closeMessageManager");
             createMessageType("MessageManager.messageChoiceClick");
 
             createMessageType("MessageChoice.click");

@@ -67,6 +67,7 @@
     <Content Include="lib\engines\services-engine.js" />
     <Content Include="lib\engines\time-engine.js" />
     <Content Include="lib\entities\action-text.js" />
+    <Content Include="lib\entities\loading-fader.js" />
     <Content Include="lib\entities\time-selector.js" />
     <Content Include="lib\entities\pause-fader.js" />
     <Content Include="lib\entities\image-fader.js" />

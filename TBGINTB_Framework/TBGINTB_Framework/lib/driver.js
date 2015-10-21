@@ -26,7 +26,7 @@
             new namespace.Entities.Classes.PopUpListConstructorObject("#clockList", "#interfaceTop", "ClockList"),
             messengerEngine);
         var interfaceManager = namespace.Managers.InterfaceManager;
-        interfaceManager.init("#locations", "#paragraphs", "#clock", "#master-container", messengerEngine);
+        interfaceManager.init("#locations", "#paragraphs", "#clock", "#interfaceBottom", messengerEngine);
         var menuManager = namespace.Managers.MenuManager;
         menuManager.init("#menu", "#menuButton", "#menuEntries", "#menuFrame", "#displayFrame", "#descriptionFrame", messengerEngine);
         var messageManager = namespace.Managers.MessageManager;
