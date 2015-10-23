@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GinTub xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ExportDate="2015-10-23T16:29:00.5965927-07:00">
+  <Items />
+  <Events />
+  <Characters />
+  <JSONPropertyTypes>
+    <JSONPropertyDataType Id="0">
+      <DataType>Number</DataType>
+    </JSONPropertyDataType>
+    <JSONPropertyDataType Id="1">
+      <DataType>String</DataType>
+    </JSONPropertyDataType>
+    <JSONPropertyDataType Id="2">
+      <DataType>Boolean</DataType>
+    </JSONPropertyDataType>
+    <JSONPropertyDataType Id="3">
+      <DataType>DateTime</DataType>
+    </JSONPropertyDataType>
+  </JSONPropertyTypes>
+  <ResultTypes>
+    <ResultType Id="0">
+      <Name>Room XYZ Movement</Name>
+      <Results>
+        <Result Id="3">
+          <Name>Move_X_East1</Name>
+          <JSONData>{ "xDir": 1, "yDir": 0, "zDir": 0 }</JSONData>
+        </Result>
+        <Result Id="2">
+          <Name>Move_X_West1</Name>
+          <JSONData>{ "xDir": -1, "yDir": 0, "zDir": 0 }</JSONData>
+        </Result>
+        <Result Id="0">
+          <Name>Move_Y_North1</Name>
+          <JSONData>{ "xDir": 0, "yDir": -1, "zDir": 0 }</JSONData>
+        </Result>
+        <Result Id="1">
+          <Name>Move_Y_South1</Name>
+          <JSONData>{ "xDir": 0, "yDir": 1, "zDir": 0 }</JSONData>
+        </Result>
+        <Result Id="5">
+          <Name>Move_Z_Down1</Name>
+          <JSONData>{ "xDir": 0, "yDir": 0, "zDir": -1 }</JSONData>
+        </Result>
+        <Result Id="4">
+          <Name>Move_Z_Up1</Name>
+          <JSONData>{ "xDir": 0, "yDir": 0, "zDir": 1 }</JSONData>
+        </Result>
+      </Results>
+      <ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="0" DataType="0">
+          <JSONProperty>xDir</JSONProperty>
+        </ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="1" DataType="0">
+          <JSONProperty>yDir</JSONProperty>
+        </ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="2" DataType="0">
+          <JSONProperty>zDir</JSONProperty>
+        </ResultTypeJSONProperty>
+      </ResultTypeJSONProperty>
+    </ResultType>
+    <ResultType Id="1">
+      <Name>Room XYZ Teleport</Name>
+      <Results />
+      <ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="3" DataType="0">
+          <JSONProperty>xPos</JSONProperty>
+        </ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="4" DataType="0">
+          <JSONProperty>yPos</JSONProperty>
+        </ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="5" DataType="0">
+          <JSONProperty>zPos</JSONProperty>
+        </ResultTypeJSONProperty>
+      </ResultTypeJSONProperty>
+    </ResultType>
+    <ResultType Id="2">
+      <Name>Room Id Teleport</Name>
+      <Results />
+      <ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="6" DataType="0">
+          <JSONProperty>roomId</JSONProperty>
+        </ResultTypeJSONProperty>
+      </ResultTypeJSONProperty>
+    </ResultType>
+    <ResultType Id="3">
+      <Name>Area Id Room XYZ Teleport</Name>
+      <Results />
+      <ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="7" DataType="0">
+          <JSONProperty>areaId</JSONProperty>
+        </ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="8" DataType="0">
+          <JSONProperty>xPos</JSONProperty>
+        </ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="9" DataType="0">
+          <JSONProperty>yPos</JSONProperty>
+        </ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="10" DataType="0">
+          <JSONProperty>zPos</JSONProperty>
+        </ResultTypeJSONProperty>
+      </ResultTypeJSONProperty>
+    </ResultType>
+    <ResultType Id="4">
+      <Name>Area Id Room Id Teleport</Name>
+      <Results />
+      <ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="11" DataType="0">
+          <JSONProperty>areaId</JSONProperty>
+        </ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="12" DataType="0">
+          <JSONProperty>roomId</JSONProperty>
+        </ResultTypeJSONProperty>
+      </ResultTypeJSONProperty>
+    </ResultType>
+    <ResultType Id="5">
+      <Name>Item Acquisition</Name>
+      <Results />
+      <ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="13" DataType="0">
+          <JSONProperty>itemId</JSONProperty>
+        </ResultTypeJSONProperty>
+      </ResultTypeJSONProperty>
+    </ResultType>
+    <ResultType Id="6">
+      <Name>Event Acquisition</Name>
+      <Results />
+      <ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="14" DataType="0">
+          <JSONProperty>eventId</JSONProperty>
+        </ResultTypeJSONProperty>
+      </ResultTypeJSONProperty>
+    </ResultType>
+    <ResultType Id="7">
+      <Name>Character Acquisition</Name>
+      <Results />
+      <ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="15" DataType="0">
+          <JSONProperty>characterId</JSONProperty>
+        </ResultTypeJSONProperty>
+      </ResultTypeJSONProperty>
+    </ResultType>
+    <ResultType Id="8">
+      <Name>Paragraph State Change</Name>
+      <Results />
+      <ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="16" DataType="0">
+          <JSONProperty>paragraphId</JSONProperty>
+        </ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="17" DataType="0">
+          <JSONProperty>state</JSONProperty>
+        </ResultTypeJSONProperty>
+      </ResultTypeJSONProperty>
+    </ResultType>
+    <ResultType Id="9">
+      <Name>Room State Change</Name>
+      <Results />
+      <ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="18" DataType="0">
+          <JSONProperty>roomId</JSONProperty>
+        </ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="19" DataType="0">
+          <JSONProperty>state</JSONProperty>
+        </ResultTypeJSONProperty>
+      </ResultTypeJSONProperty>
+    </ResultType>
+    <ResultType Id="10">
+      <Name>Message Activation</Name>
+      <Results>
+        <Result Id="7">
+          <Name>Message - Sedan Look Message 1</Name>
+          <JSONData>{"messageId":0}</JSONData>
+        </Result>
+        <Result Id="6">
+          <Name>Message - Sedan Look Message 1 NEXT</Name>
+          <JSONData>{"messageId":1}</JSONData>
+        </Result>
+      </Results>
+      <ResultTypeJSONProperty>
+        <ResultTypeJSONProperty Id="20" DataType="0">
+          <JSONProperty>messageId</JSONProperty>
+        </ResultTypeJSONProperty>
+      </ResultTypeJSONProperty>
+    </ResultType>
+  </ResultTypes>
+  <VerbTypes>
+    <VerbType Id="0">
+      <Name>Look</Name>
+      <Verbs />
+    </VerbType>
+    <VerbType Id="1">
+      <Name>Interact</Name>
+      <Verbs />
+    </VerbType>
+    <VerbType Id="2">
+      <Name>With</Name>
+      <Verbs />
+    </VerbType>
+    <VerbType Id="3">
+      <Name>Talk</Name>
+      <Verbs />
+    </VerbType>
+    <VerbType Id="4">
+      <Name>Take</Name>
+      <Verbs />
+    </VerbType>
+    <VerbType Id="5">
+      <Name>Walk</Name>
+      <Verbs />
+    </VerbType>
+  </VerbTypes>
+  <Locations>
+    <Location Id="0">
+      <Name>Placeholder</Name>
+      <LocationFile>https://www.google.com/images/srpr/logo1w.png</LocationFile>
+    </Location>
+  </Locations>
+  <Messages>
+    <Message Id="0">
+      <Name>Sedan Look Message 1</Name>
+      <Text>The interior is cramped, smelling vaguely of dust and fast food. Faded receipts are crammed into every available orifice. The thin lines of an inexplicable fracture spread like sharply angled fingers along the surface of the rear view mirror.</Text>
+      <MessageChoices>
+        <MessageChoice Id="0">
+          <Name>Sedan Look Message 1 - Only Choice</Name>
+          <Text>"..."</Text>
+          <MessageChoiceResults>
+            <MessageChoiceResult Id="0">
+              <Result>6</Result>
+            </MessageChoiceResult>
+          </MessageChoiceResults>
+        </MessageChoice>
+      </MessageChoices>
+    </Message>
+    <Message Id="1">
+      <Name>Sedan Look Message 2</Name>
+      <Text>Though the keys are in the ignition, the vehicle is not running.</Text>
+      <MessageChoices />
+    </Message>
+  </Messages>
+  <Areas>
+    <Area Id="0">
+      <Name>'92 FORD ESCORT, RED, 150,000+ MILES</Name>
+      <Rooms>
+        <Room Id="0">
+          <Name>Interior</Name>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+          <RoomStates>
+            <RoomState Id="0">
+              <State>0</State>
+              <Location>0</Location>
+              <Time />
+            </RoomState>
+          </RoomStates>
+          <Paragraphs>
+            <Paragraph Id="0">
+              <Order>0</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="0">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="0">
+                  <Text>You sit in the driver’s seat of an old, poorly maintained sedan.</Text>
+                  <State>0</State>
+                  <Nouns>
+                    <Noun Id="0">
+                      <Text>sedan</Text>
+                      <Actions>
+                        <Action Id="0">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="0">
+                              <Result>7</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                  </Nouns>
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="1">
+              <Order>1</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="1">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="1">
+                  <Text>Splashes of water cling to the windshield; evidence of a recently concluded rain shower.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="2">
+              <Order>2</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="2">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="2">
+                  <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag, a pair of kitchen scissors, and a small flashlight.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="3">
+              <Order>3</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="3">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="3">
+                  <Text>The garish light emanating from the laptop lying open before you has ignited a small tic in your right temple.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="4">
+              <Order>4</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="4">
+                  <RoomState>0</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="4">
+                  <Text>The door to your left is unlocked.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+          </Paragraphs>
+        </Room>
+      </Rooms>
+    </Area>
+  </Areas>
+  <AreaOnInitialLoad Area="0">
+    <Room>0</Room>
+  </AreaOnInitialLoad>
+</GinTub>

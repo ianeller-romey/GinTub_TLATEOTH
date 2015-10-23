@@ -61,7 +61,8 @@ namespace TBGINTB_Builder.HelperControls
             
             UIElement thatContent = Content as UIElement;
             Content = null;
-            grid_main.SetGridRowColumn(thatContent, 0, 0);
+            if(thatContent != null)
+                grid_main.SetGridRowColumn(thatContent, 0, 0);
             Content = grid_main;
         }
 

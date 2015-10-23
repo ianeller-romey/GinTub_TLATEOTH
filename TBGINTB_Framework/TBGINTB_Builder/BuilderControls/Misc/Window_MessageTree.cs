@@ -240,6 +240,8 @@ namespace TBGINTB_Builder.BuilderControls
                                         if (cb != null && cb == comboBox_message && (cbi = cb.SelectedItem as ComboBox_Message.ComboBoxItem_Message) != null)
                                             selectedMessageId = cbi.MessageId;
                                     };
+                                    comboBox_message.SetActiveAndRegisterForGinTubEvents();
+                                    GinTubBuilderManager.ReadAllMessages();
 
                                     var window_message =
                                         new Window_TaskOnAccept
@@ -283,6 +285,7 @@ namespace TBGINTB_Builder.BuilderControls
                                                 }
                                             }
                                         );
+                                    window_message.Content = comboBox_message;
                                     window_message.ShowDialog();
                                 }
                             }
