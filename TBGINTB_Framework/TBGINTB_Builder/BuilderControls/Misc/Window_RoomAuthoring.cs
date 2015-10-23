@@ -91,17 +91,30 @@ namespace TBGINTB_Builder.BuilderControls
             List<string> sentences = s_regex_sentences.Matches(roomText).OfType<Match>().Select(x => x.Value).ToList();
             for (int i = 0, j = sentences.Count; i < j; ++i)
             {
-                int newParagraphId = -1;
-                GinTubBuilderManager.ParagraphReadEventHandler preh = (x, y) =>
+                var paragraphState = 
+                    new 
+                    { 
+                        Id = -1, 
+                        State = -1, 
+                        Paragraph = -1 
+                    };
+                GinTubBuilderManager.ParagraphStateReadEventHandler psreh = (x, y) =>
                     {
-                        newParagraphId = y.Id;
+                        paragraphState = 
+                            new 
+                            { 
+                                Id = y.Id, 
+                                State = y.State, 
+                                Paragraph = y.Paragraph 
+                            };
                     };
 
-                GinTubBuilderManager.ParagraphRead += preh;
+                GinTubBuilderManager.ParagraphStateRead += psreh;
                 GinTubBuilderManager.CreateParagraph(i, RoomId);
-                GinTubBuilderManager.ParagraphRead -= preh;
+                GinTubBuilderManager.ParagraphStateRead -= psreh;
 
-                GinTubBuilderManager.CreateParagraphState(sentences[i], newParagraphId);
+                // We update, not create, because the CreateParagraph stored procedure automagically creates a ParagraphState for us
+                GinTubBuilderManager.UpdateParagraphState(paragraphState.Id, sentences[i], paragraphState.State, paragraphState.Paragraph);
             }
         }
 

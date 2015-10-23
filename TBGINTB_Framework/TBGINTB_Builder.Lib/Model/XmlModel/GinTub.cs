@@ -14,7 +14,7 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
     public class GinTub
     {
         DateTime m_exportDate;
-        AreaRoomOnInitialLoad m_areaOnInitialLoad;
+        GameStateOnInitialLoad m_areaOnInitialLoad;
         Item[] m_items;
         Event[] m_events;
         Character[] m_characters;
@@ -136,7 +136,7 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
         }
 
         [XmlElement("AreaOnInitialLoad")]
-        public AreaRoomOnInitialLoad AreaRoomOnInitialLoad
+        public GameStateOnInitialLoad GameStateOnInitialLoad
         {
             get { return m_areaOnInitialLoad; }
             set

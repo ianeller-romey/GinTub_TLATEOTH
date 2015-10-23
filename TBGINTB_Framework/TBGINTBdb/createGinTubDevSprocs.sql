@@ -392,7 +392,7 @@ BEGIN
 	FROM [dbo].[RoomStates]
 	
 	DELETE
-	FROM [dbo].[GameStateInitialLoad]
+	FROM [dbo].[GameStateOnInitialLoad]
 
 	DELETE
 	FROM [dbo].[Rooms]
@@ -5428,7 +5428,7 @@ BEGIN
 	INSERT INTO [dbo].[PlayerGameStates] ([Player], [LastRoom])
 	SELECT TOP 1 @playerId,
 				 [Room]
-	FROM [dbo].[GameStateInitialLoad]
+	FROM [dbo].[GameStateOnInitialLoad]
 	
 	SELECT @playerid
 

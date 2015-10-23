@@ -1779,13 +1779,13 @@ namespace TBGINTB_Builder.Lib
         #endregion
 
 
-        #region AreaRoomOnInitialLoads
+        #region GameStateOnInitialLoads
 
-        public class AreaRoomOnInitialLoadEventArgs : EventArgs
+        public class GameStateOnInitialLoadEventArgs : EventArgs
         {
             public int? Area { get; set; }
             public int? Room { get; set; }
-            public AreaRoomOnInitialLoadEventArgs(int? area, int? room)
+            public GameStateOnInitialLoadEventArgs(int? area, int? room)
             {
                 Area = area;
                 Room = room;
@@ -1793,42 +1793,42 @@ namespace TBGINTB_Builder.Lib
         }
 
 
-        public class AreaRoomOnInitialLoadReadEventArgs : AreaRoomOnInitialLoadEventArgs
+        public class GameStateOnInitialLoadReadEventArgs : GameStateOnInitialLoadEventArgs
         {
-            public AreaRoomOnInitialLoadReadEventArgs(int? area, int? room) : base(area, room) { }
+            public GameStateOnInitialLoadReadEventArgs(int? area, int? room) : base(area, room) { }
         }
-        public delegate void AreaRoomOnInitialLoadReadEventHandler(object sender, AreaRoomOnInitialLoadReadEventArgs args);
-        public static event AreaRoomOnInitialLoadReadEventHandler AreaRoomOnInitialLoadRead;
-        private static void OnAreaRoomOnInitialLoadRead(AreaRoomOnInitialLoad areaRoomOnInitialRead)
+        public delegate void GameStateOnInitialLoadReadEventHandler(object sender, GameStateOnInitialLoadReadEventArgs args);
+        public static event GameStateOnInitialLoadReadEventHandler GameStateOnInitialLoadRead;
+        private static void OnGameStateOnInitialLoadRead(GameStateOnInitialLoad GameStateOnInitialRead)
         {
-            if (AreaRoomOnInitialLoadRead != null)
-                AreaRoomOnInitialLoadRead(typeof(GinTubBuilderManager), new AreaRoomOnInitialLoadReadEventArgs(areaRoomOnInitialRead.Area, areaRoomOnInitialRead.Room));
-        }
-
-
-        public class AreaRoomOnInitialLoadUpdatedEventArgs : AreaRoomOnInitialLoadEventArgs
-        {
-            public AreaRoomOnInitialLoadUpdatedEventArgs(int? area, int? room) : base(area, room) { }
-        }
-        public delegate void AreaRoomOnInitialLoadUpdatedEventHandler(object sender, AreaRoomOnInitialLoadUpdatedEventArgs args);
-        public static event AreaRoomOnInitialLoadUpdatedEventHandler AreaRoomOnInitialLoadUpdated;
-        private static void OnAreaRoomOnInitialLoadUpdated(AreaRoomOnInitialLoad areaRoomOnInitialRead)
-        {
-            if (AreaRoomOnInitialLoadUpdated != null)
-                AreaRoomOnInitialLoadUpdated(typeof(GinTubBuilderManager), new AreaRoomOnInitialLoadUpdatedEventArgs(areaRoomOnInitialRead.Area, areaRoomOnInitialRead.Room));
+            if (GameStateOnInitialLoadRead != null)
+                GameStateOnInitialLoadRead(typeof(GinTubBuilderManager), new GameStateOnInitialLoadReadEventArgs(GameStateOnInitialRead.Area, GameStateOnInitialRead.Room));
         }
 
 
-        public class AreaRoomOnInitialLoadSelectEventArgs : AreaRoomOnInitialLoadEventArgs
+        public class GameStateOnInitialLoadUpdatedEventArgs : GameStateOnInitialLoadEventArgs
         {
-            public AreaRoomOnInitialLoadSelectEventArgs(int? area, int? room) : base(area, room) { }
+            public GameStateOnInitialLoadUpdatedEventArgs(int? area, int? room) : base(area, room) { }
         }
-        public delegate void AreaRoomOnInitialLoadSelectEventHandler(object sender, AreaRoomOnInitialLoadSelectEventArgs args);
-        public static event AreaRoomOnInitialLoadSelectEventHandler AreaRoomOnInitialLoadSelect;
-        private static void OnAreaRoomOnInitialLoadSelect(AreaRoomOnInitialLoad areaRoomOnInitialRead)
+        public delegate void GameStateOnInitialLoadUpdatedEventHandler(object sender, GameStateOnInitialLoadUpdatedEventArgs args);
+        public static event GameStateOnInitialLoadUpdatedEventHandler GameStateOnInitialLoadUpdated;
+        private static void OnGameStateOnInitialLoadUpdated(GameStateOnInitialLoad GameStateOnInitialRead)
         {
-            if (AreaRoomOnInitialLoadSelect != null)
-                AreaRoomOnInitialLoadSelect(typeof(GinTubBuilderManager), new AreaRoomOnInitialLoadSelectEventArgs(areaRoomOnInitialRead.Area, areaRoomOnInitialRead.Room));
+            if (GameStateOnInitialLoadUpdated != null)
+                GameStateOnInitialLoadUpdated(typeof(GinTubBuilderManager), new GameStateOnInitialLoadUpdatedEventArgs(GameStateOnInitialRead.Area, GameStateOnInitialRead.Room));
+        }
+
+
+        public class GameStateOnInitialLoadSelectEventArgs : GameStateOnInitialLoadEventArgs
+        {
+            public GameStateOnInitialLoadSelectEventArgs(int? area, int? room) : base(area, room) { }
+        }
+        public delegate void GameStateOnInitialLoadSelectEventHandler(object sender, GameStateOnInitialLoadSelectEventArgs args);
+        public static event GameStateOnInitialLoadSelectEventHandler GameStateOnInitialLoadSelect;
+        private static void OnGameStateOnInitialLoadSelect(GameStateOnInitialLoad GameStateOnInitialRead)
+        {
+            if (GameStateOnInitialLoadSelect != null)
+                GameStateOnInitialLoadSelect(typeof(GinTubBuilderManager), new GameStateOnInitialLoadSelectEventArgs(GameStateOnInitialRead.Area, GameStateOnInitialRead.Room));
         }
 
         #endregion
@@ -2735,26 +2735,26 @@ namespace TBGINTB_Builder.Lib
         #endregion
 
 
-        #region AreaRoomOnInitialLoads
+        #region GameStateOnInitialLoads
 
-        public static void CreateAreaRoomOnInitialLoad(int areaId, int roomId)
+        public static void CreateGameStateOnInitialLoad(int areaId, int roomId)
         {
-            UpsertAreaRoomOnInitialLoadDb(areaId, roomId);
-            AreaRoomOnInitialLoad areaRoomOnInitialRead = ReadAreaRoomOnInitialLoadDb();
-            OnAreaRoomOnInitialLoadRead(areaRoomOnInitialRead);
+            UpsertGameStateOnInitialLoadDb(areaId, roomId);
+            GameStateOnInitialLoad GameStateOnInitialRead = ReadGameStateOnInitialLoadDb();
+            OnGameStateOnInitialLoadRead(GameStateOnInitialRead);
         }
 
-        public static void UpdateAreaRoomOnInitialLoad(int areaId, int roomId)
+        public static void UpdateGameStateOnInitialLoad(int areaId, int roomId)
         {
-            UpsertAreaRoomOnInitialLoadDb(areaId, roomId);
-            AreaRoomOnInitialLoad areaRoomOnInitialRead = ReadAreaRoomOnInitialLoadDb();
-            OnAreaRoomOnInitialLoadUpdated(areaRoomOnInitialRead);
+            UpsertGameStateOnInitialLoadDb(areaId, roomId);
+            GameStateOnInitialLoad GameStateOnInitialRead = ReadGameStateOnInitialLoadDb();
+            OnGameStateOnInitialLoadUpdated(GameStateOnInitialRead);
         }
 
-        public static void ReadAreaRoomOnInitialLoad()
+        public static void ReadGameStateOnInitialLoad()
         {
-            AreaRoomOnInitialLoad areaRoomOnInitialRead = ReadAreaRoomOnInitialLoadDb();
-            OnAreaRoomOnInitialLoadRead(areaRoomOnInitialRead);
+            GameStateOnInitialLoad GameStateOnInitialRead = ReadGameStateOnInitialLoadDb();
+            OnGameStateOnInitialLoadRead(GameStateOnInitialRead);
         }
 
         #endregion
@@ -2855,7 +2855,7 @@ namespace TBGINTB_Builder.Lib
             Mapper.CreateMap<dev_ReadMessageTreeForMessage_Result, MessageTreeMessage>();
             Mapper.CreateMap<dev_ReadMessageTreeForMessageChoice_Result, MessageTreeMessageChoice>();
 
-            Mapper.CreateMap<dev_ReadAreaRoomOnInitialLoad_Result, AreaRoomOnInitialLoad>();
+            Mapper.CreateMap<dev_ReadGameStateOnInitialLoad_Result, GameStateOnInitialLoad>();
         }
 
         #region Areas
@@ -4827,36 +4827,36 @@ namespace TBGINTB_Builder.Lib
         #endregion
 
 
-        #region AreaRoomOnInitialLoads
+        #region GameStateOnInitialLoads
 
-        private static void UpsertAreaRoomOnInitialLoadDb(int area, int room)
+        private static void UpsertGameStateOnInitialLoadDb(int area, int room/*, TimeSpan time*/)
         {
             try
             {
-                m_entities.dev_UpsertAreaRoomOnInitialLoad(area, room);
+                m_entities.dev_UpsertGameStateOnInitialLoad(area, room, null);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_UpsertAreaRoomOnInitialLoad", e);
+                throw new GinTubDatabaseException("dev_UpsertGameStateOnInitialLoad", e);
             }
         }
 
-        private static AreaRoomOnInitialLoad ReadAreaRoomOnInitialLoadDb()
+        private static GameStateOnInitialLoad ReadGameStateOnInitialLoadDb()
         {
-            ObjectResult<dev_ReadAreaRoomOnInitialLoad_Result> databaseResult = null;
+            ObjectResult<dev_ReadGameStateOnInitialLoad_Result> databaseResult = null;
             try
             {
-                databaseResult = m_entities.dev_ReadAreaRoomOnInitialLoad();
+                databaseResult = m_entities.dev_ReadGameStateOnInitialLoad();
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_ReadAreaRoomOnInitialLoad", e);
+                throw new GinTubDatabaseException("dev_ReadGameStateOnInitialLoad", e);
             }
             if (databaseResult == null)
-                throw new GinTubDatabaseException("dev_ReadAreaRoomOnInitialLoad", new Exception("No [AreaRoomOnInitialLoads] record found."));
+                throw new GinTubDatabaseException("dev_ReadGameStateOnInitialLoad", new Exception("No [GameStateOnInitialLoads] record found."));
 
-            AreaRoomOnInitialLoad areaRoomOnInitialRead = Mapper.Map<AreaRoomOnInitialLoad>(databaseResult.Single());
-            return areaRoomOnInitialRead;
+            GameStateOnInitialLoad GameStateOnInitialRead = Mapper.Map<GameStateOnInitialLoad>(databaseResult.Single());
+            return GameStateOnInitialRead;
         }
 
         #endregion

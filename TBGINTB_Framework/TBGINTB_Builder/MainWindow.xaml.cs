@@ -32,7 +32,7 @@ namespace TBGINTB_Builder
             m_menuItem_exportToXml,
             m_menuItem_importFromXml,
             m_menuItem_setup,
-            m_menuItem_areaRoomOnInitialLoad;
+            m_menuItem_GameStateOnInitialLoad;
         Grid m_grid_main;
         TabControl m_tabControl_controls;
 
@@ -51,7 +51,7 @@ namespace TBGINTB_Builder
             Width = 1000;
             Height = 500;
 
-            GinTubBuilderManager.AreaRoomOnInitialLoadRead += GinTubBuilderManager_AreaRoomOnInitialLoadRead;
+            GinTubBuilderManager.GameStateOnInitialLoadRead += GinTubBuilderManager_GameStateOnInitialLoadRead;
         }
 
         #endregion
@@ -81,19 +81,19 @@ namespace TBGINTB_Builder
 
             ////////
             // Setup
-            m_menuItem_areaRoomOnInitialLoad = new MenuItem() { Header = "Area/Room On Initial Load" };
-            RoutedEventHandler menuItem_areaRoomOnInitialLoad_clickHandler = 
+            m_menuItem_GameStateOnInitialLoad = new MenuItem() { Header = "Area/Room On Initial Load" };
+            RoutedEventHandler menuItem_GameStateOnInitialLoad_clickHandler = 
                 new RoutedEventHandler((x, y) =>
                 {
-                    if (m_menuItem_areaRoomOnInitialLoad.IsSubmenuOpen)
+                    if (m_menuItem_GameStateOnInitialLoad.IsSubmenuOpen)
                         m_menuItem_setup.IsSubmenuOpen = false;
                 });
-            m_menuItem_areaRoomOnInitialLoad.AddHandler(Button.ClickEvent, menuItem_areaRoomOnInitialLoad_clickHandler);
-            m_menuItem_areaRoomOnInitialLoad.AddHandler(MenuItem.ClickEvent, menuItem_areaRoomOnInitialLoad_clickHandler);
+            m_menuItem_GameStateOnInitialLoad.AddHandler(Button.ClickEvent, menuItem_GameStateOnInitialLoad_clickHandler);
+            m_menuItem_GameStateOnInitialLoad.AddHandler(MenuItem.ClickEvent, menuItem_GameStateOnInitialLoad_clickHandler);
                 
 
             m_menuItem_setup = new MenuItem() { Header = "Setup" };
-            m_menuItem_setup.Items.Add(m_menuItem_areaRoomOnInitialLoad);
+            m_menuItem_setup.Items.Add(m_menuItem_GameStateOnInitialLoad);
 
             ////////
             // Toolbar
@@ -136,16 +136,16 @@ namespace TBGINTB_Builder
             JSONPropertyManager.Initialize();
         }
 
-        private void GinTubBuilderManager_AreaRoomOnInitialLoadRead(object sender, GinTubBuilderManager.AreaRoomOnInitialLoadReadEventArgs args)
+        private void GinTubBuilderManager_GameStateOnInitialLoadRead(object sender, GinTubBuilderManager.GameStateOnInitialLoadReadEventArgs args)
         {
-            if (m_menuItem_areaRoomOnInitialLoad.Items.Count == 0)
+            if (m_menuItem_GameStateOnInitialLoad.Items.Count == 0)
             {
-                UserControl_AreaRoomOnInitialLoadModification control = new UserControl_AreaRoomOnInitialLoadModification(args.Area, args.Room);
+                UserControl_GameStateOnInitialLoadModification control = new UserControl_GameStateOnInitialLoadModification(args.Area, args.Room);
                 control.SetActiveAndRegisterForGinTubEvents();
-                m_menuItem_areaRoomOnInitialLoad.Items.Add(control);
+                m_menuItem_GameStateOnInitialLoad.Items.Add(control);
                 GinTubBuilderManager.ReadAllAreas();
             }
-            GinTubBuilderManager.AreaRoomOnInitialLoadRead -= GinTubBuilderManager_AreaRoomOnInitialLoadRead;
+            GinTubBuilderManager.GameStateOnInitialLoadRead -= GinTubBuilderManager_GameStateOnInitialLoadRead;
         }
 
         private void MenuItem_LoadFromDatabase_Click(object sender, RoutedEventArgs e)
@@ -163,7 +163,7 @@ namespace TBGINTB_Builder
                 m_menuItem_file.Items.Add(m_menuItem_importFromXml);
 
                 m_menu_main.Items.Add(m_menuItem_setup);
-                GinTubBuilderManager.ReadAreaRoomOnInitialLoad();
+                GinTubBuilderManager.ReadGameStateOnInitialLoad();
             }
         }
 

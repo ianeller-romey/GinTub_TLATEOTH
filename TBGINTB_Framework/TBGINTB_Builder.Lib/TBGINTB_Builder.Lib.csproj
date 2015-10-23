@@ -65,7 +65,7 @@
     <Compile Include="GinTubBuilderManager_XmlImportAndExport.cs" />
     <Compile Include="GinTubBuilderManager_DbRetrieveAndUpdate.cs" />
     <Compile Include="JSONPropertyManager.cs" />
-    <Compile Include="Model\DbModel\AreaRoomOnInitialLoad.cs" />
+    <Compile Include="Model\DbModel\GameStateOnInitialLoad.cs" />
     <Compile Include="Model\DbModel\MessageTreeMessageChoice.cs" />
     <Compile Include="Model\DbModel\MessageTreeMessage.cs" />
     <Compile Include="Model\DbModel\ParagraphRoomState.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="Model\DbModel\RoomPreviewParagraphState.cs" />
     <Compile Include="Model\XmlModel\Action.cs" />
     <Compile Include="Model\XmlModel\ActionResult.cs" />
-    <Compile Include="Model\XmlModel\AreaRoomOnInitialLoad.cs" />
+    <Compile Include="Model\XmlModel\GameStateOnInitialLoad.cs" />
     <Compile Include="Model\XmlModel\JSONPropertyDataType.cs" />
     <Compile Include="Model\XmlModel\GinTub.cs" />
     <Compile Include="Model\XmlModel\Area.cs" />
@@ -152,6 +152,9 @@
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\dev_ReadAllAreas_Result.cs">
+      <DependentUpon>devSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\dev_ReadAllAudio_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\dev_ReadAllCharacterActionRequirementsForAction_Result.cs">
@@ -241,6 +244,9 @@
     <Compile Include="Repository\dev_ReadArea_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repository\dev_ReadAudio_Result.cs">
+      <DependentUpon>devSchema.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repository\dev_ReadCharacterActionRequirement_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
@@ -251,6 +257,9 @@
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\dev_ReadEvent_Result.cs">
+      <DependentUpon>devSchema.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\dev_ReadGameStateOnInitialLoad_Result.cs">
       <DependentUpon>devSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\dev_ReadItemActionRequirement_Result.cs">
@@ -324,7 +333,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <EntityDeploy Include="Repository\devSchema.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

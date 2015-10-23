@@ -131,7 +131,7 @@ namespace TBGINTB_Builder.Lib
 
             Mapper.CreateMap<Db.MessageChoiceResult, Xml.MessageChoiceResult>();
 
-            Mapper.CreateMap<Db.AreaRoomOnInitialLoad, Xml.AreaRoomOnInitialLoad>();
+            Mapper.CreateMap<Db.GameStateOnInitialLoad, Xml.GameStateOnInitialLoad>();
         }
 
         #region Export
@@ -164,7 +164,7 @@ namespace TBGINTB_Builder.Lib
             for (int i = 0; i < areas.Length; ++i)
                 ExportAreaToXml(ref areas[i]);
 
-            Xml.AreaRoomOnInitialLoad areaRoomOnInitialLoad = Mapper.Map<Xml.AreaRoomOnInitialLoad>(ReadAreaRoomOnInitialLoadDb());
+            Xml.GameStateOnInitialLoad GameStateOnInitialLoad = Mapper.Map<Xml.GameStateOnInitialLoad>(ReadGameStateOnInitialLoadDb());
 
             Xml.GinTub ginTub = new Xml.GinTub();
             ginTub.Items = items;
@@ -176,7 +176,7 @@ namespace TBGINTB_Builder.Lib
             ginTub.Locations = locations;
             ginTub.Messages = messages;
             ginTub.Areas = areas;
-            ginTub.AreaRoomOnInitialLoad = areaRoomOnInitialLoad;
+            ginTub.GameStateOnInitialLoad = GameStateOnInitialLoad;
             return ginTub;
         }
 
@@ -291,8 +291,8 @@ namespace TBGINTB_Builder.Lib
                 ImportMessageFromXml(message);
             foreach (var area in ginTub.Areas)
                 ImportAreaFromXml(area);
-            if(ginTub.AreaRoomOnInitialLoad != null)
-                ImportAreaRoomOnInitialLoad(ginTub.AreaRoomOnInitialLoad.Area, ginTub.AreaRoomOnInitialLoad.Room);
+            if(ginTub.GameStateOnInitialLoad != null)
+                ImportGameStateOnInitialLoad(ginTub.GameStateOnInitialLoad.Area, ginTub.GameStateOnInitialLoad.Room);
         }
 
         private static void ImportResultTypeFromXml(Xml.ResultType resultType)
@@ -682,15 +682,15 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static void ImportAreaRoomOnInitialLoad(int area, int room)
+        private static void ImportGameStateOnInitialLoad(int area, int room/*, TimeSpan time*/)
         {
             try
             {
-                m_entities.dev_ImportAreaRoomOnInitialLoad(area, room);
+                m_entities.dev_ImportGameStateOnInitialLoad(area, room, null);
             }
             catch (Exception e)
             {
-                throw new GinTubDatabaseException("dev_ImportAreaRoomOnInitialLoad", e);
+                throw new GinTubDatabaseException("dev_ImportGameStateOnInitialLoad", e);
             }
         }
 

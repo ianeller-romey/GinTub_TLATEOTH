@@ -19,6 +19,11 @@
         <Function Name="dev_CreateArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="name" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="dev_CreateAudio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="audioFile" Type="varchar" Mode="In" />
+          <Parameter Name="isLooped" Type="bit" Mode="In" />
+        </Function>
         <Function Name="dev_CreateCharacter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="name" Type="varchar" Mode="In" />
           <Parameter Name="description" Type="varchar" Mode="In" />
@@ -125,6 +130,7 @@
           <Parameter Name="noun" Type="int" Mode="In" />
         </Function>
         <Function Name="dev_DeleteAllAreas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_DeleteAllAudio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
         <Function Name="dev_DeleteAllCharacterActionRequirementsForAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="action" Type="int" Mode="In" />
         </Function>
@@ -196,9 +202,11 @@
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="dev_ImportAreaRoomOnInitialLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
-          <Parameter Name="area" Type="int" Mode="In" />
-          <Parameter Name="room" Type="int" Mode="In" />
+        <Function Name="dev_ImportAudio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="audioFile" Type="varchar" Mode="In" />
+          <Parameter Name="isLooped" Type="bit" Mode="In" />
         </Function>
         <Function Name="dev_ImportCharacter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -219,6 +227,11 @@
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="event" Type="int" Mode="In" />
           <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_ImportGameStateOnInitialLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="area" Type="int" Mode="In" />
+          <Parameter Name="room" Type="int" Mode="In" />
+          <Parameter Name="time" Type="time" Mode="In" />
         </Function>
         <Function Name="dev_ImportItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -329,6 +342,7 @@
           <Parameter Name="noun" Type="int" Mode="In" />
         </Function>
         <Function Name="dev_ReadAllAreas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_ReadAllAudio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
         <Function Name="dev_ReadAllCharacterActionRequirementsForAction" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="action" Type="int" Mode="In" />
         </Function>
@@ -399,7 +413,9 @@
         <Function Name="dev_ReadArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
-        <Function Name="dev_ReadAreaRoomOnInitialLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
+        <Function Name="dev_ReadAudio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
         <Function Name="dev_ReadCharacter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -412,6 +428,7 @@
         <Function Name="dev_ReadEventActionRequirement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="dev_ReadGameStateOnInitialLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev" />
         <Function Name="dev_ReadItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
@@ -505,6 +522,12 @@
         <Function Name="dev_UpdateArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateAudio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="audioFile" Type="varchar" Mode="In" />
+          <Parameter Name="isLooped" Type="bit" Mode="In" />
         </Function>
         <Function Name="dev_UpdateCharacter" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -637,9 +660,10 @@
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="dev_UpsertAreaRoomOnInitialLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+        <Function Name="dev_UpsertGameStateOnInitialLoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="area" Type="int" Mode="In" />
           <Parameter Name="room" Type="int" Mode="In" />
+          <Parameter Name="time" Type="time" Mode="In" />
         </Function>
         <EntityContainer Name="GinTubModelStoreContainer" />
       </Schema></edmx:StorageModels>
@@ -709,7 +733,9 @@
             <Parameter Name="text" Mode="In" Type="String" />
             <Parameter Name="paragraphstate" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="dev_CreateParagraph" ReturnType="Collection(Decimal)">
+          <FunctionImport Name="dev_CreateParagraph" >
+            <ReturnType Type="Collection(Decimal)" />
+            <ReturnType Type="Collection(Decimal)" />
             <Parameter Name="order" Mode="In" Type="Int32" />
             <Parameter Name="room" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -741,7 +767,9 @@
             <Parameter Name="datatype" Mode="In" Type="Int32" />
             <Parameter Name="resulttype" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="dev_CreateRoom" ReturnType="Collection(Decimal)">
+          <FunctionImport Name="dev_CreateRoom">
+            <ReturnType Type="Collection(Decimal)" />
+            <ReturnType Type="Collection(Decimal)" />
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="x" Mode="In" Type="Int32" />
             <Parameter Name="y" Mode="In" Type="Int32" />
@@ -1080,7 +1108,7 @@
             <ReturnType Type="Collection(GinTubModel.dev_ReadMessageTreeForMessageChoice_Result)" />
             <Parameter Name="message" Mode="In" Type="Int32" />
             <Parameter Name="messagechoice" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="dev_ReadMessageTreeForMessageChoice">
             <ReturnType Type="Collection(GinTubModel.dev_ReadMessageTreeForMessage_Result)" />
             <ReturnType Type="Collection(GinTubModel.dev_ReadMessageTreeForMessageChoice_Result)" />
@@ -1288,6 +1316,39 @@
           <FunctionImport Name="dev_UpsertAreaRoomOnInitialLoad">
             <Parameter Name="area" Mode="In" Type="Int32" />
             <Parameter Name="room" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_CreateAudio" ReturnType="Collection(Decimal)">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="audioFile" Mode="In" Type="String" />
+            <Parameter Name="isLooped" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="dev_DeleteAllAudio" />
+          <FunctionImport Name="dev_ImportAudio">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="audioFile" Mode="In" Type="String" />
+            <Parameter Name="isLooped" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ImportGameStateOnInitialLoad">
+            <Parameter Name="area" Mode="In" Type="Int32" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+            <Parameter Name="time" Mode="In" Type="Time" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ReadAllAudio" ReturnType="Collection(GinTubModel.dev_ReadAllAudio_Result)" />
+          <FunctionImport Name="dev_ReadAudio" ReturnType="Collection(GinTubModel.dev_ReadAudio_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="dev_ReadGameStateOnInitialLoad" ReturnType="Collection(GinTubModel.dev_ReadGameStateOnInitialLoad_Result)" />
+          <FunctionImport Name="dev_UpdateAudio">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="audioFile" Mode="In" Type="String" />
+            <Parameter Name="isLooped" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpsertGameStateOnInitialLoad">
+            <Parameter Name="area" Mode="In" Type="Int32" />
+            <Parameter Name="room" Mode="In" Type="Int32" />
+            <Parameter Name="time" Mode="In" Type="Time" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="dev_ReadAction_Result">
@@ -1647,6 +1708,23 @@
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
         </ComplexType>
+        <ComplexType Name="dev_ReadAllAudio_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="AudioFile" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsLooped" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_ReadAudio_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="AudioFile" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsLooped" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="dev_ReadGameStateOnInitialLoad_Result">
+          <Property Type="Int32" Name="Area" Nullable="true" />
+          <Property Type="Int32" Name="Room" Nullable="true" />
+          <Property Type="Time" Name="Time" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1710,7 +1788,6 @@
           <FunctionImportMapping FunctionImportName="dev_ImportAction" FunctionName="GinTubModel.Store.dev_ImportAction" />
           <FunctionImportMapping FunctionImportName="dev_ImportActionResult" FunctionName="GinTubModel.Store.dev_ImportActionResult" />
           <FunctionImportMapping FunctionImportName="dev_ImportArea" FunctionName="GinTubModel.Store.dev_ImportArea" />
-          <FunctionImportMapping FunctionImportName="dev_ImportAreaRoomOnInitialLoad" FunctionName="GinTubModel.Store.dev_ImportAreaRoomOnInitialLoad" />
           <FunctionImportMapping FunctionImportName="dev_ImportCharacter" FunctionName="GinTubModel.Store.dev_ImportCharacter" />
           <FunctionImportMapping FunctionImportName="dev_ImportCharacterActionRequirement" FunctionName="GinTubModel.Store.dev_ImportCharacterActionRequirement" />
           <FunctionImportMapping FunctionImportName="dev_ImportEvent" FunctionName="GinTubModel.Store.dev_ImportEvent" />
@@ -2061,14 +2138,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="dev_ReadAreaRoomOnInitialLoad" FunctionName="GinTubModel.Store.dev_ReadAreaRoomOnInitialLoad">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="GinTubModel.dev_ReadAreaRoomOnInitialLoad_Result">
-                <ScalarProperty Name="Area" ColumnName="Area" />
-                <ScalarProperty Name="Room" ColumnName="Room" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="dev_ReadCharacter" FunctionName="GinTubModel.Store.dev_ReadCharacter">
             <ResultMapping>
               <ComplexTypeMapping TypeName="GinTubModel.dev_ReadCharacter_Result">
@@ -2398,7 +2467,41 @@
           <FunctionImportMapping FunctionImportName="dev_UpdateRoomState" FunctionName="GinTubModel.Store.dev_UpdateRoomState" />
           <FunctionImportMapping FunctionImportName="dev_UpdateVerb" FunctionName="GinTubModel.Store.dev_UpdateVerb" />
           <FunctionImportMapping FunctionImportName="dev_UpdateVerbType" FunctionName="GinTubModel.Store.dev_UpdateVerbType" />
-          <FunctionImportMapping FunctionImportName="dev_UpsertAreaRoomOnInitialLoad" FunctionName="GinTubModel.Store.dev_UpsertAreaRoomOnInitialLoad" />
+          <FunctionImportMapping FunctionImportName="dev_CreateAudio" FunctionName="GinTubModel.Store.dev_CreateAudio" />
+          <FunctionImportMapping FunctionImportName="dev_DeleteAllAudio" FunctionName="GinTubModel.Store.dev_DeleteAllAudio" />
+          <FunctionImportMapping FunctionImportName="dev_ImportAudio" FunctionName="GinTubModel.Store.dev_ImportAudio" />
+          <FunctionImportMapping FunctionImportName="dev_ImportGameStateOnInitialLoad" FunctionName="GinTubModel.Store.dev_ImportGameStateOnInitialLoad" />
+          <FunctionImportMapping FunctionImportName="dev_ReadAllAudio" FunctionName="GinTubModel.Store.dev_ReadAllAudio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_ReadAllAudio_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AudioFile" ColumnName="AudioFile" />
+                <ScalarProperty Name="IsLooped" ColumnName="IsLooped" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_ReadAudio" FunctionName="GinTubModel.Store.dev_ReadAudio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_ReadAudio_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AudioFile" ColumnName="AudioFile" />
+                <ScalarProperty Name="IsLooped" ColumnName="IsLooped" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_ReadGameStateOnInitialLoad" FunctionName="GinTubModel.Store.dev_ReadGameStateOnInitialLoad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GinTubModel.dev_ReadGameStateOnInitialLoad_Result">
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="dev_UpdateAudio" FunctionName="GinTubModel.Store.dev_UpdateAudio" />
+          <FunctionImportMapping FunctionImportName="dev_UpsertGameStateOnInitialLoad" FunctionName="GinTubModel.Store.dev_UpsertGameStateOnInitialLoad" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
