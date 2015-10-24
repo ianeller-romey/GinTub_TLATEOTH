@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GinTub xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ExportDate="2015-10-23T17:05:26.5106697-07:00">
-  <Items />
+<GinTub xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ExportDate="2015-10-23T17:38:01.9082837-07:00">
+  <Items>
+    <Item Id="0">
+      <Name>Junk</Name>
+      <Description>Nothing of this sort will be of much use.</Description>
+    </Item>
+  </Items>
   <Events />
   <Characters />
   <JSONPropertyTypes>
@@ -239,6 +244,26 @@
     </Location>
   </Locations>
   <Messages>
+    <Message Id="6">
+      <Name>Bag Inspect Message 1</Name>
+      <Text>The bag is an unassuming beige, crowned with the cartoonish logo of a discount grocery store.</Text>
+      <MessageChoices />
+    </Message>
+    <Message Id="7">
+      <Name>Bag Take Message 1</Name>
+      <Text>You crumple the bag into a small ball.</Text>
+      <MessageChoices />
+    </Message>
+    <Message Id="10">
+      <Name>Flashlight Inspect Message 1</Name>
+      <Text>The plastic body is a dull red, bereft of any texture.</Text>
+      <MessageChoices />
+    </Message>
+    <Message Id="11">
+      <Name>Flashlight Take Message 1</Name>
+      <Text>As you lift the flashlight you realize that it is far too light to be holding any batteries.</Text>
+      <MessageChoices />
+    </Message>
     <Message Id="4">
       <Name>Laptop Inspect Message 1</Name>
       <Text>A text editor glares back at you, subsuming the screen and seizing your gaze.</Text>
@@ -257,6 +282,16 @@
     <Message Id="5">
       <Name>Laptop Inspect Message 2</Name>
       <Text>"Why did you hurt yourself?"</Text>
+      <MessageChoices />
+    </Message>
+    <Message Id="8">
+      <Name>Scissors Inspect Message 1</Name>
+      <Text>Even in the diffuse light filling the cabin the blades shine as though held beneath a spotlight, hard and bright.</Text>
+      <MessageChoices />
+    </Message>
+    <Message Id="9">
+      <Name>Scissors Take Message 1</Name>
+      <Text>The metal is cool to the touch, but just as heavy as you expected.</Text>
       <MessageChoices />
     </Message>
     <Message Id="0">
@@ -478,6 +513,41 @@
                   <State>0</State>
                   <Nouns />
                 </ParagraphState>
+                <ParagraphState Id="5">
+                  <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag and a small flashlight.</Text>
+                  <State>1</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="6">
+                  <Text>Clutter fills the passenger’s seat: A pair of kitchen scissors and a small flashlight.</Text>
+                  <State>2</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="7">
+                  <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag and a pair of kitchen scissors.</Text>
+                  <State>3</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="8">
+                  <Text>A crumpled up plastic bag rests in the seat beside you.</Text>
+                  <State>4</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="9">
+                  <Text>A pair of kitchen scissors rest in the seat beside you.</Text>
+                  <State>5</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="10">
+                  <Text>A small flashlight rests in the seat beside you.</Text>
+                  <State>6</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="11">
+                  <Text>The passenger's seat is empty, exposing a dull kaleidoscope of assorted soda stains.</Text>
+                  <State>7</State>
+                  <Nouns />
+                </ParagraphState>
               </ParagraphStates>
             </Paragraph>
             <Paragraph Id="2">
@@ -494,6 +564,41 @@
                 <ParagraphState Id="2">
                   <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag, a pair of kitchen scissors, and a small flashlight.</Text>
                   <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="5">
+                  <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag and a small flashlight.</Text>
+                  <State>1</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="6">
+                  <Text>Clutter fills the passenger’s seat: A pair of kitchen scissors and a small flashlight.</Text>
+                  <State>2</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="7">
+                  <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag and a pair of kitchen scissors.</Text>
+                  <State>3</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="8">
+                  <Text>A crumpled up plastic bag rests in the seat beside you.</Text>
+                  <State>4</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="9">
+                  <Text>A pair of kitchen scissors rest in the seat beside you.</Text>
+                  <State>5</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="10">
+                  <Text>A small flashlight rests in the seat beside you.</Text>
+                  <State>6</State>
+                  <Nouns />
+                </ParagraphState>
+                <ParagraphState Id="11">
+                  <Text>The passenger's seat is empty, exposing a dull kaleidoscope of assorted soda stains.</Text>
+                  <State>7</State>
                   <Nouns />
                 </ParagraphState>
               </ParagraphStates>
@@ -516,10 +621,10 @@
             <Paragraph Id="4">
               <Order>4</Order>
               <ParagraphRoomStates>
-                <ParagraphRoomState Id="11">
+                <ParagraphRoomState Id="13">
                   <RoomState>0</RoomState>
                 </ParagraphRoomState>
-                <ParagraphRoomState Id="12">
+                <ParagraphRoomState Id="14">
                   <RoomState>1</RoomState>
                 </ParagraphRoomState>
               </ParagraphRoomStates>
@@ -534,10 +639,10 @@
             <Paragraph Id="4">
               <Order>4</Order>
               <ParagraphRoomStates>
-                <ParagraphRoomState Id="11">
+                <ParagraphRoomState Id="13">
                   <RoomState>0</RoomState>
                 </ParagraphRoomState>
-                <ParagraphRoomState Id="12">
+                <ParagraphRoomState Id="14">
                   <RoomState>1</RoomState>
                 </ParagraphRoomState>
               </ParagraphRoomStates>
