@@ -168,29 +168,29 @@ BEGIN
 	DBCC CHECKIDENT ('[dbo].[VerbTypes]', RESEED, 0)
 END
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[VerbTypes] WHERE [Name] = 'Look')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[VerbTypes] WHERE [Name] = 'Inspect')
 	INSERT INTO [dbo].[VerbTypes] ([Name])
-	VALUES ('Look')
+	VALUES ('Inspect')
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[VerbTypes] WHERE [Name] = 'Interact')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[VerbTypes] WHERE [Name] = 'Operate')
 	INSERT INTO [dbo].[VerbTypes] ([Name])
-	VALUES ('Interact')
+	VALUES ('Operate')
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[VerbTypes] WHERE [Name] = 'With')
 	INSERT INTO [dbo].[VerbTypes] ([Name])
 	VALUES ('With')
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[VerbTypes] WHERE [Name] = 'Talk')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[VerbTypes] WHERE [Name] = 'Speak')
 	INSERT INTO [dbo].[VerbTypes] ([Name])
-	VALUES ('Talk')
+	VALUES ('Speak')
 
 IF NOT EXISTS (SELECT 1 FROM [dbo].[VerbTypes] WHERE [Name] = 'Take')
 	INSERT INTO [dbo].[VerbTypes] ([Name])
 	VALUES ('Take')
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[VerbTypes] WHERE [Name] = 'Walk')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[VerbTypes] WHERE [Name] = 'Travel')
 	INSERT INTO [dbo].[VerbTypes] ([Name])
-	VALUES ('Walk')
+	VALUES ('Travel')
 
 IF NOT EXISTS (SELECT 1 FROM [sys].[tables] t 
 			   INNER JOIN [sys].[schemas] s ON (t.[schema_id] = s.[schema_id]) WHERE s.[name] = 'dbo' and t.[name] = 'Verbs')
