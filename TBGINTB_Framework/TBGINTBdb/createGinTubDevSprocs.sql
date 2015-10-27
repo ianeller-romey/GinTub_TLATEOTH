@@ -1536,7 +1536,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SELECT p.[Id],
+	SELECT DISTINCT p.[Id],
 		   p.[Order],
 		   p.[Room]
 	FROM [dbo].[Paragraphs] p

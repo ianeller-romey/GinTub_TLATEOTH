@@ -21,6 +21,8 @@ namespace TBGINTB_Builder.BuilderControls
 
         private static readonly List<string> c_validFileTypes = new List<string> { ".png", ".bmp", ".jpg" };
 
+        private static string s_relativeUrl;
+
         #endregion
 
 
@@ -120,21 +122,36 @@ namespace TBGINTB_Builder.BuilderControls
 
         private void NewLocationDialog()
         {
-            Window_OpenFile window_openFile = new Window_OpenFile("Location File", string.Empty);
-            window_openFile.Closed += (x, y) =>
+            bool accepted = !string.IsNullOrWhiteSpace(s_relativeUrl);
+            while (!accepted)
+            {
+                var window_relativeUrl = new Window_TextEntry("Image Relative Url", "");
+                window_relativeUrl.ShowDialog();
+                if (window_relativeUrl.Accepted)
                 {
-                    if (window_openFile.Accepted)
+                    accepted = true;
+                    s_relativeUrl = window_relativeUrl.Text;
+                }
+
+            }
+            if (accepted)
+            {
+                Window_OpenFile window_openFile = new Window_OpenFile("Location File", string.Empty);
+                window_openFile.Closed += (x, y) =>
                     {
-                        Window_TextEntry window_textEntry = new Window_TextEntry("Location Name", Path.GetFileNameWithoutExtension(window_openFile.FileName));
-                        window_textEntry.Closed += (a, b) =>
-                            {
-                                if (window_textEntry.Accepted)
-                                    GinTubBuilderManager.CreateLocation(window_textEntry.Text, window_openFile.FileName);
-                            };
-                        window_textEntry.Show();
-                    }
-                };
-            window_openFile.Show();
+                        if (window_openFile.Accepted)
+                        {
+                            Window_TextEntry window_textEntry = new Window_TextEntry("Location Name", Path.GetFileNameWithoutExtension(window_openFile.FileName));
+                            window_textEntry.Closed += (a, b) =>
+                                {
+                                    if (window_textEntry.Accepted)
+                                        GinTubBuilderManager.CreateLocation(window_textEntry.Text, Path.Combine(s_relativeUrl, Path.GetFileName(window_openFile.FileName)));
+                                };
+                            window_textEntry.Show();
+                        }
+                    };
+                window_openFile.Show();
+            }
         }
 
         private void ComboBox_Location_SelectionChanged(object sender, SelectionChangedEventArgs e)

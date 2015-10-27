@@ -13,7 +13,7 @@
 
             var unloadMessageTypeBeforeChoice = "BeforeChoice";
             var unloadMessageTypeBeforeClosing = "BeforeClosing";
-            var removeTextPromise = null;
+            var fadeOutTextPromise = null;
 
             var list = [];
 
@@ -33,15 +33,16 @@
                 // if there is leftover text from a previous message, animate it away
                 if (messageTextElem.text()) { // intentional truthiness
                     updateInterval = updateIntervalRemoval;
-                    removeTextPromise = messageTextElem.animateTextRemove(that.getUpdateInterval);
-                    removeTextPromise.then(function () {
+                    fadeOutTextPromise = messageTextElem.promiseToFade("fast", 0.0);
+                    fadeOutTextPromise.then(function () {
+                        messageTextElem.text("").css("opacity", 1.0);
                         // we want to be the first to set a "then", so that we can post this message for the loadingFader immediately,
                         // so that we can deactivate it immediately if loadMessage is ready to happen (which it might be, since we asynchronously
                         // request the next response of the message choice before we begin removing text); so, even though we can't "technically"
                         // rely on unloadMessage to be done until after this promise AND the promiseToFade below are done, we want to post this message
                         // from right here
                         messengerEngine.post("MessageManager.unloadMessage" + unloadMessageType, true);
-                        removeTextPromise = null;
+                        fadeOutTextPromise = null;
                     });
                 };
                 // deactivate all message choices
@@ -49,7 +50,7 @@
                     list[i].setActive(false);
                 }
 
-                return Promise.all([messageChoicesElem.children(".actionText").promiseToFade("fast", 0.0), removeTextPromise]);
+                return Promise.all([messageChoicesElem.children(".actionText").promiseToFade("fast", 0.0), fadeOutTextPromise]);
             };
 
             var closeMessageManager = function () {
@@ -69,11 +70,11 @@
 
                 var messageChoices = messageData.messageChoices;
 
-                if (!removeTextPromise) { // intentional truthiness
-                    removeTextPromise = Promise.resolve();
+                if (!fadeOutTextPromise) { // intentional truthiness
+                    fadeOutTextPromise = Promise.resolve();
                 }
                 
-                removeTextPromise.then(function () {
+                fadeOutTextPromise.then(function () {
                     messengerEngine.post("MessageManager.loadMessage", true);
                     list = [];
                     updateInterval = updateIntervalAdding;

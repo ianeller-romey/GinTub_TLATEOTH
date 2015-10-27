@@ -21,11 +21,11 @@ namespace TBGINTB_Builder.BuilderControls
         #region MEMBER FIELDS
 
         private static readonly Uri s_uri_imageNotFound = new Uri("/TBGINTB_Builder;component/Images/image_not_found.jpg", UriKind.Relative);
+        string m_uriHelper_absolutePath;
+        string m_uriHelper_absoluteUrl;
 
         ComboBox_Location m_comboBox_location;
         Image m_image_locationFile;
-
-        string m_absolutePath = string.Empty;
 
         #endregion
 
@@ -79,7 +79,7 @@ namespace TBGINTB_Builder.BuilderControls
             Content = grid_main;
         }
 
-        void GinTubBuilderManager_LocationUpdatedOrSelect(object sender, GinTubBuilderManager.LocationEventArgs args)
+        private void GinTubBuilderManager_LocationUpdatedOrSelect(object sender, GinTubBuilderManager.LocationEventArgs args)
         {
             ComboBox_Location.ComboBoxItem_Location comboBoxItem = null;
             if ((comboBoxItem = m_comboBox_location.SelectedItem as ComboBox_Location.ComboBoxItem_Location) != null && comboBoxItem.LocationId == args.Id)
@@ -88,85 +88,84 @@ namespace TBGINTB_Builder.BuilderControls
 
         private void SetLocationFile(string locationFile)
         {
-            Uri uri = null;
-            if (TryCreateRelativeHttpUri(locationFile))
+            SetUriHelper(ref m_uriHelper_absoluteUrl, "Absolute Url");
+            SetUriHelper(ref m_uriHelper_absolutePath, "Absolute Path");
+
+            locationFile = Path.GetFileName(locationFile);
+            string path = Path.Combine(m_uriHelper_absoluteUrl, locationFile);
+
+            m_image_locationFile.Source = LoadImageFromHttp(path);
+
+            if (m_image_locationFile.Source == null)
             {
-                m_image_locationFile.Source = LoadImageFromHttp(Path.Combine(m_absolutePath, locationFile));
-            }
-            else
-            {
-                if (File.Exists(locationFile))
-                    uri = new Uri(locationFile);
-                else
-                    uri = s_uri_imageNotFound;
+                path = Path.Combine(m_uriHelper_absolutePath, locationFile);
+                Uri uri = (File.Exists(path)) ? new Uri(path, UriKind.Absolute) : s_uri_imageNotFound;
                 m_image_locationFile.Source = new BitmapImage(uri);
             }
-        }
-
-        private bool TryCreateRelativeHttpUri(string locationFile)
-        {
-            Uri uri = null;
-            // can we create a relative uri from the filename?
-            if(Uri.TryCreate(locationFile, UriKind.Relative, out uri))
-            {
-                var cancelled = false;
-                // if so
-                while(string.IsNullOrWhiteSpace(m_absolutePath) && !cancelled)
-                {
-                    var window_absolutePath = new Window_TextEntry("Absolute Path", "");
-                    window_absolutePath.ShowDialog();
-                    cancelled = !window_absolutePath.Accepted;
-                    // if the user entered an absolute path
-                    if(!cancelled)
-                    {
-                        var absolutePath = window_absolutePath.Text;
-                        var absoluteLocationFile = Path.Combine(absolutePath, locationFile);
-                        // and the combination of the absolute path and the relative filename is valid
-                        if(Uri.TryCreate(absoluteLocationFile, UriKind.Absolute, out uri) && uri.Scheme == Uri.UriSchemeHttp)
-                        {
-                            m_absolutePath = absolutePath;
-                        }
-                    }
-                }
-            }
-            // if we can't create a relative uri from the filename, this is not an image we need to load via http
-            else
-            {
-                return false;
-            }
-            
-            return !string.IsNullOrWhiteSpace(m_absolutePath);
         }
 
         private BitmapImage LoadImageFromHttp(string httpFile)
         {
             // cheesed from http://stackoverflow.com/questions/3148163/wpf-image-urisource-and-data-binding-using-http-url
-            var image = new BitmapImage();
-            const int BytesToRead = 100;
-
+            BitmapImage image = null;
             WebRequest request = WebRequest.Create(new Uri(httpFile, UriKind.Absolute));
             request.Timeout = -1;
-            WebResponse response = request.GetResponse();
-            Stream responseStream = response.GetResponseStream();
-            BinaryReader reader = new BinaryReader(responseStream);
-            MemoryStream memoryStream = new MemoryStream();
+            WebResponse response = null;
 
-            byte[] bytebuffer = new byte[BytesToRead];
-            int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
-
-            while (bytesRead > 0)
+            try
             {
-                memoryStream.Write(bytebuffer, 0, bytesRead);
-                bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+                response = request.GetResponse();
+                if (((HttpWebResponse)response).StatusCode == HttpStatusCode.NotFound)
+                {
+                    throw new WebException("Image resource not found");
+                }
+                Stream responseStream = response.GetResponseStream();
+                BinaryReader reader = new BinaryReader(responseStream);
+                MemoryStream memoryStream = new MemoryStream();
+                
+                const int BytesToRead = 100;
+                byte[] bytebuffer = new byte[BytesToRead];
+                int bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+                
+                while (bytesRead > 0)
+                {
+                    memoryStream.Write(bytebuffer, 0, bytesRead);
+                    bytesRead = reader.Read(bytebuffer, 0, BytesToRead);
+                }
+
+                image = new BitmapImage();
+                image.BeginInit();
+                memoryStream.Seek(0, SeekOrigin.Begin);
+
+                image.StreamSource = memoryStream;
+                image.EndInit();
+            }
+            catch (Exception)
+            {
+                image = null;
+            }
+            finally
+            {
+                if (response != null)
+                {
+                    response.Close();
+                }
             }
 
-            image.BeginInit();
-            memoryStream.Seek(0, SeekOrigin.Begin);
-
-            image.StreamSource = memoryStream;
-            image.EndInit();
-
             return image;
+        }
+
+        private void SetUriHelper(ref string helper, string typeOfUriHelper)
+        {
+            while (string.IsNullOrWhiteSpace(helper))
+            {
+                var window_imageUrl = new Window_TextEntry("Image " + typeOfUriHelper, "");
+                window_imageUrl.ShowDialog();
+                if (window_imageUrl.Accepted)
+                {
+                    helper = window_imageUrl.Text;
+                }
+            }
         }
 
         private void ComboBox_Location_SelectionChanged(object sender, SelectionChangedEventArgs e)

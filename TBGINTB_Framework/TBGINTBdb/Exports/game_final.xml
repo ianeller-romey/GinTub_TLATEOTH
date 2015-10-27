@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GinTub xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ExportDate="2015-10-23T17:38:01.9082837-07:00">
+<GinTub xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ExportDate="2015-10-26T17:21:36.3981217-07:00">
   <Items>
     <Item Id="0">
       <Name>Junk</Name>
@@ -119,7 +119,12 @@
     </ResultType>
     <ResultType Id="5">
       <Name>Item Acquisition</Name>
-      <Results />
+      <Results>
+        <Result Id="18">
+          <Name>Acquisition - Junk Item</Name>
+          <JSONData>{"itemId":0}</JSONData>
+        </Result>
+      </Results>
       <ResultTypeJSONProperty>
         <ResultTypeJSONProperty Id="13" DataType="0">
           <JSONProperty>itemId</JSONProperty>
@@ -146,7 +151,36 @@
     </ResultType>
     <ResultType Id="8">
       <Name>Paragraph State Change</Name>
-      <Results />
+      <Results>
+        <Result Id="19">
+          <Name>P. State Change - Pass. Seat - Bag and Flashlight Remain</Name>
+          <JSONData>{"paragraphId":2, "state":1}</JSONData>
+        </Result>
+        <Result Id="21">
+          <Name>P. State Change - Pass. Seat - Bag and Scissors Remain</Name>
+          <JSONData>{"paragraphId":2, "state":3}</JSONData>
+        </Result>
+        <Result Id="22">
+          <Name>P. State Change - Pass. Seat - Bag Remains</Name>
+          <JSONData>{"paragraphId":2, "state":4}</JSONData>
+        </Result>
+        <Result Id="25">
+          <Name>P. State Change - Pass. Seat - Empty</Name>
+          <JSONData>{"paragraphId":2, "state":7}</JSONData>
+        </Result>
+        <Result Id="24">
+          <Name>P. State Change - Pass. Seat - Flashlight Remains</Name>
+          <JSONData>{"paragraphId":2, "state":6}</JSONData>
+        </Result>
+        <Result Id="20">
+          <Name>P. State Change - Pass. Seat - Scissors and Flashlight Remain</Name>
+          <JSONData>{"paragraphId":2, "state":2}</JSONData>
+        </Result>
+        <Result Id="23">
+          <Name>P. State Change - Pass. Seat - Scissors Remain</Name>
+          <JSONData>{"paragraphId":2, "state":5}</JSONData>
+        </Result>
+      </Results>
       <ResultTypeJSONProperty>
         <ResultTypeJSONProperty Id="16" DataType="0">
           <JSONProperty>paragraphId</JSONProperty>
@@ -158,7 +192,12 @@
     </ResultType>
     <ResultType Id="9">
       <Name>Room State Change</Name>
-      <Results />
+      <Results>
+        <Result Id="26">
+          <Name>R. State Change - Interior - No Laptop</Name>
+          <JSONData>{"roomId":0, "state":1}</JSONData>
+        </Result>
+      </Results>
       <ResultTypeJSONProperty>
         <ResultTypeJSONProperty Id="18" DataType="0">
           <JSONProperty>roomId</JSONProperty>
@@ -171,6 +210,34 @@
     <ResultType Id="10">
       <Name>Message Activation</Name>
       <Results>
+        <Result Id="12">
+          <Name>Message - Bag Inspect Message 1</Name>
+          <JSONData>{"messageId":6}</JSONData>
+        </Result>
+        <Result Id="15">
+          <Name>Message - Bag Take Message 1</Name>
+          <JSONData>{"messageId":7}</JSONData>
+        </Result>
+        <Result Id="30">
+          <Name>Message - Door (Locked) Operate/Travel Message 1</Name>
+          <JSONData>{"messageId":14}</JSONData>
+        </Result>
+        <Result Id="31">
+          <Name>Message - Door (Unlocked) Operate/Travel Message 1</Name>
+          <JSONData>{"messageId":16}</JSONData>
+        </Result>
+        <Result Id="29">
+          <Name>Message - Door Inspect Message 1</Name>
+          <JSONData>{"messageId":15}</JSONData>
+        </Result>
+        <Result Id="14">
+          <Name>Message - Flashlight Inspect Message 1</Name>
+          <JSONData>{"messageId":10}</JSONData>
+        </Result>
+        <Result Id="17">
+          <Name>Message - Flashlight Take Message 1</Name>
+          <JSONData>{"messageId":11}</JSONData>
+        </Result>
         <Result Id="11">
           <Name>Message - Laptop Inspect Message 1</Name>
           <JSONData>{"messageId":4}</JSONData>
@@ -178,6 +245,22 @@
         <Result Id="10">
           <Name>Message - Laptop Inspect Message 1 NEXT</Name>
           <JSONData>{"messageId":5}</JSONData>
+        </Result>
+        <Result Id="27">
+          <Name>Message - Laptop Operate Message 1</Name>
+          <JSONData>{"messageId":12}</JSONData>
+        </Result>
+        <Result Id="28">
+          <Name>Message - Laptop Take Message 1</Name>
+          <JSONData>{"messageId":13}</JSONData>
+        </Result>
+        <Result Id="13">
+          <Name>Message - Scissors Inspect Message 1</Name>
+          <JSONData>{"messageId":8}</JSONData>
+        </Result>
+        <Result Id="16">
+          <Name>Message - Scissors Take Message 1</Name>
+          <JSONData>{"messageId":9}</JSONData>
         </Result>
         <Result Id="7">
           <Name>Message - Sedan Inspect Message 1</Name>
@@ -232,15 +315,15 @@
   <Locations>
     <Location Id="0">
       <Name>Placeholder</Name>
-      <LocationFile>https://www.google.com/images/srpr/logo1w.png</LocationFile>
+      <LocationFile>images\placeholder.jpg</LocationFile>
     </Location>
     <Location Id="1">
       <Name>area_0_room_0_0_0_roomstate_0</Name>
-      <LocationFile>C:\inetpub\ironandrose\gintub\lion\images\area_0_room_0_0_0_roomstate_0.png</LocationFile>
+      <LocationFile>images\area_0_room_0_0_0_roomstate_0.png</LocationFile>
     </Location>
     <Location Id="2">
       <Name>area_0_room_0_0_0_roomstate_1</Name>
-      <LocationFile>C:\inetpub\ironandrose\gintub\lion\images\area_0_room_0_0_0_roomstate_1.png</LocationFile>
+      <LocationFile>images\area_0_room_0_0_0_roomstate_1.png</LocationFile>
     </Location>
   </Locations>
   <Messages>
@@ -252,6 +335,21 @@
     <Message Id="7">
       <Name>Bag Take Message 1</Name>
       <Text>You crumple the bag into a small ball.</Text>
+      <MessageChoices />
+    </Message>
+    <Message Id="14">
+      <Name>Door (Locked) Operate/Travel Message 1</Name>
+      <Text>You realize that you'll probably spill the laptop onto the asphalt outside if you don't move it first.</Text>
+      <MessageChoices />
+    </Message>
+    <Message Id="16">
+      <Name>Door (Unlocked) Operate/Travel Message 1</Name>
+      <Text>You pull the level and push open the door.</Text>
+      <MessageChoices />
+    </Message>
+    <Message Id="15">
+      <Name>Door Inspect Message 1</Name>
+      <Text>The window crank is missing; you remember having it removed after the mechanism broke and the window fell into the door panel.</Text>
       <MessageChoices />
     </Message>
     <Message Id="10">
@@ -282,6 +380,16 @@
     <Message Id="5">
       <Name>Laptop Inspect Message 2</Name>
       <Text>"Why did you hurt yourself?"</Text>
+      <MessageChoices />
+    </Message>
+    <Message Id="12">
+      <Name>Laptop Operate Message 1</Name>
+      <Text>You move to type, but the keys refuse to yield.</Text>
+      <MessageChoices />
+    </Message>
+    <Message Id="13">
+      <Name>Laptop Take Message 1</Name>
+      <Text>You fold up the laptop and pull it closer. The plastic is hot against your body.</Text>
       <MessageChoices />
     </Message>
     <Message Id="8">
@@ -392,76 +500,6 @@
                 </ParagraphState>
               </ParagraphStates>
             </Paragraph>
-            <Paragraph Id="0">
-              <Order>0</Order>
-              <ParagraphRoomStates>
-                <ParagraphRoomState Id="5">
-                  <RoomState>0</RoomState>
-                </ParagraphRoomState>
-                <ParagraphRoomState Id="6">
-                  <RoomState>1</RoomState>
-                </ParagraphRoomState>
-              </ParagraphRoomStates>
-              <ParagraphStates>
-                <ParagraphState Id="0">
-                  <Text>You sit in the driver’s seat of an old, poorly maintained sedan.</Text>
-                  <State>0</State>
-                  <Nouns>
-                    <Noun Id="0">
-                      <Text>sedan</Text>
-                      <Actions>
-                        <Action Id="0">
-                          <VerbType>0</VerbType>
-                          <ActionResults>
-                            <ActionResult Id="0">
-                              <Result>7</Result>
-                            </ActionResult>
-                          </ActionResults>
-                          <ItemActionRequirements />
-                          <EventActionRequirements />
-                          <CharacterActionRequirements />
-                        </Action>
-                      </Actions>
-                    </Noun>
-                  </Nouns>
-                </ParagraphState>
-              </ParagraphStates>
-            </Paragraph>
-            <Paragraph Id="1">
-              <Order>1</Order>
-              <ParagraphRoomStates>
-                <ParagraphRoomState Id="7">
-                  <RoomState>0</RoomState>
-                </ParagraphRoomState>
-                <ParagraphRoomState Id="8">
-                  <RoomState>1</RoomState>
-                </ParagraphRoomState>
-              </ParagraphRoomStates>
-              <ParagraphStates>
-                <ParagraphState Id="1">
-                  <Text>Splashes of water cling to the windshield; evidence of a recently concluded rain shower.</Text>
-                  <State>0</State>
-                  <Nouns>
-                    <Noun Id="1">
-                      <Text>windshield</Text>
-                      <Actions>
-                        <Action Id="1">
-                          <VerbType>0</VerbType>
-                          <ActionResults>
-                            <ActionResult Id="1">
-                              <Result>9</Result>
-                            </ActionResult>
-                          </ActionResults>
-                          <ItemActionRequirements />
-                          <EventActionRequirements />
-                          <CharacterActionRequirements />
-                        </Action>
-                      </Actions>
-                    </Noun>
-                  </Nouns>
-                </ParagraphState>
-              </ParagraphStates>
-            </Paragraph>
             <Paragraph Id="1">
               <Order>1</Order>
               <ParagraphRoomStates>
@@ -511,90 +549,440 @@
                 <ParagraphState Id="2">
                   <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag, a pair of kitchen scissors, and a small flashlight.</Text>
                   <State>0</State>
-                  <Nouns />
+                  <Nouns>
+                    <Noun Id="2">
+                      <Text>bag</Text>
+                      <Actions>
+                        <Action Id="2">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="2">
+                              <Result>12</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="3">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="3">
+                              <Result>15</Result>
+                            </ActionResult>
+                            <ActionResult Id="4">
+                              <Result>20</Result>
+                            </ActionResult>
+                            <ActionResult Id="49">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                    <Noun Id="3">
+                      <Text>scissors</Text>
+                      <Actions>
+                        <Action Id="4">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="5">
+                              <Result>13</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="5">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="6">
+                              <Result>16</Result>
+                            </ActionResult>
+                            <ActionResult Id="7">
+                              <Result>19</Result>
+                            </ActionResult>
+                            <ActionResult Id="48">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                    <Noun Id="4">
+                      <Text>flashlight</Text>
+                      <Actions>
+                        <Action Id="6">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="8">
+                              <Result>14</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="7">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="9">
+                              <Result>17</Result>
+                            </ActionResult>
+                            <ActionResult Id="10">
+                              <Result>21</Result>
+                            </ActionResult>
+                            <ActionResult Id="47">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                  </Nouns>
                 </ParagraphState>
                 <ParagraphState Id="5">
                   <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag and a small flashlight.</Text>
                   <State>1</State>
-                  <Nouns />
+                  <Nouns>
+                    <Noun Id="5">
+                      <Text>bag</Text>
+                      <Actions>
+                        <Action Id="8">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="11">
+                              <Result>12</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="9">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="12">
+                              <Result>15</Result>
+                            </ActionResult>
+                            <ActionResult Id="13">
+                              <Result>24</Result>
+                            </ActionResult>
+                            <ActionResult Id="46">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                    <Noun Id="6">
+                      <Text>flashlight</Text>
+                      <Actions>
+                        <Action Id="10">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="14">
+                              <Result>14</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="11">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="15">
+                              <Result>17</Result>
+                            </ActionResult>
+                            <ActionResult Id="16">
+                              <Result>22</Result>
+                            </ActionResult>
+                            <ActionResult Id="45">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                  </Nouns>
                 </ParagraphState>
                 <ParagraphState Id="6">
                   <Text>Clutter fills the passenger’s seat: A pair of kitchen scissors and a small flashlight.</Text>
                   <State>2</State>
-                  <Nouns />
+                  <Nouns>
+                    <Noun Id="7">
+                      <Text>scissors</Text>
+                      <Actions>
+                        <Action Id="12">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="17">
+                              <Result>13</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="13">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="18">
+                              <Result>16</Result>
+                            </ActionResult>
+                            <ActionResult Id="19">
+                              <Result>24</Result>
+                            </ActionResult>
+                            <ActionResult Id="44">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                    <Noun Id="8">
+                      <Text>flashlight</Text>
+                      <Actions>
+                        <Action Id="14">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="20">
+                              <Result>14</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="15">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="21">
+                              <Result>17</Result>
+                            </ActionResult>
+                            <ActionResult Id="22">
+                              <Result>23</Result>
+                            </ActionResult>
+                            <ActionResult Id="43">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                  </Nouns>
                 </ParagraphState>
                 <ParagraphState Id="7">
                   <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag and a pair of kitchen scissors.</Text>
                   <State>3</State>
-                  <Nouns />
+                  <Nouns>
+                    <Noun Id="9">
+                      <Text>bag</Text>
+                      <Actions>
+                        <Action Id="16">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="23">
+                              <Result>12</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="17">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="24">
+                              <Result>15</Result>
+                            </ActionResult>
+                            <ActionResult Id="25">
+                              <Result>23</Result>
+                            </ActionResult>
+                            <ActionResult Id="42">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                    <Noun Id="10">
+                      <Text>scissors</Text>
+                      <Actions>
+                        <Action Id="18">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="26">
+                              <Result>13</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="19">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="27">
+                              <Result>16</Result>
+                            </ActionResult>
+                            <ActionResult Id="28">
+                              <Result>22</Result>
+                            </ActionResult>
+                            <ActionResult Id="41">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                  </Nouns>
                 </ParagraphState>
                 <ParagraphState Id="8">
                   <Text>A crumpled up plastic bag rests in the seat beside you.</Text>
                   <State>4</State>
-                  <Nouns />
+                  <Nouns>
+                    <Noun Id="11">
+                      <Text>bag</Text>
+                      <Actions>
+                        <Action Id="20">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="29">
+                              <Result>12</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="21">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="30">
+                              <Result>15</Result>
+                            </ActionResult>
+                            <ActionResult Id="31">
+                              <Result>25</Result>
+                            </ActionResult>
+                            <ActionResult Id="40">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                  </Nouns>
                 </ParagraphState>
                 <ParagraphState Id="9">
                   <Text>A pair of kitchen scissors rest in the seat beside you.</Text>
                   <State>5</State>
-                  <Nouns />
+                  <Nouns>
+                    <Noun Id="12">
+                      <Text>scissors</Text>
+                      <Actions>
+                        <Action Id="22">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="32">
+                              <Result>13</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="23">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="33">
+                              <Result>16</Result>
+                            </ActionResult>
+                            <ActionResult Id="34">
+                              <Result>25</Result>
+                            </ActionResult>
+                            <ActionResult Id="39">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                  </Nouns>
                 </ParagraphState>
                 <ParagraphState Id="10">
                   <Text>A small flashlight rests in the seat beside you.</Text>
                   <State>6</State>
-                  <Nouns />
-                </ParagraphState>
-                <ParagraphState Id="11">
-                  <Text>The passenger's seat is empty, exposing a dull kaleidoscope of assorted soda stains.</Text>
-                  <State>7</State>
-                  <Nouns />
-                </ParagraphState>
-              </ParagraphStates>
-            </Paragraph>
-            <Paragraph Id="2">
-              <Order>2</Order>
-              <ParagraphRoomStates>
-                <ParagraphRoomState Id="9">
-                  <RoomState>0</RoomState>
-                </ParagraphRoomState>
-                <ParagraphRoomState Id="10">
-                  <RoomState>1</RoomState>
-                </ParagraphRoomState>
-              </ParagraphRoomStates>
-              <ParagraphStates>
-                <ParagraphState Id="2">
-                  <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag, a pair of kitchen scissors, and a small flashlight.</Text>
-                  <State>0</State>
-                  <Nouns />
-                </ParagraphState>
-                <ParagraphState Id="5">
-                  <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag and a small flashlight.</Text>
-                  <State>1</State>
-                  <Nouns />
-                </ParagraphState>
-                <ParagraphState Id="6">
-                  <Text>Clutter fills the passenger’s seat: A pair of kitchen scissors and a small flashlight.</Text>
-                  <State>2</State>
-                  <Nouns />
-                </ParagraphState>
-                <ParagraphState Id="7">
-                  <Text>Clutter fills the passenger’s seat: A crumpled up plastic bag and a pair of kitchen scissors.</Text>
-                  <State>3</State>
-                  <Nouns />
-                </ParagraphState>
-                <ParagraphState Id="8">
-                  <Text>A crumpled up plastic bag rests in the seat beside you.</Text>
-                  <State>4</State>
-                  <Nouns />
-                </ParagraphState>
-                <ParagraphState Id="9">
-                  <Text>A pair of kitchen scissors rest in the seat beside you.</Text>
-                  <State>5</State>
-                  <Nouns />
-                </ParagraphState>
-                <ParagraphState Id="10">
-                  <Text>A small flashlight rests in the seat beside you.</Text>
-                  <State>6</State>
-                  <Nouns />
+                  <Nouns>
+                    <Noun Id="13">
+                      <Text>flashlight</Text>
+                      <Actions>
+                        <Action Id="24">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="35">
+                              <Result>14</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="25">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="36">
+                              <Result>17</Result>
+                            </ActionResult>
+                            <ActionResult Id="37">
+                              <Result>25</Result>
+                            </ActionResult>
+                            <ActionResult Id="38">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                  </Nouns>
                 </ParagraphState>
                 <ParagraphState Id="11">
                   <Text>The passenger's seat is empty, exposing a dull kaleidoscope of assorted soda stains.</Text>
@@ -614,43 +1002,160 @@
                 <ParagraphState Id="3">
                   <Text>The garish light emanating from the laptop lying open before you has ignited a small tic in your right temple.</Text>
                   <State>0</State>
-                  <Nouns />
+                  <Nouns>
+                    <Noun Id="14">
+                      <Text>laptop</Text>
+                      <Actions>
+                        <Action Id="26">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="50">
+                              <Result>11</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="27">
+                          <VerbType>1</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="51">
+                              <Result>27</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="28">
+                          <VerbType>4</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="52">
+                              <Result>28</Result>
+                            </ActionResult>
+                            <ActionResult Id="53">
+                              <Result>26</Result>
+                            </ActionResult>
+                            <ActionResult Id="54">
+                              <Result>18</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                  </Nouns>
                 </ParagraphState>
               </ParagraphStates>
             </Paragraph>
             <Paragraph Id="4">
               <Order>4</Order>
               <ParagraphRoomStates>
-                <ParagraphRoomState Id="13">
+                <ParagraphRoomState Id="20">
                   <RoomState>0</RoomState>
-                </ParagraphRoomState>
-                <ParagraphRoomState Id="14">
-                  <RoomState>1</RoomState>
                 </ParagraphRoomState>
               </ParagraphRoomStates>
               <ParagraphStates>
                 <ParagraphState Id="4">
                   <Text>The door to your left is unlocked.</Text>
                   <State>0</State>
-                  <Nouns />
+                  <Nouns>
+                    <Noun Id="15">
+                      <Text>door</Text>
+                      <Actions>
+                        <Action Id="29">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="55">
+                              <Result>29</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="30">
+                          <VerbType>1</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="56">
+                              <Result>30</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="31">
+                          <VerbType>5</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="57">
+                              <Result>30</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                  </Nouns>
                 </ParagraphState>
               </ParagraphStates>
             </Paragraph>
-            <Paragraph Id="4">
-              <Order>4</Order>
+            <Paragraph Id="5">
+              <Order>5</Order>
               <ParagraphRoomStates>
-                <ParagraphRoomState Id="13">
-                  <RoomState>0</RoomState>
-                </ParagraphRoomState>
-                <ParagraphRoomState Id="14">
+                <ParagraphRoomState Id="17">
                   <RoomState>1</RoomState>
                 </ParagraphRoomState>
               </ParagraphRoomStates>
               <ParagraphStates>
-                <ParagraphState Id="4">
-                  <Text>The door to your left is unlocked.</Text>
+                <ParagraphState Id="12">
+                  <Text>You lean against the driver’s side door, your back pressed up against the dusky light of early morning.</Text>
                   <State>0</State>
-                  <Nouns />
+                  <Nouns>
+                    <Noun Id="16">
+                      <Text>door</Text>
+                      <Actions>
+                        <Action Id="32">
+                          <VerbType>0</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="58">
+                              <Result>29</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="33">
+                          <VerbType>1</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="59">
+                              <Result>31</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                        <Action Id="34">
+                          <VerbType>5</VerbType>
+                          <ActionResults>
+                            <ActionResult Id="60">
+                              <Result>31</Result>
+                            </ActionResult>
+                          </ActionResults>
+                          <ItemActionRequirements />
+                          <EventActionRequirements />
+                          <CharacterActionRequirements />
+                        </Action>
+                      </Actions>
+                    </Noun>
+                  </Nouns>
                 </ParagraphState>
               </ParagraphStates>
             </Paragraph>
