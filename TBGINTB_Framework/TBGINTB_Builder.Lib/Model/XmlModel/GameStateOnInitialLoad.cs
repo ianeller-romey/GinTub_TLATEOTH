@@ -14,6 +14,7 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
     {
         int m_area;
         int m_room;
+        TimeSpan m_time;
 
         [XmlAttribute("Area")]
         public int Area 
@@ -34,6 +35,17 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
             {
                 if (m_room != value)
                     m_room = value;
+            }
+        }
+
+        [XmlElement("Time")]
+        public TimeSpan Time
+        {
+            get { return m_time; }
+            set
+            {
+                if (m_time != value)
+                    m_time = value;
             }
         }
     }

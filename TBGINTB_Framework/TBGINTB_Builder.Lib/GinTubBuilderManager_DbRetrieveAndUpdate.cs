@@ -1769,11 +1769,11 @@ namespace TBGINTB_Builder.Lib
         }
         public delegate void MessageTreeMessageChoiceReadMessageTreeMessageChoiceHandler(object sender, MessageTreeMessageChoiceReadEventArgs args);
         public static event MessageTreeMessageChoiceReadMessageTreeMessageChoiceHandler MessageTreeMessageChoiceRead;
-        private static void OnMessageTreeMessageChoiceRead(MessageTreeMessageChoice messageTreeMessage)
+        private static void OnMessageTreeMessageChoiceRead(MessageTreeMessageChoice messageTreeMessageChoice)
         {
             if (MessageTreeMessageChoiceRead != null)
                 MessageTreeMessageChoiceRead(typeof(GinTubBuilderManager),
-                    new MessageTreeMessageChoiceReadEventArgs(messageTreeMessage.Id, messageTreeMessage.Name, messageTreeMessage.Text, messageTreeMessage.ParentMessage));
+                    new MessageTreeMessageChoiceReadEventArgs(messageTreeMessageChoice.Id, messageTreeMessageChoice.Name, messageTreeMessageChoice.Text, messageTreeMessageChoice.ParentMessage));
         }
 
         #endregion
@@ -1785,50 +1785,55 @@ namespace TBGINTB_Builder.Lib
         {
             public int? Area { get; set; }
             public int? Room { get; set; }
-            public GameStateOnInitialLoadEventArgs(int? area, int? room)
+            public TimeSpan? Time { get; set; }
+            public GameStateOnInitialLoadEventArgs(int? area, int? room, TimeSpan? time)
             {
                 Area = area;
                 Room = room;
+                Time = time;
             }
         }
 
 
         public class GameStateOnInitialLoadReadEventArgs : GameStateOnInitialLoadEventArgs
         {
-            public GameStateOnInitialLoadReadEventArgs(int? area, int? room) : base(area, room) { }
+            public GameStateOnInitialLoadReadEventArgs(int? area, int? room, TimeSpan? time) : base(area, room, time) { }
         }
         public delegate void GameStateOnInitialLoadReadEventHandler(object sender, GameStateOnInitialLoadReadEventArgs args);
         public static event GameStateOnInitialLoadReadEventHandler GameStateOnInitialLoadRead;
-        private static void OnGameStateOnInitialLoadRead(GameStateOnInitialLoad GameStateOnInitialRead)
+        private static void OnGameStateOnInitialLoadRead(GameStateOnInitialLoad gameStateOnInitialRead)
         {
             if (GameStateOnInitialLoadRead != null)
-                GameStateOnInitialLoadRead(typeof(GinTubBuilderManager), new GameStateOnInitialLoadReadEventArgs(GameStateOnInitialRead.Area, GameStateOnInitialRead.Room));
+                GameStateOnInitialLoadRead(typeof(GinTubBuilderManager), 
+                    new GameStateOnInitialLoadReadEventArgs(gameStateOnInitialRead.Area, gameStateOnInitialRead.Room, gameStateOnInitialRead.Time));
         }
 
 
         public class GameStateOnInitialLoadUpdatedEventArgs : GameStateOnInitialLoadEventArgs
         {
-            public GameStateOnInitialLoadUpdatedEventArgs(int? area, int? room) : base(area, room) { }
+            public GameStateOnInitialLoadUpdatedEventArgs(int? area, int? room, TimeSpan? time) : base(area, room, time) { }
         }
         public delegate void GameStateOnInitialLoadUpdatedEventHandler(object sender, GameStateOnInitialLoadUpdatedEventArgs args);
         public static event GameStateOnInitialLoadUpdatedEventHandler GameStateOnInitialLoadUpdated;
-        private static void OnGameStateOnInitialLoadUpdated(GameStateOnInitialLoad GameStateOnInitialRead)
+        private static void OnGameStateOnInitialLoadUpdated(GameStateOnInitialLoad gameStateOnInitialRead)
         {
             if (GameStateOnInitialLoadUpdated != null)
-                GameStateOnInitialLoadUpdated(typeof(GinTubBuilderManager), new GameStateOnInitialLoadUpdatedEventArgs(GameStateOnInitialRead.Area, GameStateOnInitialRead.Room));
+                GameStateOnInitialLoadUpdated(typeof(GinTubBuilderManager),
+                    new GameStateOnInitialLoadUpdatedEventArgs(gameStateOnInitialRead.Area, gameStateOnInitialRead.Room, gameStateOnInitialRead.Time));
         }
 
 
         public class GameStateOnInitialLoadSelectEventArgs : GameStateOnInitialLoadEventArgs
         {
-            public GameStateOnInitialLoadSelectEventArgs(int? area, int? room) : base(area, room) { }
+            public GameStateOnInitialLoadSelectEventArgs(int? area, int? room, TimeSpan? time) : base(area, room, time) { }
         }
         public delegate void GameStateOnInitialLoadSelectEventHandler(object sender, GameStateOnInitialLoadSelectEventArgs args);
         public static event GameStateOnInitialLoadSelectEventHandler GameStateOnInitialLoadSelect;
-        private static void OnGameStateOnInitialLoadSelect(GameStateOnInitialLoad GameStateOnInitialRead)
+        private static void OnGameStateOnInitialLoadSelect(GameStateOnInitialLoad gameStateOnInitialRead)
         {
             if (GameStateOnInitialLoadSelect != null)
-                GameStateOnInitialLoadSelect(typeof(GinTubBuilderManager), new GameStateOnInitialLoadSelectEventArgs(GameStateOnInitialRead.Area, GameStateOnInitialRead.Room));
+                GameStateOnInitialLoadSelect(typeof(GinTubBuilderManager),
+                    new GameStateOnInitialLoadSelectEventArgs(gameStateOnInitialRead.Area, gameStateOnInitialRead.Room, gameStateOnInitialRead.Time));
         }
 
         #endregion
@@ -2737,16 +2742,16 @@ namespace TBGINTB_Builder.Lib
 
         #region GameStateOnInitialLoads
 
-        public static void CreateGameStateOnInitialLoad(int areaId, int roomId)
+        public static void CreateGameStateOnInitialLoad(int areaId, int roomId, TimeSpan time)
         {
-            UpsertGameStateOnInitialLoadDb(areaId, roomId);
+            UpsertGameStateOnInitialLoadDb(areaId, roomId, time);
             GameStateOnInitialLoad GameStateOnInitialRead = ReadGameStateOnInitialLoadDb();
             OnGameStateOnInitialLoadRead(GameStateOnInitialRead);
         }
 
-        public static void UpdateGameStateOnInitialLoad(int areaId, int roomId)
+        public static void UpdateGameStateOnInitialLoad(int areaId, int roomId, TimeSpan time)
         {
-            UpsertGameStateOnInitialLoadDb(areaId, roomId);
+            UpsertGameStateOnInitialLoadDb(areaId, roomId, time);
             GameStateOnInitialLoad GameStateOnInitialRead = ReadGameStateOnInitialLoadDb();
             OnGameStateOnInitialLoadUpdated(GameStateOnInitialRead);
         }
@@ -4829,11 +4834,11 @@ namespace TBGINTB_Builder.Lib
 
         #region GameStateOnInitialLoads
 
-        private static void UpsertGameStateOnInitialLoadDb(int area, int room/*, TimeSpan time*/)
+        private static void UpsertGameStateOnInitialLoadDb(int area, int room, TimeSpan time)
         {
             try
             {
-                m_entities.dev_UpsertGameStateOnInitialLoad(area, room, null);
+                m_entities.dev_UpsertGameStateOnInitialLoad(area, room, time);
             }
             catch (Exception e)
             {

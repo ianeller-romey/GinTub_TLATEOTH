@@ -219,6 +219,7 @@
     <Compile Include="Extensions\Grid_Extensions.cs" />
     <Compile Include="HelperControls\UserControl_Gettable.cs" />
     <Compile Include="HelperControls\Styles\Style_DefaultBorder.cs" />
+    <Compile Include="HelperControls\UserControl_TimeSpan.cs" />
     <Compile Include="HelperControls\Window_TaskOnAccept.cs" />
     <Compile Include="HelperControls\Window_SelectFile.cs" />
     <Compile Include="HelperControls\Window_OpenFile.cs" />

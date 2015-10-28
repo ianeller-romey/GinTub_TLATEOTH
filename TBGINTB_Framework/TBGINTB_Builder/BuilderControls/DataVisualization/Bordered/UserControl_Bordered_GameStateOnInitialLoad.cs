@@ -27,8 +27,8 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Bordered_GameStateOnInitialLoad(int? GameStateOnInitialLoadArea, int? GameStateOnInitialLoadRoom, bool enableEditing) :
-            base(GameStateOnInitialLoadArea, GameStateOnInitialLoadRoom, enableEditing)
+        public UserControl_Bordered_GameStateOnInitialLoad(int? gameStateOnInitialLoadArea, int? gameStateOnInitialLoadRoom, TimeSpan? gameStateOnInitialLoadTime, bool enableEditing) :
+            base(gameStateOnInitialLoadArea, gameStateOnInitialLoadRoom, gameStateOnInitialLoadTime, enableEditing)
         {
             CreateControls();
         }

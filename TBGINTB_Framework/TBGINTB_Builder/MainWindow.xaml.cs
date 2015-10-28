@@ -140,7 +140,7 @@ namespace TBGINTB_Builder
         {
             if (m_menuItem_GameStateOnInitialLoad.Items.Count == 0)
             {
-                UserControl_GameStateOnInitialLoadModification control = new UserControl_GameStateOnInitialLoadModification(args.Area, args.Room);
+                UserControl_GameStateOnInitialLoadModification control = new UserControl_GameStateOnInitialLoadModification(args.Area, args.Room, args.Time);
                 control.SetActiveAndRegisterForGinTubEvents();
                 m_menuItem_GameStateOnInitialLoad.Items.Add(control);
                 GinTubBuilderManager.ReadAllAreas();

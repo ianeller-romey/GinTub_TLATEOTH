@@ -48,7 +48,7 @@ END
 DECLARE @placeholderLocationName varchar(256)
 DECLARE @placeholderLocationFile varchar(256)
 SET @placeholderLocationName = 'Placeholder'
-SET @placeholderLocationFile = 'https://www.google.com/images/srpr/logo1w.png'
+SET @placeholderLocationFile = 'images/Placeholder.jpg'
 DECLARE @placeholderLocationId int
 IF NOT EXISTS (SELECT 1 FROM [dbo].[Locations] WHERE [Name] = @placeholderLocationName)
 BEGIN
@@ -58,6 +58,11 @@ END
 SELECT @placeholderLocationId = [Id]
 FROM [dbo].[Locations]
 WHERE [Name] = @placeholderLocationName
+IF NOT EXISTS (SELECT 1 FROM [dev].[PlaceholderLocation] WHERE [Location] = @placeholderLocationId)
+BEGIN
+	INSERT INTO [dev].[PlaceholderLocation] ([Location])
+	VALUES (@placeholderLocationId)
+END
 
 IF NOT EXISTS (SELECT 1 FROM [sys].[tables] t 
 			   INNER JOIN [sys].[schemas] s ON (t.[schema_id] = s.[schema_id]) WHERE s.[name] = 'dev' and t.[name] = 'PlaceholderLocation')

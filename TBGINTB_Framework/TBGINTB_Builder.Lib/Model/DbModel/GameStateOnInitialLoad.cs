@@ -14,6 +14,7 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
     {
         int? m_area;
         int? m_room;
+        TimeSpan? m_time;
 
         [DataMember]
         public int? Area
@@ -34,6 +35,17 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
             {
                 if (m_room != value)
                     m_room = value;
+            }
+        }
+
+        [DataMember]
+        public TimeSpan? Time
+        {
+            get { return m_time; }
+            private set
+            {
+                if (m_time != value)
+                    m_time = value;
             }
         }
     }

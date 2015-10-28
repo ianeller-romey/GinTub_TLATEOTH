@@ -20,9 +20,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         TextBox m_textBox_state;
         ComboBox_Location m_comboBox_location;
-        ComboBox
-            m_comboBox_time_hour,
-            m_comboBox_time_minute;
+        UserControl_TimeSpan m_userControl_timeSpan;
 
         #endregion
 
@@ -43,8 +41,7 @@ namespace TBGINTB_Builder.BuilderControls
                 {
                     m_textBox_state,
                     m_comboBox_location,
-                    m_comboBox_time_hour,
-                    m_comboBox_time_minute
+                    m_userControl_timeSpan
                 };
             }
         }
@@ -156,34 +153,9 @@ namespace TBGINTB_Builder.BuilderControls
 
             ////////
             // Time
-            Grid grid_time = new Grid() { HorizontalAlignment = HorizontalAlignment.Center };
-            grid_time.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-            grid_time.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-            grid_time.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-            grid_time.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-            grid_time.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
-            grid_main.SetGridRowColumn(grid_time, 3, 0);
-
-            Label label_time = new Label() { Content = "Time: ", FontWeight = FontWeights.Bold };
-            Grid.SetColumnSpan(label_time, 3);
-            grid_time.SetGridRowColumn(label_time, 0, 0);
-
-            m_comboBox_time_hour = new ComboBox();
-            for (int i = 0; i <= 24; ++i)
-                m_comboBox_time_hour.Items.Add(string.Format("{0:00}", i));
-            grid_time.SetGridRowColumn(m_comboBox_time_hour, 1, 0);
-
-            Label label_colon = new Label() { Content = " : " };
-            grid_time.SetGridRowColumn(label_colon, 1, 1);
-
-            m_comboBox_time_minute = new ComboBox();
-            for (int i = 0; i < 60; i += 5)
-                m_comboBox_time_minute.Items.Add(string.Format("{0:00}", i));
-            grid_time.SetGridRowColumn(m_comboBox_time_minute, 1, 2);
-
-            SetRoomStateTime(RoomStateTime);
-            m_comboBox_time_hour.SelectionChanged += ComboBox_Time_SelectionChanged;
-            m_comboBox_time_minute.SelectionChanged += ComboBox_Time_SelectionChanged;
+            m_userControl_timeSpan = new UserControl_TimeSpan(RoomStateTime);
+            grid_main.SetGridRowColumn(m_userControl_timeSpan, 3, 0);
+            m_userControl_timeSpan.TimeChangedEvent += UserControl_TimeSpan_TimeChanged;
 
             ////////
             // Fin
@@ -228,16 +200,7 @@ namespace TBGINTB_Builder.BuilderControls
         private void SetRoomStateTime(TimeSpan? roomStateTime)
         {
             RoomStateTime = roomStateTime;
-            if (RoomStateTime != null)
-            {
-                m_comboBox_time_hour.SelectedItem = m_comboBox_time_hour.Items.OfType<string>().SingleOrDefault(h => int.Parse(h) == RoomStateTime.Value.Hours);
-                m_comboBox_time_minute.SelectedItem = m_comboBox_time_minute.Items.OfType<string>().SingleOrDefault(m => int.Parse(m) == RoomStateTime.Value.Minutes);
-            }
-            else
-            {
-                m_comboBox_time_hour.SelectedItem = null;
-                m_comboBox_time_minute.SelectedItem = null;
-            }
+            m_userControl_timeSpan.SetTime(RoomStateTime);
         }
 
         void TextBox_State_TextChanged(object sender, TextChangedEventArgs e)
@@ -259,19 +222,9 @@ namespace TBGINTB_Builder.BuilderControls
                 LocationId = item.LocationId;
         }
 
-        private void ComboBox_Time_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void UserControl_TimeSpan_TimeChanged(TimeSpan time)
         {
-            ComboBox comboBox = sender as ComboBox;
-            if (sender == m_comboBox_time_hour || sender == m_comboBox_time_minute)
-            {
-                if (m_comboBox_time_hour.SelectedItem != null && m_comboBox_time_minute.SelectedItem != null)
-                {
-                    int
-                        hour = int.Parse(m_comboBox_time_hour.SelectedItem.ToString()),
-                        minute = int.Parse(m_comboBox_time_minute.SelectedItem.ToString());
-                    RoomStateTime = new TimeSpan(hour, minute, 0);
-                }
-            }
+            RoomStateTime = time;
         }
 
         private void Grid_RoomStateData_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

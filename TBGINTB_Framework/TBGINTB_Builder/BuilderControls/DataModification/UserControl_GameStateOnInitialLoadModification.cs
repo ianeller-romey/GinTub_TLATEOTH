@@ -26,6 +26,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         public int? GameStateOnInitialLoadArea { get { return m_userControl_GameStateOnInitialLoad.GameStateOnInitialLoadArea; } }
         public int? GameStateOnInitialLoadRoom { get { return m_userControl_GameStateOnInitialLoad.GameStateOnInitialLoadRoom; } }
+        public TimeSpan? GameStateOnInitialLoadTime { get { return m_userControl_GameStateOnInitialLoad.GameStateOnInitialLoadTime; } } 
 
         #endregion
 
@@ -34,9 +35,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_GameStateOnInitialLoadModification(int? GameStateOnInitialLoadArea, int? GameStateOnInitialLoadRoom)
+        public UserControl_GameStateOnInitialLoadModification(int? gameStateOnInitialLoadArea, int? gameStateOnInitialLoadRoom, TimeSpan? gameStateOnInitialLoadTime)
         {
-            CreateControls(GameStateOnInitialLoadArea, GameStateOnInitialLoadRoom);
+            CreateControls(gameStateOnInitialLoadArea, gameStateOnInitialLoadRoom, gameStateOnInitialLoadTime);
         }
 
         public void SetActiveAndRegisterForGinTubEvents()
@@ -54,7 +55,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private void CreateControls(int? GameStateOnInitialLoadArea, int? GameStateOnInitialLoadRoom)
+        private void CreateControls(int? gameStateOnInitialLoadArea, int? gameStateOnInitialLoadRoom, TimeSpan? gameStateOnInitialLoadTime)
         {
             Grid grid_main = new Grid();
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
@@ -64,7 +65,7 @@ namespace TBGINTB_Builder.BuilderControls
             button_modifyGameStateOnInitialLoad.Click += Button_UpdateGameStateOnInitialLoad_Click;
             grid_main.SetGridRowColumn(button_modifyGameStateOnInitialLoad, 0, 0);
 
-            m_userControl_GameStateOnInitialLoad = new UserControl_GameStateOnInitialLoad(GameStateOnInitialLoadArea, GameStateOnInitialLoadRoom, false);
+            m_userControl_GameStateOnInitialLoad = new UserControl_GameStateOnInitialLoad(gameStateOnInitialLoadArea, gameStateOnInitialLoadRoom, gameStateOnInitialLoadTime, false);
             grid_main.SetGridRowColumn(m_userControl_GameStateOnInitialLoad, 1, 0);
             m_userControl_GameStateOnInitialLoad.SetActiveAndRegisterForGinTubEvents();
 
@@ -79,11 +80,12 @@ namespace TBGINTB_Builder.BuilderControls
                 (
                     m_userControl_GameStateOnInitialLoad.GameStateOnInitialLoadArea, 
                     m_userControl_GameStateOnInitialLoad.GameStateOnInitialLoadRoom,
+                    m_userControl_GameStateOnInitialLoad.GameStateOnInitialLoadTime,
                     (win) =>
                     {
                         Window_GameStateOnInitialLoad wWin = win as Window_GameStateOnInitialLoad;
                         if (wWin != null)
-                            GinTubBuilderManager.UpdateGameStateOnInitialLoad(wWin.GameStateOnInitialLoadArea.Value, wWin.GameStateOnInitialLoadRoom.Value);
+                            GinTubBuilderManager.UpdateGameStateOnInitialLoad(wWin.GameStateOnInitialLoadArea.Value, wWin.GameStateOnInitialLoadRoom.Value, wWin.GameStateOnInitialLoadTime.Value);
                     }
                 );
             window.Show();

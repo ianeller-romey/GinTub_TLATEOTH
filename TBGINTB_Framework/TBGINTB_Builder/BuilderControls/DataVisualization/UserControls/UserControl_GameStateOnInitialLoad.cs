@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 
 using TBGINTB_Builder.Extensions;
+using TBGINTB_Builder.HelperControls;
 using TBGINTB_Builder.Lib;
 
 
@@ -19,6 +20,7 @@ namespace TBGINTB_Builder.BuilderControls
         ComboBox_Area m_comboBox_area;
         GroupBox m_groupBox_room;
         ComboBox_Room m_comboBox_room;
+        UserControl_TimeSpan m_userControl_timeSpan;
 
         #endregion
 
@@ -27,6 +29,7 @@ namespace TBGINTB_Builder.BuilderControls
 
         public int? GameStateOnInitialLoadArea { get; private set; }
         public int? GameStateOnInitialLoadRoom { get; private set; }
+        public TimeSpan? GameStateOnInitialLoadTime { get; private set; }
 
         public List<UIElement> EditingControls
         {
@@ -35,7 +38,8 @@ namespace TBGINTB_Builder.BuilderControls
                 return new List<UIElement>
                 {
                     m_comboBox_area,
-                    m_groupBox_room
+                    m_groupBox_room,
+                    m_userControl_timeSpan
                 };
             }
         }
@@ -47,10 +51,11 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_GameStateOnInitialLoad(int? gameStateOnInitialLoadArea, int? gameStateOnInitialLoadRoom, bool enableEditing)
+        public UserControl_GameStateOnInitialLoad(int? gameStateOnInitialLoadArea, int? gameStateOnInitialLoadRoom, TimeSpan? gameStateOnInitialLoadTime, bool enableEditing)
         {
             GameStateOnInitialLoadArea = gameStateOnInitialLoadArea;
             GameStateOnInitialLoadRoom = gameStateOnInitialLoadRoom;
+            GameStateOnInitialLoadTime = gameStateOnInitialLoadTime;
 
             CreateControls();
 
@@ -82,6 +87,7 @@ namespace TBGINTB_Builder.BuilderControls
             Grid grid_main = new Grid();
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
             ////////
             // Area Grid
@@ -105,6 +111,12 @@ namespace TBGINTB_Builder.BuilderControls
             grid_main.SetGridRowColumn(m_groupBox_room, 1, 0);
 
             ////////
+            // Time
+            m_userControl_timeSpan = new UserControl_TimeSpan(GameStateOnInitialLoadTime);
+            grid_main.SetGridRowColumn(m_userControl_timeSpan, 2, 0);
+            m_userControl_timeSpan.TimeChangedEvent += UserControl_TimeSpan_TimeChanged;
+
+            ////////
             // Fin
             Content = grid_main;
         }
@@ -113,6 +125,7 @@ namespace TBGINTB_Builder.BuilderControls
         {
             SetGameStateOnInitialLoadArea(args.Area.Value);
             SetGameStateOnInitialLoadRoom(args.Room.Value);
+            SetGameStateOnInitialLoadTime(args.Time.Value);
         }
 
         private void GinTubBuilderManager_AreaRead(object sender, GinTubBuilderManager.AreaReadEventArgs args)
@@ -126,23 +139,31 @@ namespace TBGINTB_Builder.BuilderControls
                 ResetGameStateOnInitialLoadRoom(args.Id);
         }
 
-        private void SetGameStateOnInitialLoadArea(int GameStateOnInitialLoadArea)
+        private void SetGameStateOnInitialLoadArea(int gameStateOnInitialLoadArea)
         {
             ComboBox_Area.ComboBoxItem_Area item =
                 m_comboBox_area.Items.OfType<ComboBox_Area.ComboBoxItem_Area>().
-                SingleOrDefault(i => i.AreaId == GameStateOnInitialLoadArea);
+                SingleOrDefault(i => i.AreaId == gameStateOnInitialLoadArea);
             if (item != null)
                 m_comboBox_area.SelectedItem = item;
         }
 
-        private void SetGameStateOnInitialLoadRoom(int GameStateOnInitialLoadRoom)
+        private void SetGameStateOnInitialLoadRoom(int gameStateOnInitialLoadRoom)
         {
             if (m_comboBox_room != null)
             {
                 ComboBox_Room.ComboBoxItem_Room item = m_comboBox_room.Items.OfType<ComboBox_Room.ComboBoxItem_Room>().
-                    SingleOrDefault(i => i.RoomId == GameStateOnInitialLoadRoom);
+                    SingleOrDefault(i => i.RoomId == gameStateOnInitialLoadRoom);
                 if (item != null)
                     m_comboBox_room.SelectedItem = item;
+            }
+        }
+
+        private void SetGameStateOnInitialLoadTime(TimeSpan gameStateOnInitialLoadTime)
+        {
+            if (m_userControl_timeSpan != null)
+            {
+                m_userControl_timeSpan.SetTime(gameStateOnInitialLoadTime);
             }
         }
 
@@ -150,7 +171,7 @@ namespace TBGINTB_Builder.BuilderControls
         {
             ComboBox_Area.ComboBoxItem_Area item =
                 m_comboBox_area.Items.OfType<ComboBox_Area.ComboBoxItem_Area>().
-                SingleOrDefault(i => GameStateOnInitialLoadArea.HasValue && GameStateOnInitialLoadArea.Value == GameStateOnInitialLoadArea && i.AreaId == GameStateOnInitialLoadArea);
+                SingleOrDefault(i => GameStateOnInitialLoadArea.HasValue && GameStateOnInitialLoadArea.Value == gameStateOnInitialLoadArea && i.AreaId == gameStateOnInitialLoadArea);
             if (item != null)
                 m_comboBox_area.SelectedItem = item;
         }
@@ -160,7 +181,7 @@ namespace TBGINTB_Builder.BuilderControls
             if (m_comboBox_room != null)
             {
                 ComboBox_Room.ComboBoxItem_Room item = m_comboBox_room.Items.OfType<ComboBox_Room.ComboBoxItem_Room>().
-                    SingleOrDefault(i => GameStateOnInitialLoadRoom.HasValue && GameStateOnInitialLoadRoom.Value == GameStateOnInitialLoadRoom && i.RoomId == GameStateOnInitialLoadRoom);
+                    SingleOrDefault(i => GameStateOnInitialLoadRoom.HasValue && GameStateOnInitialLoadRoom.Value == gameStateOnInitialLoadRoom && i.RoomId == gameStateOnInitialLoadRoom);
                 if (item != null)
                     m_comboBox_room.SelectedItem = item;
             }
@@ -197,6 +218,11 @@ namespace TBGINTB_Builder.BuilderControls
             ComboBox_Room.ComboBoxItem_Room item;
             if (m_comboBox_room.SelectedItem != null && (item = m_comboBox_room.SelectedItem as ComboBox_Room.ComboBoxItem_Room) != null)
                 GameStateOnInitialLoadRoom = item.RoomId;
+        }
+
+        private void UserControl_TimeSpan_TimeChanged(TimeSpan time)
+        {
+            GameStateOnInitialLoadTime = time;
         }
 
         #endregion
