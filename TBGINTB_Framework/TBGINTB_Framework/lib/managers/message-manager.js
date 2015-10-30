@@ -17,6 +17,8 @@
 
             var list = [];
 
+            var isOpen = false;
+
             var updateIntervalFast = 2;
             var updateIntervalRemoval = 10;
             var updateIntervalAdding = 50;
@@ -58,6 +60,8 @@
                     messageTopElem.width("0px");
                     messageBottomElem.width("0px");
 
+                    isOpen = false;
+
                     messageTextElem.empty();
                     messageChoicesElem.empty();
                     messengerEngine.post("MessageManager.closeMessageManager");
@@ -65,42 +69,54 @@
             }
 
             var loadMessage = function (messageData) {
-                messageTopElem.width("100%");
-                messageBottomElem.width("100%");
+                if (messageData) { // intentional truthiness
+                    if (!isOpen) {
+                        messageTopElem.width("100%");
+                        messageBottomElem.width("100%");
+                        isOpen = true;
+                    }
 
-                var messageChoices = messageData.messageChoices;
+                    var messageChoices = messageData.messageChoices;
 
-                if (!fadeOutTextPromise) { // intentional truthiness
-                    fadeOutTextPromise = Promise.resolve();
-                }
-                
-                fadeOutTextPromise.then(function () {
-                    messengerEngine.post("MessageManager.loadMessage", true);
-                    list = [];
-                    updateInterval = updateIntervalAdding;
-                    messageTextElem.animateTextAdd(messageData.text, that.getUpdateInterval).then(function () {
-                        if (!messageChoices || messageChoices.length === 0) { // intentional truthiness
-                            var text = namespace.Entities.Factories.createActionText(noMessageChoices.id, noMessageChoices.text, closeMessageManager);
-                            text.addClass("boldText");
+                    if (!fadeOutTextPromise) { // intentional truthiness
+                        fadeOutTextPromise = Promise.resolve();
+                    }
 
-                            list.push(text);
-                            messageChoicesElem.append(text);
-                        }
-                        else {
-                            var i = 0, len = messageChoices.length;
-                            for (; i < len; ++i) {
-                                var mc = messageChoices[i];
-                                var text = namespace.Entities.Factories.createActionText(mc.id, mc.text, function (mId) {
-                                    messengerEngine.post("MessageChoice.click", mId);
-                                });
+                    fadeOutTextPromise.then(function () {
+                        messengerEngine.post("MessageManager.loadMessage", true);
+                        list = [];
+                        updateInterval = updateIntervalAdding;
+                        messageTextElem.animateTextAdd(messageData.text, that.getUpdateInterval).then(function () {
+                            if (!messageChoices || messageChoices.length === 0) { // intentional truthiness
+                                var text = namespace.Entities.Factories.createActionText(noMessageChoices.id, noMessageChoices.text, closeMessageManager);
                                 text.addClass("boldText");
 
                                 list.push(text);
                                 messageChoicesElem.append(text);
                             }
-                        }
+                            else {
+                                var i = 0, len = messageChoices.length;
+                                for (; i < len; ++i) {
+                                    var mc = messageChoices[i];
+                                    var text = namespace.Entities.Factories.createActionText(mc.id, mc.text, function (mId) {
+                                        messengerEngine.post("MessageChoice.click", mId);
+                                    });
+                                    text.addClass("boldText");
+
+                                    list.push(text);
+                                    messageChoicesElem.append(text);
+                                }
+                            }
+                        });
                     });
-                });
+                } else {
+                    // in the event that we selected a valid message choice (as opposed to using our auto-generated "no message choices" message choice 
+                    // [and which probably affected our game state but did not necessarily return any more messages]) but did not receive any new
+                    // messages to display, close up shop
+                    if (isOpen) {
+                        closeMessageManager();
+                    }
+                }
             };
 
             this.getUpdateInterval = function () {
