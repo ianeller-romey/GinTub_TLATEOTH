@@ -24,6 +24,7 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
         Location[] m_locations;
         Message[] m_messages;
         Area[] m_areas;
+        Audio[] m_audio;
 
         [XmlAttribute("ExportDate")]
         public DateTime ExportDate
@@ -132,6 +133,17 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
             {
                 if (m_areas != value)
                     m_areas = value;
+            }
+        }
+
+        [XmlArray("Audio")]
+        public Audio[] Audio
+        {
+            get { return m_audio; }
+            set
+            {
+                if (m_audio != value)
+                    m_audio = value;
             }
         }
 

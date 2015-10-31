@@ -65,6 +65,7 @@
     <Compile Include="GinTubBuilderManager_XmlImportAndExport.cs" />
     <Compile Include="GinTubBuilderManager_DbRetrieveAndUpdate.cs" />
     <Compile Include="JSONPropertyManager.cs" />
+    <Compile Include="Model\DbModel\Audio.cs" />
     <Compile Include="Model\DbModel\GameStateOnInitialLoad.cs" />
     <Compile Include="Model\DbModel\MessageTreeMessageChoice.cs" />
     <Compile Include="Model\DbModel\MessageTreeMessage.cs" />
@@ -72,8 +73,9 @@
     <Compile Include="Model\DbModel\JSONPropertyDataType.cs" />
     <Compile Include="Model\DbModel\RoomPreviewNoun.cs" />
     <Compile Include="Model\DbModel\RoomPreviewParagraphState.cs" />
-    <Compile Include="Model\XmlModel\Action.cs" />
+    <Compile Include="Model\XmlModel\Audio.cs" />
     <Compile Include="Model\XmlModel\ActionResult.cs" />
+    <Compile Include="Model\XmlModel\Action.cs" />
     <Compile Include="Model\XmlModel\GameStateOnInitialLoad.cs" />
     <Compile Include="Model\XmlModel\JSONPropertyDataType.cs" />
     <Compile Include="Model\XmlModel\GinTub.cs" />

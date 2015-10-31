@@ -2771,6 +2771,9 @@ namespace TBGINTB_Builder.Lib
 
         private static void InitializeSprocsToDbModelMap()
         {
+            Mapper.CreateMap<dev_ReadAudio_Result, Audio>();
+            Mapper.CreateMap<dev_ReadAllAudio_Result, Audio>();
+
             Mapper.CreateMap<dev_ReadArea_Result, Area>();
             Mapper.CreateMap<dev_ReadAllAreas_Result, Area>();
 
@@ -2862,6 +2865,77 @@ namespace TBGINTB_Builder.Lib
 
             Mapper.CreateMap<dev_ReadGameStateOnInitialLoad_Result, GameStateOnInitialLoad>();
         }
+
+        #region Audio
+
+        private static int CreateAudioDb(string name, string audioFile, bool isLooped)
+        {
+            ObjectResult<decimal?> databaseResult = null;
+            try
+            {
+                databaseResult = m_entities.dev_CreateAudio(name, audioFile, isLooped);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_CreateAudio", e);
+            }
+            var result = databaseResult.FirstOrDefault();
+            if (!result.HasValue)
+                throw new GinTubDatabaseException("dev_CreateAudio", new Exception("No [Id] was returned after [Audio] INSERT."));
+
+            return (int)result.Value;
+        }
+
+        private static void UpdateAudioDb(int id, string name, string audioFile, bool isLooped)
+        {
+            try
+            {
+                m_entities.dev_UpdateAudio(id, name, audioFile, isLooped);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_UpdateAudio", e);
+            }
+        }
+
+        private static Audio ReadAudioDb(int id)
+        {
+            ObjectResult<dev_ReadAudio_Result> databaseResult = null;
+            try
+            {
+                databaseResult = m_entities.dev_ReadAudio(id);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_ReadAudio", e);
+            }
+            if (databaseResult == null)
+                throw new GinTubDatabaseException("dev_ReadAudio", new Exception(string.Format("No [Audios] record found with [Id] = {0}.", id)));
+
+            Audio area = Mapper.Map<Audio>(databaseResult.Single());
+            return area;
+        }
+
+        private static List<Audio> ReadAllAudioDb()
+        {
+            ObjectResult<dev_ReadAllAudio_Result> databaseResult = null;
+            try
+            {
+                databaseResult = m_entities.dev_ReadAllAudio();
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_ReadAllAudios", e);
+            }
+            if (databaseResult == null)
+                throw new GinTubDatabaseException("dev_ReadAllAudios", new Exception("No [Audios] records found."));
+
+            List<Audio> areas = databaseResult.Select(r => Mapper.Map<Audio>(r)).ToList();
+            return areas;
+        }
+
+        #endregion
+
 
         #region Areas
 

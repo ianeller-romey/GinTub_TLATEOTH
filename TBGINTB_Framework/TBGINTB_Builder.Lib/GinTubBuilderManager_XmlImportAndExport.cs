@@ -164,6 +164,8 @@ namespace TBGINTB_Builder.Lib
             for (int i = 0; i < areas.Length; ++i)
                 ExportAreaToXml(ref areas[i]);
 
+            Xml.Audio[] audio = ReadAllAudioDb().Select(a => Mapper.Map<Xml.Audio>(a)).ToArray();
+
             Xml.GameStateOnInitialLoad GameStateOnInitialLoad = Mapper.Map<Xml.GameStateOnInitialLoad>(ReadGameStateOnInitialLoadDb());
 
             Xml.GinTub ginTub = new Xml.GinTub();
@@ -176,6 +178,7 @@ namespace TBGINTB_Builder.Lib
             ginTub.Locations = locations;
             ginTub.Messages = messages;
             ginTub.Areas = areas;
+            ginTub.Audio = audio;
             ginTub.GameStateOnInitialLoad = GameStateOnInitialLoad;
             return ginTub;
         }
@@ -291,8 +294,10 @@ namespace TBGINTB_Builder.Lib
                 ImportMessageFromXml(message);
             foreach (var area in ginTub.Areas)
                 ImportAreaFromXml(area);
+            foreach (var audio in ginTub.Audio)
+                ImportAudioFromXml(audio);
             if(ginTub.GameStateOnInitialLoad != null)
-                ImportGameStateOnInitialLoad(ginTub.GameStateOnInitialLoad.Area, ginTub.GameStateOnInitialLoad.Room);
+                ImportGameStateOnInitialLoad(ginTub.GameStateOnInitialLoad.Area, ginTub.GameStateOnInitialLoad.Room, ginTub.GameStateOnInitialLoad.Time);
         }
 
         private static void ImportResultTypeFromXml(Xml.ResultType resultType)
@@ -375,6 +380,11 @@ namespace TBGINTB_Builder.Lib
                 ImportEventActionRequirement(requirement.Id, requirement.Event, action.Id);
             foreach (var requirement in action.CharacterActionRequirements)
                 ImportCharacterActionRequirement(requirement.Id, requirement.Character, action.Id);
+        }
+
+        private static void ImportAudioFromXml(Xml.Audio audio)
+        {
+            ImportAudio(audio.Id, audio.Name, audio.AudioFile, audio.IsLooped);
         }
 
         #endregion
@@ -682,7 +692,19 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static void ImportGameStateOnInitialLoad(int area, int room/*, TimeSpan time*/)
+        private static void ImportAudio(int id, string name, string audioFile, bool isLooped)
+        {
+            try
+            {
+                m_entities.dev_ImportAudio(id, name, audioFile, isLooped);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_ImportAudio", e);
+            }
+        }
+
+        private static void ImportGameStateOnInitialLoad(int area, int room, TimeSpan time)
         {
             try
             {

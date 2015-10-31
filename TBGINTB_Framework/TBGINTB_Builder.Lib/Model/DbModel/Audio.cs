@@ -5,59 +5,59 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 
-namespace TBGINTB_Builder.Lib.Model.XmlModel
+namespace TBGINTB_Builder.Lib.Model.DbModel
 {
-    public class Area
+    [DataContract]
+    class Audio
     {
         int m_id;
         string m_name;
-        int? m_audio;
-        Room[] m_rooms;
+        string m_audioFile;
+        bool m_isLooped;
 
-        [XmlAttribute("Id")]
-        public int Id 
+        [DataMember]
+        public int Id
         {
             get { return m_id; }
-            set
+            private set
             {
                 if (m_id != value)
                     m_id = value;
             }
         }
 
-        [XmlElement("Name")]
+        [DataMember]
         public string Name
         {
             get { return m_name; }
-            set
+            private set
             {
                 if (m_name != value)
                     m_name = value;
             }
         }
 
-        [XmlElement("Audio")]
-        public int? Audio
+        [DataMember]
+        public string AudioFile
         {
-            get { return m_audio; }
-            set
+            get { return m_audioFile; }
+            private set
             {
-                if (m_audio != value)
-                    m_audio = value;
+                if (m_audioFile != value)
+                    m_audioFile = value;
             }
         }
 
-        [XmlArray("Rooms")]
-        public Room[] Rooms
+        [DataMember]
+        public bool IsLooped
         {
-            get { return m_rooms; }
-            set
+            get { return m_isLooped; }
+            private set
             {
-                if (m_rooms != value)
-                    m_rooms = value;
+                if (m_isLooped != value)
+                    m_isLooped = value;
             }
         }
     }

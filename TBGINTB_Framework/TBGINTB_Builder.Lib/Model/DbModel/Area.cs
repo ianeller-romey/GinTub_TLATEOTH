@@ -14,6 +14,7 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
     {
         int m_id;
         string m_name;
+        int? m_audio;
         int m_maxX, m_minX;
         int m_maxY, m_minY;
         int m_maxZ, m_minZ;
@@ -38,6 +39,17 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
             {
                 if (m_name != value)
                     m_name = value;
+            }
+        }
+
+        [DataMember]
+        public int? Audio
+        {
+            get { return m_audio; }
+            private set
+            {
+                if (m_audio != value)
+                    m_audio = value;
             }
         }
 

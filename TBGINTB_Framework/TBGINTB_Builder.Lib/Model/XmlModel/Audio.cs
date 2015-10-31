@@ -10,15 +10,15 @@ using System.Xml.Serialization;
 
 namespace TBGINTB_Builder.Lib.Model.XmlModel
 {
-    public class Area
+    public class Audio
     {
         int m_id;
         string m_name;
-        int? m_audio;
-        Room[] m_rooms;
+        string m_audioFile;
+        bool m_isLooped;
 
         [XmlAttribute("Id")]
-        public int Id 
+        public int Id
         {
             get { return m_id; }
             set
@@ -39,25 +39,25 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
             }
         }
 
-        [XmlElement("Audio")]
-        public int? Audio
+        [XmlElement("AudioFile")]
+        public string AudioFile
         {
-            get { return m_audio; }
+            get { return m_audioFile; }
             set
             {
-                if (m_audio != value)
-                    m_audio = value;
+                if (m_audioFile != value)
+                    m_audioFile = value;
             }
         }
 
-        [XmlArray("Rooms")]
-        public Room[] Rooms
+        [XmlElement("IsLooped")]
+        public bool IsLooped
         {
-            get { return m_rooms; }
+            get { return m_isLooped; }
             set
             {
-                if (m_rooms != value)
-                    m_rooms = value;
+                if (m_isLooped != value)
+                    m_isLooped = value;
             }
         }
     }
