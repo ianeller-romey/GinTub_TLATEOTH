@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using AutoMapper;
@@ -18,6 +20,13 @@ namespace TBGINTB_Builder.Lib
 {
     public static partial class GinTubBuilderManager
     {
+        #region MEMBER FIELDS
+
+        static readonly Regex s_imageFileRegex = new Regex(@"area_(?<area>\d+)_room_(?<room_x>\d+)_(?<room_y>\d+)_(?<room_z>\d+)_roomstate_(?<roomstate>\d+)_time_(?<hours>\d+)_(?<minutes>\d+)", RegexOptions.Compiled);
+
+        #endregion
+
+
         #region MEMBER EVENTS
 
         #region Areas
@@ -1893,6 +1902,35 @@ namespace TBGINTB_Builder.Lib
             OnLocationUpdated(location);
         }
 
+        public static void UpsertLocationAutomatically(string directoryName, string relativeUri)
+        {
+            foreach (var fileName in Directory.GetFiles(directoryName))
+            {
+                var fileNameSansExt = Path.GetFileNameWithoutExtension(fileName);
+                var match = s_imageFileRegex.Match(fileNameSansExt);
+                if (match.Success)
+                {
+                    int area, x, y, z, s, h, m;
+                    if (int.TryParse(match.Groups["area"].Value, out area) &&
+                        int.TryParse(match.Groups["room_x"].Value, out x) &&
+                        int.TryParse(match.Groups["room_y"].Value, out y) &&
+                        int.TryParse(match.Groups["room_z"].Value, out z) &&
+                        int.TryParse(match.Groups["roomstate"].Value, out s) &&
+                        int.TryParse(match.Groups["hours"].Value, out h) &&
+                        int.TryParse(match.Groups["minutes"].Value, out m))
+                    {
+                        int locationId = UpsertLocationDb(fileNameSansExt, Path.Combine(relativeUri, Path.GetFileName(fileName)));
+                        int? roomStateId = UpdateRoomStateBasedOnXYZDb(area, x, y, z, s, new TimeSpan(h, m, 0), locationId);
+                        if (roomStateId.HasValue)
+                        {
+                            RoomState roomState = ReadRoomStateDb(roomStateId.Value);
+                            GinTubBuilderManager.OnRoomStateUpdated(roomState);
+                        }
+                    }
+                }
+            }
+        }
+
         public static void SelectLocation(int locationId)
         {
             Location location = ReadLocationDb(locationId);
@@ -3040,6 +3078,24 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
+        private static int UpsertLocationDb(string name, string locationFile)
+        {
+            ObjectResult<decimal?> databaseResult = null;
+            try
+            {
+                databaseResult = m_entities.dev_UpsertLocationByName(name, locationFile);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_CreateLocation", e);
+            }
+            var result = databaseResult.FirstOrDefault();
+            if (!result.HasValue)
+                throw new GinTubDatabaseException("dev_CreateLocation", new Exception("No [Id] was returned after [Location] INSERT."));
+
+            return (int)result.Value;
+        }
+
         private static Location ReadLocationDb(int id)
         {
             ObjectResult<dev_ReadLocation_Result> databaseResult = null;
@@ -3119,6 +3175,22 @@ namespace TBGINTB_Builder.Lib
             {
                 throw new GinTubDatabaseException("dev_UpdateRoom", e);
             }
+        }
+
+        private static int? UpdateRoomBasedOnXYZDb(int area, int x, int y, int z, string name)
+        {
+            ObjectResult<decimal?> databaseResult = null;
+            try
+            {
+                databaseResult = m_entities.dev_UpdateRoomBasedOnXYZ(area, x, y, z, name);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_UpdateRoomBasedOnXYZ", e);
+            }
+            var result = databaseResult.FirstOrDefault();
+
+            return (result != null) ? new Nullable<int>((int)result.Value) : null;
         }
 
         private static Room ReadRoomDb(int id)
@@ -3208,6 +3280,22 @@ namespace TBGINTB_Builder.Lib
             {
                 throw new GinTubDatabaseException("dev_UpdateRoomState", e);
             }
+        }
+
+        private static int? UpdateRoomStateBasedOnXYZDb(int area, int x, int y, int z, int state, TimeSpan time, int location)
+        {
+            ObjectResult<decimal?> databaseResult = null;
+            try
+            {
+                databaseResult = m_entities.dev_UpdateRoomStateBasedOnXYZ(area, x, y, z, state, time, location);
+            }
+            catch (Exception e)
+            {
+                throw new GinTubDatabaseException("dev_UpdateRoomStateBasedOnXYZ", e);
+            }
+            var result = databaseResult.FirstOrDefault();
+
+            return (result != null) ? new Nullable<int>((int)result.Value) : null;
         }
 
         private static RoomState ReadRoomStateDb(int id)

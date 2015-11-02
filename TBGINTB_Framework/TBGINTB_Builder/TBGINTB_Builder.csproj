@@ -217,6 +217,7 @@
     <Compile Include="BuilderControls\DataWindows\Window_RoomState.cs" />
     <Compile Include="BuilderControls\DataWindows\Window_Room.cs" />
     <Compile Include="Extensions\Grid_Extensions.cs" />
+    <Compile Include="HelperControls\Window_SelectDirectory.cs" />
     <Compile Include="HelperControls\UserControl_Gettable.cs" />
     <Compile Include="HelperControls\Styles\Style_DefaultBorder.cs" />
     <Compile Include="HelperControls\UserControl_TimeSpan.cs" />

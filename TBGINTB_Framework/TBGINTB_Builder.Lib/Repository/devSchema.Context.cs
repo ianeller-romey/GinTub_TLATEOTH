@@ -2947,6 +2947,97 @@ public partial class GinTubEntities : DbContext
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dev_UpsertGameStateOnInitialLoad", areaParameter, roomParameter, timeParameter);
     }
 
+
+    public virtual ObjectResult<Nullable<decimal>> dev_UpsertLocationByName(string name, string locationfile)
+    {
+
+        var nameParameter = name != null ?
+            new ObjectParameter("name", name) :
+            new ObjectParameter("name", typeof(string));
+
+
+        var locationfileParameter = locationfile != null ?
+            new ObjectParameter("locationfile", locationfile) :
+            new ObjectParameter("locationfile", typeof(string));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("dev_UpsertLocationByName", nameParameter, locationfileParameter);
+    }
+
+
+    public virtual ObjectResult<Nullable<decimal>> dev_UpdateRoomBasedOnXYZ(Nullable<int> area, Nullable<int> x, Nullable<int> y, Nullable<int> z, string name)
+    {
+
+        var areaParameter = area.HasValue ?
+            new ObjectParameter("area", area) :
+            new ObjectParameter("area", typeof(int));
+
+
+        var xParameter = x.HasValue ?
+            new ObjectParameter("x", x) :
+            new ObjectParameter("x", typeof(int));
+
+
+        var yParameter = y.HasValue ?
+            new ObjectParameter("y", y) :
+            new ObjectParameter("y", typeof(int));
+
+
+        var zParameter = z.HasValue ?
+            new ObjectParameter("z", z) :
+            new ObjectParameter("z", typeof(int));
+
+
+        var nameParameter = name != null ?
+            new ObjectParameter("name", name) :
+            new ObjectParameter("name", typeof(string));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("dev_UpdateRoomBasedOnXYZ", areaParameter, xParameter, yParameter, zParameter, nameParameter);
+    }
+
+
+    public virtual ObjectResult<Nullable<decimal>> dev_UpdateRoomStateBasedOnXYZ(Nullable<int> area, Nullable<int> x, Nullable<int> y, Nullable<int> z, Nullable<int> state, Nullable<System.TimeSpan> time, Nullable<int> location)
+    {
+
+        var areaParameter = area.HasValue ?
+            new ObjectParameter("area", area) :
+            new ObjectParameter("area", typeof(int));
+
+
+        var xParameter = x.HasValue ?
+            new ObjectParameter("x", x) :
+            new ObjectParameter("x", typeof(int));
+
+
+        var yParameter = y.HasValue ?
+            new ObjectParameter("y", y) :
+            new ObjectParameter("y", typeof(int));
+
+
+        var zParameter = z.HasValue ?
+            new ObjectParameter("z", z) :
+            new ObjectParameter("z", typeof(int));
+
+
+        var stateParameter = state.HasValue ?
+            new ObjectParameter("state", state) :
+            new ObjectParameter("state", typeof(int));
+
+
+        var timeParameter = time.HasValue ?
+            new ObjectParameter("time", time) :
+            new ObjectParameter("time", typeof(System.TimeSpan));
+
+
+        var locationParameter = location.HasValue ?
+            new ObjectParameter("location", location) :
+            new ObjectParameter("location", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("dev_UpdateRoomStateBasedOnXYZ", areaParameter, xParameter, yParameter, zParameter, stateParameter, timeParameter, locationParameter);
+    }
+
 }
 
 }

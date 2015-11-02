@@ -111,6 +111,9 @@
             createMessageType("GameStateEngine.historyRequest");
             createMessageType("GameStateEngine.partyRequest");
 
+            createMessageType("VolumeManager.setVolume");
+            createMessageType("VolumeManager.setMute");
+
             createMessageType("InterfaceManager.loadingRoomState");
             createMessageType("InterfaceManager.iParagraphClick");
             createMessageType("InterfaceManager.iWordClick");

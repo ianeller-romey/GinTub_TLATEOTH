@@ -13,13 +13,17 @@
         var gameStateEngine = namespace.Engines.GameStateEngine;
         gameStateEngine.init(messengerEngine);
         var audioEngine = namespace.Engines.AudioEngine;
-        audioEngine.init("#audio", "#volumeButton", "#volumeRange", messengerEngine);
+        audioEngine.init("#audio", messengerEngine);
+        var audioEngineEx = namespace.Engines.AudioEngineEx;
+        audioEngineEx.init("#audio", messengerEngine);
 
         if (namespace.EX && namespace.EX.Cheats) { // intentional truthiness
             var cheats = namespace.EX.Cheats;
             cheats.init("#master-container", messengerEngine);
         }
 
+        var volumeManager = namespace.Managers.VolumeManager;
+        volumeManager.init("#volumeButton", "#volumeRange", messengerEngine);
         var userInputManager = namespace.Managers.UserInputManager;
         userInputManager.init(new namespace.Entities.Classes.PopUpListConstructorObject("#verbList", "#interfaceBottom", "VerbList"),
             new namespace.Entities.Classes.PopUpListConstructorObject("#withList", "#interfaceBottom", "WithList"),

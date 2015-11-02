@@ -53,9 +53,36 @@ namespace TBGINTB_Builder.BuilderControls
 
         private UIElement CreateControls()
         {
-            m_grid_location = new UserControl_Location(true);
+            Grid grid_main = new Grid();
+            grid_main.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100.0, GridUnitType.Star) });
+            grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
-            return m_grid_location;
+            m_grid_location = new UserControl_Location(true);
+            grid_main.SetGridRowColumn(m_grid_location, 0, 0);
+
+            Button button_automaticUpsert = new Button() { Content = "Automatic Upsert" };
+            button_automaticUpsert.Click += (x, y) =>
+            {
+                AutomaticUpsert();
+            };
+            grid_main.SetGridRowColumn(button_automaticUpsert, 1, 0);
+
+            return grid_main;
+        }
+
+        private void AutomaticUpsert()
+        {
+            var window_directory = new Window_SelectDirectory("Select Directory", null);
+            window_directory.ShowDialog();
+            if (window_directory.Accepted)
+            {
+                var window_relativeUri = new Window_TextEntry("Relative URI", @"images\");
+                window_relativeUri.ShowDialog();
+                if (window_relativeUri.Accepted)
+                {
+                    GinTubBuilderManager.UpsertLocationAutomatically(window_directory.DirectoryName, window_relativeUri.Text);
+                }
+            }
         }
 
         #endregion

@@ -501,6 +501,44 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_UpsertLocationByName]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+	EXEC('CREATE PROCEDURE [dev].[dev_UpsertLocationByName] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 11/2/2015
+-- Description:	Inserts or updates a Location record, based on its name
+-- =============================================
+ALTER PROCEDURE [dev].[dev_UpsertLocationByName]
+	@name varchar(256),
+	@locationfile varchar(256)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	IF EXISTS (SELECT 1 FROM [dbo].[Locations] WHERE [Name] = @name)
+	BEGIN
+		UPDATE [dbo].[Locations]
+		SET [LocationFile] = @locationFile
+		WHERE [Name] = @name
+		
+		SELECT CAST([Id] AS decimal) /* cast to decimal to simulate SELECT SCOPE_IDENTITY(), which IS treated as a decimal */
+		FROM [dbo].[Locations]
+		WHERE [Name] = @name
+	END
+	ELSE
+	BEGIN
+		INSERT INTO [dbo].[Locations] ([Name], [LocationFile]) 
+		VALUES(@name, @locationFile)
+	
+		SELECT SCOPE_IDENTITY()
+	END
+
+END
+GO
+
 IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_ReadAllLocations]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
 	EXEC('CREATE PROCEDURE [dev].[dev_ReadAllLocations] AS SELECT 1')
 GO
@@ -720,6 +758,43 @@ BEGIN
 		[Z] = ISNULL(@z, [Z]),
 		[Area] = ISNULL(@area, [Area])
 	WHERE [Id] = @id
+
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_UpdateRoomBasedOnXYZ]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+	EXEC('CREATE PROCEDURE [dev].[dev_UpdateRoomBasedOnXYZ] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 11/2/2015
+-- Description:	Updates a Room record
+-- =============================================
+ALTER PROCEDURE [dev].[dev_UpdateRoomBasedOnXYZ]
+	@area int,
+	@x int,
+	@y int,
+	@z int,
+	@name varchar(256)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE [dbo].[Rooms]
+	SET	[Name] = ISNULL(@name, [Name])
+	WHERE [X] = @x
+	AND [Y] = @y
+	AND [Z] = @z
+	AND [Area] = @area
+	
+	SELECT CAST([Id] AS decimal) /* cast to decimal to simulate SELECT SCOPE_IDENTITY(), which IS treated as a decimal */
+	FROM [dbo].[Rooms]
+	WHERE [X] = @x
+	AND [Y] = @y
+	AND [Z] = @z
+	AND [Area] = @area
 
 END
 GO
@@ -1202,6 +1277,54 @@ BEGIN
 		[Room] = ISNULL(@room, [Room])
 	WHERE [Id] = @id
 
+END
+GO
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dev].[dev_UpdateRoomStateBasedOnXYZ]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+	EXEC('CREATE PROCEDURE [dev].[dev_UpdateRoomStateBasedOnXYZ] AS SELECT 1')
+GO
+-- =============================================
+-- Author:		Ian Eller-Romey
+-- Create date: 11/2/2015
+-- Description:	Updates a RoomState record
+-- =============================================
+ALTER PROCEDURE [dev].[dev_UpdateRoomStateBasedOnXYZ]
+	@area int,
+	@x int,
+	@y int,
+	@z int,
+	@state int,
+	@time time,
+	@location int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE rs
+	SET	rs.[Location] = ISNULL(@location, rs.[Location])
+	FROM [dbo].[RoomStates] rs
+	INNER JOIN [dbo].[Rooms] r
+	ON rs.[Room] = r.[Id]
+	WHERE r.[X] = @x
+	AND r.[Y] = @y
+	AND r.[Z] = @z
+	AND r.[Area] = @area
+	AND rs.[State] = @state
+	AND rs.[Time] = @time
+	
+	SELECT CAST(rs.[Id] AS decimal) /* cast to decimal to simulate SELECT SCOPE_IDENTITY(), which IS treated as a decimal */
+	FROM [dbo].[RoomStates] rs
+	INNER JOIN [dbo].[Rooms] r
+	ON rs.[Room] = r.[Id]
+	WHERE r.[X] = @x
+	AND r.[Y] = @y
+	AND r.[Z] = @z
+	AND r.[Area] = @area
+	AND rs.[State] = @state
+	AND rs.[Time] = @time
+	
 END
 GO
 

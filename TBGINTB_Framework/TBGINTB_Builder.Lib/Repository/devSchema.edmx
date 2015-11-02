@@ -644,12 +644,28 @@
           <Parameter Name="z" Type="int" Mode="In" />
           <Parameter Name="area" Type="int" Mode="In" />
         </Function>
+        <Function Name="dev_UpdateRoomBasedOnXYZ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="area" Type="int" Mode="In" />
+          <Parameter Name="x" Type="int" Mode="In" />
+          <Parameter Name="y" Type="int" Mode="In" />
+          <Parameter Name="z" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="dev_UpdateRoomState" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="state" Type="int" Mode="In" />
           <Parameter Name="time" Type="time" Mode="In" />
           <Parameter Name="location" Type="int" Mode="In" />
           <Parameter Name="room" Type="int" Mode="In" />
+        </Function>
+        <Function Name="dev_UpdateRoomStateBasedOnXYZ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="area" Type="int" Mode="In" />
+          <Parameter Name="x" Type="int" Mode="In" />
+          <Parameter Name="y" Type="int" Mode="In" />
+          <Parameter Name="z" Type="int" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+          <Parameter Name="time" Type="time" Mode="In" />
+          <Parameter Name="location" Type="int" Mode="In" />
         </Function>
         <Function Name="dev_UpdateVerb" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -664,6 +680,10 @@
           <Parameter Name="area" Type="int" Mode="In" />
           <Parameter Name="room" Type="int" Mode="In" />
           <Parameter Name="time" Type="time" Mode="In" />
+        </Function>
+        <Function Name="dev_UpsertLocationByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="locationfile" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="GinTubModelStoreContainer" />
       </Schema></edmx:StorageModels>
@@ -738,7 +758,7 @@
             <ReturnType Type="Collection(Decimal)" />
             <Parameter Name="order" Mode="In" Type="Int32" />
             <Parameter Name="room" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="dev_CreateParagraphRoomState" ReturnType="Collection(Decimal)">
             <Parameter Name="roomstate" Mode="In" Type="Int32" />
             <Parameter Name="paragraph" Mode="In" Type="Int32" />
@@ -775,7 +795,7 @@
             <Parameter Name="y" Mode="In" Type="Int32" />
             <Parameter Name="z" Mode="In" Type="Int32" />
             <Parameter Name="area" Mode="In" Type="Int32" />
-          </FunctionImport>
+            </FunctionImport>
           <FunctionImport Name="dev_CreateRoomState" ReturnType="Collection(Decimal)">
             <Parameter Name="time" Mode="In" Type="Time" />
             <Parameter Name="location" Mode="In" Type="Int32" />
@@ -1336,7 +1356,7 @@
           </FunctionImport>
           <FunctionImport Name="dev_ReadAllAudio" ReturnType="Collection(GinTubModel.dev_ReadAllAudio_Result)" />
           <FunctionImport Name="dev_ReadAudio" ReturnType="Collection(GinTubModel.dev_ReadAudio_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="dev_ReadGameStateOnInitialLoad" ReturnType="Collection(GinTubModel.dev_ReadGameStateOnInitialLoad_Result)" />
           <FunctionImport Name="dev_UpdateAudio">
@@ -1349,6 +1369,26 @@
             <Parameter Name="area" Mode="In" Type="Int32" />
             <Parameter Name="room" Mode="In" Type="Int32" />
             <Parameter Name="time" Mode="In" Type="Time" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpsertLocationByName" ReturnType="Collection(Decimal)" >
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="locationfile" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateRoomBasedOnXYZ" ReturnType="Collection(Decimal)">
+            <Parameter Name="area" Mode="In" Type="Int32" />
+            <Parameter Name="x" Mode="In" Type="Int32" />
+            <Parameter Name="y" Mode="In" Type="Int32" />
+            <Parameter Name="z" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="dev_UpdateRoomStateBasedOnXYZ" ReturnType="Collection(Decimal)">
+            <Parameter Name="area" Mode="In" Type="Int32" />
+            <Parameter Name="x" Mode="In" Type="Int32" />
+            <Parameter Name="y" Mode="In" Type="Int32" />
+            <Parameter Name="z" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+            <Parameter Name="time" Mode="In" Type="Time" />
+            <Parameter Name="location" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="dev_ReadAction_Result">
@@ -2502,6 +2542,9 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="dev_UpdateAudio" FunctionName="GinTubModel.Store.dev_UpdateAudio" />
           <FunctionImportMapping FunctionImportName="dev_UpsertGameStateOnInitialLoad" FunctionName="GinTubModel.Store.dev_UpsertGameStateOnInitialLoad" />
+          <FunctionImportMapping FunctionImportName="dev_UpsertLocationByName" FunctionName="GinTubModel.Store.dev_UpsertLocationByName" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateRoomBasedOnXYZ" FunctionName="GinTubModel.Store.dev_UpdateRoomBasedOnXYZ" />
+          <FunctionImportMapping FunctionImportName="dev_UpdateRoomStateBasedOnXYZ" FunctionName="GinTubModel.Store.dev_UpdateRoomStateBasedOnXYZ" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

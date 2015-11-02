@@ -812,9 +812,16 @@ IF EXISTS (SELECT 1 FROM [sys].[views] WHERE [name] = 'RoomStateNames')
 GO	
 
 CREATE VIEW [dev].[RoomStateNames] AS
-	SELECT [Id] as [RoomState],
-		   'State ' + CONVERT(varchar(10), [State]) + ' at ' + CONVERT(varchar(8), [Time], 8) as [Name]
-	FROM [dbo].[RoomStates]	
+	SELECT r.[Area],
+		   r.[X],
+		   r.[Y],
+		   r.[Z],
+		   rs.[Id] as [RoomState],
+		   rs.[State],
+		   'State ' + CONVERT(varchar(10), rs.[State]) + ' at ' + CONVERT(varchar(8), rs.[Time], 8) as [Name]
+	FROM [dbo].[RoomStates]	rs
+	INNER JOIN [dbo].[Rooms] r
+	ON rs.[Room] = r.[Id]
 	
 GO
 

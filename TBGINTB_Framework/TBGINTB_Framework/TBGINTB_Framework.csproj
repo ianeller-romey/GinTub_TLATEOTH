@@ -62,6 +62,7 @@
     <Content Include="lib\cheats.js" />
     <Content Include="lib\driver.js" />
     <Content Include="lib\engines\audio-engine.js" />
+    <Content Include="lib\engines\audio-engine-ex.js" />
     <Content Include="lib\engines\game-state-engine.js" />
     <Content Include="lib\engines\messenger-engine.js" />
     <Content Include="lib\engines\services-engine.js" />
@@ -73,6 +74,7 @@
     <Content Include="lib\entities\image-fader.js" />
     <Content Include="lib\entities\pop-up-list.js" />
     <Content Include="lib\login.js" />
+    <Content Include="lib\managers\volume-manager.js" />
     <Content Include="lib\managers\menu-manager.js" />
     <Content Include="lib\managers\interface-manager.js" />
     <Content Include="lib\managers\message-manager.js" />
