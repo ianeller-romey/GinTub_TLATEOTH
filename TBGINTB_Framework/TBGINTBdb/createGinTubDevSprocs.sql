@@ -247,7 +247,9 @@ GO
 -- =============================================
 ALTER PROCEDURE [dev].[dev_ImportArea]
 	@id int,
-	@name varchar(256)
+	@name varchar(256),
+	@displayTime bit,
+	@audio int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -256,12 +258,12 @@ BEGIN
 
 	DECLARE @insertstring nvarchar(MAX)
 	SET @insertstring = N'SET IDENTITY_INSERT [dbo].[Areas] ON ' + 
-						N'INSERT INTO [dbo].[Areas] ([Id], [Name]) VALUES (@id_, @name_) ' +
+						N'INSERT INTO [dbo].[Areas] ([Id], [Name], [DisplayTime], [Audio]) VALUES (@id_, @name_, @displayTime_, @audio_) ' +
 						N'SET IDENTITY_INSERT [dbo].[Areas] OFF'
 						
 	EXEC sp_executesql @insertstring,
-					   N'@id_ int, @name_ varchar(256)',
-					   @id, @name
+					   N'@id_ int, @name_ varchar(256), @displayTime_ bit, @audio_ int',
+					   @id, @name, @displayTime, @audio
 
 END
 GO
@@ -276,7 +278,9 @@ GO
 -- =============================================
 ALTER PROCEDURE [dev].[dev_UpdateArea]
 	@id int,
-	@name varchar(256)
+	@name varchar(256),
+	@displayTime bit,
+	@audio int
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -284,7 +288,9 @@ BEGIN
 	SET NOCOUNT ON;
 
 	UPDATE [dbo].[Areas]
-	SET [Name] = ISNULL(@name, [Name])
+	SET [Name] = ISNULL(@name, [Name]),
+		[DisplayTime] = ISNULL(@displayTime, [DisplayTime]),
+		[Audio] = ISNULL(@audio, [Audio])
 	WHERE [Id] = @id
 
 END
@@ -306,7 +312,9 @@ BEGIN
 	SET NOCOUNT ON;
 
 	SELECT [Id],
-		   [Name]
+		   [Name],
+		   [DisplayTime],
+		   [Audio]
 	FROM [dbo].[Areas]
 
 END
@@ -330,6 +338,8 @@ BEGIN
 
 	SELECT a.[Id],
 		   a.[Name],
+		   a.[DisplayTime],
+		   a.[Audio],
 		   ISNULL(MAX(r.[X]), 0) AS [MaxX],
 		   ISNULL(MIN(r.[X]), 0) AS [MinX],
 		   ISNULL(MAX(r.[Y]), 0) AS [MaxY],
@@ -341,7 +351,7 @@ BEGIN
 	LEFT JOIN [dbo].[Rooms] r
 	ON r.[Area] = a.[Id]
 	WHERE a.[Id] = @id
-	GROUP BY a.[Id], a.[Name]
+	GROUP BY a.[Id], a.[Name], a.[DisplayTime], a.[Audio]
 
 END
 GO

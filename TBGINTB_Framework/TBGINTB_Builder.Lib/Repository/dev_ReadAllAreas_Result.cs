@@ -21,6 +21,10 @@ public partial class dev_ReadAllAreas_Result
 
     public string Name { get; set; }
 
+    public bool DisplayTime { get; set; }
+
+    public Nullable<int> Audio { get; set; }
+
 }
 
 }

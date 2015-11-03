@@ -35,6 +35,10 @@ public partial class dev_ReadArea_Result
 
     public Nullable<int> NumRooms { get; set; }
 
+    public bool DisplayTime { get; set; }
+
+    public Nullable<int> Audio { get; set; }
+
 }
 
 }

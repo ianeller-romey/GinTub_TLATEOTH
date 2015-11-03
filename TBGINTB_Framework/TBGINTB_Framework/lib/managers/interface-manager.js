@@ -315,6 +315,14 @@
                 enableInterface();
             };
 
+            var showOrHideTimeForArea = function (area) {
+                if (area.displayTime) {
+                    clockElem.css("display", "inline");
+                } else {
+                    clockElem.css("display", "none");
+                }
+            };
+
             this.getUpdateInterval = function () {
                 return updateInterval;
             };
@@ -334,6 +342,7 @@
                 that.changeUpdateInterval();
             });
 
+            messengerEngine.register("GameStateEngine.setArea", this, showOrHideTimeForArea);
             messengerEngine.register("GameStateEngine.setActiveRoomState", this, loadRoomState);
             messengerEngine.register("GameStateEngine.doAction", this, loadingWhileDoAction);
             messengerEngine.register("TimeEngine.updateTime", this, updateTime);

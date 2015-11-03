@@ -14,6 +14,7 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
     {
         int m_id;
         string m_name;
+        bool m_displayTime;
         int? m_audio;
         int m_maxX, m_minX;
         int m_maxY, m_minY;
@@ -39,6 +40,17 @@ namespace TBGINTB_Builder.Lib.Model.DbModel
             {
                 if (m_name != value)
                     m_name = value;
+            }
+        }
+
+        [DataMember]
+        public bool DisplayTime
+        {
+            get { return m_displayTime; }
+            private set
+            {
+                if (m_displayTime != value)
+                    m_displayTime = value;
             }
         }
 

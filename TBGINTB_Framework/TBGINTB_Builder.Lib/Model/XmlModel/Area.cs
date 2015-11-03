@@ -14,6 +14,7 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
     {
         int m_id;
         string m_name;
+        bool m_displayTime;
         int? m_audio;
         Room[] m_rooms;
 
@@ -36,6 +37,17 @@ namespace TBGINTB_Builder.Lib.Model.XmlModel
             {
                 if (m_name != value)
                     m_name = value;
+            }
+        }
+
+        [XmlElement("DisplayTime")]
+        public bool DisplayTime
+        {
+            get { return m_displayTime; }
+            set
+            {
+                if (m_displayTime != value)
+                    m_displayTime = value;
             }
         }
 

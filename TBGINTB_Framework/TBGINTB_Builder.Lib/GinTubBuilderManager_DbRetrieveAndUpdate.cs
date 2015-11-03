@@ -35,37 +35,41 @@ namespace TBGINTB_Builder.Lib
         {
             public int Id { get; set; }
             public string Name { get; set; }
-            public AreaEventArgs(int id, string name)
+            public bool DisplayTime { get; set; }
+            public int? Audio { get; set; }
+            public AreaEventArgs(int id, string name, bool displayTime, int? audio)
             {
                 Id = id;
                 Name = name;
+                DisplayTime = displayTime;
+                Audio = audio;
             }
         }
 
 
         public class AreaReadEventArgs : AreaEventArgs
         {
-            public AreaReadEventArgs(int id, string name) :  base(id, name) {}
+            public AreaReadEventArgs(int id, string name, bool displayTime, int? audio) :  base(id, name, displayTime, audio) {}
         }
         public delegate void AreaReadEventHandler(object sender, AreaReadEventArgs args);
         public static event AreaReadEventHandler AreaRead;
         private static void OnAreaRead(Area area)
         {
             if (AreaRead != null)
-                AreaRead(typeof(GinTubBuilderManager), new AreaReadEventArgs(area.Id, area.Name));
+                AreaRead(typeof(GinTubBuilderManager), new AreaReadEventArgs(area.Id, area.Name, area.DisplayTime, area.Audio));
         }
 
 
         public class AreaUpdatedEventArgs : AreaEventArgs
         {
-            public AreaUpdatedEventArgs(int id, string name) : base(id, name) {}
+            public AreaUpdatedEventArgs(int id, string name, bool displayTime, int? audio) : base(id, name, displayTime, audio) { }
         }
         public delegate void AreaUpdatedEventHandler(object sender, AreaUpdatedEventArgs args);
         public static event AreaUpdatedEventHandler AreaUpdated;
         private static void OnAreaUpdated(Area area)
         {
             if (AreaUpdated != null)
-                AreaUpdated(typeof(GinTubBuilderManager), new AreaUpdatedEventArgs(area.Id, area.Name));
+                AreaUpdated(typeof(GinTubBuilderManager), new AreaUpdatedEventArgs(area.Id, area.Name, area.DisplayTime, area.Audio));
         }
 
 
@@ -78,9 +82,11 @@ namespace TBGINTB_Builder.Lib
             public int MaxZ { get; set; }
             public int MinZ { get; set; }
             public int NumRooms { get; set; }
-            public AreaSelectEventArgs(int id, string name, int maxX, int minX, int maxY, int minY, int maxZ, int minZ, int numRooms) :
-                base(id, name)
+            public AreaSelectEventArgs(int id, string name, bool displayTime, int? audio, int maxX, int minX, int maxY, int minY, int maxZ, int minZ, int numRooms) :
+                base(id, name, displayTime, audio)
             {
+                DisplayTime = displayTime;
+                Audio = audio;
                 MaxX = maxX;
                 MinX = minX;
                 MaxY = maxY;
@@ -95,7 +101,7 @@ namespace TBGINTB_Builder.Lib
         private static void OnAreaSelect(Area area)
         {
             if (AreaSelect != null)
-                AreaSelect(typeof(GinTubBuilderManager), new AreaSelectEventArgs(area.Id, area.Name, area.MaxX, area.MinX, area.MaxY, area.MinY, area.MaxZ, area.MinZ, area.NumRooms));
+                AreaSelect(typeof(GinTubBuilderManager), new AreaSelectEventArgs(area.Id, area.Name, area.DisplayTime, area.Audio, area.MaxX, area.MinX, area.MaxY, area.MinY, area.MaxZ, area.MinZ, area.NumRooms));
         }
 
         #endregion
@@ -1863,9 +1869,9 @@ namespace TBGINTB_Builder.Lib
             OnAreaRead(area);
         }
 
-        public static void UpdateArea(int areaId, string areaName)
+        public static void UpdateArea(int areaId, string areaName, bool displayTime, int? audio)
         {
-            UpdateAreaDb(areaId, areaName);
+            UpdateAreaDb(areaId, areaName, displayTime, audio);
             Area area = ReadAreaDb(areaId);
             OnAreaUpdated(area);
         }
@@ -2995,11 +3001,11 @@ namespace TBGINTB_Builder.Lib
             return (int)result.Value;
         }
 
-        private static void UpdateAreaDb(int id, string name)
+        private static void UpdateAreaDb(int id, string name, bool displayTime, int? audio)
         {
             try
             {
-                m_entities.dev_UpdateArea(id, name);
+                m_entities.dev_UpdateArea(id, name, displayTime, audio);
             }
             catch(Exception e)
             {

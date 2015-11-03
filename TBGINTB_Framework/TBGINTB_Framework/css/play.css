@@ -99,6 +99,7 @@ body:before {
     cursor: default;
     font-family: 'Arial';
     font-size: larger;
+    display: none;
 }
 
 /*****************/

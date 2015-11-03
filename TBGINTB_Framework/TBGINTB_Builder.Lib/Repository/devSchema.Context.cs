@@ -848,7 +848,7 @@ public partial class GinTubEntities : DbContext
     }
 
 
-    public virtual int dev_ImportArea(Nullable<int> id, string name)
+    public virtual int dev_ImportArea(Nullable<int> id, string name, Nullable<bool> displayTime, Nullable<int> audio)
     {
 
         var idParameter = id.HasValue ?
@@ -861,7 +861,17 @@ public partial class GinTubEntities : DbContext
             new ObjectParameter("name", typeof(string));
 
 
-        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dev_ImportArea", idParameter, nameParameter);
+        var displayTimeParameter = displayTime.HasValue ?
+            new ObjectParameter("displayTime", displayTime) :
+            new ObjectParameter("displayTime", typeof(bool));
+
+
+        var audioParameter = audio.HasValue ?
+            new ObjectParameter("audio", audio) :
+            new ObjectParameter("audio", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dev_ImportArea", idParameter, nameParameter, displayTimeParameter, audioParameter);
     }
 
 
@@ -2181,7 +2191,7 @@ public partial class GinTubEntities : DbContext
     }
 
 
-    public virtual int dev_UpdateArea(Nullable<int> id, string name)
+    public virtual int dev_UpdateArea(Nullable<int> id, string name, Nullable<bool> displayTime, Nullable<int> audio)
     {
 
         var idParameter = id.HasValue ?
@@ -2194,7 +2204,17 @@ public partial class GinTubEntities : DbContext
             new ObjectParameter("name", typeof(string));
 
 
-        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dev_UpdateArea", idParameter, nameParameter);
+        var displayTimeParameter = displayTime.HasValue ?
+            new ObjectParameter("displayTime", displayTime) :
+            new ObjectParameter("displayTime", typeof(bool));
+
+
+        var audioParameter = audio.HasValue ?
+            new ObjectParameter("audio", audio) :
+            new ObjectParameter("audio", typeof(int));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("dev_UpdateArea", idParameter, nameParameter, displayTimeParameter, audioParameter);
     }
 
 

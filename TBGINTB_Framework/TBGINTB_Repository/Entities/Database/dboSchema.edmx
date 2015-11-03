@@ -370,7 +370,7 @@
           </FunctionImport>
           <FunctionImport Name="ReadAllAudio" ReturnType="Collection(GinTubModel.ReadAllAudio_Result)" />
           <FunctionImport Name="ReadLastTimeForPlayer" ReturnType="Collection(GinTubModel.ReadLastTimeForPlayer_Result)">
-            <Parameter Name="player" Mode="In" Type="Guid" />
+          <Parameter Name="player" Mode="In" Type="Guid" />
           </FunctionImport>
           <FunctionImport Name="UpdateLastTimeForPlayer">
             <Parameter Name="player" Mode="In" Type="Guid" />
@@ -396,6 +396,7 @@
         <ComplexType Name="ReadArea_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="DisplayTime" Nullable="false" />
           <Property Type="Int32" Name="Audio" Nullable="true" />
         </ComplexType>
         <ComplexType Name="ReadMessage_Result">
@@ -569,6 +570,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Audio" ColumnName="Audio" />
+                <ScalarProperty Name="DisplayTime" ColumnName="DisplayTime" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

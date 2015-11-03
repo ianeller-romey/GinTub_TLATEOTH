@@ -22,6 +22,7 @@
             var areaGainNodes = [];
             var activeAreaGainNode = 0,
                 maxGainNodes = 2;
+            var volume;
 
             var that = this;
 
@@ -166,7 +167,8 @@
             };
 
             var setVolume = function (v) {
-                gainNode.gain.value = v;
+                volume = v;
+                gainNode.gain.value = volume;
                 if (areaGainNodes[activeAreaGainNode]) { // intentional truthiness
                     areaGainNodes[activeAreaGainNode].gain.linearRampToValueAtTime(v, audioContext.currentTime);
                 }
@@ -178,7 +180,6 @@
 
             var loadEngine = function () {
                 if (initAudioContext() && initSupportedFormat(audioElemId)) {
-
                     messengerEngine.register("playAudio", this, playAudio);
                     messengerEngine.register("stopAudio", this, stopAudio);
                     messengerEngine.register("ServicesEngine.getAllAudio", this, loadAllAudio);

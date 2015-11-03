@@ -52,6 +52,13 @@
                 messengerEngine.register("PauseFader.unpauseClick", that, unpause);
                 messengerEngine.register("ClockList.waitTime", that, waitTime);
                 messengerEngine.register("InterfaceManager.loadingRoomState", that, pause);
+                messengerEngine.register("GameStateEngine.setArea", that, function (area) {
+                    if (area.displayTime) {
+                        unpause();
+                    } else {
+                        pause();
+                    }
+                });
 
                 gameLoaded = true;
             };

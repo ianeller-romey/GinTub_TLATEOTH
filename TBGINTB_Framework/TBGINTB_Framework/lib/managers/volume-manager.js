@@ -20,7 +20,6 @@
 
             var toggleMute = function () {
                 isMuted = !isMuted;
-                volume = v;
                 messengerEngine.post("VolumeManager.setMute", isMuted);
             };
 
@@ -37,15 +36,15 @@
                 }
             };
 
-            volumeButtonElem.on("click", function () {
+            volumeButtonElem.click(function () {
                 toggleMute();
                 $(this).css("text-decoration", (isMuted) ? "line-through" : "none");
             });
 
             var volumeSwitch = function () {
-                volume = volumeRangeElem.val();
-                volume = volume * volume; // non-linear
-                setVolume(volume);
+                var v = volumeRangeElem.val();
+                v = v * v; // non-linear
+                setVolume(v);
             };
             volumeSwitch();
             volumeRangeElem.on("input change", function () {

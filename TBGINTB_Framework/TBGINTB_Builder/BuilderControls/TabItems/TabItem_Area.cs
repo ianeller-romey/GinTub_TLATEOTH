@@ -118,7 +118,9 @@ namespace TBGINTB_Builder.BuilderControls
 
             void TextBox_AreaName_TextChanged(object sender, TextChangedEventArgs e)
             {
-                GinTubBuilderManager.UpdateArea(AreaId, m_textBox_areaName.Text);
+                                                                                 // TODO:
+                                                                                 // FIX THIS
+                GinTubBuilderManager.UpdateArea(AreaId, m_textBox_areaName.Text, true, null);
             }
 
             #endregion

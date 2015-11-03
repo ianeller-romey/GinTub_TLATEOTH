@@ -631,6 +631,7 @@ BEGIN
 
 	SELECT [Id],
 		   [Name],
+		   [DisplayTime],
 		   [Audio]
 	FROM [dbo].[Areas] WITH (NOLOCK)
 	WHERE [Id] = @area
@@ -653,6 +654,7 @@ BEGIN
 
 	SELECT [Id],
 		   [Name],
+		   [DisplayTime],
 		   [Audio]
 	FROM [dbo].[Areas] WITH (NOLOCK)
 	WHERE [Id] = @area

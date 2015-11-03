@@ -332,7 +332,7 @@ namespace TBGINTB_Builder.Lib
 
         private static void ImportAreaFromXml(Xml.Area area)
         {
-            ImportArea(area.Id, area.Name);
+            ImportArea(area.Id, area.Name, area.DisplayTime, area.Audio);
             foreach (var room in area.Rooms)
                 ImportRoomFromXml(room, area.Id);
         }
@@ -548,11 +548,11 @@ namespace TBGINTB_Builder.Lib
             }
         }
 
-        private static void ImportArea(int id, string name)
+        private static void ImportArea(int id, string name, bool displayTime, int? audio)
         {
             try
             {
-                m_entities.dev_ImportArea(id, name);
+                m_entities.dev_ImportArea(id, name, displayTime, audio);
             }
             catch (Exception e)
             {

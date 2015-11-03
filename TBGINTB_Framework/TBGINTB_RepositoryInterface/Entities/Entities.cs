@@ -79,6 +79,7 @@ namespace GinTub.Repository.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool DisplayTime { get; set; }
         public int? Audio { get; set; }
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GinTub xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ExportDate="2015-10-27T13:08:48.1427472-07:00">
+<GinTub xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ExportDate="2015-11-02T16:01:23.8923323-08:00">
   <Items>
     <Item Id="0">
       <Name>Junk</Name>
@@ -318,12 +318,20 @@
       <LocationFile>images\placeholder.jpg</LocationFile>
     </Location>
     <Location Id="1">
-      <Name>area_0_room_0_0_0_roomstate_0</Name>
-      <LocationFile>images\area_0_room_0_0_0_roomstate_0.png</LocationFile>
+      <Name>area_0_room_0_0_0_roomstate_0_time_00_00</Name>
+      <LocationFile>images\area_0_room_0_0_0_roomstate_0_time_00_00.png</LocationFile>
     </Location>
     <Location Id="2">
-      <Name>area_0_room_0_0_0_roomstate_1</Name>
-      <LocationFile>images\area_0_room_0_0_0_roomstate_1.png</LocationFile>
+      <Name>area_0_room_0_0_0_roomstate_1_time_00_00</Name>
+      <LocationFile>images\area_0_room_0_0_0_roomstate_1_time_00_00.png</LocationFile>
+    </Location>
+    <Location Id="3">
+      <Name>area_1_room_1_1_0_roomstate_0_time_06_30</Name>
+      <LocationFile>images\area_1_room_1_1_0_roomstate_0_time_06_30.png</LocationFile>
+    </Location>
+    <Location Id="4">
+      <Name>area_1_room_1_1_0_roomstate_0_time_18_30</Name>
+      <LocationFile>images\area_1_room_1_1_0_roomstate_0_time_18_30.png</LocationFile>
     </Location>
   </Locations>
   <Messages>
@@ -446,6 +454,8 @@
   <Areas>
     <Area Id="0">
       <Name>'92 FORD ESCORT, RED, 150,000+ MILES</Name>
+      <DisplayTime>false</DisplayTime>
+      <Audio xsi:nil="true" />
       <Rooms>
         <Room Id="0">
           <Name>Interior</Name>
@@ -1165,6 +1175,8 @@
     </Area>
     <Area Id="1">
       <Name>BROKEN CITYSCAPE</Name>
+      <DisplayTime>true</DisplayTime>
+      <Audio xsi:nil="true" />
       <Rooms>
         <Room Id="1">
           <Name>Obelisk</Name>
@@ -1225,7 +1237,7 @@
           <RoomStates>
             <RoomState Id="5">
               <State>0</State>
-              <Location>0</Location>
+              <Location>3</Location>
               <Time />
             </RoomState>
           </RoomStates>
@@ -1333,6 +1345,8 @@
     </Area>
     <Area Id="2">
       <Name>A HOME FOR SOMEONE</Name>
+      <DisplayTime>true</DisplayTime>
+      <Audio xsi:nil="true" />
       <Rooms>
         <Room Id="11">
           <Name>Ground Floor</Name>
@@ -1365,6 +1379,7 @@
       </Rooms>
     </Area>
   </Areas>
+  <Audio />
   <AreaOnInitialLoad Area="0">
     <Room>0</Room>
     <Time />

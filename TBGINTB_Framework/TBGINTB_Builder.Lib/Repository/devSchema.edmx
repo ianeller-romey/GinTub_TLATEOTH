@@ -201,6 +201,8 @@
         <Function Name="dev_ImportArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="displayTime" Type="bit" Mode="In" />
+          <Parameter Name="audio" Type="int" Mode="In" />
         </Function>
         <Function Name="dev_ImportAudio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -522,6 +524,8 @@
         <Function Name="dev_UpdateArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="displayTime" Type="bit" Mode="In" />
+          <Parameter Name="audio" Type="int" Mode="In" />
         </Function>
         <Function Name="dev_UpdateAudio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dev">
           <Parameter Name="id" Type="int" Mode="In" />
@@ -885,6 +889,8 @@
           <FunctionImport Name="dev_ImportArea">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="displayTime" Mode="In" Type="Boolean" />
+            <Parameter Name="audio" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="dev_ImportAreaRoomOnInitialLoad">
             <Parameter Name="area" Mode="In" Type="Int32" />
@@ -1201,6 +1207,8 @@
           <FunctionImport Name="dev_UpdateArea">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="displayTime" Mode="In" Type="Boolean" />
+            <Parameter Name="audio" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="dev_UpdateCharacter">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -1416,6 +1424,8 @@
         <ComplexType Name="dev_ReadAllAreas_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="DisplayTime" Nullable="false" />
+          <Property Type="Int32" Name="Audio" Nullable="true" />
         </ComplexType>
         <ComplexType Name="dev_ReadAllCharacterActionRequirementsForAction_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -1586,6 +1596,8 @@
           <Property Type="Int32" Name="MaxZ" Nullable="false" />
           <Property Type="Int32" Name="MinZ" Nullable="false" />
           <Property Type="Int32" Name="NumRooms" Nullable="true" />
+          <Property Type="Boolean" Name="DisplayTime" Nullable="false" />
+          <Property Type="Int32" Name="Audio" Nullable="true" />
         </ComplexType>
         <ComplexType Name="dev_ReadAreaRoomOnInitialLoad_Result">
           <Property Type="Int32" Name="Area" Nullable="true" />
@@ -1893,6 +1905,8 @@
               <ComplexTypeMapping TypeName="GinTubModel.dev_ReadAllAreas_Result">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DisplayTime" ColumnName="DisplayTime" />
+                <ScalarProperty Name="Audio" ColumnName="Audio" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2175,6 +2189,8 @@
                 <ScalarProperty Name="MaxZ" ColumnName="MaxZ" />
                 <ScalarProperty Name="MinZ" ColumnName="MinZ" />
                 <ScalarProperty Name="NumRooms" ColumnName="NumRooms" />
+                <ScalarProperty Name="DisplayTime" ColumnName="DisplayTime" />
+                <ScalarProperty Name="Audio" ColumnName="Audio" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

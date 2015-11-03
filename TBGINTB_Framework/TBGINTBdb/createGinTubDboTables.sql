@@ -18,6 +18,7 @@ BEGIN
 	CREATE TABLE [dbo].[Areas] (
 		[Id] int PRIMARY KEY CLUSTERED IDENTITY,
 		[Name] varchar(256) NOT NULL,
+		[DisplayTime] bit NOT NULL DEFAULT(1),
 		[Audio] int NULL FOREIGN KEY REFERENCES [dbo].[Audio]([Id])
 	)
 	DBCC CHECKIDENT ('[dbo].[Areas]', RESEED, 0)
