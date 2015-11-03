@@ -10,7 +10,7 @@ using FastMapper;
 using GinTub.Repository.Entities;
 using GinTub.Repository.Entities.Database;
 
-using GameData = System.Tuple<System.TimeSpan, GinTub.Repository.Entities.Area, GinTub.Repository.Entities.Room, System.Collections.Generic.IEnumerable<GinTub.Repository.Entities.RoomState>, System.Collections.Generic.IEnumerable<GinTub.Repository.Entities.ParagraphState>>;
+using GameData = System.Tuple<GinTub.Repository.Entities.GameState, GinTub.Repository.Entities.Area, GinTub.Repository.Entities.Room, System.Collections.Generic.IEnumerable<GinTub.Repository.Entities.RoomState>, System.Collections.Generic.IEnumerable<GinTub.Repository.Entities.ParagraphState>>;
 using AreaData = System.Tuple<GinTub.Repository.Entities.Area, GinTub.Repository.Entities.Room, System.Collections.Generic.IEnumerable<GinTub.Repository.Entities.RoomState>, System.Collections.Generic.IEnumerable<GinTub.Repository.Entities.ParagraphState>>;
 using RoomData = System.Tuple<GinTub.Repository.Entities.Room, System.Collections.Generic.IEnumerable<GinTub.Repository.Entities.RoomState>, System.Collections.Generic.IEnumerable<GinTub.Repository.Entities.ParagraphState>>;
 
@@ -76,8 +76,8 @@ namespace GinTub.Repository
             GameData gameData = null;
             using (var entities = new GinTubEntities())
             {
-                var lastTimeResults = entities.ReadGame(playerId);
-                gameData = GameAndAreaAndRoomResultsFromDb(lastTimeResults);
+                var gameStateResults = entities.ReadGame(playerId);
+                gameData = GameAndAreaAndRoomResultsFromDb(gameStateResults);
             }
             return gameData;
         }
@@ -153,6 +153,17 @@ namespace GinTub.Repository
                 results = resultResults.Select(r => TypeAdapter.Adapt<InventoriesEntry>(r)).ToList();
             }
             return results;
+        }
+
+        public GameState ReadGameStateForPlayer(Guid playerId)
+        {
+            GameState gameState = null;
+            using (var entities = new GinTubEntities())
+            {
+                var gameStateResults = entities.ReadGameStateForPlayer(playerId);
+                gameState = TypeAdapter.Adapt<GameState>(gameStateResults.SingleOrDefault());
+            }
+            return gameState;
         }
 
         public Task UpdateLastTime(Guid playerId, int nounId, int verbTypeId, TimeSpan time)
@@ -294,17 +305,17 @@ namespace GinTub.Repository
 
         #region Private Functionality
 
-        public GameData GameAndAreaAndRoomResultsFromDb(ObjectResult<ReadLastTimeForPlayer_Result> lastTimeResults)
+        public GameData GameAndAreaAndRoomResultsFromDb(ObjectResult<ReadGameStateForPlayer_Result> gameStateResults)
         {
-            TimeSpan time = TimeSpan.MinValue;
+            GameState gameState = null;
             AreaData areaData = null;
 
-            time = TypeAdapter.Adapt<TimeSpan>(lastTimeResults.Single().LastTime);
+            gameState = gameStateResults.Select(x => new GameState() { LastTime = x.LastTime, StopTime = x.StopTime }).SingleOrDefault();
 
-            var areaResults = lastTimeResults.GetNextResult<ReadArea_Result>();
+            var areaResults = gameStateResults.GetNextResult<ReadArea_Result>();
             areaData = AreaAndRoomResultsFromDb(areaResults);
 
-            return new GameData(time, areaData.Item1, areaData.Item2, areaData.Item3, areaData.Item4);
+            return new GameData(gameState, areaData.Item1, areaData.Item2, areaData.Item3, areaData.Item4);
         }
 
         public AreaData AreaAndRoomResultsFromDb(ObjectResult<ReadArea_Result> areaResults)

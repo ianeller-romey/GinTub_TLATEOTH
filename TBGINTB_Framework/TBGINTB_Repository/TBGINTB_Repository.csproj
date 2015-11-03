@@ -98,13 +98,13 @@
     <Compile Include="Entities\Database\ReadArea_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Database\ReadGameStateForPlayer_Result.cs">
+      <DependentUpon>dboSchema.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\Database\ReadHistoryForPlayer_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Database\ReadInventoryForPlayer_Result.cs">
-      <DependentUpon>dboSchema.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Database\ReadLastTimeForPlayer_Result.cs">
       <DependentUpon>dboSchema.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\Database\ReadMapForPlayer_Result.cs">

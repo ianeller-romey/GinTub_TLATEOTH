@@ -3,19 +3,10 @@
 
     namespace.Engines = namespace.Engines || {};
     namespace.Engines.AudioEngineEx = {
-        init: function (audioElemId, messengerEngine) {
+        init: function (messengerEngine) {
             var audioUseDefinitions = {};
             var audioData = {};
             var playingLoopedAudio = {};
-
-            var possibleFormats = [{
-                name: "mpeg",
-                ext: "mp3"
-            }, {
-                name: "ogg",
-                ext: "ogg"
-            }];
-            var supportedFormat = null;
 
             var audioContext;
             var gainNode;
@@ -54,35 +45,8 @@
                 return (audioContext) ? true : false;
             };
 
-            var initSupportedFormat = function () {
-                var elemId = (audioElemId.charAt(0) === "#") ? audioElemId.slice(1) : audioElemId;
-                var audioElem = document.getElementById(elemId);
-
-                if (!audioElem || !audioElem.canPlayType) { // intentional truthiness
-                    supportedFormat = null;
-                } else {
-                    for (var i = 0; i < possibleFormats.length; ++i) {
-                        if (!!(audioElem.canPlayType("audio/" + possibleFormats[i].name + ";").replace(/no/, ""))) {
-                            supportedFormat = possibleFormats[i];
-                            break;
-                        }
-                    }
-                }
-
-                return supportedFormat !== null;
-            }
-
-            var buildAudioUseDefinitions = function (data) {
-                data.forEach(function (x) {
-                    audioUseDefinitions[x.name] = {
-                        id: x.id,
-                        name: x.name,
-                        audioFile: x.audioFile,
-                        isLooped: x.isLooped
-                    };
-                    audioUseDefinitions[x.id] = audioUseDefinitions[x.name];
-                    // we're storing data by name and number, so we can play it based on name or number
-                });
+            var buildAudioUseDefinitions = function (definitions) {
+                audioUseDefinitions = definitions;
             };
 
             var getAudioData = function (name) {
@@ -112,7 +76,7 @@
                         messengerEngine.register("ServicesEngine.loadAudio", that, loadAudio);
                     });
 
-                    messengerEngine.post("AudioEngine.loadAudio", audioUseDefinitions[name].audioFile);
+                    messengerEngine.post("AudioEngineEx.loadAudio", audioUseDefinitions[name].audioFile);
 
                     return audioPromise;
                 } else {
@@ -151,10 +115,6 @@
                 }
             };
 
-            var loadAllAudio = function (audioUseData) {
-                buildAudioUseDefinitions(audioUseData.audio);
-            };
-
             var playAreaAudio = function (area) {
                 var oldN = areaGainNodes[activeAreaGainNode];
                 activeAreaGainNode = (activeAreaGainNode + 1) % areaGainNodes.length;
@@ -179,14 +139,12 @@
             };
 
             var loadEngine = function () {
-                if (initAudioContext() && initSupportedFormat(audioElemId)) {
+                if (initAudioContext()) {
                     messengerEngine.register("playAudio", this, playAudio);
                     messengerEngine.register("stopAudio", this, stopAudio);
-                    messengerEngine.register("ServicesEngine.getAllAudio", this, loadAllAudio);
                     messengerEngine.register("VolumeManager.setVolume", this, setVolume);
                     messengerEngine.register("VolumeManager.setMute", this, setMute);
-
-                    messengerEngine.post("AudioEngine.getAllAudio", supportedFormat.ext);
+                    messengerEngine.register("AudioDataEngine.buildAudioUseDefinitions", this, buildAudioUseDefinitions);
                 }
             };
 

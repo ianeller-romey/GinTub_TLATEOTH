@@ -110,6 +110,16 @@ namespace GinTub.Services.DataContracts.Responses
     }
 
     [DataContract]
+    public class GameStateData
+    {
+        [DataMember(Name = "lastTime")]
+        public TimeSpan? LastTime { get; set; }
+
+        [DataMember(Name = "stopTime")]
+        public bool? StopTime { get; set; }
+    }
+
+    [DataContract]
     public class PlayData
     {
         [DataMember(Name = "area")]
@@ -127,8 +137,11 @@ namespace GinTub.Services.DataContracts.Responses
         [DataMember(Name = "message")]
         public MessageData Message { get; set; }
 
-        [DataMember(Name = "lastTime")]
-        public TimeSpan LastTime { get; set; }
+        [DataMember(Name = "deathMessage")]
+        public MessageData DeathMessage { get; set; }
+
+        [DataMember(Name = "gameState")]
+        public GameStateData GameState { get; set; }
     }
 
     [DataContract]

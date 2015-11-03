@@ -9,7 +9,9 @@
             var hourIncr = moment.duration(1, 'h');
             var minuteSub = moment.duration(60, 'm');
             var hourSub = moment.duration(24, 'h');
-            var paused = false;
+
+            var paused = false; // paused is used for when the player pauses the game
+            var stopped = false; // stop is used for when the game state dictates that time is stopped
 
             var gameLoaded = false;
 
@@ -24,7 +26,7 @@
             };
 
             var updateTime = function () {
-                if (!paused) {
+                if (!paused && !stopped) {
                     time.add(minuteIncr);
                     if (time.minutes() === minuteSub.minutes()) {
                         // set minutes back to zero
@@ -52,6 +54,9 @@
                 messengerEngine.register("PauseFader.unpauseClick", that, unpause);
                 messengerEngine.register("ClockList.waitTime", that, waitTime);
                 messengerEngine.register("InterfaceManager.loadingRoomState", that, pause);
+                messengerEngine.register("GameStateEngine.stopTime", that, function (stopTime) {
+                    stopped = stopTime;
+                });
                 messengerEngine.register("GameStateEngine.setArea", that, function (area) {
                     if (area.displayTime) {
                         unpause();
@@ -67,7 +72,7 @@
                 if (!gameLoaded) {
                     registerAfterGameHasLoaded();
                 }
-                setTime(moment.duration.fromIsoduration(playData.lastTime));
+                setTime(moment.duration.fromIsoduration(playData.gameState.lastTime));
             };
 
             var setTime = function (setTo) {

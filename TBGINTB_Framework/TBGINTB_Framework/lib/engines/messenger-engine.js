@@ -77,8 +77,10 @@
                 });
             };
 
-            createMessageType("AudioEngine.getAllAudio");
-            createMessageType("AudioEngine.loadAudio");
+            createMessageType("AudioEngineEx.loadAudio");
+
+            createMessageType("AudioDataEngine.getAllAudio");
+            createMessageType("AudioDataEngine.buildAudioUseDefinitions");
 
             createMessageType("ServicesEngine.ajaxError");
             createMessageType("ServicesEngine.getAllVerbTypes");
@@ -98,6 +100,7 @@
 
             createMessageType("GameStateEngine.loadVerbTypes");
             createMessageType("GameStateEngine.loadWithVerbTypes");
+            createMessageType("GameStateEngine.stopTime");
             createMessageType("GameStateEngine.setArea");
             createMessageType("GameStateEngine.setRoom");
             createMessageType("GameStateEngine.setRoomStates");

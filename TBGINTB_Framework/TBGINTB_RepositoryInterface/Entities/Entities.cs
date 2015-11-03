@@ -83,6 +83,12 @@ namespace GinTub.Repository.Entities
         public int? Audio { get; set; }
     }
 
+    public class GameState
+    {
+        public TimeSpan LastTime { get; set; }
+        public bool StopTime { get; set; }
+    }
+
     public class InventoriesEntry
     {
         public int Id { get; set; }

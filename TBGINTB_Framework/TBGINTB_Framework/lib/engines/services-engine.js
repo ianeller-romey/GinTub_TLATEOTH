@@ -215,8 +215,8 @@
                 });
             }
 
-            messengerEngine.register("AudioEngine.getAllAudio", this, this.getAllAudio);
-            messengerEngine.register("AudioEngine.loadAudio", this, this.loadAudio);
+            messengerEngine.register("AudioDataEngine.getAllAudio", this, this.getAllAudio);
+            messengerEngine.register("AudioEngineEx.loadAudio", this, this.loadAudio);
             messengerEngine.register("UserInputManager.getNounsForParagraphState", this, this.getNounsForParagraphState);
             messengerEngine.register("GameStateEngine.doAction", this, this.doAction);
             messengerEngine.register("GameStateEngine.doMessageChoice", this, this.doMessageChoice);

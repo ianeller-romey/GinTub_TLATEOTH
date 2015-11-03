@@ -229,7 +229,7 @@ BEGIN
 	ON p.[LastRoom] = r.[Id]
 	WHERE p.[Player] = @player
 
-	EXEC [dbo].[ReadLastTimeForPlayer]
+	EXEC [dbo].[ReadGameStateForPlayer]
 	@player = @player
 	
 	EXEC [dbo].[ReadArea]
@@ -247,20 +247,21 @@ GO
 /******************************************************************************************************************************************/
 
 
-IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadLastTimeForPlayer]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
-  EXEC('CREATE PROCEDURE [dbo].[ReadLastTimeForPlayer] AS SELECT 1')
+IF NOT EXISTS (SELECT 1 FROM [dbo].[sysobjects] WHERE [id] = object_id(N'[dbo].[ReadGameStateForPlayer]') AND OBJECTPROPERTY([id], N'IsProcedure') = 1)
+  EXEC('CREATE PROCEDURE [dbo].[ReadGameStateForPlayer] AS SELECT 1')
 GO
 -- =============================================
 -- Author:		Ian Eller-Romey
 -- Create date: 10/12/2015
--- Description:	Reads the LastTime for the specified Player
+-- Description:	Reads the PlayerGameState for the specified Player
 -- =============================================
-ALTER PROCEDURE [dbo].[ReadLastTimeForPlayer]
+ALTER PROCEDURE [dbo].[ReadGameStateForPlayer]
 	@player uniqueidentifier
 AS
 BEGIN
 
-	SELECT [LastTime]
+	SELECT [LastTime],
+		   [StopTime]
 	FROM [dbo].[PlayerGameStates] WITH (NOLOCK)
 	WHERE [Player] = @player
 

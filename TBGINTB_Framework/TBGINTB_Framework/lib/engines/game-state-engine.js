@@ -52,6 +52,17 @@
 
                 setActiveRoomState(createImmediateParagraphStateUpdatePromise());
             };
+            
+            var setGameState = function (gameStateData) {
+                if (gameStateData) { // intentional truthiness
+                    if(gameStateData.lastTime !== null) {
+                        setTime(gameStateData.lastTime);
+                    }
+                    if(gameStateData.stopTime !== null) {
+                        messengerEngine.post("GameStateEngine.stopTime", gameStateData.stopTime);
+                    }
+                }
+            };
 
             var setArea = function (areaData) {
                 if (areaData != null) {
@@ -188,7 +199,7 @@
                 if (!gameLoaded) {
                     registerAfterGameHasLoaded();
                 }
-                setTime(playData.lastTime);
+                setGameState(playData.gameState);
                 setArea(playData.area);
                 setRoom(playData.room);
                 setRoomStates(playData.roomStates);
@@ -198,6 +209,7 @@
             };
 
             var loadActionResults = function (playData) {
+                setGameState(playData.gameState);
                 setArea(playData.area);
                 setRoom(playData.room);
                 setRoomStates(playData.roomStates);

@@ -524,6 +524,32 @@ BEGIN
 	VALUES ('messageId', @numberDataTypeId, @messageActivationResultTypeId)
 END
 
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResultTypes] WHERE [Name] = 'Death Message Activation')
+BEGIN
+	DECLARE @deathMessageActivationResultTypeName varchar(256)
+	SET @deathMessageActivationResultTypeName = 'Death Message Activation'
+	DECLARE @deathMessageActivationResultTypeId int
+	INSERT INTO [dbo].[ResultTypes] ([Name])
+	VALUES (@deathMessageActivationResultTypeName)
+	SELECT @deathMessageActivationResultTypeId = SCOPE_IDENTITY()
+
+	INSERT INTO [dev].[ResultTypeJSONProperties] ([JSONProperty], [DataType], [ResultType])
+	VALUES ('messageId', @numberDataTypeId, @deathMessageActivationResultTypeId)
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[ResultTypes] WHERE [Name] = 'Stop Time')
+BEGIN
+	DECLARE @stopTimeResultTypeName varchar(256)
+	SET @stopTimeResultTypeName = 'Stop Time'
+	DECLARE @stopTimeResultTypeId int
+	INSERT INTO [dbo].[ResultTypes] ([Name])
+	VALUES (@stopTimeResultTypeName)
+	SELECT @stopTimeResultTypeId = SCOPE_IDENTITY()
+
+	INSERT INTO [dev].[ResultTypeJSONProperties] ([JSONProperty], [DataType], [ResultType])
+	VALUES ('isTimeStopped', @booleanDataTypeId, @stopTimeResultTypeId)
+END
+
 IF NOT EXISTS (SELECT 1 FROM [sys].[tables] t 
 			   INNER JOIN [sys].[schemas] s ON (t.[schema_id] = s.[schema_id]) WHERE s.[name] = 'dbo' and t.[name] = 'Actions')
 BEGIN
@@ -730,7 +756,8 @@ BEGIN
 	CREATE TABLE [dbo].[PlayerGameStates] (
 		[Player] uniqueidentifier NOT NULL FOREIGN KEY REFERENCES [dbo].[Players]([Id]),
 		[LastRoom] int NOT NULL FOREIGN KEY REFERENCES [dbo].[Rooms]([Id]),
-		[LastTime] time NOT NULL DEFAULT '12:00'
+		[LastTime] time NOT NULL DEFAULT('12:00'),
+		[StopTime] bit NOT NULL DEFAULT(0)
 	)
 	CREATE UNIQUE CLUSTERED INDEX IX__PlayerGameStates__Clustered ON [dbo].[PlayerGameStates] ([Player])
 END

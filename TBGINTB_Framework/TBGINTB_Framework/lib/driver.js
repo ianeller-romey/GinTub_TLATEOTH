@@ -15,7 +15,9 @@
         var audioEngine = namespace.Engines.AudioEngine;
         audioEngine.init("#audio", messengerEngine);
         var audioEngineEx = namespace.Engines.AudioEngineEx;
-        audioEngineEx.init("#audio", messengerEngine);
+        audioEngineEx.init(messengerEngine);
+        var audioDataEngine = namespace.Engines.AudioDataEngine;
+        audioDataEngine.init("#audio", messengerEngine);
 
         if (namespace.EX && namespace.EX.Cheats) { // intentional truthiness
             var cheats = namespace.EX.Cheats;

@@ -15,7 +15,7 @@ namespace GinTub.Repository.Entities.Database
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Nullable<int> Audio { get; set; }
         public bool DisplayTime { get; set; }
+        public Nullable<int> Audio { get; set; }
     }
 }

@@ -63,6 +63,7 @@
     <Content Include="lib\driver.js" />
     <Content Include="lib\engines\audio-engine.js" />
     <Content Include="lib\engines\audio-engine-ex.js" />
+    <Content Include="lib\engines\audio-data-engine.js" />
     <Content Include="lib\engines\game-state-engine.js" />
     <Content Include="lib\engines\messenger-engine.js" />
     <Content Include="lib\engines\services-engine.js" />

@@ -9,47 +9,10 @@
 
             var audioUseDefinitions = {};
 
-            var possibleFormats = [{
-                name: "mpeg",
-                ext: "mp3"
-            }, {
-                name: "ogg",
-                ext: "ogg"
-            }];
-            var supportedFormat = null;
-
             var that = this;
 
-            var initSupportedFormat = function () {
-                if (!audioElem || !audioElem.canPlayType) { // intentional truthiness
-                    supportedFormat = null;
-                } else {
-                    for (var i = 0; i < possibleFormats.length; ++i) {
-                        if (!!(audioElem.canPlayType("audio/" + possibleFormats[i].name + ";").replace(/no/, ""))) {
-                            supportedFormat = possibleFormats[i];
-                            break;
-                        }
-                    }
-                }
-
-                return supportedFormat !== null;
-            }
-
-            var buildAudioUseDefinitions = function (data) {
-                data.forEach(function (x) {
-                    audioUseDefinitions[x.name] = {
-                        id: x.id,
-                        name: x.name,
-                        audioFile: x.audioFile,
-                        isLooped: x.isLooped
-                    };
-                    audioUseDefinitions[x.id] = audioUseDefinitions[x.name];
-                    // we're storing data by name and number, so we can play it based on name or number
-                });
-            };
-
-            var loadAllAudio = function (audioUseData) {
-                buildAudioUseDefinitions(audioUseData.audio);
+            var buildAudioUseDefinitions = function (definitions) {
+                audioUseDefinitions = definitions;
             };
 
             var playAreaAudio = function (area) {
@@ -72,15 +35,10 @@
             };
 
             var loadEngine = function () {
-                if (initSupportedFormat()) {
-
-                    messengerEngine.register("ServicesEngine.getAllAudio", this, loadAllAudio);
-                    messengerEngine.register("GameStateEngine.setArea", this, playAreaAudio);
-                    messengerEngine.register("VolumeManager.setVolume", this, setVolume);
-                    messengerEngine.register("VolumeManager.setMute", this, setMute);
-
-                    messengerEngine.post("AudioEngine.getAllAudio", supportedFormat.ext);
-                }
+                messengerEngine.register("GameStateEngine.setArea", this, playAreaAudio);
+                messengerEngine.register("VolumeManager.setVolume", this, setVolume);
+                messengerEngine.register("VolumeManager.setMute", this, setMute);
+                messengerEngine.register("AudioDataEngine.buildAudioUseDefinitions", this, buildAudioUseDefinitions);
             };
 
             loadEngine();

@@ -36,6 +36,10 @@ namespace GinTub
                             select new DC.Responses.WordData() { Text = x, NounId = (nn != null) ? (int?)nn.Id : null })
                             .ToList()
                 );
+            TypeAdapterConfig<Repository.Entities.GameState, DC.Responses.GameStateData>
+                .NewConfig()
+                .MapFrom(dest => dest.LastTime, src => src.LastTime)
+                .MapFrom(dest => dest.StopTime, src => src.StopTime);
 
             ResultTypeDictionary.Initialize();
 

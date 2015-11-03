@@ -44,6 +44,8 @@ namespace GinTub.Services
                     new KeyValuePair<string, ResultHandler>("Paragraph State Change", Result_ParagraphStateChange),
                     new KeyValuePair<string, ResultHandler>("Room State Change", Result_RoomStateChange),
                     new KeyValuePair<string, ResultHandler>("Message Activation", Result_MessageActivation),
+                    new KeyValuePair<string, ResultHandler>("Death Message Activation", Result_DeathMessageActivation),
+                    new KeyValuePair<string, ResultHandler>("Stop Time", Result_StopTime),
                 }
             );
 
@@ -127,7 +129,7 @@ namespace GinTub.Services
             var result = _repository.ReadGame(request.PlayerId);
             return new DC.Responses.PlayData()
             {
-                LastTime = TypeAdapter.Adapt<TimeSpan>(result.Item1),
+                GameState = TypeAdapter.Adapt<DC.Responses.GameStateData>(result.Item1),
                 Area = TypeAdapter.Adapt<DC.Responses.AreaData>(result.Item2),
                 Room = TypeAdapter.Adapt<DC.Responses.RoomData>(result.Item3),
                 RoomStates = result.Item4.Select(x => TypeAdapter.Adapt<DC.Responses.RoomStateData>(x)).ToList(),
@@ -277,7 +279,7 @@ namespace GinTub.Services
             var result = _repository.ReadGame(request.PlayerId);
             return new DC.Responses.PlayData()
             {
-                LastTime = TypeAdapter.Adapt<TimeSpan>(result.Item1),
+                GameState = TypeAdapter.Adapt<DC.Responses.GameStateData>(result.Item1),
                 Area = TypeAdapter.Adapt<DC.Responses.AreaData>(result.Item2),
                 Room = TypeAdapter.Adapt<DC.Responses.RoomData>(result.Item3),
                 RoomStates = result.Item4.Select(x => TypeAdapter.Adapt<DC.Responses.RoomStateData>(x)).ToList(),
@@ -404,6 +406,21 @@ namespace GinTub.Services
             int messageId = data.messageId;
             var result = repository.ReadMessage(messageId);
             playData.Message = TypeAdapter.Adapt<DC.Responses.MessageData>(result);
+        }
+
+        private static void Result_DeathMessageActivation(IGinTubRepository repository, dynamic data, Guid playerId, ref DC.Responses.PlayData playData)
+        {
+            int messageId = data.messageId;
+            var result = repository.ReadMessage(messageId);
+            playData.DeathMessage = TypeAdapter.Adapt<DC.Responses.MessageData>(result);
+        }
+
+        private static void Result_StopTime(IGinTubRepository repository, dynamic data, Guid playerId, ref DC.Responses.PlayData playData)
+        {
+            bool isTimeStopped = data.isTimeStopped;
+            var result = repository.ReadGameStateForPlayer(playerId);
+            playData.GameState = TypeAdapter.Adapt<DC.Responses.GameStateData>(result);
+            playData.GameState.LastTime = null; // we don't care about this here
         }
 
         private static void Result_NotImplemented(IGinTubRepository repository, dynamic data, Guid playerId, ref DC.Responses.PlayData playData)

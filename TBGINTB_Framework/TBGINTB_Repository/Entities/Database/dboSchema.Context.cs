@@ -172,13 +172,13 @@ namespace GinTub.Repository.Entities.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadArea_Result>("ReadAreaForPlayer", areaParameter);
         }
     
-        public virtual ObjectResult<ReadLastTimeForPlayer_Result> ReadGame(Nullable<System.Guid> player)
+        public virtual ObjectResult<ReadGameStateForPlayer_Result> ReadGame(Nullable<System.Guid> player)
         {
             var playerParameter = player.HasValue ?
                 new ObjectParameter("player", player) :
                 new ObjectParameter("player", typeof(System.Guid));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadLastTimeForPlayer_Result>("ReadGame", playerParameter);
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadGameStateForPlayer_Result>("ReadGame", playerParameter);
         }
     
         public virtual ObjectResult<ReadMessage_Result> ReadMessage(Nullable<int> message)
@@ -511,15 +511,6 @@ namespace GinTub.Repository.Entities.Database
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadAllAudio_Result>("ReadAllAudio");
         }
     
-        public virtual ObjectResult<ReadLastTimeForPlayer_Result> ReadLastTimeForPlayer(Nullable<System.Guid> player)
-        {
-            var playerParameter = player.HasValue ?
-                new ObjectParameter("player", player) :
-                new ObjectParameter("player", typeof(System.Guid));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadLastTimeForPlayer_Result>("ReadLastTimeForPlayer", playerParameter);
-        }
-    
         public virtual int UpdateLastTimeForPlayer(Nullable<System.Guid> player, Nullable<int> noun, Nullable<int> verbType, Nullable<System.TimeSpan> time)
         {
             var playerParameter = player.HasValue ?
@@ -539,6 +530,15 @@ namespace GinTub.Repository.Entities.Database
                 new ObjectParameter("time", typeof(System.TimeSpan));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateLastTimeForPlayer", playerParameter, nounParameter, verbTypeParameter, timeParameter);
+        }
+    
+        public virtual ObjectResult<ReadGameStateForPlayer_Result> ReadGameStateForPlayer(Nullable<System.Guid> player)
+        {
+            var playerParameter = player.HasValue ?
+                new ObjectParameter("player", player) :
+                new ObjectParameter("player", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ReadGameStateForPlayer_Result>("ReadGameStateForPlayer", playerParameter);
         }
     }
 }
