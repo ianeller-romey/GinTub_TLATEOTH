@@ -22,6 +22,11 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 	
+	UPDATE [dbo].[PlayerGameStates]
+	SET [LastRoom] = 0
+	WHERE [Player] = @player
+	AND @player IN (SELECT [Player] FROM [dev].[DevPlayers])
+	
 	UPDATE psr
 	SET [State] = -1
 	FROM [dbo].[PlayerStatesOfRooms] psr WITH (NOLOCK)

@@ -108,6 +108,8 @@ namespace TBGINTB_Builder.HelperControls
                 m_comboBox_time_minute.Items.Add(string.Format("{0:00}", i));
             grid_time.SetGridRowColumn(m_comboBox_time_minute, 1, 2);
 
+            m_comboBox_time_hour.SelectionChanged += ComboBox_Time_SelectionChanged;
+            m_comboBox_time_minute.SelectionChanged += ComboBox_Time_SelectionChanged;
             Content = grid_time;
         }
 

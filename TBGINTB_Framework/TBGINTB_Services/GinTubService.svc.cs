@@ -155,7 +155,7 @@ namespace GinTub.Services
                                 string.Format
                                 (
                                     "You take special notice of the {0}.",
-                                    result.Select(n => n.Text).Aggregate((x, y) => string.Format("{0}, {1}", x, y))
+                                    result.Select(n => n.Text).Aggregate((x, y) => string.Format("{0}; {1}", x, y))
                                 )
                             : "Nothing in particular catches your eye here."
                     };

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GinTub xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ExportDate="2015-11-03T11:03:27.0169995-08:00">
+<GinTub xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ExportDate="2015-11-03T17:07:40.7408415-08:00">
   <Items>
     <Item Id="0">
       <Name>Junk</Name>
@@ -1269,8 +1269,68 @@
               <Location>3</Location>
               <Time />
             </RoomState>
+            <RoomState Id="15">
+              <State>1</State>
+              <Location>4</Location>
+              <Time />
+            </RoomState>
           </RoomStates>
-          <Paragraphs />
+          <Paragraphs>
+            <Paragraph Id="8">
+              <Order>0</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="25">
+                  <RoomState>5</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="26">
+                  <RoomState>15</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="15">
+                  <Text>You stand beside the rusted, decaying remains of your vehicle, itself parked just outside a crumbling parking garage.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="9">
+              <Order>1</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="27">
+                  <RoomState>5</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="28">
+                  <RoomState>15</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="16">
+                  <Text>A road curves near the entrance to the garage, winding up a slope to the north and out of sight beyond the hollow husk of a brick building.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="10">
+              <Order>2</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="29">
+                  <RoomState>5</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="30">
+                  <RoomState>15</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="17">
+                  <Text>To the east the road tracks a straight line beneath the canopy of trees lining its perimeter.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+          </Paragraphs>
         </Room>
         <Room Id="4">
           <Name>Asphalt and Trees</Name>
