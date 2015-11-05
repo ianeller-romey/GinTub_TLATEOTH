@@ -104,6 +104,7 @@
             var pauseFader = null;
             var loadingFader = null;
 
+            var currentRoomId = -1;
             var paragraphSpans = [];
             var removedParagraphSpans = [];
             var addedParagraphStates = [];
@@ -140,7 +141,28 @@
                 });
             };
 
-            var updateRemovedParagraphSpans = function () {
+            var updateRemovedParagraphSpansByFading = function () {
+                var removedParagraphSpansPromises = [];
+                removedParagraphSpans.forEach(function (x) {
+                    removedParagraphSpansPromises.push(x.span.promiseToFade("slow", 0.0));
+                });
+                return new Promise(function (resolve, reject) {
+                    Promise.all(removedParagraphSpansPromises).then(function () {
+                        removedParagraphSpans.forEach(function (x) {
+                            x.span.unregisterAll();
+                            x.span.wordSpans.forEach(function (w) {
+                                w.unregisterAll();
+                            });
+                            x.span.remove();
+                            paragraphSpans.splice(paragraphSpans.indexOf(x), 1);
+                        });
+                        removedParagraphSpans = [];
+                        resolve();
+                    });
+                });
+            };
+
+            var updateRemovedParagraphSpansByAnimating = function () {
                 var removeWordPromise = function (paragraphSpan) {
                     return new Promise(function (resolve, reject) {
                         var updateWordSpans = function () {
@@ -161,6 +183,9 @@
                 };
 
                 updateInterval = updateIntervalRemoval;
+                removedParagraphSpans.sort(function (a, b) {
+                    return b.order - a.order;
+                }); // remove in descending order
                 return new Promise(function (resolve, reject) {
                     var removeParagraphSpan = function (pIdx) {
                         if (pIdx < removedParagraphSpans.length) {
@@ -182,6 +207,16 @@
                     disableInterface();
                     removeParagraphSpan(0);
                 });
+            };
+
+            var updateRemovedParagraphSpans = function (roomId) {
+                // fade out text when we move to a new room
+                if (currentRoomId !== roomId) {
+                    currentRoomId = roomId;
+                    return updateRemovedParagraphSpansByFading();
+                } else {
+                    return updateRemovedParagraphSpansByAnimating();
+                }
             };
 
             var updateAddedParagraphStates = function () {
@@ -224,7 +259,7 @@
                 updateInterval = updateIntervalAdding;
                 addedParagraphStates.sort(function (a, b) {
                     return a.order - b.order;
-                });
+                }); // add in ascending order
                 return new Promise(function (resolve, reject) {
                     var updateParagraphSpan = function (pIdx) {
                         if (pIdx < addedParagraphStates.length) {
@@ -262,20 +297,18 @@
                 });
             };
 
-            var loadRoomState = function (roomStateData, paragraphStateData, paragraphStateUpdatePromise) {
+            var loadRoomState = function (roomId, roomStateData, paragraphStateData, paragraphStateUpdatePromise) {
                 messengerEngine.post("InterfaceManager.loadingRoomState", true);
-                swapLocationImage(roomStateData.location);
 
                 paragraphStateUpdatePromise.then(function () {
+                    swapLocationImage(roomStateData.location);
+
                     removedParagraphSpans = paragraphSpans.where(function (activeParagraph) {
                         return !paragraphStateData.any(function (newParagraph) {
                             return newParagraph.id === activeParagraph.id;
                         });
                     });
-                    removedParagraphSpans.sort(function (a, b) {
-                        return b.order - a.order;
-                    });
-                    updateRemovedParagraphSpans().then(function () {
+                    updateRemovedParagraphSpans(roomId).then(function () {
                         addedParagraphStates = paragraphStateData.where(function (newParagraph) {
                             return !paragraphSpans.any(function (activeParagraph) {
                                 return activeParagraph.id === newParagraph.id;

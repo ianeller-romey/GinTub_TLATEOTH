@@ -149,7 +149,7 @@
                     }
                 }
                 var pss = getParagraphStatesForRoomState(rs.id);
-                messengerEngine.post("GameStateEngine.setActiveRoomState", rs, pss, paragraphStateUpdatePromise);
+                messengerEngine.post("GameStateEngine.setActiveRoomState", room.id, rs, pss, paragraphStateUpdatePromise);
             };
 
             var createImmediateParagraphStateUpdatePromise = function () {
