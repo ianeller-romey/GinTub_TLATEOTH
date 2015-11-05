@@ -161,9 +161,6 @@
                 };
 
                 updateInterval = updateIntervalRemoval;
-                removedParagraphSpans.sort(function (a, b) {
-                    return a.order - b.order;
-                });
                 return new Promise(function (resolve, reject) {
                     var removeParagraphSpan = function (pIdx) {
                         if (pIdx < removedParagraphSpans.length) {
@@ -274,6 +271,9 @@
                         return !paragraphStateData.any(function (newParagraph) {
                             return newParagraph.id === activeParagraph.id;
                         });
+                    });
+                    removedParagraphSpans.sort(function (a, b) {
+                        return b.order - a.order;
                     });
                     updateRemovedParagraphSpans().then(function () {
                         addedParagraphStates = paragraphStateData.where(function (newParagraph) {
