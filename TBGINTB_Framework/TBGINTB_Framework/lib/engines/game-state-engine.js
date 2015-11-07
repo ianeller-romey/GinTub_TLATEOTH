@@ -103,12 +103,13 @@
                 }
             };
 
-            var setMessage = function (messageData) {
+            var setMessage = function (messageData, isDeath) {
                 if (messageData != null) {
                     message = {
                         id: messageData.id,
                         text: messageData.text,
-                        messageChoices: messageData.messageChoices
+                        messageChoices: messageData.messageChoices,
+                        isDeath: !!isDeath
                     };
 
                     messengerEngine.post("GameStateData.setMessage", message);
@@ -214,7 +215,7 @@
                 setRoom(playData.room);
                 setRoomStates(playData.roomStates);
                 setParagraphStates(playData.paragraphStates);
-                setMessage(playData.message);
+                setMessage(playData.message || playData.deathMessage, playData.deathMessage !== null);
 
                 if (playData.message == null) {
                     setActiveRoomState(createImmediateParagraphStateUpdatePromise());

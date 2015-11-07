@@ -134,6 +134,7 @@
             createMessageType("MessageManager.unloadMessageBeforeClosing");
             createMessageType("MessageManager.loadMessage");
             createMessageType("MessageManager.closeMessageManager");
+            createMessageType("MessageManager.closeMessageManagerAfterDeath");
             createMessageType("MessageManager.messageChoiceClick");
 
             createMessageType("MessageChoice.click");

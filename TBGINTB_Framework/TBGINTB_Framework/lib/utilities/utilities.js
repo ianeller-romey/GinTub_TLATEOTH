@@ -124,6 +124,22 @@ Array.prototype.last = function () {
         }
         this.append(table);
     },
+    promiseToSlide: function (duration, direction) {
+        var that = this;
+        if (direction === "up") {
+            return new Promise(function (resolve, reject) {
+                that.slideUp(duration, function () {
+                    resolve();
+                });
+            });
+        } else if (direction === "down") {
+            return new Promise(function (resolve, reject) {
+                that.slideDown(duration, function () {
+                    resolve();
+                });
+            });
+        }
+    },
     promiseToFade: function (duration, opacity, easing) {
         var that = this;
         if (easing) { // intentional truthiness
