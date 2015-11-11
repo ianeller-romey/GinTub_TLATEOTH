@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GinTub xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ExportDate="2015-11-03T17:07:40.7408415-08:00">
+<GinTub xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ExportDate="2015-11-10T16:59:35.0261482-08:00">
   <Items>
     <Item Id="0">
       <Name>Junk</Name>
@@ -355,6 +355,14 @@
     <Location Id="4">
       <Name>area_1_room_1_1_0_roomstate_0_time_18_30</Name>
       <LocationFile>images\area_1_room_1_1_0_roomstate_0_time_18_30.png</LocationFile>
+    </Location>
+    <Location Id="9">
+      <Name>area_1_room_1_0_0_roomstate_0_time_06_30</Name>
+      <LocationFile>images\area_1_room_1_0_0_roomstate_0_time_06_30.png</LocationFile>
+    </Location>
+    <Location Id="10">
+      <Name>area_1_room_1_0_0_roomstate_0_time_18_30</Name>
+      <LocationFile>images\area_1_room_1_0_0_roomstate_0_time_18_30.png</LocationFile>
     </Location>
   </Locations>
   <Messages>
@@ -1218,6 +1226,11 @@
               <Location>0</Location>
               <Time />
             </RoomState>
+            <RoomState Id="17">
+              <State>0</State>
+              <Location>0</Location>
+              <Time />
+            </RoomState>
           </RoomStates>
           <Paragraphs>
             <Paragraph Id="6">
@@ -1252,11 +1265,50 @@
           <RoomStates>
             <RoomState Id="4">
               <State>0</State>
-              <Location>0</Location>
+              <Location>9</Location>
+              <Time />
+            </RoomState>
+            <RoomState Id="16">
+              <State>0</State>
+              <Location>10</Location>
               <Time />
             </RoomState>
           </RoomStates>
-          <Paragraphs />
+          <Paragraphs>
+            <Paragraph Id="11">
+              <Order>0</Order>
+              <ParagraphRoomStates />
+              <ParagraphStates>
+                <ParagraphState Id="18">
+                  <Text>The brick building beside you wears a crown of broken timber like so many thorns.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="12">
+              <Order>1</Order>
+              <ParagraphRoomStates />
+              <ParagraphStates>
+                <ParagraphState Id="19">
+                  <Text>You stand in the middle of the road; it curves west, ending abruptly at a towering black edifice.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="13">
+              <Order>2</Order>
+              <ParagraphRoomStates />
+              <ParagraphStates>
+                <ParagraphState Id="20">
+                  <Text>The parking garage and your vehicle lie to the south.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+          </Paragraphs>
         </Room>
         <Room Id="3">
           <Name>Parking Garage</Name>
@@ -1270,7 +1322,7 @@
               <Time />
             </RoomState>
             <RoomState Id="15">
-              <State>1</State>
+              <State>0</State>
               <Location>4</Location>
               <Time />
             </RoomState>
@@ -1343,8 +1395,86 @@
               <Location>0</Location>
               <Time />
             </RoomState>
+            <RoomState Id="18">
+              <State>0</State>
+              <Location>0</Location>
+              <Time />
+            </RoomState>
           </RoomStates>
-          <Paragraphs />
+          <Paragraphs>
+            <Paragraph Id="14">
+              <Order>0</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="39">
+                  <RoomState>6</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="40">
+                  <RoomState>18</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="21">
+                  <Text>You stand on cracked asphalt, the gray sky above eclipsed by the row of trees growing along either edge of the road.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="15">
+              <Order>1</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="33">
+                  <RoomState>6</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="34">
+                  <RoomState>18</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="22">
+                  <Text>The road continues westward, running alongside the ruin of a parking garage.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="16">
+              <Order>2</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="35">
+                  <RoomState>6</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="36">
+                  <RoomState>18</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="23">
+                  <Text>To the east it stretches past the sheer, mirrored surface of an office building.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="17">
+              <Order>3</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="37">
+                  <RoomState>6</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="38">
+                  <RoomState>18</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="24">
+                  <Text>A finger of concrete--a sidewalk, or the remnants of one--leads through the trees and away to the south.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+          </Paragraphs>
         </Room>
         <Room Id="5">
           <Name>Sidewalk</Name>
@@ -1357,8 +1487,68 @@
               <Location>0</Location>
               <Time />
             </RoomState>
+            <RoomState Id="19">
+              <State>0</State>
+              <Location>0</Location>
+              <Time />
+            </RoomState>
           </RoomStates>
-          <Paragraphs />
+          <Paragraphs>
+            <Paragraph Id="18">
+              <Order>0</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="41">
+                  <RoomState>7</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="42">
+                  <RoomState>19</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="25">
+                  <Text>The path heading south ends abruptly, severed by a wide fissure in the earth.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="19">
+              <Order>1</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="43">
+                  <RoomState>7</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="44">
+                  <RoomState>19</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="26">
+                  <Text>You see an empty playground across the chasm, huddled beneath the canopy of several large oak trees.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="20">
+              <Order>2</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="45">
+                  <RoomState>7</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="46">
+                  <RoomState>19</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="27">
+                  <Text>A small set of stone stairs leads away from the sidewalk, up toward the front door of a dilapidated house.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+          </Paragraphs>
         </Room>
         <Room Id="6">
           <Name>Entrance to the Office</Name>
@@ -1371,8 +1561,50 @@
               <Location>0</Location>
               <Time />
             </RoomState>
+            <RoomState Id="20">
+              <State>0</State>
+              <Location>0</Location>
+              <Time />
+            </RoomState>
           </RoomStates>
-          <Paragraphs />
+          <Paragraphs>
+            <Paragraph Id="21">
+              <Order>0</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="47">
+                  <RoomState>8</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="48">
+                  <RoomState>20</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="28">
+                  <Text>A set of large double doors breaks the otherwise perfect geometric segmentation of the building’s mirrored surface.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="22">
+              <Order>1</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="49">
+                  <RoomState>8</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="50">
+                  <RoomState>20</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="29">
+                  <Text>Beside you, the road runs east toward an underpass and west toward a parking garage.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+          </Paragraphs>
         </Room>
         <Room Id="8">
           <Name>Broken Road</Name>
@@ -1385,8 +1617,68 @@
               <Location>0</Location>
               <Time />
             </RoomState>
+            <RoomState Id="22">
+              <State>0</State>
+              <Location>0</Location>
+              <Time />
+            </RoomState>
           </RoomStates>
-          <Paragraphs />
+          <Paragraphs>
+            <Paragraph Id="26">
+              <Order>0</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="57">
+                  <RoomState>10</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="58">
+                  <RoomState>22</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="33">
+                  <Text>The rough terrain makes it difficult for you to hold your footing.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="27">
+              <Order>1</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="59">
+                  <RoomState>10</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="60">
+                  <RoomState>22</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="34">
+                  <Text>The shattered road disappears as it leads north--what should have once been a bridge is now simply a steep, sheer dropoff.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="28">
+              <Order>2</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="61">
+                  <RoomState>10</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="62">
+                  <RoomState>22</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="35">
+                  <Text>To the south lies another road, running across this one.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+          </Paragraphs>
         </Room>
         <Room Id="7">
           <Name>Intersection</Name>
@@ -1399,8 +1691,68 @@
               <Location>0</Location>
               <Time />
             </RoomState>
+            <RoomState Id="21">
+              <State>0</State>
+              <Location>0</Location>
+              <Time />
+            </RoomState>
           </RoomStates>
-          <Paragraphs />
+          <Paragraphs>
+            <Paragraph Id="23">
+              <Order>0</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="51">
+                  <RoomState>9</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="52">
+                  <RoomState>21</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="30">
+                  <Text>You stand in the middle of what appears to have once been an intersection.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="24">
+              <Order>1</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="53">
+                  <RoomState>9</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="54">
+                  <RoomState>21</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="31">
+                  <Text>Large slabs of fractured concrete lead northward; the rusting remains of a semi-truck trailer bar any passage to the south.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="25">
+              <Order>2</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="55">
+                  <RoomState>9</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="56">
+                  <RoomState>21</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="32">
+                  <Text>Perpendicular to that route, a smaller road passes beneath an underpass to the east and past an office building to the west.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+          </Paragraphs>
         </Room>
         <Room Id="9">
           <Name>Beneath the Underpass</Name>
@@ -1413,8 +1765,114 @@
               <Location>0</Location>
               <Time />
             </RoomState>
+            <RoomState Id="23">
+              <State>0</State>
+              <Location>0</Location>
+              <Time />
+            </RoomState>
+            <RoomState Id="24">
+              <State>1</State>
+              <Location>0</Location>
+              <Time />
+            </RoomState>
+            <RoomState Id="25">
+              <State>1</State>
+              <Location>0</Location>
+              <Time />
+            </RoomState>
           </RoomStates>
-          <Paragraphs />
+          <Paragraphs>
+            <Paragraph Id="29">
+              <Order>0</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="66">
+                  <RoomState>11</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="67">
+                  <RoomState>23</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="68">
+                  <RoomState>24</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="69">
+                  <RoomState>25</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="36">
+                  <Text>It is cooler here, beneath the underpass.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="30">
+              <Order>1</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="70">
+                  <RoomState>11</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="71">
+                  <RoomState>23</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="72">
+                  <RoomState>24</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="73">
+                  <RoomState>25</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="37">
+                  <Text>You see a collection of squat, brown buildings to the east beyond the underpass.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="31">
+              <Order>2</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="74">
+                  <RoomState>11</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="75">
+                  <RoomState>23</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="76">
+                  <RoomState>24</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="77">
+                  <RoomState>25</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="38">
+                  <Text>To the west lies the intersection of two roads.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="32">
+              <Order>3</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="78">
+                  <RoomState>11</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="79">
+                  <RoomState>23</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="39">
+                  <Text>A pair of wide, white eyes stare out from the shadow of a support pillar.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+          </Paragraphs>
         </Room>
         <Room Id="10">
           <Name>On the Beach?</Name>
@@ -1427,8 +1885,68 @@
               <Location>0</Location>
               <Time />
             </RoomState>
+            <RoomState Id="26">
+              <State>0</State>
+              <Location>0</Location>
+              <Time />
+            </RoomState>
           </RoomStates>
-          <Paragraphs />
+          <Paragraphs>
+            <Paragraph Id="33">
+              <Order>0</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="80">
+                  <RoomState>12</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="81">
+                  <RoomState>26</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="40">
+                  <Text>Inexplicably, you find yourself standing at the edge of a massive body of water.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="34">
+              <Order>1</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="82">
+                  <RoomState>12</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="83">
+                  <RoomState>26</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="41">
+                  <Text>The road leads downward, descending into the dark and far out of sight.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+            <Paragraph Id="35">
+              <Order>2</Order>
+              <ParagraphRoomStates>
+                <ParagraphRoomState Id="84">
+                  <RoomState>12</RoomState>
+                </ParagraphRoomState>
+                <ParagraphRoomState Id="85">
+                  <RoomState>26</RoomState>
+                </ParagraphRoomState>
+              </ParagraphRoomStates>
+              <ParagraphStates>
+                <ParagraphState Id="42">
+                  <Text>You can still see the underpass to the west; the road still leads back toward the city.</Text>
+                  <State>0</State>
+                  <Nouns />
+                </ParagraphState>
+              </ParagraphStates>
+            </Paragraph>
+          </Paragraphs>
         </Room>
       </Rooms>
     </Area>

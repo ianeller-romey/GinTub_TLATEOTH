@@ -62,6 +62,8 @@ namespace TBGINTB_Builder.BuilderControls
 
             public int AreaId { get; private set; }
             public string AreaName { get { return m_textBox_areaName.Text; } }
+            public bool AreaDisplayTime { get; private set; }
+            public int? AreaAudio { get; private set; }
 
             #endregion
 
@@ -95,9 +97,12 @@ namespace TBGINTB_Builder.BuilderControls
 
             #region Public Functionality
 
-            public ComboBoxItem_Area(int id, string name)
+            public ComboBoxItem_Area(int id, string name, bool displayTime, int? audio)
             {
                 AreaId = id;
+                AreaDisplayTime = displayTime;
+                AreaAudio = audio;
+
                 m_textBox_areaName = new TextBox_AreaName(name);
                 Content = m_textBox_areaName;
 
@@ -118,9 +123,7 @@ namespace TBGINTB_Builder.BuilderControls
 
             void TextBox_AreaName_TextChanged(object sender, TextChangedEventArgs e)
             {
-                                                                                 // TODO:
-                                                                                 // FIX THIS
-                GinTubBuilderManager.UpdateArea(AreaId, m_textBox_areaName.Text, true, null);
+                GinTubBuilderManager.UpdateArea(AreaId, m_textBox_areaName.Text, AreaDisplayTime, AreaAudio);
             }
 
             #endregion
@@ -290,12 +293,12 @@ namespace TBGINTB_Builder.BuilderControls
 
         private void GinTubBuilderManager_AreaRead(object sender, GinTubBuilderManager.AreaReadEventArgs args)
         {
-            CreateedArea(args.Id, args.Name);
+            CreatedArea(args.Id, args.Name, args.DisplayTime, args.Audio);
         }
 
         private void GinTubBuilderManager_AreaUpdated(object sender, GinTubBuilderManager.AreaUpdatedEventArgs args)
         {
-            ModifiedArea(args.Id, args.Name);
+            ModifiedArea(args.Id, args.Name, args.DisplayTime, args.Audio);
         }
 
         private void GinTubBuilderManager_AreaSelect(object sender, GinTubBuilderManager.AreaSelectEventArgs args)
@@ -335,30 +338,33 @@ namespace TBGINTB_Builder.BuilderControls
             LoadAction(args.Id);
         }
 
-        private void CreateingArea()
+        private void CreatingArea()
         {
             Window_TextEntry window = new Window_TextEntry("Area Name", "");
             window.Closed += (x, y) => { if (window.Accepted) GinTubBuilderManager.CreateArea(window.Text); };
             window.Show();
         }
 
-        private void CreateedArea(int id, string name)
+        private void CreatedArea(int id, string name, bool displayTime, int? audio)
         {
             if (m_comboBox_areas.Items.OfType<ComboBoxItem_Area>().Any(a => a.AreaId == id))
                 return;
 
             object prevItem = m_comboBox_areas.SelectedItem;
-            ComboBoxItem_Area aItem = new ComboBoxItem_Area(id, name);
+            ComboBoxItem_Area aItem = new ComboBoxItem_Area(id, name, displayTime, audio);
             aItem.Selected += ComboBoxItem_Area_Selected;
             m_comboBox_areas.Items.Add(aItem);
             m_comboBox_areas.SelectedItem = (prevItem == c_comboBoxItem_newArea) ? aItem : prevItem;
         }
 
-        private void ModifiedArea(int id, string name)
+        private void ModifiedArea(int id, string name, bool displayTime, int? audio)
         {
             ComboBoxItem_Area aItem = m_comboBox_areas.Items.OfType<ComboBoxItem_Area>().SingleOrDefault(i => i.AreaId == id);
             if (aItem != null)
+            {
                 aItem.SetAreaName(name);
+                // Nothing else to set here
+            }
         }
 
         private void LoadArea(int id, string name, int maxX, int minX, int maxY, int minY, int minZ, int maxZ)
@@ -525,7 +531,7 @@ namespace TBGINTB_Builder.BuilderControls
             if (sender == m_comboBox_areas && (item = m_comboBox_areas.SelectedItem as ComboBoxItem) != null)
             {
                 if (item == c_comboBoxItem_newArea)
-                    CreateingArea();
+                    CreatingArea();
                 else
                 {
                     ComboBoxItem_Area aItem = item as ComboBoxItem_Area;

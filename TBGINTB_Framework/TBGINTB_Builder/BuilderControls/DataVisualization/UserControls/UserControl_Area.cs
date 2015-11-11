@@ -18,6 +18,8 @@ namespace TBGINTB_Builder.BuilderControls
         #region MEMBER FIELDS
 
         TextBox m_textBox_name;
+        CheckBox m_checkBox_displayTime;
+        TextBox m_textBox_audio;
 
         #endregion
 
@@ -26,6 +28,8 @@ namespace TBGINTB_Builder.BuilderControls
 
         public int? AreaId { get; private set; }
         public string AreaName { get; private set; }
+        public bool AreaDisplayTime { get; private set; }
+        public int? AreaAudio { get; private set; }
 
         public List<UIElement> EditingControls
         {
@@ -33,7 +37,9 @@ namespace TBGINTB_Builder.BuilderControls
             {
                 return new List<UIElement>
                 {
-                    m_textBox_name
+                    m_textBox_name,
+                    m_checkBox_displayTime,
+                    m_textBox_audio
                 };
             }
         }
@@ -45,10 +51,12 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public UserControl_Area(int? areaId, string areaName, bool enableEditing)
+        public UserControl_Area(int? areaId, string areaName, bool? areaDisplayTime, int? areaAudio, bool enableEditing)
         {
             AreaId = areaId;
             AreaName = areaName;
+            AreaDisplayTime = (areaDisplayTime.HasValue) ? areaDisplayTime.Value : true; // default to displaying time
+            AreaAudio = areaAudio;
 
             CreateControls();
 
@@ -76,6 +84,8 @@ namespace TBGINTB_Builder.BuilderControls
             Grid grid_main = new Grid();
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            grid_main.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             
             ////////
             // Id Grid
@@ -98,18 +108,48 @@ namespace TBGINTB_Builder.BuilderControls
 
             ////////
             // Name Grid
-            Grid grid_text = new Grid();
-            grid_text.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
-            grid_text.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100.0, GridUnitType.Star) });
-            grid_main.SetGridRowColumn(grid_text, 1, 0);
+            Grid grid_name = new Grid();
+            grid_name.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            grid_name.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100.0, GridUnitType.Star) });
+            grid_main.SetGridRowColumn(grid_name, 1, 0);
 
             ////////
             // Name
             m_textBox_name = new TextBox();
             m_textBox_name.TextChanged += TextBox_Name_TextChanged;
-            Label label_text = new Label() { Content = "Name:", FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Center };
-            grid_text.SetGridRowColumn(m_textBox_name, 1, 0);
-            grid_text.SetGridRowColumn(label_text, 0, 0);
+            Label label_name = new Label() { Content = "Name:", FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Center };
+            grid_name.SetGridRowColumn(m_textBox_name, 1, 0);
+            grid_name.SetGridRowColumn(label_name, 0, 0);
+
+            ////////
+            // DisplayTime Grid
+            Grid grid_displayTime = new Grid();
+            grid_displayTime.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            grid_displayTime.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+            grid_main.SetGridRowColumn(grid_displayTime, 2, 0);
+
+            ////////
+            // DisplayTime
+            m_checkBox_displayTime = new CheckBox() { IsChecked = AreaDisplayTime, VerticalAlignment = System.Windows.VerticalAlignment.Center };
+            m_checkBox_displayTime.Checked += CheckBox_DisplayTime_Checked;
+            Label label_displayTime = new Label() { Content = "Display Time?", FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Center };
+            grid_displayTime.SetGridRowColumn(m_checkBox_displayTime, 0, 1);
+            grid_displayTime.SetGridRowColumn(label_displayTime, 0, 0);
+
+            ////////
+            // Audio Grid
+            Grid grid_audio = new Grid();
+            grid_audio.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            grid_audio.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(100.0, GridUnitType.Star) });
+            grid_main.SetGridRowColumn(grid_audio, 3, 0);
+
+            ////////
+            // Audio
+            m_textBox_audio = new TextBox();
+            m_textBox_audio.TextChanged += TextBox_Name_TextChanged;
+            Label label_audio = new Label() { Content = "Audio:", FontWeight = FontWeights.Bold, VerticalAlignment = VerticalAlignment.Center };
+            grid_audio.SetGridRowColumn(m_textBox_audio, 1, 0);
+            grid_audio.SetGridRowColumn(label_audio, 0, 0);
 
             ////////
             // Fin
@@ -119,7 +159,11 @@ namespace TBGINTB_Builder.BuilderControls
         private void GinTubBuilderManager_AreaUpdated(object sender, GinTubBuilderManager.AreaUpdatedEventArgs args)
         {
             if (AreaId == args.Id)
+            {
                 SetAreaName(args.Name);
+                SetAreaDisplayTime(args.DisplayTime);
+                SetAreaAudio(args.Audio);
+            }
         }
 
         private void SetAreaName(string areaName)
@@ -129,11 +173,50 @@ namespace TBGINTB_Builder.BuilderControls
                 TextBox_Name_TextChanged(m_textBox_name, new TextChangedEventArgs(TextBox.TextChangedEvent, UndoAction.Undo));
         }
 
+        private void SetAreaDisplayTime(bool areaDisplayTime)
+        {
+            m_checkBox_displayTime.IsChecked = areaDisplayTime;
+            if (!m_checkBox_displayTime.IsEnabled)
+                CheckBox_DisplayTime_Checked(m_checkBox_displayTime, new RoutedEventArgs(CheckBox.CheckedEvent));
+        }
+
+        private void SetAreaAudio(int? areaAudio)
+        {
+            m_textBox_audio.Text = areaAudio.ToString();
+            if (!m_textBox_audio.IsEnabled)
+                TextBox_Audio_TextChanged(m_textBox_audio, new TextChangedEventArgs(TextBox.TextChangedEvent, UndoAction.Undo));
+        }
+
         private void TextBox_Name_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox tb = sender as TextBox;
             if (tb != null && tb == m_textBox_name)
                 AreaName = m_textBox_name.Text;
+        }
+
+        private void CheckBox_DisplayTime_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+            if (cb != null && cb == m_checkBox_displayTime)
+            {
+                AreaDisplayTime = m_checkBox_displayTime.IsChecked.Value;
+            }
+        }
+
+        private void TextBox_Audio_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (tb != null && tb == m_textBox_audio)
+            {
+                if (string.IsNullOrWhiteSpace(m_textBox_audio.Text))
+                    AreaAudio = null;
+                else
+                {
+                    int audioId;
+                    if (int.TryParse(m_textBox_audio.Text, out audioId))
+                        AreaAudio = audioId;
+                }
+            }
         }
 
         #endregion

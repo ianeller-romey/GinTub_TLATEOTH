@@ -110,6 +110,8 @@ namespace TBGINTB_Builder.BuilderControls
                 (
                     null, 
                     null,
+                    true,
+                    null,
                     (win) =>
                     {
                         Window_Area wWin = win as Window_Area;

@@ -87,7 +87,7 @@ namespace TBGINTB_Builder.BuilderControls
             if (ParagraphId == args.Paragraph && userControl == null)
                 userControl = AddGroupedParagraphRoomState(args.RoomStateState);
 
-            if(!userControl.RoomStates.Contains(args.RoomStateState))
+            if (userControl != null && !userControl.RoomStates.Contains(args.RoomStateState))
                 userControl.AddParagraphRoomState(args.Id, args.Paragraph, args.Paragraph, args.RoomState, args.RoomStateName, args.RoomStateTime, true);
         }
 
@@ -100,7 +100,7 @@ namespace TBGINTB_Builder.BuilderControls
             if (RoomId == args.Room && userControl == null)
                 userControl = AddGroupedParagraphRoomState(args.State);
 
-            if(!userControl.RoomStates.Contains(args.Id))
+            if(userControl != null && !userControl.RoomStates.Contains(args.Id))
                 userControl.AddParagraphRoomState(null, null, ParagraphId, args.Id, args.Name, args.Time, true);
         }
 

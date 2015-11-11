@@ -26,6 +26,8 @@ namespace TBGINTB_Builder.BuilderControls
 
         public int? AreaId { get { return m_userControl_area.AreaId; } }
         public string AreaName { get { return m_userControl_area.AreaName; } }
+        public bool AreaDisplayTime { get { return m_userControl_area.AreaDisplayTime; } }
+        public int? AreaAudio { get { return m_userControl_area.AreaAudio; } }
 
         #endregion
 
@@ -34,12 +36,12 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Public Functionality
 
-        public Window_Area(int? areaId, string areaName, TaskOnAccept task) :
+        public Window_Area(int? areaId, string areaName, bool areaDisplayTime, int? areaAudio, TaskOnAccept task) :
             base("Area Data", task)
         {
             Width = 300;
             Height = 300;
-            Content = CreateControls(areaId, areaName);
+            Content = CreateControls(areaId, areaName, areaDisplayTime, areaAudio);
             m_userControl_area.SetActiveAndRegisterForGinTubEvents();
         }
 
@@ -48,9 +50,9 @@ namespace TBGINTB_Builder.BuilderControls
 
         #region Private Functionality
 
-        private UIElement CreateControls(int? areaId, string areaName)
+        private UIElement CreateControls(int? areaId, string areaName, bool areaDisplayTime, int? areaAudio)
         {
-            m_userControl_area = new UserControl_Area(areaId, areaName, true);
+            m_userControl_area = new UserControl_Area(areaId, areaName, areaDisplayTime, areaAudio, true);
             return m_userControl_area;
         }
 
